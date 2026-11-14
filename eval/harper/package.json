@@ -1,0 +1,9 @@
+{
+  "name": "fictionchecker-harper-baseline",
+  "private": true,
+  "type": "module",
+  "description": "Runs harper.js over exported evaluation paragraphs. Dev-only; nothing here ships.",
+  "dependencies": {
+    "harper.js": "3.2.0"
+  }
+}
