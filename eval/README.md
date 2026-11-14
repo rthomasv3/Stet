@@ -51,9 +51,14 @@ could not be paired, speed):
 
     dotnet run --project eval/FictionChecker.Eval -- dialogue
 
+To measure how much of the books' vocabulary the spelling data knows:
+
+    dotnet run --project eval/FictionChecker.Eval -- coverage
+
 ## Reports
 
 - `reports/dialogue.md`: text splitting and dialogue detection numbers.
+- `reports/coverage.md`: unknown words per 1,000 words with the current spelling data.
 
 - `reports/<checker>.json` and `.md`: numbers only, committed. The Markdown shows changes against the
   previous run of the same checker and, with `--compare`, another checker's numbers alongside.

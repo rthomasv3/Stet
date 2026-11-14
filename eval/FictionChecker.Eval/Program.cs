@@ -21,6 +21,7 @@ if (args.Length == 0 || args[0] is "-h" or "--help")
 {
     Console.WriteLine("Commands: run --checker none|demo|external [--name N --issues FILE] [--compare N]");
     Console.WriteLine("          export --out FILE");
+    Console.WriteLine("          coverage        measure how much of the books' vocabulary the spelling data knows");
     Console.WriteLine("          dialogue        measure text splitting and dialogue detection on whole books");
     return 0;
 }
@@ -62,6 +63,16 @@ if (command == "dialogue")
     string dialogueMarkdown = DialogueStats.Run(corpora, Path.Combine(dialogueReports, "local", "dialogue-sample.tsv"));
     File.WriteAllText(Path.Combine(dialogueReports, "dialogue.md"), dialogueMarkdown);
     Console.WriteLine(dialogueMarkdown);
+    return 0;
+}
+
+if (command == "coverage")
+{
+    string coverageReports = Path.Combine(evalDir, "reports");
+    Directory.CreateDirectory(Path.Combine(coverageReports, "local"));
+    string coverageMarkdown = CoverageStats.Run(corpora, Path.Combine(coverageReports, "local", "unknown-words.tsv"));
+    File.WriteAllText(Path.Combine(coverageReports, "coverage.md"), coverageMarkdown);
+    Console.WriteLine(coverageMarkdown);
     return 0;
 }
 

@@ -264,3 +264,23 @@ freefall
 safehouse
 safehouses
 tradecraft
+#
+# found as unknown words in modern fantasy during evaluation
+magister
+magisters
+godling
+godlings
+ensorcelled
+ensorcel
+plasteel
+slavemaster
+slavemasters
+axeman
+axemen
+corslet
+voivode
+scribed
+scribing
+scabbarded
+helmed
+djinns
