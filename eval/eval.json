@@ -1,0 +1,6 @@
+{
+  "seed": 20261114,
+  "cleanWordsPerBook": 30000,
+  "plantedPerCategory": 500,
+  "reviewFlagsPerRule": 40
+}

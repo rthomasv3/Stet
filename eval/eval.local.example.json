@@ -1,0 +1,6 @@
+{
+  "corpora": {
+    "gutenberg": "/path/to/prepared/gutenberg",
+    "calibre": "/path/to/prepared/calibre"
+  }
+}
