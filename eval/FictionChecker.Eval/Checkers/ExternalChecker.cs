@@ -45,7 +45,7 @@ public sealed class ExternalChecker : IEvalChecker
     public string Name { get; }
 
     /// <inheritdoc />
-    public IReadOnlyList<IReadOnlyList<Issue>?> CheckDocument(IReadOnlyList<string> paragraphs) =>
+    public IReadOnlyList<IReadOnlyList<Issue>?> CheckDocument(IReadOnlyList<string> paragraphs, string dialect) =>
         paragraphs.Select(p => _issues.GetValueOrDefault(WorkSet.HashOf(p))).ToList();
 
     private sealed record Line(string? Id, List<LineIssue>? Issues);

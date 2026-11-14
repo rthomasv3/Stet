@@ -1,0 +1,3628 @@
+{
+  "checker": "languagetool",
+  "libraryVersion": "0.1.0",
+  "settings": {
+    "seed": 20261114,
+    "cleanWordsPerBook": 30000,
+    "plantedPerCategory": 500,
+    "reviewFlagsPerRule": 40
+  },
+  "groups": [
+    {
+      "corpus": "calibre",
+      "split": "dev",
+      "books": 16,
+      "paragraphs": 14103,
+      "uncheckedParagraphs": 14100,
+      "words": 3,
+      "flags": 0,
+      "confirmedRealErrors": 0,
+      "rules": [],
+      "planted": [
+        {
+          "category": "typo",
+          "planted": 500,
+          "checked": 0,
+          "caught": 0,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        },
+        {
+          "category": "confusable",
+          "planted": 500,
+          "checked": 0,
+          "caught": 0,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        },
+        {
+          "category": "a-an",
+          "planted": 500,
+          "checked": 0,
+          "caught": 0,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        },
+        {
+          "category": "repeated-word",
+          "planted": 500,
+          "checked": 0,
+          "caught": 0,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        },
+        {
+          "category": "agreement",
+          "planted": 500,
+          "checked": 0,
+          "caught": 0,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        },
+        {
+          "category": "dialogue-punctuation",
+          "planted": 500,
+          "checked": 0,
+          "caught": 0,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        }
+      ],
+      "flagsPer1000": 0
+    },
+    {
+      "corpus": "calibre",
+      "split": "test",
+      "books": 8,
+      "paragraphs": 7517,
+      "uncheckedParagraphs": 7513,
+      "words": 6,
+      "flags": 0,
+      "confirmedRealErrors": 0,
+      "rules": [],
+      "planted": [
+        {
+          "category": "typo",
+          "planted": 500,
+          "checked": 0,
+          "caught": 0,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        },
+        {
+          "category": "confusable",
+          "planted": 500,
+          "checked": 0,
+          "caught": 0,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        },
+        {
+          "category": "a-an",
+          "planted": 500,
+          "checked": 0,
+          "caught": 0,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        },
+        {
+          "category": "repeated-word",
+          "planted": 500,
+          "checked": 0,
+          "caught": 0,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        },
+        {
+          "category": "agreement",
+          "planted": 500,
+          "checked": 0,
+          "caught": 0,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        },
+        {
+          "category": "dialogue-punctuation",
+          "planted": 500,
+          "checked": 0,
+          "caught": 0,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        }
+      ],
+      "flagsPer1000": 0
+    },
+    {
+      "corpus": "gutenberg",
+      "split": "dev",
+      "books": 29,
+      "paragraphs": 17652,
+      "uncheckedParagraphs": 15748,
+      "words": 91286,
+      "flags": 1635,
+      "confirmedRealErrors": 0,
+      "rules": [
+        {
+          "ruleId": "lt.MORFOLOGIK_RULE_EN_GB",
+          "category": "TYPOS",
+          "flags": 748,
+          "per1000": 8.194
+        },
+        {
+          "ruleId": "lt.MORFOLOGIK_RULE_EN_US",
+          "category": "TYPOS",
+          "flags": 368,
+          "per1000": 4.0313
+        },
+        {
+          "ruleId": "lt.EN_UNPAIRED_BRACKETS",
+          "category": "PUNCTUATION",
+          "flags": 80,
+          "per1000": 0.8764
+        },
+        {
+          "ruleId": "lt.UPPERCASE_SENTENCE_START",
+          "category": "CASING",
+          "flags": 47,
+          "per1000": 0.5149
+        },
+        {
+          "ruleId": "lt.COMMA_PARENTHESIS_WHITESPACE",
+          "category": "TYPOGRAPHY",
+          "flags": 37,
+          "per1000": 0.4053
+        },
+        {
+          "ruleId": "lt.ENGLISH_WORD_REPEAT_BEGINNING_RULE",
+          "category": "STYLE",
+          "flags": 26,
+          "per1000": 0.2848
+        },
+        {
+          "ruleId": "lt.COMMA_COMPOUND_SENTENCE",
+          "category": "PUNCTUATION",
+          "flags": 22,
+          "per1000": 0.241
+        },
+        {
+          "ruleId": "lt.OXFORD_SPELLING_Z_NOT_S",
+          "category": "BRE_STYLE_OXFORD_SPELLING",
+          "flags": 20,
+          "per1000": 0.2191
+        },
+        {
+          "ruleId": "lt.MISSING_COMMA_AFTER_INTRODUCTORY_PHRASE",
+          "category": "PUNCTUATION",
+          "flags": 15,
+          "per1000": 0.1643
+        },
+        {
+          "ruleId": "lt.PRP_COMMA",
+          "category": "PUNCTUATION",
+          "flags": 12,
+          "per1000": 0.1315
+        },
+        {
+          "ruleId": "lt.ANY_BODY",
+          "category": "TYPOS",
+          "flags": 9,
+          "per1000": 0.0986
+        },
+        {
+          "ruleId": "lt.DOUBLE_NEGATIVE",
+          "category": "GRAMMAR",
+          "flags": 9,
+          "per1000": 0.0986
+        },
+        {
+          "ruleId": "lt.EXTREME_ADJECTIVES",
+          "category": "STYLE",
+          "flags": 9,
+          "per1000": 0.0986
+        },
+        {
+          "ruleId": "lt.NON3PRS_VERB",
+          "category": "GRAMMAR",
+          "flags": 9,
+          "per1000": 0.0986
+        },
+        {
+          "ruleId": "lt.SENT_START_CONJUNCTIVE_LINKING_ADVERB_COMMA",
+          "category": "PUNCTUATION",
+          "flags": 9,
+          "per1000": 0.0986
+        },
+        {
+          "ruleId": "lt.COMMA_COMPOUND_SENTENCE_2",
+          "category": "PUNCTUATION",
+          "flags": 7,
+          "per1000": 0.0767
+        },
+        {
+          "ruleId": "lt.PERS_PRONOUN_AGREEMENT",
+          "category": "GRAMMAR",
+          "flags": 7,
+          "per1000": 0.0767
+        },
+        {
+          "ruleId": "lt.EN_UPPER_CASE_NGRAM",
+          "category": "CASING",
+          "flags": 6,
+          "per1000": 0.0657
+        },
+        {
+          "ruleId": "lt.CAFE_DIACRITIC",
+          "category": "TYPOGRAPHY",
+          "flags": 5,
+          "per1000": 0.0548
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_GOOD_BYE",
+          "category": "MISC",
+          "flags": 5,
+          "per1000": 0.0548
+        },
+        {
+          "ruleId": "lt.HE_VERB_AGR",
+          "category": "GRAMMAR",
+          "flags": 5,
+          "per1000": 0.0548
+        },
+        {
+          "ruleId": "lt.IT_VBZ",
+          "category": "GRAMMAR",
+          "flags": 5,
+          "per1000": 0.0548
+        },
+        {
+          "ruleId": "lt.ANY_MORE",
+          "category": "COMPOUNDING",
+          "flags": 4,
+          "per1000": 0.0438
+        },
+        {
+          "ruleId": "lt.GATHER_UP",
+          "category": "REDUNDANCY",
+          "flags": 4,
+          "per1000": 0.0438
+        },
+        {
+          "ruleId": "lt.HAVE_PART_AGREEMENT",
+          "category": "GRAMMAR",
+          "flags": 4,
+          "per1000": 0.0438
+        },
+        {
+          "ruleId": "lt.IN_A_TROUBLE",
+          "category": "GRAMMAR",
+          "flags": 4,
+          "per1000": 0.0438
+        },
+        {
+          "ruleId": "lt.ADVERB_WORD_ORDER",
+          "category": "STYLE",
+          "flags": 3,
+          "per1000": 0.0329
+        },
+        {
+          "ruleId": "lt.AGREEMENT_SENT_START",
+          "category": "GRAMMAR",
+          "flags": 3,
+          "per1000": 0.0329
+        },
+        {
+          "ruleId": "lt.EN_A_VS_AN",
+          "category": "MISC",
+          "flags": 3,
+          "per1000": 0.0329
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_SAND_PITS",
+          "category": "MISC",
+          "flags": 3,
+          "per1000": 0.0329
+        },
+        {
+          "ruleId": "lt.EVERY_NOW_AND_THEN",
+          "category": "REDUNDANCY",
+          "flags": 3,
+          "per1000": 0.0329
+        },
+        {
+          "ruleId": "lt.IN_A_ISLAND",
+          "category": "COLLOCATIONS",
+          "flags": 3,
+          "per1000": 0.0329
+        },
+        {
+          "ruleId": "lt.KIND_OF_A",
+          "category": "GRAMMAR",
+          "flags": 3,
+          "per1000": 0.0329
+        },
+        {
+          "ruleId": "lt.MIGHT_PERHAPS",
+          "category": "REDUNDANCY",
+          "flags": 3,
+          "per1000": 0.0329
+        },
+        {
+          "ruleId": "lt.QUESTION_MARK",
+          "category": "PUNCTUATION",
+          "flags": 3,
+          "per1000": 0.0329
+        },
+        {
+          "ruleId": "lt.THERE_S_MANY",
+          "category": "GRAMMAR",
+          "flags": 3,
+          "per1000": 0.0329
+        },
+        {
+          "ruleId": "lt.THE_WORSE_OF",
+          "category": "GRAMMAR",
+          "flags": 3,
+          "per1000": 0.0329
+        },
+        {
+          "ruleId": "lt.APARTMENT-FLAT",
+          "category": "AMERICAN_ENGLISH",
+          "flags": 2,
+          "per1000": 0.0219
+        },
+        {
+          "ruleId": "lt.APOS_SPACE_CONTRACTION",
+          "category": "TYPOGRAPHY",
+          "flags": 2,
+          "per1000": 0.0219
+        },
+        {
+          "ruleId": "lt.ARTICLE_ADJECTIVE_OF",
+          "category": "GRAMMAR",
+          "flags": 2,
+          "per1000": 0.0219
+        },
+        {
+          "ruleId": "lt.CONFUSION_OF_ME_I",
+          "category": "TYPOS",
+          "flags": 2,
+          "per1000": 0.0219
+        },
+        {
+          "ruleId": "lt.EN_DIACRITICS_REPLACE_CHATEAU",
+          "category": "TYPOS",
+          "flags": 2,
+          "per1000": 0.0219
+        },
+        {
+          "ruleId": "lt.EN_GB_SIMPLE_REPLACE_PITCHER",
+          "category": "STYLE",
+          "flags": 2,
+          "per1000": 0.0219
+        },
+        {
+          "ruleId": "lt.FOR_AWHILE",
+          "category": "TYPOS",
+          "flags": 2,
+          "per1000": 0.0219
+        },
+        {
+          "ruleId": "lt.FOR_EVER_CA",
+          "category": "STYLE",
+          "flags": 2,
+          "per1000": 0.0219
+        },
+        {
+          "ruleId": "lt.IF_WE_CANT_COMMA",
+          "category": "PUNCTUATION",
+          "flags": 2,
+          "per1000": 0.0219
+        },
+        {
+          "ruleId": "lt.IT_IS_2",
+          "category": "TYPOS",
+          "flags": 2,
+          "per1000": 0.0219
+        },
+        {
+          "ruleId": "lt.NON_STANDARD_WORD",
+          "category": "TYPOS",
+          "flags": 2,
+          "per1000": 0.0219
+        },
+        {
+          "ruleId": "lt.POSSESSIVE_APOSTROPHE_2",
+          "category": "TYPOS",
+          "flags": 2,
+          "per1000": 0.0219
+        },
+        {
+          "ruleId": "lt.PRP_JJ",
+          "category": "GRAMMAR",
+          "flags": 2,
+          "per1000": 0.0219
+        },
+        {
+          "ruleId": "lt.WHETHER",
+          "category": "REDUNDANCY",
+          "flags": 2,
+          "per1000": 0.0219
+        },
+        {
+          "ruleId": "lt.AM_I",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.AND_BUT",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.APOSTROPHE_PLURAL_",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.AS_IS_VBG",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.AUXILIARY_DO_WITH_INCORRECT_VERB_FORM",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.A_MY",
+          "category": "COLLOCATIONS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.CD_OF_MY_FRIEND",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.CLEAR_CUT_HYPHEN",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.CONCENTRATE_WITH_ON",
+          "category": "COLLOCATIONS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.CONDITIONAL_CLAUSE",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.CONFUSION_RULE_BLEW_BLUE",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.CONFUSION_RULE_HALF_HAVE",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.CONFUSION_RULE_PRECEDE_PROCEED",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.CONFUSION_RULE_SAT_SEAT",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.CONFUSION_RULE_TAKING_TALKING",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.CONFUSION_RULE_THINK_THING",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.CONFUSION_WORSE_WORST",
+          "category": "CONFUSED_WORDS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.COULD_OF",
+          "category": "CONFUSED_WORDS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.DOES_YOU",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.DO_YOU_WHAT",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.ENGLISH_WORD_REPEAT_RULE",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_ARM_CHAIR",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_BATTLE_AXE",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_COUNTRY_SIDE",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_EVIL_DOERS",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_FOOT_HILLS",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_FORE_PART",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_FREE_BORN",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_HOMEWARD_BOUND",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_MOUTH_TO_MOUTH",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_POST_HASTE",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_SEMI_CIRCLE",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_SEMI_CIRCULAR",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_SNAP_SHOT",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_SPARROW_HAWK",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_WELL_BEHAVED",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_WELL_SPOKEN",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_WELL_TRAINED",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_WHOLE_HEARTED",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_DIACRITICS_REPLACE_CHATEAUX",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_DIACRITICS_REPLACE_PROTEGE",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_SPECIFIC_CASE",
+          "category": "CASING",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_WORD_COHERENCY",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.ER",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EVERY_EVER",
+          "category": "CONFUSED_WORDS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.FOR_FRO",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.GIT_GET",
+          "category": "CONFUSED_WORDS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.HAS_IT_NNS__IT_ITS",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.HAVE_A_LOOK",
+          "category": "BRITISH_ENGLISH",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.HOME_COMPOUNDS",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.HOW_EVER",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.INTERESTED_BY",
+          "category": "COLLOCATIONS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.IN_THIS_MOMENT",
+          "category": "COLLOCATIONS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.IN_TO_INTO",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.IT_IT",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.IVE_I_HAVE_AMERICAN_STYLE",
+          "category": "AMERICAN_ENGLISH_STYLE",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.I_DONT_DT",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.I_ME",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.LADIES_AND_GENTLEMAN",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.LEMME",
+          "category": "STYLE",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.LIGATURES",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.MASS_AGREEMENT",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.MINUETS",
+          "category": "CONFUSED_WORDS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.MOST_COMPARATIVE",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.NEITHER_NOR_SUPERFLUOUS_COMMA",
+          "category": "PUNCTUATION",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.NIGGER_BIGGER",
+          "category": "CONFUSED_WORDS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.NONE_THE_LESS",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.NOWADAYS_COMMA",
+          "category": "PUNCTUATION",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.OBJECTIVE_CASE",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.OF_ANY_OF",
+          "category": "REDUNDANCY",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.OTHER_OTHERS",
+          "category": "CONFUSED_WORDS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.OUR_OUT",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.PCT_SINGULAR_NOUN_PLURAL_VERB_AGREEMENT",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.PRP_HAVE_VB",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.PRP_MD_NN",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.PRP_PAST_PART",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.PRP_REPITION",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.PRP_THE",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.PRP_VBG",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.RECOMMENDED_COMPOUNDS",
+          "category": "STYLE",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.RIGHT_OVER",
+          "category": "REDUNDANCY",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.SIDE_COMPOUNDS",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.SO_AS_TO",
+          "category": "REDUNDANCY",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.SPURIOUS_APOSTROPHE",
+          "category": "TYPOGRAPHY",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.SUMMER_TIME",
+          "category": "REDUNDANCY",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.THAT_THAN",
+          "category": "CONFUSED_WORDS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.THE_JJR_THE_MORE_COMMA",
+          "category": "PUNCTUATION",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.THE_PUNCT",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.THE_SUPERLATIVE",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.THIS_MISSING_VERB",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.THIS_NNS",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.TOO_DETERMINER",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.TRUNK_BOOT",
+          "category": "AMERICAN_ENGLISH",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.VERB_APOSTROPHE_S",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.VERY_UNIQUE",
+          "category": "REDUNDANCY",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.WITH_THE_EXCEPTION_OF",
+          "category": "REDUNDANCY",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.WORTH_WHILE",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.YOURS_APOSTROPHE",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.011
+        }
+      ],
+      "planted": [
+        {
+          "category": "typo",
+          "planted": 500,
+          "checked": 100,
+          "caught": 96,
+          "firstFixRight": 85,
+          "fixInTop5": 94,
+          "catchRate": 0.96,
+          "firstFixRate": 0.8854,
+          "top5FixRate": 0.9792
+        },
+        {
+          "category": "confusable",
+          "planted": 500,
+          "checked": 100,
+          "caught": 50,
+          "firstFixRight": 47,
+          "fixInTop5": 47,
+          "catchRate": 0.5,
+          "firstFixRate": 0.94,
+          "top5FixRate": 0.94
+        },
+        {
+          "category": "a-an",
+          "planted": 500,
+          "checked": 100,
+          "caught": 99,
+          "firstFixRight": 99,
+          "fixInTop5": 99,
+          "catchRate": 0.99,
+          "firstFixRate": 1,
+          "top5FixRate": 1
+        },
+        {
+          "category": "repeated-word",
+          "planted": 500,
+          "checked": 100,
+          "caught": 98,
+          "firstFixRight": 96,
+          "fixInTop5": 97,
+          "catchRate": 0.98,
+          "firstFixRate": 0.9796,
+          "top5FixRate": 0.9898
+        },
+        {
+          "category": "agreement",
+          "planted": 500,
+          "checked": 100,
+          "caught": 60,
+          "firstFixRight": 32,
+          "fixInTop5": 54,
+          "catchRate": 0.6,
+          "firstFixRate": 0.5333,
+          "top5FixRate": 0.9
+        },
+        {
+          "category": "dialogue-punctuation",
+          "planted": 500,
+          "checked": 100,
+          "caught": 1,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0.01,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        }
+      ],
+      "flagsPer1000": 17.9107
+    },
+    {
+      "corpus": "gutenberg",
+      "split": "test",
+      "books": 11,
+      "paragraphs": 5481,
+      "uncheckedParagraphs": 4503,
+      "words": 57728,
+      "flags": 803,
+      "confirmedRealErrors": 0,
+      "rules": [
+        {
+          "ruleId": "lt.MORFOLOGIK_RULE_EN_GB",
+          "category": "TYPOS",
+          "flags": 372,
+          "per1000": 6.444
+        },
+        {
+          "ruleId": "lt.MORFOLOGIK_RULE_EN_US",
+          "category": "TYPOS",
+          "flags": 115,
+          "per1000": 1.9921
+        },
+        {
+          "ruleId": "lt.EN_UNPAIRED_BRACKETS",
+          "category": "PUNCTUATION",
+          "flags": 71,
+          "per1000": 1.2299
+        },
+        {
+          "ruleId": "lt.ENGLISH_WORD_REPEAT_BEGINNING_RULE",
+          "category": "STYLE",
+          "flags": 28,
+          "per1000": 0.485
+        },
+        {
+          "ruleId": "lt.UPPERCASE_SENTENCE_START",
+          "category": "CASING",
+          "flags": 25,
+          "per1000": 0.4331
+        },
+        {
+          "ruleId": "lt.COMMA_COMPOUND_SENTENCE",
+          "category": "PUNCTUATION",
+          "flags": 16,
+          "per1000": 0.2772
+        },
+        {
+          "ruleId": "lt.SENT_START_CONJUNCTIVE_LINKING_ADVERB_COMMA",
+          "category": "PUNCTUATION",
+          "flags": 12,
+          "per1000": 0.2079
+        },
+        {
+          "ruleId": "lt.PRP_COMMA",
+          "category": "PUNCTUATION",
+          "flags": 9,
+          "per1000": 0.1559
+        },
+        {
+          "ruleId": "lt.MISSING_COMMA_AFTER_INTRODUCTORY_PHRASE",
+          "category": "PUNCTUATION",
+          "flags": 7,
+          "per1000": 0.1213
+        },
+        {
+          "ruleId": "lt.BEEN_PART_AGREEMENT",
+          "category": "GRAMMAR",
+          "flags": 6,
+          "per1000": 0.1039
+        },
+        {
+          "ruleId": "lt.COMMA_PARENTHESIS_WHITESPACE",
+          "category": "TYPOGRAPHY",
+          "flags": 5,
+          "per1000": 0.0866
+        },
+        {
+          "ruleId": "lt.EN_GB_SIMPLE_REPLACE_SWEATER",
+          "category": "STYLE",
+          "flags": 5,
+          "per1000": 0.0866
+        },
+        {
+          "ruleId": "lt.DOUBLE_NEGATIVE",
+          "category": "GRAMMAR",
+          "flags": 4,
+          "per1000": 0.0693
+        },
+        {
+          "ruleId": "lt.HE_VERB_AGR",
+          "category": "GRAMMAR",
+          "flags": 4,
+          "per1000": 0.0693
+        },
+        {
+          "ruleId": "lt.ADVERB_WORD_ORDER",
+          "category": "STYLE",
+          "flags": 3,
+          "per1000": 0.052
+        },
+        {
+          "ruleId": "lt.ANY_BODY",
+          "category": "TYPOS",
+          "flags": 3,
+          "per1000": 0.052
+        },
+        {
+          "ruleId": "lt.IT_IS_2",
+          "category": "TYPOS",
+          "flags": 3,
+          "per1000": 0.052
+        },
+        {
+          "ruleId": "lt.NON3PRS_VERB",
+          "category": "GRAMMAR",
+          "flags": 3,
+          "per1000": 0.052
+        },
+        {
+          "ruleId": "lt.PRP_PAST_PART",
+          "category": "GRAMMAR",
+          "flags": 3,
+          "per1000": 0.052
+        },
+        {
+          "ruleId": "lt.A_INFINITIVE",
+          "category": "GRAMMAR",
+          "flags": 2,
+          "per1000": 0.0346
+        },
+        {
+          "ruleId": "lt.DUNNO",
+          "category": "STYLE",
+          "flags": 2,
+          "per1000": 0.0346
+        },
+        {
+          "ruleId": "lt.ENGLISH_WORD_REPEAT_RULE",
+          "category": "MISC",
+          "flags": 2,
+          "per1000": 0.0346
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_NEW_COMER",
+          "category": "MISC",
+          "flags": 2,
+          "per1000": 0.0346
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_SAND_PIT",
+          "category": "MISC",
+          "flags": 2,
+          "per1000": 0.0346
+        },
+        {
+          "ruleId": "lt.EVERY_NOW_AND_THEN",
+          "category": "REDUNDANCY",
+          "flags": 2,
+          "per1000": 0.0346
+        },
+        {
+          "ruleId": "lt.GATHER_UP",
+          "category": "REDUNDANCY",
+          "flags": 2,
+          "per1000": 0.0346
+        },
+        {
+          "ruleId": "lt.IT_VBZ",
+          "category": "GRAMMAR",
+          "flags": 2,
+          "per1000": 0.0346
+        },
+        {
+          "ruleId": "lt.LICENCE_LICENSE_NOUN_SINGULAR",
+          "category": "AMERICAN_ENGLISH",
+          "flags": 2,
+          "per1000": 0.0346
+        },
+        {
+          "ruleId": "lt.MAN_COMPOUNDS",
+          "category": "GRAMMAR",
+          "flags": 2,
+          "per1000": 0.0346
+        },
+        {
+          "ruleId": "lt.NEITHER_NOR_SUPERFLUOUS_COMMA",
+          "category": "PUNCTUATION",
+          "flags": 2,
+          "per1000": 0.0346
+        },
+        {
+          "ruleId": "lt.NO_COMMA_BEFORE_INDIRECT_QUESTION",
+          "category": "PUNCTUATION",
+          "flags": 2,
+          "per1000": 0.0346
+        },
+        {
+          "ruleId": "lt.PHRASE_REPETITION",
+          "category": "GRAMMAR",
+          "flags": 2,
+          "per1000": 0.0346
+        },
+        {
+          "ruleId": "lt.SO_AS_TO",
+          "category": "REDUNDANCY",
+          "flags": 2,
+          "per1000": 0.0346
+        },
+        {
+          "ruleId": "lt.THE_SUPERLATIVE",
+          "category": "GRAMMAR",
+          "flags": 2,
+          "per1000": 0.0346
+        },
+        {
+          "ruleId": "lt.THE_WORSE_OF",
+          "category": "GRAMMAR",
+          "flags": 2,
+          "per1000": 0.0346
+        },
+        {
+          "ruleId": "lt.ADMIT_ENJOY_VB",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.ADVERTISEMENT_OF_FOR",
+          "category": "COLLOCATIONS",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.AFTERMARKET",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.APARTMENT-FLAT",
+          "category": "AMERICAN_ENGLISH",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.APOS_SPACE_CONTRACTION",
+          "category": "TYPOGRAPHY",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.ARTICLE_ADJECTIVE_OF",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.AT_IN_THE_KITCHEN",
+          "category": "COLLOCATIONS",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.AT_THE_JOB",
+          "category": "COLLOCATIONS",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.A_UNCOUNTABLE",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.BE_COME",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.BE_VBP_IN",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.CANT",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.COMMA_AFTER_A_MONTH",
+          "category": "PUNCTUATION",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.COMMA_CLOSING_PARENTHESIS",
+          "category": "PUNCTUATION",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.COMMA_COMPOUND_SENTENCE_2",
+          "category": "PUNCTUATION",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.CONDITIONAL_CLAUSE",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.CONFUSION_OF_ME_I",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.CONFUSION_RULE_BAD_BED",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.DAT",
+          "category": "STYLE",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_ARM_CHAIR",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_CONE_FLOWERS",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_COURT_HOUSE",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_DOG_TIRED",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_EVIL_DOER",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_GOOD_BYE",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_ILL_TREATMENT",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_LAP_DOG",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_NEW_BORN",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_NOTE_BOOK",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_PIGEON_HOLED",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_SLEDGE_HAMMER",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_WELL_EDUCATED",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_WELL_EQUIPPED",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_WELL_FED",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_WELL_ROUNDED",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_WELL_SUPPORTED",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.EN_SPECIFIC_CASE",
+          "category": "CASING",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.EN_UPPER_CASE_NGRAM",
+          "category": "CASING",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.EXTREME_ADJECTIVES",
+          "category": "STYLE",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.FILL_OF_WITH",
+          "category": "COLLOCATIONS",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.FOR_EVER_CA",
+          "category": "STYLE",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.GO_TO_HOME",
+          "category": "COLLOCATIONS",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.HAS_OUGHT",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.HAVE_PART_AGREEMENT",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.HE_D_VBD",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.HOW_DO_I_VB",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.IF_IS",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.IN_A_X_MANNER",
+          "category": "REDUNDANCY",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.I_A",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.I_AM_VB",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.KIND_OF_A",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.LEMME",
+          "category": "STYLE",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.LET_IT_INFINITIVE",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.MERCHANDIZE",
+          "category": "STYLE",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.MID_HYPHEN",
+          "category": "COMPOUNDING",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.MISSING_TO_BEFORE_A_VERB",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.MUST_HAVE_TO",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.NONE_THE_LESS",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.NON_STANDARD_WORD",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.ONE_ONCE",
+          "category": "CONFUSED_WORDS",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.OXFORD_SPELLING_Z_NOT_S",
+          "category": "BRE_STYLE_OXFORD_SPELLING",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.PERS_PRONOUN_AGREEMENT",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.PLURAL_VERB_AFTER_THIS",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.PRP_THE",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.QUESTION_MARK",
+          "category": "PUNCTUATION",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.RECOMMENDED_COMPOUNDS",
+          "category": "STYLE",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.SAVE_SAFE",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.SECOND_LARGEST_HYPHEN",
+          "category": "COMPOUNDING",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.SPURIOUS_APOSTROPHE",
+          "category": "TYPOGRAPHY",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.THE_QUESTION_WH",
+          "category": "NONSTANDARD_PHRASES",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.THIS_NNS",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.TO_TOO",
+          "category": "CONFUSED_WORDS",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.UNDER_COVER_COMPOUND",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.UNNECESSARY_COMMA",
+          "category": "PUNCTUATION",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.WEEK_END_HYPHEN",
+          "category": "STYLE",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.WERE_VBB",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.YOURS_APOSTROPHE",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.0173
+        }
+      ],
+      "planted": [
+        {
+          "category": "typo",
+          "planted": 500,
+          "checked": 100,
+          "caught": 97,
+          "firstFixRight": 86,
+          "fixInTop5": 96,
+          "catchRate": 0.97,
+          "firstFixRate": 0.8866,
+          "top5FixRate": 0.9897
+        },
+        {
+          "category": "confusable",
+          "planted": 500,
+          "checked": 100,
+          "caught": 44,
+          "firstFixRight": 43,
+          "fixInTop5": 43,
+          "catchRate": 0.44,
+          "firstFixRate": 0.9773,
+          "top5FixRate": 0.9773
+        },
+        {
+          "category": "a-an",
+          "planted": 500,
+          "checked": 100,
+          "caught": 100,
+          "firstFixRight": 100,
+          "fixInTop5": 100,
+          "catchRate": 1,
+          "firstFixRate": 1,
+          "top5FixRate": 1
+        },
+        {
+          "category": "repeated-word",
+          "planted": 500,
+          "checked": 100,
+          "caught": 98,
+          "firstFixRight": 95,
+          "fixInTop5": 95,
+          "catchRate": 0.98,
+          "firstFixRate": 0.9694,
+          "top5FixRate": 0.9694
+        },
+        {
+          "category": "agreement",
+          "planted": 500,
+          "checked": 100,
+          "caught": 62,
+          "firstFixRight": 23,
+          "fixInTop5": 57,
+          "catchRate": 0.62,
+          "firstFixRate": 0.371,
+          "top5FixRate": 0.9194
+        },
+        {
+          "category": "dialogue-punctuation",
+          "planted": 500,
+          "checked": 100,
+          "caught": 1,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0.01,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        }
+      ],
+      "flagsPer1000": 13.9101
+    },
+    {
+      "corpus": "all",
+      "split": "dev",
+      "books": 45,
+      "paragraphs": 31755,
+      "uncheckedParagraphs": 29848,
+      "words": 91289,
+      "flags": 1635,
+      "confirmedRealErrors": 0,
+      "rules": [
+        {
+          "ruleId": "lt.MORFOLOGIK_RULE_EN_GB",
+          "category": "TYPOS",
+          "flags": 748,
+          "per1000": 8.1938
+        },
+        {
+          "ruleId": "lt.MORFOLOGIK_RULE_EN_US",
+          "category": "TYPOS",
+          "flags": 368,
+          "per1000": 4.0312
+        },
+        {
+          "ruleId": "lt.EN_UNPAIRED_BRACKETS",
+          "category": "PUNCTUATION",
+          "flags": 80,
+          "per1000": 0.8763
+        },
+        {
+          "ruleId": "lt.UPPERCASE_SENTENCE_START",
+          "category": "CASING",
+          "flags": 47,
+          "per1000": 0.5148
+        },
+        {
+          "ruleId": "lt.COMMA_PARENTHESIS_WHITESPACE",
+          "category": "TYPOGRAPHY",
+          "flags": 37,
+          "per1000": 0.4053
+        },
+        {
+          "ruleId": "lt.ENGLISH_WORD_REPEAT_BEGINNING_RULE",
+          "category": "STYLE",
+          "flags": 26,
+          "per1000": 0.2848
+        },
+        {
+          "ruleId": "lt.COMMA_COMPOUND_SENTENCE",
+          "category": "PUNCTUATION",
+          "flags": 22,
+          "per1000": 0.241
+        },
+        {
+          "ruleId": "lt.OXFORD_SPELLING_Z_NOT_S",
+          "category": "BRE_STYLE_OXFORD_SPELLING",
+          "flags": 20,
+          "per1000": 0.2191
+        },
+        {
+          "ruleId": "lt.MISSING_COMMA_AFTER_INTRODUCTORY_PHRASE",
+          "category": "PUNCTUATION",
+          "flags": 15,
+          "per1000": 0.1643
+        },
+        {
+          "ruleId": "lt.PRP_COMMA",
+          "category": "PUNCTUATION",
+          "flags": 12,
+          "per1000": 0.1315
+        },
+        {
+          "ruleId": "lt.ANY_BODY",
+          "category": "TYPOS",
+          "flags": 9,
+          "per1000": 0.0986
+        },
+        {
+          "ruleId": "lt.DOUBLE_NEGATIVE",
+          "category": "GRAMMAR",
+          "flags": 9,
+          "per1000": 0.0986
+        },
+        {
+          "ruleId": "lt.EXTREME_ADJECTIVES",
+          "category": "STYLE",
+          "flags": 9,
+          "per1000": 0.0986
+        },
+        {
+          "ruleId": "lt.NON3PRS_VERB",
+          "category": "GRAMMAR",
+          "flags": 9,
+          "per1000": 0.0986
+        },
+        {
+          "ruleId": "lt.SENT_START_CONJUNCTIVE_LINKING_ADVERB_COMMA",
+          "category": "PUNCTUATION",
+          "flags": 9,
+          "per1000": 0.0986
+        },
+        {
+          "ruleId": "lt.COMMA_COMPOUND_SENTENCE_2",
+          "category": "PUNCTUATION",
+          "flags": 7,
+          "per1000": 0.0767
+        },
+        {
+          "ruleId": "lt.PERS_PRONOUN_AGREEMENT",
+          "category": "GRAMMAR",
+          "flags": 7,
+          "per1000": 0.0767
+        },
+        {
+          "ruleId": "lt.EN_UPPER_CASE_NGRAM",
+          "category": "CASING",
+          "flags": 6,
+          "per1000": 0.0657
+        },
+        {
+          "ruleId": "lt.CAFE_DIACRITIC",
+          "category": "TYPOGRAPHY",
+          "flags": 5,
+          "per1000": 0.0548
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_GOOD_BYE",
+          "category": "MISC",
+          "flags": 5,
+          "per1000": 0.0548
+        },
+        {
+          "ruleId": "lt.HE_VERB_AGR",
+          "category": "GRAMMAR",
+          "flags": 5,
+          "per1000": 0.0548
+        },
+        {
+          "ruleId": "lt.IT_VBZ",
+          "category": "GRAMMAR",
+          "flags": 5,
+          "per1000": 0.0548
+        },
+        {
+          "ruleId": "lt.ANY_MORE",
+          "category": "COMPOUNDING",
+          "flags": 4,
+          "per1000": 0.0438
+        },
+        {
+          "ruleId": "lt.GATHER_UP",
+          "category": "REDUNDANCY",
+          "flags": 4,
+          "per1000": 0.0438
+        },
+        {
+          "ruleId": "lt.HAVE_PART_AGREEMENT",
+          "category": "GRAMMAR",
+          "flags": 4,
+          "per1000": 0.0438
+        },
+        {
+          "ruleId": "lt.IN_A_TROUBLE",
+          "category": "GRAMMAR",
+          "flags": 4,
+          "per1000": 0.0438
+        },
+        {
+          "ruleId": "lt.ADVERB_WORD_ORDER",
+          "category": "STYLE",
+          "flags": 3,
+          "per1000": 0.0329
+        },
+        {
+          "ruleId": "lt.AGREEMENT_SENT_START",
+          "category": "GRAMMAR",
+          "flags": 3,
+          "per1000": 0.0329
+        },
+        {
+          "ruleId": "lt.EN_A_VS_AN",
+          "category": "MISC",
+          "flags": 3,
+          "per1000": 0.0329
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_SAND_PITS",
+          "category": "MISC",
+          "flags": 3,
+          "per1000": 0.0329
+        },
+        {
+          "ruleId": "lt.EVERY_NOW_AND_THEN",
+          "category": "REDUNDANCY",
+          "flags": 3,
+          "per1000": 0.0329
+        },
+        {
+          "ruleId": "lt.IN_A_ISLAND",
+          "category": "COLLOCATIONS",
+          "flags": 3,
+          "per1000": 0.0329
+        },
+        {
+          "ruleId": "lt.KIND_OF_A",
+          "category": "GRAMMAR",
+          "flags": 3,
+          "per1000": 0.0329
+        },
+        {
+          "ruleId": "lt.MIGHT_PERHAPS",
+          "category": "REDUNDANCY",
+          "flags": 3,
+          "per1000": 0.0329
+        },
+        {
+          "ruleId": "lt.QUESTION_MARK",
+          "category": "PUNCTUATION",
+          "flags": 3,
+          "per1000": 0.0329
+        },
+        {
+          "ruleId": "lt.THERE_S_MANY",
+          "category": "GRAMMAR",
+          "flags": 3,
+          "per1000": 0.0329
+        },
+        {
+          "ruleId": "lt.THE_WORSE_OF",
+          "category": "GRAMMAR",
+          "flags": 3,
+          "per1000": 0.0329
+        },
+        {
+          "ruleId": "lt.APARTMENT-FLAT",
+          "category": "AMERICAN_ENGLISH",
+          "flags": 2,
+          "per1000": 0.0219
+        },
+        {
+          "ruleId": "lt.APOS_SPACE_CONTRACTION",
+          "category": "TYPOGRAPHY",
+          "flags": 2,
+          "per1000": 0.0219
+        },
+        {
+          "ruleId": "lt.ARTICLE_ADJECTIVE_OF",
+          "category": "GRAMMAR",
+          "flags": 2,
+          "per1000": 0.0219
+        },
+        {
+          "ruleId": "lt.CONFUSION_OF_ME_I",
+          "category": "TYPOS",
+          "flags": 2,
+          "per1000": 0.0219
+        },
+        {
+          "ruleId": "lt.EN_DIACRITICS_REPLACE_CHATEAU",
+          "category": "TYPOS",
+          "flags": 2,
+          "per1000": 0.0219
+        },
+        {
+          "ruleId": "lt.EN_GB_SIMPLE_REPLACE_PITCHER",
+          "category": "STYLE",
+          "flags": 2,
+          "per1000": 0.0219
+        },
+        {
+          "ruleId": "lt.FOR_AWHILE",
+          "category": "TYPOS",
+          "flags": 2,
+          "per1000": 0.0219
+        },
+        {
+          "ruleId": "lt.FOR_EVER_CA",
+          "category": "STYLE",
+          "flags": 2,
+          "per1000": 0.0219
+        },
+        {
+          "ruleId": "lt.IF_WE_CANT_COMMA",
+          "category": "PUNCTUATION",
+          "flags": 2,
+          "per1000": 0.0219
+        },
+        {
+          "ruleId": "lt.IT_IS_2",
+          "category": "TYPOS",
+          "flags": 2,
+          "per1000": 0.0219
+        },
+        {
+          "ruleId": "lt.NON_STANDARD_WORD",
+          "category": "TYPOS",
+          "flags": 2,
+          "per1000": 0.0219
+        },
+        {
+          "ruleId": "lt.POSSESSIVE_APOSTROPHE_2",
+          "category": "TYPOS",
+          "flags": 2,
+          "per1000": 0.0219
+        },
+        {
+          "ruleId": "lt.PRP_JJ",
+          "category": "GRAMMAR",
+          "flags": 2,
+          "per1000": 0.0219
+        },
+        {
+          "ruleId": "lt.WHETHER",
+          "category": "REDUNDANCY",
+          "flags": 2,
+          "per1000": 0.0219
+        },
+        {
+          "ruleId": "lt.AM_I",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.AND_BUT",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.APOSTROPHE_PLURAL_",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.AS_IS_VBG",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.AUXILIARY_DO_WITH_INCORRECT_VERB_FORM",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.A_MY",
+          "category": "COLLOCATIONS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.CD_OF_MY_FRIEND",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.CLEAR_CUT_HYPHEN",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.CONCENTRATE_WITH_ON",
+          "category": "COLLOCATIONS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.CONDITIONAL_CLAUSE",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.CONFUSION_RULE_BLEW_BLUE",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.CONFUSION_RULE_HALF_HAVE",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.CONFUSION_RULE_PRECEDE_PROCEED",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.CONFUSION_RULE_SAT_SEAT",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.CONFUSION_RULE_TAKING_TALKING",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.CONFUSION_RULE_THINK_THING",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.CONFUSION_WORSE_WORST",
+          "category": "CONFUSED_WORDS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.COULD_OF",
+          "category": "CONFUSED_WORDS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.DOES_YOU",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.DO_YOU_WHAT",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.ENGLISH_WORD_REPEAT_RULE",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_ARM_CHAIR",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_BATTLE_AXE",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_COUNTRY_SIDE",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_EVIL_DOERS",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_FOOT_HILLS",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_FORE_PART",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_FREE_BORN",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_HOMEWARD_BOUND",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_MOUTH_TO_MOUTH",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_POST_HASTE",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_SEMI_CIRCLE",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_SEMI_CIRCULAR",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_SNAP_SHOT",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_SPARROW_HAWK",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_WELL_BEHAVED",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_WELL_SPOKEN",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_WELL_TRAINED",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_WHOLE_HEARTED",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_DIACRITICS_REPLACE_CHATEAUX",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_DIACRITICS_REPLACE_PROTEGE",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_SPECIFIC_CASE",
+          "category": "CASING",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EN_WORD_COHERENCY",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.ER",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.EVERY_EVER",
+          "category": "CONFUSED_WORDS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.FOR_FRO",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.GIT_GET",
+          "category": "CONFUSED_WORDS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.HAS_IT_NNS__IT_ITS",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.HAVE_A_LOOK",
+          "category": "BRITISH_ENGLISH",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.HOME_COMPOUNDS",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.HOW_EVER",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.INTERESTED_BY",
+          "category": "COLLOCATIONS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.IN_THIS_MOMENT",
+          "category": "COLLOCATIONS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.IN_TO_INTO",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.IT_IT",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.IVE_I_HAVE_AMERICAN_STYLE",
+          "category": "AMERICAN_ENGLISH_STYLE",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.I_DONT_DT",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.I_ME",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.LADIES_AND_GENTLEMAN",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.LEMME",
+          "category": "STYLE",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.LIGATURES",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.MASS_AGREEMENT",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.MINUETS",
+          "category": "CONFUSED_WORDS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.MOST_COMPARATIVE",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.NEITHER_NOR_SUPERFLUOUS_COMMA",
+          "category": "PUNCTUATION",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.NIGGER_BIGGER",
+          "category": "CONFUSED_WORDS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.NONE_THE_LESS",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.NOWADAYS_COMMA",
+          "category": "PUNCTUATION",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.OBJECTIVE_CASE",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.OF_ANY_OF",
+          "category": "REDUNDANCY",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.OTHER_OTHERS",
+          "category": "CONFUSED_WORDS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.OUR_OUT",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.PCT_SINGULAR_NOUN_PLURAL_VERB_AGREEMENT",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.PRP_HAVE_VB",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.PRP_MD_NN",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.PRP_PAST_PART",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.PRP_REPITION",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.PRP_THE",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.PRP_VBG",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.RECOMMENDED_COMPOUNDS",
+          "category": "STYLE",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.RIGHT_OVER",
+          "category": "REDUNDANCY",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.SIDE_COMPOUNDS",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.SO_AS_TO",
+          "category": "REDUNDANCY",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.SPURIOUS_APOSTROPHE",
+          "category": "TYPOGRAPHY",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.SUMMER_TIME",
+          "category": "REDUNDANCY",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.THAT_THAN",
+          "category": "CONFUSED_WORDS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.THE_JJR_THE_MORE_COMMA",
+          "category": "PUNCTUATION",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.THE_PUNCT",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.THE_SUPERLATIVE",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.THIS_MISSING_VERB",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.THIS_NNS",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.TOO_DETERMINER",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.TRUNK_BOOT",
+          "category": "AMERICAN_ENGLISH",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.VERB_APOSTROPHE_S",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.VERY_UNIQUE",
+          "category": "REDUNDANCY",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.WITH_THE_EXCEPTION_OF",
+          "category": "REDUNDANCY",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.WORTH_WHILE",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "lt.YOURS_APOSTROPHE",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.011
+        }
+      ],
+      "planted": [
+        {
+          "category": "typo",
+          "planted": 1000,
+          "checked": 100,
+          "caught": 96,
+          "firstFixRight": 85,
+          "fixInTop5": 94,
+          "catchRate": 0.96,
+          "firstFixRate": 0.8854,
+          "top5FixRate": 0.9792
+        },
+        {
+          "category": "confusable",
+          "planted": 1000,
+          "checked": 100,
+          "caught": 50,
+          "firstFixRight": 47,
+          "fixInTop5": 47,
+          "catchRate": 0.5,
+          "firstFixRate": 0.94,
+          "top5FixRate": 0.94
+        },
+        {
+          "category": "a-an",
+          "planted": 1000,
+          "checked": 100,
+          "caught": 99,
+          "firstFixRight": 99,
+          "fixInTop5": 99,
+          "catchRate": 0.99,
+          "firstFixRate": 1,
+          "top5FixRate": 1
+        },
+        {
+          "category": "repeated-word",
+          "planted": 1000,
+          "checked": 100,
+          "caught": 98,
+          "firstFixRight": 96,
+          "fixInTop5": 97,
+          "catchRate": 0.98,
+          "firstFixRate": 0.9796,
+          "top5FixRate": 0.9898
+        },
+        {
+          "category": "agreement",
+          "planted": 1000,
+          "checked": 100,
+          "caught": 60,
+          "firstFixRight": 32,
+          "fixInTop5": 54,
+          "catchRate": 0.6,
+          "firstFixRate": 0.5333,
+          "top5FixRate": 0.9
+        },
+        {
+          "category": "dialogue-punctuation",
+          "planted": 1000,
+          "checked": 100,
+          "caught": 1,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0.01,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        }
+      ],
+      "flagsPer1000": 17.9102
+    },
+    {
+      "corpus": "all",
+      "split": "test",
+      "books": 19,
+      "paragraphs": 12998,
+      "uncheckedParagraphs": 12016,
+      "words": 57734,
+      "flags": 803,
+      "confirmedRealErrors": 0,
+      "rules": [
+        {
+          "ruleId": "lt.MORFOLOGIK_RULE_EN_GB",
+          "category": "TYPOS",
+          "flags": 372,
+          "per1000": 6.4433
+        },
+        {
+          "ruleId": "lt.MORFOLOGIK_RULE_EN_US",
+          "category": "TYPOS",
+          "flags": 115,
+          "per1000": 1.9919
+        },
+        {
+          "ruleId": "lt.EN_UNPAIRED_BRACKETS",
+          "category": "PUNCTUATION",
+          "flags": 71,
+          "per1000": 1.2298
+        },
+        {
+          "ruleId": "lt.ENGLISH_WORD_REPEAT_BEGINNING_RULE",
+          "category": "STYLE",
+          "flags": 28,
+          "per1000": 0.485
+        },
+        {
+          "ruleId": "lt.UPPERCASE_SENTENCE_START",
+          "category": "CASING",
+          "flags": 25,
+          "per1000": 0.433
+        },
+        {
+          "ruleId": "lt.COMMA_COMPOUND_SENTENCE",
+          "category": "PUNCTUATION",
+          "flags": 16,
+          "per1000": 0.2771
+        },
+        {
+          "ruleId": "lt.SENT_START_CONJUNCTIVE_LINKING_ADVERB_COMMA",
+          "category": "PUNCTUATION",
+          "flags": 12,
+          "per1000": 0.2078
+        },
+        {
+          "ruleId": "lt.PRP_COMMA",
+          "category": "PUNCTUATION",
+          "flags": 9,
+          "per1000": 0.1559
+        },
+        {
+          "ruleId": "lt.MISSING_COMMA_AFTER_INTRODUCTORY_PHRASE",
+          "category": "PUNCTUATION",
+          "flags": 7,
+          "per1000": 0.1212
+        },
+        {
+          "ruleId": "lt.BEEN_PART_AGREEMENT",
+          "category": "GRAMMAR",
+          "flags": 6,
+          "per1000": 0.1039
+        },
+        {
+          "ruleId": "lt.COMMA_PARENTHESIS_WHITESPACE",
+          "category": "TYPOGRAPHY",
+          "flags": 5,
+          "per1000": 0.0866
+        },
+        {
+          "ruleId": "lt.EN_GB_SIMPLE_REPLACE_SWEATER",
+          "category": "STYLE",
+          "flags": 5,
+          "per1000": 0.0866
+        },
+        {
+          "ruleId": "lt.DOUBLE_NEGATIVE",
+          "category": "GRAMMAR",
+          "flags": 4,
+          "per1000": 0.0693
+        },
+        {
+          "ruleId": "lt.HE_VERB_AGR",
+          "category": "GRAMMAR",
+          "flags": 4,
+          "per1000": 0.0693
+        },
+        {
+          "ruleId": "lt.ADVERB_WORD_ORDER",
+          "category": "STYLE",
+          "flags": 3,
+          "per1000": 0.052
+        },
+        {
+          "ruleId": "lt.ANY_BODY",
+          "category": "TYPOS",
+          "flags": 3,
+          "per1000": 0.052
+        },
+        {
+          "ruleId": "lt.IT_IS_2",
+          "category": "TYPOS",
+          "flags": 3,
+          "per1000": 0.052
+        },
+        {
+          "ruleId": "lt.NON3PRS_VERB",
+          "category": "GRAMMAR",
+          "flags": 3,
+          "per1000": 0.052
+        },
+        {
+          "ruleId": "lt.PRP_PAST_PART",
+          "category": "GRAMMAR",
+          "flags": 3,
+          "per1000": 0.052
+        },
+        {
+          "ruleId": "lt.A_INFINITIVE",
+          "category": "GRAMMAR",
+          "flags": 2,
+          "per1000": 0.0346
+        },
+        {
+          "ruleId": "lt.DUNNO",
+          "category": "STYLE",
+          "flags": 2,
+          "per1000": 0.0346
+        },
+        {
+          "ruleId": "lt.ENGLISH_WORD_REPEAT_RULE",
+          "category": "MISC",
+          "flags": 2,
+          "per1000": 0.0346
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_NEW_COMER",
+          "category": "MISC",
+          "flags": 2,
+          "per1000": 0.0346
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_SAND_PIT",
+          "category": "MISC",
+          "flags": 2,
+          "per1000": 0.0346
+        },
+        {
+          "ruleId": "lt.EVERY_NOW_AND_THEN",
+          "category": "REDUNDANCY",
+          "flags": 2,
+          "per1000": 0.0346
+        },
+        {
+          "ruleId": "lt.GATHER_UP",
+          "category": "REDUNDANCY",
+          "flags": 2,
+          "per1000": 0.0346
+        },
+        {
+          "ruleId": "lt.IT_VBZ",
+          "category": "GRAMMAR",
+          "flags": 2,
+          "per1000": 0.0346
+        },
+        {
+          "ruleId": "lt.LICENCE_LICENSE_NOUN_SINGULAR",
+          "category": "AMERICAN_ENGLISH",
+          "flags": 2,
+          "per1000": 0.0346
+        },
+        {
+          "ruleId": "lt.MAN_COMPOUNDS",
+          "category": "GRAMMAR",
+          "flags": 2,
+          "per1000": 0.0346
+        },
+        {
+          "ruleId": "lt.NEITHER_NOR_SUPERFLUOUS_COMMA",
+          "category": "PUNCTUATION",
+          "flags": 2,
+          "per1000": 0.0346
+        },
+        {
+          "ruleId": "lt.NO_COMMA_BEFORE_INDIRECT_QUESTION",
+          "category": "PUNCTUATION",
+          "flags": 2,
+          "per1000": 0.0346
+        },
+        {
+          "ruleId": "lt.PHRASE_REPETITION",
+          "category": "GRAMMAR",
+          "flags": 2,
+          "per1000": 0.0346
+        },
+        {
+          "ruleId": "lt.SO_AS_TO",
+          "category": "REDUNDANCY",
+          "flags": 2,
+          "per1000": 0.0346
+        },
+        {
+          "ruleId": "lt.THE_SUPERLATIVE",
+          "category": "GRAMMAR",
+          "flags": 2,
+          "per1000": 0.0346
+        },
+        {
+          "ruleId": "lt.THE_WORSE_OF",
+          "category": "GRAMMAR",
+          "flags": 2,
+          "per1000": 0.0346
+        },
+        {
+          "ruleId": "lt.ADMIT_ENJOY_VB",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.ADVERTISEMENT_OF_FOR",
+          "category": "COLLOCATIONS",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.AFTERMARKET",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.APARTMENT-FLAT",
+          "category": "AMERICAN_ENGLISH",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.APOS_SPACE_CONTRACTION",
+          "category": "TYPOGRAPHY",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.ARTICLE_ADJECTIVE_OF",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.AT_IN_THE_KITCHEN",
+          "category": "COLLOCATIONS",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.AT_THE_JOB",
+          "category": "COLLOCATIONS",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.A_UNCOUNTABLE",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.BE_COME",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.BE_VBP_IN",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.CANT",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.COMMA_AFTER_A_MONTH",
+          "category": "PUNCTUATION",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.COMMA_CLOSING_PARENTHESIS",
+          "category": "PUNCTUATION",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.COMMA_COMPOUND_SENTENCE_2",
+          "category": "PUNCTUATION",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.CONDITIONAL_CLAUSE",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.CONFUSION_OF_ME_I",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.CONFUSION_RULE_BAD_BED",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.DAT",
+          "category": "STYLE",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_ARM_CHAIR",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_CONE_FLOWERS",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_COURT_HOUSE",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_DOG_TIRED",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_EVIL_DOER",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_GOOD_BYE",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_ILL_TREATMENT",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_LAP_DOG",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_NEW_BORN",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_NOTE_BOOK",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_PIGEON_HOLED",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_SLEDGE_HAMMER",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_WELL_EDUCATED",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_WELL_EQUIPPED",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_WELL_FED",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_WELL_ROUNDED",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.EN_COMPOUNDS_WELL_SUPPORTED",
+          "category": "MISC",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.EN_SPECIFIC_CASE",
+          "category": "CASING",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.EN_UPPER_CASE_NGRAM",
+          "category": "CASING",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.EXTREME_ADJECTIVES",
+          "category": "STYLE",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.FILL_OF_WITH",
+          "category": "COLLOCATIONS",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.FOR_EVER_CA",
+          "category": "STYLE",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.GO_TO_HOME",
+          "category": "COLLOCATIONS",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.HAS_OUGHT",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.HAVE_PART_AGREEMENT",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.HE_D_VBD",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.HOW_DO_I_VB",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.IF_IS",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.IN_A_X_MANNER",
+          "category": "REDUNDANCY",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.I_A",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.I_AM_VB",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.KIND_OF_A",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.LEMME",
+          "category": "STYLE",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.LET_IT_INFINITIVE",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.MERCHANDIZE",
+          "category": "STYLE",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.MID_HYPHEN",
+          "category": "COMPOUNDING",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.MISSING_TO_BEFORE_A_VERB",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.MUST_HAVE_TO",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.NONE_THE_LESS",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.NON_STANDARD_WORD",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.ONE_ONCE",
+          "category": "CONFUSED_WORDS",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.OXFORD_SPELLING_Z_NOT_S",
+          "category": "BRE_STYLE_OXFORD_SPELLING",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.PERS_PRONOUN_AGREEMENT",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.PLURAL_VERB_AFTER_THIS",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.PRP_THE",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.QUESTION_MARK",
+          "category": "PUNCTUATION",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.RECOMMENDED_COMPOUNDS",
+          "category": "STYLE",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.SAVE_SAFE",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.SECOND_LARGEST_HYPHEN",
+          "category": "COMPOUNDING",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.SPURIOUS_APOSTROPHE",
+          "category": "TYPOGRAPHY",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.THE_QUESTION_WH",
+          "category": "NONSTANDARD_PHRASES",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.THIS_NNS",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.TO_TOO",
+          "category": "CONFUSED_WORDS",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.UNDER_COVER_COMPOUND",
+          "category": "GRAMMAR",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.UNNECESSARY_COMMA",
+          "category": "PUNCTUATION",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.WEEK_END_HYPHEN",
+          "category": "STYLE",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.WERE_VBB",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.0173
+        },
+        {
+          "ruleId": "lt.YOURS_APOSTROPHE",
+          "category": "TYPOS",
+          "flags": 1,
+          "per1000": 0.0173
+        }
+      ],
+      "planted": [
+        {
+          "category": "typo",
+          "planted": 1000,
+          "checked": 100,
+          "caught": 97,
+          "firstFixRight": 86,
+          "fixInTop5": 96,
+          "catchRate": 0.97,
+          "firstFixRate": 0.8866,
+          "top5FixRate": 0.9897
+        },
+        {
+          "category": "confusable",
+          "planted": 1000,
+          "checked": 100,
+          "caught": 44,
+          "firstFixRight": 43,
+          "fixInTop5": 43,
+          "catchRate": 0.44,
+          "firstFixRate": 0.9773,
+          "top5FixRate": 0.9773
+        },
+        {
+          "category": "a-an",
+          "planted": 1000,
+          "checked": 100,
+          "caught": 100,
+          "firstFixRight": 100,
+          "fixInTop5": 100,
+          "catchRate": 1,
+          "firstFixRate": 1,
+          "top5FixRate": 1
+        },
+        {
+          "category": "repeated-word",
+          "planted": 1000,
+          "checked": 100,
+          "caught": 98,
+          "firstFixRight": 95,
+          "fixInTop5": 95,
+          "catchRate": 0.98,
+          "firstFixRate": 0.9694,
+          "top5FixRate": 0.9694
+        },
+        {
+          "category": "agreement",
+          "planted": 1000,
+          "checked": 100,
+          "caught": 62,
+          "firstFixRight": 23,
+          "fixInTop5": 57,
+          "catchRate": 0.62,
+          "firstFixRate": 0.371,
+          "top5FixRate": 0.9194
+        },
+        {
+          "category": "dialogue-punctuation",
+          "planted": 1000,
+          "checked": 100,
+          "caught": 1,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0.01,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        }
+      ],
+      "flagsPer1000": 13.9086
+    }
+  ]
+}

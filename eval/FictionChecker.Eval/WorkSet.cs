@@ -10,7 +10,7 @@ namespace FictionChecker.Eval;
 public sealed record CleanSample(string Corpus, Book Book, int FirstParagraph, IReadOnlyList<string> Paragraphs);
 
 /// <summary>A clean paragraph and the same paragraph with one planted error.</summary>
-public sealed record PlantedItem(string Corpus, Split Split, string BookId, int ParagraphIndex, string Category, string Clean, PlantedError Error);
+public sealed record PlantedItem(string Corpus, Split Split, string BookId, string Dialect, int ParagraphIndex, string Category, string Clean, PlantedError Error);
 
 /// <summary>Everything one evaluation run checks. The same settings and corpora always give the same set.</summary>
 public sealed record WorkSet(IReadOnlyList<CleanSample> Clean, IReadOnlyList<PlantedItem> Planted)
@@ -61,7 +61,7 @@ public sealed record WorkSet(IReadOnlyList<CleanSample> Clean, IReadOnlyList<Pla
                         PlantedError? error = planter.TryPlant(text, rng);
                         if (error is not null && error.Text != text)
                         {
-                            planted.Add(new PlantedItem(corpus.Name, split, sample.Book.Id, sample.FirstParagraph + offset, planter.Category, text, error));
+                            planted.Add(new PlantedItem(corpus.Name, split, sample.Book.Id, sample.Book.Dialect, sample.FirstParagraph + offset, planter.Category, text, error));
                             made++;
                         }
                     }
@@ -72,15 +72,83 @@ public sealed record WorkSet(IReadOnlyList<CleanSample> Clean, IReadOnlyList<Pla
         return new WorkSet(clean, planted);
     }
 
-    /// <summary>Every distinct paragraph text that needs checking, for checkers that run outside this process.</summary>
-    public IEnumerable<string> AllTexts()
+    /// <summary>
+    /// Every distinct paragraph that needs checking, with its dialect, for checkers that run outside this process.
+    /// </summary>
+    public IEnumerable<(string Text, string Dialect)> AllTexts() => Subset(null, int.MaxValue, int.MaxValue);
+
+    /// <summary>
+    /// A smaller set for slow checkers: the first <paramref name="cleanWordsPerBook"/> words of each book's clean
+    /// run, and the first <paramref name="plantedPerCategory"/> planted errors of each category, corpus and split
+    /// together with their clean paragraphs. Books are interleaved so a run that stops early is still balanced.
+    /// </summary>
+    public IEnumerable<(string Text, string Dialect)> Subset(string? corpus, int cleanWordsPerBook, int plantedPerCategory)
     {
         var seen = new HashSet<string>(StringComparer.Ordinal);
-        foreach (string text in Clean.SelectMany(s => s.Paragraphs).Concat(Planted.Select(p => p.Error.Text)))
+        var perBook = new List<List<(string, string)>>();
+        foreach (CleanSample sample in Clean.Where(s => corpus is null || s.Corpus == corpus))
         {
-            if (seen.Add(text))
+            var list = new List<(string, string)>();
+            int words = 0;
+            foreach (string text in sample.Paragraphs)
             {
-                yield return text;
+                if (words >= cleanWordsPerBook)
+                {
+                    break;
+                }
+
+                list.Add((text, sample.Book.Dialect));
+                words += Words.Count(text);
+            }
+
+            perBook.Add(list);
+        }
+
+        var counts = new Dictionary<(string, Split, string), int>();
+        var plantedTexts = new List<(string, string)>();
+        foreach (PlantedItem item in Planted.Where(p => corpus is null || p.Corpus == corpus))
+        {
+            var key = (item.Corpus, item.Split, item.Category);
+            int count = counts.GetValueOrDefault(key);
+            if (count < plantedPerCategory)
+            {
+                counts[key] = count + 1;
+                plantedTexts.Add((item.Error.Text, item.Dialect));
+                plantedTexts.Add((item.Clean, item.Dialect));
+            }
+        }
+
+        // Round robin: a slice of clean text from each book, then a slice of planted errors, and so on.
+        const int Slice = 8;
+        int plantedAt = 0;
+        for (int round = 0; ; round++)
+        {
+            bool any = false;
+            foreach (List<(string Text, string Dialect)> list in perBook)
+            {
+                foreach ((string Text, string Dialect) entry in list.Skip(round * Slice).Take(Slice))
+                {
+                    any = true;
+                    if (seen.Add(entry.Text))
+                    {
+                        yield return entry;
+                    }
+                }
+            }
+
+            int plantedSlice = Math.Max(Slice, perBook.Count * 2);
+            for (int i = 0; i < plantedSlice && plantedAt < plantedTexts.Count; i++, plantedAt++)
+            {
+                any = true;
+                if (seen.Add(plantedTexts[plantedAt].Item1))
+                {
+                    yield return plantedTexts[plantedAt];
+                }
+            }
+
+            if (!any)
+            {
+                yield break;
             }
         }
     }

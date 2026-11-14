@@ -40,9 +40,11 @@ not already have that flag. A fix counts as right when applying it gives back th
     dotnet run --project eval/FictionChecker.Eval -- run --checker none
     dotnet run --project eval/FictionChecker.Eval -- run --checker none --compare harper
 
+Each book carries the spelling it uses (US or GB, detected from the text), and checkers are told it.
+
 Checkers: `none` (flags nothing; the placeholder until the library has a checker), `demo` (a naive
 repeated-word check that exercises the harness), and `external` (scores issues produced outside the
-process; see `harper/`).
+process; see `harper/` and `languagetool/`).
 
 ## Reports
 

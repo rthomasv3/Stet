@@ -37,7 +37,7 @@ public sealed class Scorer
         {
             Tally tally = GetTally(groups, sample.Corpus, sample.Book.Split);
             tally.Books++;
-            IReadOnlyList<IReadOnlyList<Issue>?> results = checker.CheckDocument(sample.Paragraphs);
+            IReadOnlyList<IReadOnlyList<Issue>?> results = checker.CheckDocument(sample.Paragraphs, sample.Book.Dialect);
             for (int i = 0; i < sample.Paragraphs.Count; i++)
             {
                 string text = sample.Paragraphs[i];
@@ -79,7 +79,7 @@ public sealed class Scorer
             Tally tally = GetTally(groups, item.Corpus, item.Split);
             PlantedTally planted = tally.GetPlanted(item.Category);
             planted.Planted++;
-            IReadOnlyList<Issue>? issues = checker.CheckDocument([item.Error.Text])[0];
+            IReadOnlyList<Issue>? issues = checker.CheckDocument([item.Error.Text], item.Dialect)[0];
             cleanIssues.TryGetValue(item.Clean, out IReadOnlyList<Issue>? before);
             if (issues is null || before is null)
             {

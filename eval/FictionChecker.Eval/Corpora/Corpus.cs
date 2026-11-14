@@ -13,7 +13,12 @@ public enum Split
 }
 
 /// <summary>One book of a prepared corpus: story paragraphs only, in reading order.</summary>
-public sealed record Book(string Id, Split Split, string Genre, IReadOnlyList<string> Paragraphs);
+/// <param name="Id">Book identifier.</param>
+/// <param name="Split">Development or test.</param>
+/// <param name="Genre">Genre label, or empty.</param>
+/// <param name="Dialect">Spelling the book uses: "US" or "GB".</param>
+/// <param name="Paragraphs">Story paragraphs in order.</param>
+public sealed record Book(string Id, Split Split, string Genre, string Dialect, IReadOnlyList<string> Paragraphs);
 
 /// <summary>A prepared corpus: a folder with a manifest and one text file per book.</summary>
 public sealed record Corpus(string Name, IReadOnlyList<Book> Books)
@@ -37,7 +42,7 @@ public sealed record Corpus(string Name, IReadOnlyList<Book> Books)
                 .Where(line => line.Length > 0)
                 .ToArray();
             Split split = string.Equals(entry.Split, "test", StringComparison.OrdinalIgnoreCase) ? Split.Test : Split.Dev;
-            books.Add(new Book(entry.Id, split, entry.Genre ?? "", paragraphs));
+            books.Add(new Book(entry.Id, split, entry.Genre ?? "", entry.Dialect ?? "US", paragraphs));
         }
 
         return new Corpus(name, books);
@@ -45,5 +50,5 @@ public sealed record Corpus(string Name, IReadOnlyList<Book> Books)
 
     private sealed record Manifest(string Name, List<ManifestBook> Books);
 
-    private sealed record ManifestBook(string Id, string Split, string? Genre, string File);
+    private sealed record ManifestBook(string Id, string Split, string? Genre, string? Dialect, string File);
 }

@@ -11,4 +11,10 @@ same paragraphs the harness checks, so there is a fixed "better than Harper on f
 The exported items and Harper's output contain book text and stay in `reports/local/`.
 `--shard 0/4` … `3/4` splits the work across processes (write each to its own file, then concatenate).
 
-Harper runs with its default rules, plain-text mode and the American dialect.
+Harper runs with its default rules in plain-text mode, using the American or British dialect to match
+each book's spelling.
+
+The `harper-inscope` report is the same run with Harper's categories outside this library's V1 scope
+removed (readability, style, formatting, enhancement, redundancy, regionalism):
+
+    dotnet run --project ../FictionChecker.Eval -- run --checker external --source-name harper --name harper-inscope --issues eval/reports/local/harper-issues.jsonl --exclude-categories Readability,Style,Formatting,Enhancement,Redundancy,Regionalism

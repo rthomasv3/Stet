@@ -42,5 +42,7 @@ public interface IEvalChecker
     /// so a checker can carry state (such as an open quote) from one to the next. An entry is null when the
     /// paragraph was not checked (only checkers that run outside this process do that).
     /// </summary>
-    IReadOnlyList<IReadOnlyList<Issue>?> CheckDocument(IReadOnlyList<string> paragraphs);
+    /// <param name="paragraphs">The paragraphs, in order.</param>
+    /// <param name="dialect">The spelling the text uses: "US" or "GB".</param>
+    IReadOnlyList<IReadOnlyList<Issue>?> CheckDocument(IReadOnlyList<string> paragraphs, string dialect);
 }

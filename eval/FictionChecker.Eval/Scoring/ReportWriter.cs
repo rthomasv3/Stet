@@ -7,6 +7,8 @@ namespace FictionChecker.Eval.Scoring;
 /// <summary>Writes reports: the committed numbers-only files and the local review files.</summary>
 public static class ReportWriter
 {
+    private const double RuleBar = 0.05;
+
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
         WriteIndented = true,
@@ -71,7 +73,7 @@ public static class ReportWriter
         sb.AppendLine();
         sb.AppendLine("## False alarms per rule");
         sb.AppendLine();
-        sb.AppendLine("Flags per 1,000 words over all corpora. Target for a rule to be on by default: under 0.05.");
+        sb.AppendLine(CultureInfo.InvariantCulture, $"Flags per 1,000 words over all corpora. Target for a rule to be on by default: under {RuleBar}. Rules under the bar on both sides are counted, not listed.");
         sb.AppendLine();
         GroupResult? dev = report.Find(Scorer.AllCorpora, "dev");
         GroupResult? test = report.Find(Scorer.AllCorpora, "test");
@@ -85,23 +87,38 @@ public static class ReportWriter
         {
             sb.AppendLine("| Rule | Category | Dev | Test | Change (dev) |");
             sb.AppendLine("|---|---|---:|---:|---:|");
+            int underBar = 0;
             foreach ((string ruleId, string category) in ruleIds)
             {
                 double d = dev?.Rules.FirstOrDefault(r => r.RuleId == ruleId)?.Per1000 ?? 0;
                 double t = test?.Rules.FirstOrDefault(r => r.RuleId == ruleId)?.Per1000 ?? 0;
                 double? o = oldDev is null ? null : oldDev.Rules.FirstOrDefault(r => r.RuleId == ruleId)?.Per1000 ?? 0;
+                if (d < RuleBar && t < RuleBar && (o ?? 0) < RuleBar)
+                {
+                    underBar++;
+                    continue;
+                }
+
                 sb.AppendLine(CultureInfo.InvariantCulture, $"| {ruleId} | {category} | {Num(d)} | {Num(t)} | {Delta(d, o)} |");
             }
+
+            sb.AppendLine();
+            sb.AppendLine(CultureInfo.InvariantCulture, $"{underBar} other rules flagged something but stayed under the bar.");
         }
 
         sb.AppendLine();
         sb.AppendLine("## Planted errors");
         sb.AppendLine();
         sb.AppendLine("Caught: share of planted errors that were flagged. First fix right and fix in top 5: of the caught ones, how often a suggestion restores the original text.");
-        foreach (GroupResult g in report.Groups)
+        foreach (GroupResult g in report.Groups.OrderBy(g => g.Corpus == Scorer.AllCorpora ? 0 : 1))
         {
             GroupResult? old = previous?.Find(g.Corpus, g.Split);
             GroupResult? other = baseline?.Find(g.Corpus, g.Split);
+            if (g.Planted.All(p => p.Checked == 0))
+            {
+                continue; // nothing of this group was checked (a partial run)
+            }
+
             sb.AppendLine();
             sb.AppendLine(CultureInfo.InvariantCulture, $"### {g.Corpus}, {g.Split}");
             sb.AppendLine();

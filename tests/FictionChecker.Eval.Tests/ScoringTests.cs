@@ -22,7 +22,7 @@ public class ScoringTests
             "“They were here,” said Tom, who had had a long day and wanted to sit by the fire.",
             "She has an idea that their friends were waiting somewhere beyond the old stone bridge.",
         ];
-        return new Corpus("tiny", [new Book("a", Split.Dev, "", dev), new Book("b", Split.Test, "", test)]);
+        return new Corpus("tiny", [new Book("a", Split.Dev, "", "US", dev), new Book("b", Split.Test, "", "GB", test)]);
     }
 
     [Fact]
@@ -97,7 +97,7 @@ public class ScoringTests
     [Fact]
     public void FlagAlreadyOnTheCleanTextIsNotACatch()
     {
-        var item = new PlantedItem("c", Split.Dev, "b", 0, "typo", "the the cat", new PlantedError("the the cta", 8, 3, 8, 3, "transpose"));
+        var item = new PlantedItem("c", Split.Dev, "b", "US", 0, "typo", "the the cat", new PlantedError("the the cta", 8, 3, 8, 3, "transpose"));
         Issue[] onClean = [new Issue(0, 11, "r", "", [])];
         Issue[] onPlanted = [new Issue(0, 11, "r", "", [])];
 
@@ -109,7 +109,7 @@ public class ScoringTests
     [Fact]
     public void FixIsRightOnlyWhenItRestoresTheCleanText()
     {
-        var item = new PlantedItem("c", Split.Dev, "b", 0, "typo", "a cat sat", new PlantedError("a cta sat", 2, 3, 2, 3, "transpose"));
+        var item = new PlantedItem("c", Split.Dev, "b", "US", 0, "typo", "a cat sat", new PlantedError("a cta sat", 2, 3, 2, 3, "transpose"));
         var wrong = new Suggestion([new Edit(2, 3, "cot")]);
         var right = new Suggestion([new Edit(2, 3, "cat")]);
 
@@ -143,6 +143,30 @@ public class ScoringTests
         {
             File.Delete(path);
         }
+    }
+
+    [Fact]
+    public void SubsetKeepsCleanParagraphsOfItsPlantedErrors()
+    {
+        WorkSet work = WorkSet.Build([TinyCorpus()], Settings, Planters.All);
+
+        var subset = work.Subset("tiny", cleanWordsPerBook: 1, plantedPerCategory: 1).ToList();
+        var texts = subset.Select(s => s.Text).ToHashSet();
+
+        Assert.Equal(subset.Count, texts.Count);
+        Assert.True(subset.Count < work.AllTexts().Count());
+        Assert.Equal(12, work.Planted.Count(p => texts.Contains(p.Error.Text) && texts.Contains(p.Clean)));
+        Assert.Contains(subset, s => s.Dialect == "GB");
+        Assert.Empty(work.Subset("other", 100, 100));
+    }
+
+    [Fact]
+    public void FilteredCheckerDropsExcludedCategories()
+    {
+        var filtered = new FilteredChecker(new DemoChecker(), "demo-x", ["mechanics"]);
+
+        Assert.Empty(filtered.CheckDocument(["the the cat"], "US")[0]!);
+        Assert.Single(new DemoChecker().CheckDocument(["the the cat"], "US")[0]!);
     }
 
     [Fact]

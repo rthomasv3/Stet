@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Globalization;
 using System.Text.Json;
 using FictionChecker;
 using FictionChecker.Eval;
@@ -12,7 +13,9 @@ using FictionChecker.Eval.Text;
 //   run --checker none|demo
 //   run --checker external --name harper --issues <issues.jsonl>   score issues produced outside this process
 //   export --out <items.jsonl>                                      write every paragraph an external checker must check
+//   export --out <items.jsonl> --corpus gutenberg --clean-words 2000 --planted 100     a smaller set for slow checkers
 // Options: --compare <checker>   add a column comparing with another checker's committed report
+//          --exclude-categories A,B   drop issues in these categories (with --name for the report name)
 //          --root <dir>          repository root (found automatically by default)
 if (args.Length == 0 || args[0] is "-h" or "--help")
 {
@@ -61,9 +64,15 @@ if (command == "export")
     string outPath = options.GetValueOrDefault("--out") ?? throw new ArgumentException("export needs --out FILE");
     using var writer = new StreamWriter(outPath);
     int count = 0;
-    foreach (string text in work.AllTexts())
+    IEnumerable<(string Text, string Dialect)> items = options.ContainsKey("--clean-words") || options.ContainsKey("--planted") || options.ContainsKey("--corpus")
+        ? work.Subset(
+            options.GetValueOrDefault("--corpus"),
+            int.Parse(options.GetValueOrDefault("--clean-words") ?? "2000000000", CultureInfo.InvariantCulture),
+            int.Parse(options.GetValueOrDefault("--planted") ?? "2000000000", CultureInfo.InvariantCulture))
+        : work.AllTexts();
+    foreach ((string text, string dialect) in items)
     {
-        writer.WriteLine(JsonSerializer.Serialize(new { id = WorkSet.HashOf(text), text }));
+        writer.WriteLine(JsonSerializer.Serialize(new { id = WorkSet.HashOf(text), dialect, text }));
         count++;
     }
 
@@ -83,10 +92,15 @@ IEvalChecker checker = checkerName switch
     "none" => new NoneChecker(),
     "demo" => new DemoChecker(),
     "external" => new ExternalChecker(
-        options.GetValueOrDefault("--name") ?? throw new ArgumentException("external needs --name"),
+        options.GetValueOrDefault("--source-name") ?? options.GetValueOrDefault("--name") ?? throw new ArgumentException("external needs --name"),
         options.GetValueOrDefault("--issues") ?? throw new ArgumentException("external needs --issues FILE")),
     _ => throw new ArgumentException($"Unknown checker '{checkerName}'."),
 };
+if (options.TryGetValue("--exclude-categories", out string? excluded))
+{
+    string filteredName = options.GetValueOrDefault("--name") ?? checker.Name + "-filtered";
+    checker = new FilteredChecker(checker, filteredName, excluded.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries));
+}
 
 string reports = Path.Combine(evalDir, "reports");
 string localReports = Path.Combine(reports, "local");

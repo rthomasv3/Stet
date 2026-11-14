@@ -1,0 +1,4128 @@
+{
+  "checker": "harper-inscope",
+  "libraryVersion": "0.1.0",
+  "settings": {
+    "seed": 20261114,
+    "cleanWordsPerBook": 30000,
+    "plantedPerCategory": 500,
+    "reviewFlagsPerRule": 40
+  },
+  "groups": [
+    {
+      "corpus": "calibre",
+      "split": "dev",
+      "books": 16,
+      "paragraphs": 14103,
+      "uncheckedParagraphs": 0,
+      "words": 454679,
+      "flags": 18264,
+      "confirmedRealErrors": 0,
+      "rules": [
+        {
+          "ruleId": "harper.SpellCheck",
+          "category": "Spelling",
+          "flags": 16493,
+          "per1000": 36.2739
+        },
+        {
+          "ruleId": "harper.SplitWords",
+          "category": "Typo",
+          "flags": 543,
+          "per1000": 1.1942
+        },
+        {
+          "ruleId": "harper.SentenceCapitalization",
+          "category": "Capitalization",
+          "flags": 220,
+          "per1000": 0.4839
+        },
+        {
+          "ruleId": "harper.CompoundNouns",
+          "category": "WordChoice",
+          "flags": 131,
+          "per1000": 0.2881
+        },
+        {
+          "ruleId": "harper.AvoidCurses",
+          "category": "WordChoice",
+          "flags": 108,
+          "per1000": 0.2375
+        },
+        {
+          "ruleId": "harper.PronounVerbAgreement",
+          "category": "Agreement",
+          "flags": 107,
+          "per1000": 0.2353
+        },
+        {
+          "ruleId": "harper.MassNouns",
+          "category": "Agreement",
+          "flags": 91,
+          "per1000": 0.2001
+        },
+        {
+          "ruleId": "harper.MissingPreposition",
+          "category": "Miscellaneous",
+          "flags": 69,
+          "per1000": 0.1518
+        },
+        {
+          "ruleId": "harper.DiscourseMarkers",
+          "category": "Punctuation",
+          "flags": 43,
+          "per1000": 0.0946
+        },
+        {
+          "ruleId": "harper.DisjointPrefixes",
+          "category": "Spelling",
+          "flags": 40,
+          "per1000": 0.088
+        },
+        {
+          "ruleId": "harper.AnA",
+          "category": "Miscellaneous",
+          "flags": 39,
+          "per1000": 0.0858
+        },
+        {
+          "ruleId": "harper.PossessiveYour",
+          "category": "WordChoice",
+          "flags": 31,
+          "per1000": 0.0682
+        },
+        {
+          "ruleId": "harper.MissingTo",
+          "category": "WordChoice",
+          "flags": 24,
+          "per1000": 0.0528
+        },
+        {
+          "ruleId": "harper.RepeatedWords",
+          "category": "Repetition",
+          "flags": 23,
+          "per1000": 0.0506
+        },
+        {
+          "ruleId": "harper.QuantifierNumeralConflict",
+          "category": "Grammar",
+          "flags": 20,
+          "per1000": 0.044
+        },
+        {
+          "ruleId": "harper.ToTwoToo",
+          "category": "WordChoice",
+          "flags": 16,
+          "per1000": 0.0352
+        },
+        {
+          "ruleId": "harper.WrongNegative",
+          "category": "WordChoice",
+          "flags": 14,
+          "per1000": 0.0308
+        },
+        {
+          "ruleId": "harper.TheyToThem",
+          "category": "Grammar",
+          "flags": 12,
+          "per1000": 0.0264
+        },
+        {
+          "ruleId": "harper.LetsConfusion",
+          "category": "WordChoice",
+          "flags": 11,
+          "per1000": 0.0242
+        },
+        {
+          "ruleId": "harper.DoubleModal",
+          "category": "Miscellaneous",
+          "flags": 10,
+          "per1000": 0.022
+        },
+        {
+          "ruleId": "harper.OneOfTheSingular",
+          "category": "Usage",
+          "flags": 10,
+          "per1000": 0.022
+        },
+        {
+          "ruleId": "harper.Everyone",
+          "category": "Miscellaneous",
+          "flags": 8,
+          "per1000": 0.0176
+        },
+        {
+          "ruleId": "harper.FillerWords",
+          "category": "Miscellaneous",
+          "flags": 8,
+          "per1000": 0.0176
+        },
+        {
+          "ruleId": "harper.MergeWords",
+          "category": "WordChoice",
+          "flags": 8,
+          "per1000": 0.0176
+        },
+        {
+          "ruleId": "harper.OrthographicConsistency",
+          "category": "Capitalization",
+          "flags": 8,
+          "per1000": 0.0176
+        },
+        {
+          "ruleId": "harper.ThereToTheir",
+          "category": "Grammar",
+          "flags": 8,
+          "per1000": 0.0176
+        },
+        {
+          "ruleId": "harper.Wanna",
+          "category": "Miscellaneous",
+          "flags": 8,
+          "per1000": 0.0176
+        },
+        {
+          "ruleId": "harper.QuiteQuiet",
+          "category": "Typo",
+          "flags": 7,
+          "per1000": 0.0154
+        },
+        {
+          "ruleId": "harper.AWhile",
+          "category": "Typo",
+          "flags": 6,
+          "per1000": 0.0132
+        },
+        {
+          "ruleId": "harper.QuantifierNeedsOf",
+          "category": "Miscellaneous",
+          "flags": 6,
+          "per1000": 0.0132
+        },
+        {
+          "ruleId": "harper.SimplePastToPastParticiple",
+          "category": "Grammar",
+          "flags": 6,
+          "per1000": 0.0132
+        },
+        {
+          "ruleId": "harper.ThereIsAgreement",
+          "category": "Agreement",
+          "flags": 6,
+          "per1000": 0.0132
+        },
+        {
+          "ruleId": "harper.CapitalizePersonalPronouns",
+          "category": "Capitalization",
+          "flags": 5,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "harper.FindOut",
+          "category": "WordChoice",
+          "flags": 5,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "harper.HowTo",
+          "category": "WordChoice",
+          "flags": 5,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "harper.PhrasalVerbAsCompoundNoun",
+          "category": "WordChoice",
+          "flags": 5,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "harper.Someone",
+          "category": "Miscellaneous",
+          "flags": 5,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "harper.WereWhere",
+          "category": "Typo",
+          "flags": 5,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "harper.YourPredicateAdjective",
+          "category": "Grammar",
+          "flags": 5,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "harper.ModalOf",
+          "category": "WordChoice",
+          "flags": 4,
+          "per1000": 0.0088
+        },
+        {
+          "ruleId": "harper.NominalWants",
+          "category": "Miscellaneous",
+          "flags": 4,
+          "per1000": 0.0088
+        },
+        {
+          "ruleId": "harper.TheirToTheyre",
+          "category": "Grammar",
+          "flags": 4,
+          "per1000": 0.0088
+        },
+        {
+          "ruleId": "harper.Thereupon",
+          "category": "Miscellaneous",
+          "flags": 4,
+          "per1000": 0.0088
+        },
+        {
+          "ruleId": "harper.FeelFell",
+          "category": "Typo",
+          "flags": 3,
+          "per1000": 0.0066
+        },
+        {
+          "ruleId": "harper.Gonna",
+          "category": "Miscellaneous",
+          "flags": 3,
+          "per1000": 0.0066
+        },
+        {
+          "ruleId": "harper.LeftRightHand",
+          "category": "Miscellaneous",
+          "flags": 3,
+          "per1000": 0.0066
+        },
+        {
+          "ruleId": "harper.Overall",
+          "category": "Miscellaneous",
+          "flags": 3,
+          "per1000": 0.0066
+        },
+        {
+          "ruleId": "harper.PronounInflectionBe",
+          "category": "Agreement",
+          "flags": 3,
+          "per1000": 0.0066
+        },
+        {
+          "ruleId": "harper.RedundantThat",
+          "category": "Repetition",
+          "flags": 3,
+          "per1000": 0.0066
+        },
+        {
+          "ruleId": "harper.RegularIrregulars",
+          "category": "Grammar",
+          "flags": 3,
+          "per1000": 0.0066
+        },
+        {
+          "ruleId": "harper.ThisTypeOfThing",
+          "category": "Agreement",
+          "flags": 3,
+          "per1000": 0.0066
+        },
+        {
+          "ruleId": "harper.WhomSubjectOfVerb",
+          "category": "Grammar",
+          "flags": 3,
+          "per1000": 0.0066
+        },
+        {
+          "ruleId": "harper.CommaFixes",
+          "category": "Punctuation",
+          "flags": 2,
+          "per1000": 0.0044
+        },
+        {
+          "ruleId": "harper.GoodAt",
+          "category": "Usage",
+          "flags": 2,
+          "per1000": 0.0044
+        },
+        {
+          "ruleId": "harper.Gotta",
+          "category": "Miscellaneous",
+          "flags": 2,
+          "per1000": 0.0044
+        },
+        {
+          "ruleId": "harper.ItsPossessive",
+          "category": "Agreement",
+          "flags": 2,
+          "per1000": 0.0044
+        },
+        {
+          "ruleId": "harper.MissingDeterminer",
+          "category": "Grammar",
+          "flags": 2,
+          "per1000": 0.0044
+        },
+        {
+          "ruleId": "harper.ModalBeAdjective",
+          "category": "Miscellaneous",
+          "flags": 2,
+          "per1000": 0.0044
+        },
+        {
+          "ruleId": "harper.SomeOfThe",
+          "category": "Typo",
+          "flags": 2,
+          "per1000": 0.0044
+        },
+        {
+          "ruleId": "harper.The",
+          "category": "Typo",
+          "flags": 2,
+          "per1000": 0.0044
+        },
+        {
+          "ruleId": "harper.TheLastDays",
+          "category": "Usage",
+          "flags": 2,
+          "per1000": 0.0044
+        },
+        {
+          "ruleId": "harper.Therein",
+          "category": "Miscellaneous",
+          "flags": 2,
+          "per1000": 0.0044
+        },
+        {
+          "ruleId": "harper.APart",
+          "category": "WordChoice",
+          "flags": 1,
+          "per1000": 0.0022
+        },
+        {
+          "ruleId": "harper.AsHow",
+          "category": "Usage",
+          "flags": 1,
+          "per1000": 0.0022
+        },
+        {
+          "ruleId": "harper.BellowBelow",
+          "category": "Malapropism",
+          "flags": 1,
+          "per1000": 0.0022
+        },
+        {
+          "ruleId": "harper.BetterOffPhrase",
+          "category": "Grammar",
+          "flags": 1,
+          "per1000": 0.0022
+        },
+        {
+          "ruleId": "harper.DoToDueTo",
+          "category": "Usage",
+          "flags": 1,
+          "per1000": 0.0022
+        },
+        {
+          "ruleId": "harper.FaceFirst",
+          "category": "Punctuation",
+          "flags": 1,
+          "per1000": 0.0022
+        },
+        {
+          "ruleId": "harper.ForNoun",
+          "category": "WordChoice",
+          "flags": 1,
+          "per1000": 0.0022
+        },
+        {
+          "ruleId": "harper.Hedging",
+          "category": "Miscellaneous",
+          "flags": 1,
+          "per1000": 0.0022
+        },
+        {
+          "ruleId": "harper.HopHope",
+          "category": "WordChoice",
+          "flags": 1,
+          "per1000": 0.0022
+        },
+        {
+          "ruleId": "harper.ImplementIn",
+          "category": "Usage",
+          "flags": 1,
+          "per1000": 0.0022
+        },
+        {
+          "ruleId": "harper.InflectedVerbAfterTo",
+          "category": "WordChoice",
+          "flags": 1,
+          "per1000": 0.0022
+        },
+        {
+          "ruleId": "harper.InterestedIn",
+          "category": "Usage",
+          "flags": 1,
+          "per1000": 0.0022
+        },
+        {
+          "ruleId": "harper.IntroCueCommaBeforeThanks",
+          "category": "Punctuation",
+          "flags": 1,
+          "per1000": 0.0022
+        },
+        {
+          "ruleId": "harper.ItAreTheOne",
+          "category": "Agreement",
+          "flags": 1,
+          "per1000": 0.0022
+        },
+        {
+          "ruleId": "harper.MultipleSequentialPronouns",
+          "category": "Repetition",
+          "flags": 1,
+          "per1000": 0.0022
+        },
+        {
+          "ruleId": "harper.Nobody",
+          "category": "WordChoice",
+          "flags": 1,
+          "per1000": 0.0022
+        },
+        {
+          "ruleId": "harper.Nonetheless",
+          "category": "Miscellaneous",
+          "flags": 1,
+          "per1000": 0.0022
+        },
+        {
+          "ruleId": "harper.OceansAndSeas",
+          "category": "Capitalization",
+          "flags": 1,
+          "per1000": 0.0022
+        },
+        {
+          "ruleId": "harper.OldestInTheBook",
+          "category": "Usage",
+          "flags": 1,
+          "per1000": 0.0022
+        },
+        {
+          "ruleId": "harper.OutOfDate",
+          "category": "Miscellaneous",
+          "flags": 1,
+          "per1000": 0.0022
+        },
+        {
+          "ruleId": "harper.Oxymorons",
+          "category": "Miscellaneous",
+          "flags": 1,
+          "per1000": 0.0022
+        },
+        {
+          "ruleId": "harper.PronounContraction",
+          "category": "WordChoice",
+          "flags": 1,
+          "per1000": 0.0022
+        },
+        {
+          "ruleId": "harper.RackOnesBrain",
+          "category": "Usage",
+          "flags": 1,
+          "per1000": 0.0022
+        },
+        {
+          "ruleId": "harper.Roundabout",
+          "category": "Miscellaneous",
+          "flags": 1,
+          "per1000": 0.0022
+        },
+        {
+          "ruleId": "harper.SinceDuration",
+          "category": "Miscellaneous",
+          "flags": 1,
+          "per1000": 0.0022
+        },
+        {
+          "ruleId": "harper.SingleBe",
+          "category": "Grammar",
+          "flags": 1,
+          "per1000": 0.0022
+        },
+        {
+          "ruleId": "harper.SufficeItToSay",
+          "category": "Usage",
+          "flags": 1,
+          "per1000": 0.0022
+        },
+        {
+          "ruleId": "harper.ThatThan",
+          "category": "Typo",
+          "flags": 1,
+          "per1000": 0.0022
+        },
+        {
+          "ruleId": "harper.TheHowWhy",
+          "category": "Miscellaneous",
+          "flags": 1,
+          "per1000": 0.0022
+        },
+        {
+          "ruleId": "harper.TheMy",
+          "category": "Repetition",
+          "flags": 1,
+          "per1000": 0.0022
+        },
+        {
+          "ruleId": "harper.TheirToThere",
+          "category": "Grammar",
+          "flags": 1,
+          "per1000": 0.0022
+        },
+        {
+          "ruleId": "harper.ThenThan",
+          "category": "Miscellaneous",
+          "flags": 1,
+          "per1000": 0.0022
+        }
+      ],
+      "planted": [
+        {
+          "category": "typo",
+          "planted": 500,
+          "checked": 500,
+          "caught": 469,
+          "firstFixRight": 354,
+          "fixInTop5": 425,
+          "catchRate": 0.938,
+          "firstFixRate": 0.7548,
+          "top5FixRate": 0.9062
+        },
+        {
+          "category": "confusable",
+          "planted": 500,
+          "checked": 500,
+          "caught": 186,
+          "firstFixRight": 181,
+          "fixInTop5": 181,
+          "catchRate": 0.372,
+          "firstFixRate": 0.9731,
+          "top5FixRate": 0.9731
+        },
+        {
+          "category": "a-an",
+          "planted": 500,
+          "checked": 500,
+          "caught": 482,
+          "firstFixRight": 478,
+          "fixInTop5": 478,
+          "catchRate": 0.964,
+          "firstFixRate": 0.9917,
+          "top5FixRate": 0.9917
+        },
+        {
+          "category": "repeated-word",
+          "planted": 500,
+          "checked": 500,
+          "caught": 322,
+          "firstFixRight": 320,
+          "fixInTop5": 320,
+          "catchRate": 0.644,
+          "firstFixRate": 0.9938,
+          "top5FixRate": 0.9938
+        },
+        {
+          "category": "agreement",
+          "planted": 500,
+          "checked": 500,
+          "caught": 348,
+          "firstFixRight": 241,
+          "fixInTop5": 241,
+          "catchRate": 0.696,
+          "firstFixRate": 0.6925,
+          "top5FixRate": 0.6925
+        },
+        {
+          "category": "dialogue-punctuation",
+          "planted": 500,
+          "checked": 500,
+          "caught": 2,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0.004,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        }
+      ],
+      "flagsPer1000": 40.169
+    },
+    {
+      "corpus": "calibre",
+      "split": "test",
+      "books": 8,
+      "paragraphs": 7517,
+      "uncheckedParagraphs": 0,
+      "words": 240253,
+      "flags": 8692,
+      "confirmedRealErrors": 0,
+      "rules": [
+        {
+          "ruleId": "harper.SpellCheck",
+          "category": "Spelling",
+          "flags": 7665,
+          "per1000": 31.9039
+        },
+        {
+          "ruleId": "harper.SplitWords",
+          "category": "Typo",
+          "flags": 359,
+          "per1000": 1.4943
+        },
+        {
+          "ruleId": "harper.AvoidCurses",
+          "category": "WordChoice",
+          "flags": 109,
+          "per1000": 0.4537
+        },
+        {
+          "ruleId": "harper.MassNouns",
+          "category": "Agreement",
+          "flags": 69,
+          "per1000": 0.2872
+        },
+        {
+          "ruleId": "harper.SentenceCapitalization",
+          "category": "Capitalization",
+          "flags": 68,
+          "per1000": 0.283
+        },
+        {
+          "ruleId": "harper.CompoundNouns",
+          "category": "WordChoice",
+          "flags": 46,
+          "per1000": 0.1915
+        },
+        {
+          "ruleId": "harper.OrthographicConsistency",
+          "category": "Capitalization",
+          "flags": 43,
+          "per1000": 0.179
+        },
+        {
+          "ruleId": "harper.PronounVerbAgreement",
+          "category": "Agreement",
+          "flags": 38,
+          "per1000": 0.1582
+        },
+        {
+          "ruleId": "harper.MissingPreposition",
+          "category": "Miscellaneous",
+          "flags": 32,
+          "per1000": 0.1332
+        },
+        {
+          "ruleId": "harper.DisjointPrefixes",
+          "category": "Spelling",
+          "flags": 23,
+          "per1000": 0.0957
+        },
+        {
+          "ruleId": "harper.YehToYeah",
+          "category": "Spelling",
+          "flags": 23,
+          "per1000": 0.0957
+        },
+        {
+          "ruleId": "harper.AnA",
+          "category": "Miscellaneous",
+          "flags": 22,
+          "per1000": 0.0916
+        },
+        {
+          "ruleId": "harper.DiscourseMarkers",
+          "category": "Punctuation",
+          "flags": 14,
+          "per1000": 0.0583
+        },
+        {
+          "ruleId": "harper.PossessiveYour",
+          "category": "WordChoice",
+          "flags": 12,
+          "per1000": 0.0499
+        },
+        {
+          "ruleId": "harper.MissingTo",
+          "category": "WordChoice",
+          "flags": 11,
+          "per1000": 0.0458
+        },
+        {
+          "ruleId": "harper.LetsConfusion",
+          "category": "WordChoice",
+          "flags": 10,
+          "per1000": 0.0416
+        },
+        {
+          "ruleId": "harper.RepeatedWords",
+          "category": "Repetition",
+          "flags": 10,
+          "per1000": 0.0416
+        },
+        {
+          "ruleId": "harper.ModalBeAdjective",
+          "category": "Miscellaneous",
+          "flags": 9,
+          "per1000": 0.0375
+        },
+        {
+          "ruleId": "harper.QuantifierNumeralConflict",
+          "category": "Grammar",
+          "flags": 9,
+          "per1000": 0.0375
+        },
+        {
+          "ruleId": "harper.ToTwoToo",
+          "category": "WordChoice",
+          "flags": 9,
+          "per1000": 0.0375
+        },
+        {
+          "ruleId": "harper.PronounInflectionBe",
+          "category": "Agreement",
+          "flags": 8,
+          "per1000": 0.0333
+        },
+        {
+          "ruleId": "harper.YourPredicateAdjective",
+          "category": "Grammar",
+          "flags": 8,
+          "per1000": 0.0333
+        },
+        {
+          "ruleId": "harper.FillerWords",
+          "category": "Miscellaneous",
+          "flags": 7,
+          "per1000": 0.0291
+        },
+        {
+          "ruleId": "harper.Gonna",
+          "category": "Miscellaneous",
+          "flags": 6,
+          "per1000": 0.025
+        },
+        {
+          "ruleId": "harper.Gotta",
+          "category": "Miscellaneous",
+          "flags": 6,
+          "per1000": 0.025
+        },
+        {
+          "ruleId": "harper.WhomSubjectOfVerb",
+          "category": "Grammar",
+          "flags": 5,
+          "per1000": 0.0208
+        },
+        {
+          "ruleId": "harper.MergeWords",
+          "category": "WordChoice",
+          "flags": 4,
+          "per1000": 0.0166
+        },
+        {
+          "ruleId": "harper.TheyToThem",
+          "category": "Grammar",
+          "flags": 4,
+          "per1000": 0.0166
+        },
+        {
+          "ruleId": "harper.FindOut",
+          "category": "WordChoice",
+          "flags": 3,
+          "per1000": 0.0125
+        },
+        {
+          "ruleId": "harper.ItsPossessive",
+          "category": "Agreement",
+          "flags": 3,
+          "per1000": 0.0125
+        },
+        {
+          "ruleId": "harper.ModalOf",
+          "category": "WordChoice",
+          "flags": 3,
+          "per1000": 0.0125
+        },
+        {
+          "ruleId": "harper.SingleBe",
+          "category": "Grammar",
+          "flags": 3,
+          "per1000": 0.0125
+        },
+        {
+          "ruleId": "harper.TheirToThere",
+          "category": "Grammar",
+          "flags": 3,
+          "per1000": 0.0125
+        },
+        {
+          "ruleId": "harper.ThereIsAgreement",
+          "category": "Agreement",
+          "flags": 3,
+          "per1000": 0.0125
+        },
+        {
+          "ruleId": "harper.AWhile",
+          "category": "Typo",
+          "flags": 2,
+          "per1000": 0.0083
+        },
+        {
+          "ruleId": "harper.DoinToDoing",
+          "category": "Typo",
+          "flags": 2,
+          "per1000": 0.0083
+        },
+        {
+          "ruleId": "harper.DoubleModal",
+          "category": "Miscellaneous",
+          "flags": 2,
+          "per1000": 0.0083
+        },
+        {
+          "ruleId": "harper.MultipleSequentialPronouns",
+          "category": "Repetition",
+          "flags": 2,
+          "per1000": 0.0083
+        },
+        {
+          "ruleId": "harper.QuantifierNeedsOf",
+          "category": "Miscellaneous",
+          "flags": 2,
+          "per1000": 0.0083
+        },
+        {
+          "ruleId": "harper.RegularIrregulars",
+          "category": "Grammar",
+          "flags": 2,
+          "per1000": 0.0083
+        },
+        {
+          "ruleId": "harper.SimplePastToPastParticiple",
+          "category": "Grammar",
+          "flags": 2,
+          "per1000": 0.0083
+        },
+        {
+          "ruleId": "harper.ThereToTheir",
+          "category": "Grammar",
+          "flags": 2,
+          "per1000": 0.0083
+        },
+        {
+          "ruleId": "harper.WrongNegative",
+          "category": "WordChoice",
+          "flags": 2,
+          "per1000": 0.0083
+        },
+        {
+          "ruleId": "harper.BellowBelow",
+          "category": "Malapropism",
+          "flags": 1,
+          "per1000": 0.0042
+        },
+        {
+          "ruleId": "harper.BetterOffPhrase",
+          "category": "Grammar",
+          "flags": 1,
+          "per1000": 0.0042
+        },
+        {
+          "ruleId": "harper.BuiltIn",
+          "category": "Punctuation",
+          "flags": 1,
+          "per1000": 0.0042
+        },
+        {
+          "ruleId": "harper.CapitalizePersonalPronouns",
+          "category": "Capitalization",
+          "flags": 1,
+          "per1000": 0.0042
+        },
+        {
+          "ruleId": "harper.CommaFixes",
+          "category": "Punctuation",
+          "flags": 1,
+          "per1000": 0.0042
+        },
+        {
+          "ruleId": "harper.Everyone",
+          "category": "Miscellaneous",
+          "flags": 1,
+          "per1000": 0.0042
+        },
+        {
+          "ruleId": "harper.FeelFell",
+          "category": "Typo",
+          "flags": 1,
+          "per1000": 0.0042
+        },
+        {
+          "ruleId": "harper.ForNoun",
+          "category": "WordChoice",
+          "flags": 1,
+          "per1000": 0.0042
+        },
+        {
+          "ruleId": "harper.GoodAt",
+          "category": "Usage",
+          "flags": 1,
+          "per1000": 0.0042
+        },
+        {
+          "ruleId": "harper.HadOf",
+          "category": "Grammar",
+          "flags": 1,
+          "per1000": 0.0042
+        },
+        {
+          "ruleId": "harper.InflectedVerbAfterTo",
+          "category": "WordChoice",
+          "flags": 1,
+          "per1000": 0.0042
+        },
+        {
+          "ruleId": "harper.InterestedIn",
+          "category": "Usage",
+          "flags": 1,
+          "per1000": 0.0042
+        },
+        {
+          "ruleId": "harper.LeftRightHand",
+          "category": "Miscellaneous",
+          "flags": 1,
+          "per1000": 0.0042
+        },
+        {
+          "ruleId": "harper.MissingDeterminer",
+          "category": "Grammar",
+          "flags": 1,
+          "per1000": 0.0042
+        },
+        {
+          "ruleId": "harper.NounVerbConfusion",
+          "category": "WordChoice",
+          "flags": 1,
+          "per1000": 0.0042
+        },
+        {
+          "ruleId": "harper.OceansAndSeas",
+          "category": "Capitalization",
+          "flags": 1,
+          "per1000": 0.0042
+        },
+        {
+          "ruleId": "harper.OneOfTheSingular",
+          "category": "Usage",
+          "flags": 1,
+          "per1000": 0.0042
+        },
+        {
+          "ruleId": "harper.Overall",
+          "category": "Miscellaneous",
+          "flags": 1,
+          "per1000": 0.0042
+        },
+        {
+          "ruleId": "harper.QuestionVerbAgreement",
+          "category": "Agreement",
+          "flags": 1,
+          "per1000": 0.0042
+        },
+        {
+          "ruleId": "harper.QuiteQuiet",
+          "category": "Typo",
+          "flags": 1,
+          "per1000": 0.0042
+        },
+        {
+          "ruleId": "harper.RedundantThat",
+          "category": "Repetition",
+          "flags": 1,
+          "per1000": 0.0042
+        },
+        {
+          "ruleId": "harper.SubjunctiveWasToWere",
+          "category": "Grammar",
+          "flags": 1,
+          "per1000": 0.0042
+        },
+        {
+          "ruleId": "harper.ThatChallenged",
+          "category": "Miscellaneous",
+          "flags": 1,
+          "per1000": 0.0042
+        },
+        {
+          "ruleId": "harper.ThatThan",
+          "category": "Typo",
+          "flags": 1,
+          "per1000": 0.0042
+        },
+        {
+          "ruleId": "harper.ToTo",
+          "category": "Typo",
+          "flags": 1,
+          "per1000": 0.0042
+        },
+        {
+          "ruleId": "harper.Wanna",
+          "category": "Miscellaneous",
+          "flags": 1,
+          "per1000": 0.0042
+        },
+        {
+          "ruleId": "harper.WillNonLemma",
+          "category": "Grammar",
+          "flags": 1,
+          "per1000": 0.0042
+        }
+      ],
+      "planted": [
+        {
+          "category": "typo",
+          "planted": 500,
+          "checked": 500,
+          "caught": 435,
+          "firstFixRight": 317,
+          "fixInTop5": 383,
+          "catchRate": 0.87,
+          "firstFixRate": 0.7287,
+          "top5FixRate": 0.8805
+        },
+        {
+          "category": "confusable",
+          "planted": 500,
+          "checked": 500,
+          "caught": 157,
+          "firstFixRight": 155,
+          "fixInTop5": 155,
+          "catchRate": 0.314,
+          "firstFixRate": 0.9873,
+          "top5FixRate": 0.9873
+        },
+        {
+          "category": "a-an",
+          "planted": 500,
+          "checked": 500,
+          "caught": 445,
+          "firstFixRight": 443,
+          "fixInTop5": 443,
+          "catchRate": 0.89,
+          "firstFixRate": 0.9955,
+          "top5FixRate": 0.9955
+        },
+        {
+          "category": "repeated-word",
+          "planted": 500,
+          "checked": 500,
+          "caught": 296,
+          "firstFixRight": 293,
+          "fixInTop5": 293,
+          "catchRate": 0.592,
+          "firstFixRate": 0.9899,
+          "top5FixRate": 0.9899
+        },
+        {
+          "category": "agreement",
+          "planted": 500,
+          "checked": 500,
+          "caught": 290,
+          "firstFixRight": 190,
+          "fixInTop5": 190,
+          "catchRate": 0.58,
+          "firstFixRate": 0.6552,
+          "top5FixRate": 0.6552
+        },
+        {
+          "category": "dialogue-punctuation",
+          "planted": 500,
+          "checked": 500,
+          "caught": 1,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0.002,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        }
+      ],
+      "flagsPer1000": 36.1785
+    },
+    {
+      "corpus": "gutenberg",
+      "split": "dev",
+      "books": 29,
+      "paragraphs": 17652,
+      "uncheckedParagraphs": 0,
+      "words": 859568,
+      "flags": 14390,
+      "confirmedRealErrors": 0,
+      "rules": [
+        {
+          "ruleId": "harper.SpellCheck",
+          "category": "Spelling",
+          "flags": 11683,
+          "per1000": 13.5917
+        },
+        {
+          "ruleId": "harper.SplitWords",
+          "category": "Typo",
+          "flags": 443,
+          "per1000": 0.5154
+        },
+        {
+          "ruleId": "harper.SentenceCapitalization",
+          "category": "Capitalization",
+          "flags": 338,
+          "per1000": 0.3932
+        },
+        {
+          "ruleId": "harper.PronounVerbAgreement",
+          "category": "Agreement",
+          "flags": 282,
+          "per1000": 0.3281
+        },
+        {
+          "ruleId": "harper.MassNouns",
+          "category": "Agreement",
+          "flags": 218,
+          "per1000": 0.2536
+        },
+        {
+          "ruleId": "harper.CompoundNouns",
+          "category": "WordChoice",
+          "flags": 166,
+          "per1000": 0.1931
+        },
+        {
+          "ruleId": "harper.MissingPreposition",
+          "category": "Miscellaneous",
+          "flags": 127,
+          "per1000": 0.1477
+        },
+        {
+          "ruleId": "harper.DisjointPrefixes",
+          "category": "Spelling",
+          "flags": 102,
+          "per1000": 0.1187
+        },
+        {
+          "ruleId": "harper.AnA",
+          "category": "Miscellaneous",
+          "flags": 101,
+          "per1000": 0.1175
+        },
+        {
+          "ruleId": "harper.DiscourseMarkers",
+          "category": "Punctuation",
+          "flags": 91,
+          "per1000": 0.1059
+        },
+        {
+          "ruleId": "harper.PossessiveYour",
+          "category": "WordChoice",
+          "flags": 49,
+          "per1000": 0.057
+        },
+        {
+          "ruleId": "harper.QuantifierNumeralConflict",
+          "category": "Grammar",
+          "flags": 44,
+          "per1000": 0.0512
+        },
+        {
+          "ruleId": "harper.RegularIrregulars",
+          "category": "Grammar",
+          "flags": 42,
+          "per1000": 0.0489
+        },
+        {
+          "ruleId": "harper.RepeatedWords",
+          "category": "Repetition",
+          "flags": 41,
+          "per1000": 0.0477
+        },
+        {
+          "ruleId": "harper.Someone",
+          "category": "Miscellaneous",
+          "flags": 40,
+          "per1000": 0.0465
+        },
+        {
+          "ruleId": "harper.PronounInflectionBe",
+          "category": "Agreement",
+          "flags": 37,
+          "per1000": 0.043
+        },
+        {
+          "ruleId": "harper.TheyToThem",
+          "category": "Grammar",
+          "flags": 35,
+          "per1000": 0.0407
+        },
+        {
+          "ruleId": "harper.ToTwoToo",
+          "category": "WordChoice",
+          "flags": 35,
+          "per1000": 0.0407
+        },
+        {
+          "ruleId": "harper.MultipleSequentialPronouns",
+          "category": "Repetition",
+          "flags": 31,
+          "per1000": 0.0361
+        },
+        {
+          "ruleId": "harper.Everyone",
+          "category": "Miscellaneous",
+          "flags": 30,
+          "per1000": 0.0349
+        },
+        {
+          "ruleId": "harper.AvoidCurses",
+          "category": "WordChoice",
+          "flags": 24,
+          "per1000": 0.0279
+        },
+        {
+          "ruleId": "harper.MissingTo",
+          "category": "WordChoice",
+          "flags": 23,
+          "per1000": 0.0268
+        },
+        {
+          "ruleId": "harper.QuiteQuiet",
+          "category": "Typo",
+          "flags": 22,
+          "per1000": 0.0256
+        },
+        {
+          "ruleId": "harper.WrongNegative",
+          "category": "WordChoice",
+          "flags": 21,
+          "per1000": 0.0244
+        },
+        {
+          "ruleId": "harper.AWhile",
+          "category": "Typo",
+          "flags": 20,
+          "per1000": 0.0233
+        },
+        {
+          "ruleId": "harper.ThereToTheir",
+          "category": "Grammar",
+          "flags": 19,
+          "per1000": 0.0221
+        },
+        {
+          "ruleId": "harper.ModalBeAdjective",
+          "category": "Miscellaneous",
+          "flags": 17,
+          "per1000": 0.0198
+        },
+        {
+          "ruleId": "harper.OneOfTheSingular",
+          "category": "Usage",
+          "flags": 16,
+          "per1000": 0.0186
+        },
+        {
+          "ruleId": "harper.SimplePastToPastParticiple",
+          "category": "Grammar",
+          "flags": 15,
+          "per1000": 0.0175
+        },
+        {
+          "ruleId": "harper.NominalWants",
+          "category": "Miscellaneous",
+          "flags": 11,
+          "per1000": 0.0128
+        },
+        {
+          "ruleId": "harper.OrthographicConsistency",
+          "category": "Capitalization",
+          "flags": 11,
+          "per1000": 0.0128
+        },
+        {
+          "ruleId": "harper.FindOut",
+          "category": "WordChoice",
+          "flags": 10,
+          "per1000": 0.0116
+        },
+        {
+          "ruleId": "harper.Nonetheless",
+          "category": "Miscellaneous",
+          "flags": 9,
+          "per1000": 0.0105
+        },
+        {
+          "ruleId": "harper.YeaToYeah",
+          "category": "Spelling",
+          "flags": 9,
+          "per1000": 0.0105
+        },
+        {
+          "ruleId": "harper.DoubleModal",
+          "category": "Miscellaneous",
+          "flags": 8,
+          "per1000": 0.0093
+        },
+        {
+          "ruleId": "harper.ForNoun",
+          "category": "WordChoice",
+          "flags": 8,
+          "per1000": 0.0093
+        },
+        {
+          "ruleId": "harper.HadOf",
+          "category": "Grammar",
+          "flags": 8,
+          "per1000": 0.0093
+        },
+        {
+          "ruleId": "harper.LetsConfusion",
+          "category": "WordChoice",
+          "flags": 8,
+          "per1000": 0.0093
+        },
+        {
+          "ruleId": "harper.ThereIsAgreement",
+          "category": "Agreement",
+          "flags": 8,
+          "per1000": 0.0093
+        },
+        {
+          "ruleId": "harper.WhomSubjectOfVerb",
+          "category": "Grammar",
+          "flags": 8,
+          "per1000": 0.0093
+        },
+        {
+          "ruleId": "harper.Overall",
+          "category": "Miscellaneous",
+          "flags": 7,
+          "per1000": 0.0081
+        },
+        {
+          "ruleId": "harper.RedundantThat",
+          "category": "Repetition",
+          "flags": 7,
+          "per1000": 0.0081
+        },
+        {
+          "ruleId": "harper.TheirToTheyre",
+          "category": "Grammar",
+          "flags": 7,
+          "per1000": 0.0081
+        },
+        {
+          "ruleId": "harper.MergeWords",
+          "category": "WordChoice",
+          "flags": 6,
+          "per1000": 0.007
+        },
+        {
+          "ruleId": "harper.ThatThan",
+          "category": "Typo",
+          "flags": 6,
+          "per1000": 0.007
+        },
+        {
+          "ruleId": "harper.WereWhere",
+          "category": "Typo",
+          "flags": 6,
+          "per1000": 0.007
+        },
+        {
+          "ruleId": "harper.Worthwhile",
+          "category": "Miscellaneous",
+          "flags": 6,
+          "per1000": 0.007
+        },
+        {
+          "ruleId": "harper.YourPredicateAdjective",
+          "category": "Grammar",
+          "flags": 6,
+          "per1000": 0.007
+        },
+        {
+          "ruleId": "harper.CapitalizePersonalPronouns",
+          "category": "Capitalization",
+          "flags": 5,
+          "per1000": 0.0058
+        },
+        {
+          "ruleId": "harper.Insofar",
+          "category": "Miscellaneous",
+          "flags": 5,
+          "per1000": 0.0058
+        },
+        {
+          "ruleId": "harper.LeftRightHand",
+          "category": "Miscellaneous",
+          "flags": 5,
+          "per1000": 0.0058
+        },
+        {
+          "ruleId": "harper.ModalOf",
+          "category": "WordChoice",
+          "flags": 5,
+          "per1000": 0.0058
+        },
+        {
+          "ruleId": "harper.WillNonLemma",
+          "category": "Grammar",
+          "flags": 5,
+          "per1000": 0.0058
+        },
+        {
+          "ruleId": "harper.ItsContraction",
+          "category": "Punctuation",
+          "flags": 4,
+          "per1000": 0.0047
+        },
+        {
+          "ruleId": "harper.Roundabout",
+          "category": "Miscellaneous",
+          "flags": 4,
+          "per1000": 0.0047
+        },
+        {
+          "ruleId": "harper.Therein",
+          "category": "Miscellaneous",
+          "flags": 4,
+          "per1000": 0.0047
+        },
+        {
+          "ruleId": "harper.UpdatePlaceNames",
+          "category": "WordChoice",
+          "flags": 4,
+          "per1000": 0.0047
+        },
+        {
+          "ruleId": "harper.AskNoPreposition",
+          "category": "WordChoice",
+          "flags": 3,
+          "per1000": 0.0035
+        },
+        {
+          "ruleId": "harper.ForAWhile",
+          "category": "Typo",
+          "flags": 3,
+          "per1000": 0.0035
+        },
+        {
+          "ruleId": "harper.HowTo",
+          "category": "WordChoice",
+          "flags": 3,
+          "per1000": 0.0035
+        },
+        {
+          "ruleId": "harper.However",
+          "category": "Miscellaneous",
+          "flags": 3,
+          "per1000": 0.0035
+        },
+        {
+          "ruleId": "harper.NorModalPronoun",
+          "category": "Grammar",
+          "flags": 3,
+          "per1000": 0.0035
+        },
+        {
+          "ruleId": "harper.NounVerbConfusion",
+          "category": "WordChoice",
+          "flags": 3,
+          "per1000": 0.0035
+        },
+        {
+          "ruleId": "harper.PronounContraction",
+          "category": "WordChoice",
+          "flags": 3,
+          "per1000": 0.0035
+        },
+        {
+          "ruleId": "harper.QuestionVerbAgreement",
+          "category": "Agreement",
+          "flags": 3,
+          "per1000": 0.0035
+        },
+        {
+          "ruleId": "harper.SubjunctiveWasToWere",
+          "category": "Grammar",
+          "flags": 3,
+          "per1000": 0.0035
+        },
+        {
+          "ruleId": "harper.TheirToThere",
+          "category": "Grammar",
+          "flags": 3,
+          "per1000": 0.0035
+        },
+        {
+          "ruleId": "harper.AdjectiveDoubleDegree",
+          "category": "WordChoice",
+          "flags": 2,
+          "per1000": 0.0023
+        },
+        {
+          "ruleId": "harper.Bollocks",
+          "category": "Spelling",
+          "flags": 2,
+          "per1000": 0.0023
+        },
+        {
+          "ruleId": "harper.GoodAt",
+          "category": "Usage",
+          "flags": 2,
+          "per1000": 0.0023
+        },
+        {
+          "ruleId": "harper.IfWouldve",
+          "category": "Nonstandard",
+          "flags": 2,
+          "per1000": 0.0023
+        },
+        {
+          "ruleId": "harper.InDemandInDepth",
+          "category": "Punctuation",
+          "flags": 2,
+          "per1000": 0.0023
+        },
+        {
+          "ruleId": "harper.InflectedVerbAfterTo",
+          "category": "WordChoice",
+          "flags": 2,
+          "per1000": 0.0023
+        },
+        {
+          "ruleId": "harper.Nothing",
+          "category": "Miscellaneous",
+          "flags": 2,
+          "per1000": 0.0023
+        },
+        {
+          "ruleId": "harper.OnesSelf",
+          "category": "Usage",
+          "flags": 2,
+          "per1000": 0.0023
+        },
+        {
+          "ruleId": "harper.PhrasalVerbAsCompoundNoun",
+          "category": "WordChoice",
+          "flags": 2,
+          "per1000": 0.0023
+        },
+        {
+          "ruleId": "harper.Straightforward",
+          "category": "Miscellaneous",
+          "flags": 2,
+          "per1000": 0.0023
+        },
+        {
+          "ruleId": "harper.The",
+          "category": "Typo",
+          "flags": 2,
+          "per1000": 0.0023
+        },
+        {
+          "ruleId": "harper.VeryUnique",
+          "category": "WordChoice",
+          "flags": 2,
+          "per1000": 0.0023
+        },
+        {
+          "ruleId": "harper.WayTooAdjective",
+          "category": "Miscellaneous",
+          "flags": 2,
+          "per1000": 0.0023
+        },
+        {
+          "ruleId": "harper.AndTheLike",
+          "category": "Usage",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "harper.AsHow",
+          "category": "Usage",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "harper.DayOneNames",
+          "category": "Capitalization",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "harper.DidPast",
+          "category": "Grammar",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "harper.DoinToDoing",
+          "category": "Typo",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "harper.EverPresent",
+          "category": "Punctuation",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "harper.Everybody",
+          "category": "Miscellaneous",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "harper.FeelFell",
+          "category": "Typo",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "harper.FillerWords",
+          "category": "Miscellaneous",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "harper.FriendOfMe",
+          "category": "Grammar",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "harper.HopHope",
+          "category": "WordChoice",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "harper.InterestedIn",
+          "category": "Usage",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "harper.IntroCueCommaBeforeThanks",
+          "category": "Punctuation",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "harper.ItTimeAuxiliary",
+          "category": "Grammar",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "harper.Months",
+          "category": "Miscellaneous",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "harper.Myself",
+          "category": "Miscellaneous",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "harper.NationalCapitals",
+          "category": "Capitalization",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "harper.NoLonger",
+          "category": "Usage",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "harper.NoLongerPronoun",
+          "category": "WordOrder",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "harper.OceansAndSeas",
+          "category": "Capitalization",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "harper.OnFloor",
+          "category": "WordChoice",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "harper.OutOfDate",
+          "category": "Miscellaneous",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "harper.PassedPast",
+          "category": "WordChoice",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "harper.SingleBe",
+          "category": "Grammar",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "harper.SubjectPronoun",
+          "category": "Grammar",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "harper.SufficeItToSay",
+          "category": "Usage",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "harper.TheHowWhy",
+          "category": "Miscellaneous",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "harper.ThenThan",
+          "category": "Miscellaneous",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "harper.Thereupon",
+          "category": "Miscellaneous",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "harper.TransposedSpace",
+          "category": "Typo",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "harper.WillContain",
+          "category": "Agreement",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "harper.WorthToDo",
+          "category": "Grammar",
+          "flags": 1,
+          "per1000": 0.0012
+        }
+      ],
+      "planted": [
+        {
+          "category": "typo",
+          "planted": 500,
+          "checked": 500,
+          "caught": 433,
+          "firstFixRight": 324,
+          "fixInTop5": 384,
+          "catchRate": 0.866,
+          "firstFixRate": 0.7483,
+          "top5FixRate": 0.8868
+        },
+        {
+          "category": "confusable",
+          "planted": 500,
+          "checked": 500,
+          "caught": 173,
+          "firstFixRight": 166,
+          "fixInTop5": 166,
+          "catchRate": 0.346,
+          "firstFixRate": 0.9595,
+          "top5FixRate": 0.9595
+        },
+        {
+          "category": "a-an",
+          "planted": 500,
+          "checked": 500,
+          "caught": 427,
+          "firstFixRight": 426,
+          "fixInTop5": 426,
+          "catchRate": 0.854,
+          "firstFixRate": 0.9977,
+          "top5FixRate": 0.9977
+        },
+        {
+          "category": "repeated-word",
+          "planted": 500,
+          "checked": 500,
+          "caught": 294,
+          "firstFixRight": 286,
+          "fixInTop5": 289,
+          "catchRate": 0.588,
+          "firstFixRate": 0.9728,
+          "top5FixRate": 0.983
+        },
+        {
+          "category": "agreement",
+          "planted": 500,
+          "checked": 500,
+          "caught": 307,
+          "firstFixRight": 206,
+          "fixInTop5": 206,
+          "catchRate": 0.614,
+          "firstFixRate": 0.671,
+          "top5FixRate": 0.671
+        },
+        {
+          "category": "dialogue-punctuation",
+          "planted": 500,
+          "checked": 500,
+          "caught": 1,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0.002,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        }
+      ],
+      "flagsPer1000": 16.741
+    },
+    {
+      "corpus": "gutenberg",
+      "split": "test",
+      "books": 11,
+      "paragraphs": 5481,
+      "uncheckedParagraphs": 0,
+      "words": 304864,
+      "flags": 4207,
+      "confirmedRealErrors": 0,
+      "rules": [
+        {
+          "ruleId": "harper.SpellCheck",
+          "category": "Spelling",
+          "flags": 3267,
+          "per1000": 10.7163
+        },
+        {
+          "ruleId": "harper.SplitWords",
+          "category": "Typo",
+          "flags": 173,
+          "per1000": 0.5675
+        },
+        {
+          "ruleId": "harper.CompoundNouns",
+          "category": "WordChoice",
+          "flags": 82,
+          "per1000": 0.269
+        },
+        {
+          "ruleId": "harper.PronounVerbAgreement",
+          "category": "Agreement",
+          "flags": 77,
+          "per1000": 0.2526
+        },
+        {
+          "ruleId": "harper.SentenceCapitalization",
+          "category": "Capitalization",
+          "flags": 72,
+          "per1000": 0.2362
+        },
+        {
+          "ruleId": "harper.MissingPreposition",
+          "category": "Miscellaneous",
+          "flags": 51,
+          "per1000": 0.1673
+        },
+        {
+          "ruleId": "harper.MassNouns",
+          "category": "Agreement",
+          "flags": 47,
+          "per1000": 0.1542
+        },
+        {
+          "ruleId": "harper.DisjointPrefixes",
+          "category": "Spelling",
+          "flags": 36,
+          "per1000": 0.1181
+        },
+        {
+          "ruleId": "harper.DiscourseMarkers",
+          "category": "Punctuation",
+          "flags": 31,
+          "per1000": 0.1017
+        },
+        {
+          "ruleId": "harper.YeaToYeah",
+          "category": "Spelling",
+          "flags": 29,
+          "per1000": 0.0951
+        },
+        {
+          "ruleId": "harper.OrthographicConsistency",
+          "category": "Capitalization",
+          "flags": 25,
+          "per1000": 0.082
+        },
+        {
+          "ruleId": "harper.AvoidCurses",
+          "category": "WordChoice",
+          "flags": 23,
+          "per1000": 0.0754
+        },
+        {
+          "ruleId": "harper.AnA",
+          "category": "Miscellaneous",
+          "flags": 17,
+          "per1000": 0.0558
+        },
+        {
+          "ruleId": "harper.PossessiveYour",
+          "category": "WordChoice",
+          "flags": 17,
+          "per1000": 0.0558
+        },
+        {
+          "ruleId": "harper.RepeatedWords",
+          "category": "Repetition",
+          "flags": 16,
+          "per1000": 0.0525
+        },
+        {
+          "ruleId": "harper.FillerWords",
+          "category": "Miscellaneous",
+          "flags": 15,
+          "per1000": 0.0492
+        },
+        {
+          "ruleId": "harper.PronounInflectionBe",
+          "category": "Agreement",
+          "flags": 14,
+          "per1000": 0.0459
+        },
+        {
+          "ruleId": "harper.MissingTo",
+          "category": "WordChoice",
+          "flags": 13,
+          "per1000": 0.0426
+        },
+        {
+          "ruleId": "harper.SimplePastToPastParticiple",
+          "category": "Grammar",
+          "flags": 11,
+          "per1000": 0.0361
+        },
+        {
+          "ruleId": "harper.TheyToThem",
+          "category": "Grammar",
+          "flags": 10,
+          "per1000": 0.0328
+        },
+        {
+          "ruleId": "harper.AWhile",
+          "category": "Typo",
+          "flags": 9,
+          "per1000": 0.0295
+        },
+        {
+          "ruleId": "harper.OneOfTheSingular",
+          "category": "Usage",
+          "flags": 9,
+          "per1000": 0.0295
+        },
+        {
+          "ruleId": "harper.QuiteQuiet",
+          "category": "Typo",
+          "flags": 9,
+          "per1000": 0.0295
+        },
+        {
+          "ruleId": "harper.RedundantThat",
+          "category": "Repetition",
+          "flags": 8,
+          "per1000": 0.0262
+        },
+        {
+          "ruleId": "harper.Everyone",
+          "category": "Miscellaneous",
+          "flags": 7,
+          "per1000": 0.023
+        },
+        {
+          "ruleId": "harper.ToTwoToo",
+          "category": "WordChoice",
+          "flags": 7,
+          "per1000": 0.023
+        },
+        {
+          "ruleId": "harper.RegularIrregulars",
+          "category": "Grammar",
+          "flags": 6,
+          "per1000": 0.0197
+        },
+        {
+          "ruleId": "harper.LeftRightHand",
+          "category": "Miscellaneous",
+          "flags": 5,
+          "per1000": 0.0164
+        },
+        {
+          "ruleId": "harper.MultipleSequentialPronouns",
+          "category": "Repetition",
+          "flags": 5,
+          "per1000": 0.0164
+        },
+        {
+          "ruleId": "harper.Someone",
+          "category": "Miscellaneous",
+          "flags": 5,
+          "per1000": 0.0164
+        },
+        {
+          "ruleId": "harper.TheirToTheyre",
+          "category": "Grammar",
+          "flags": 5,
+          "per1000": 0.0164
+        },
+        {
+          "ruleId": "harper.ThereIsAgreement",
+          "category": "Agreement",
+          "flags": 5,
+          "per1000": 0.0164
+        },
+        {
+          "ruleId": "harper.ForNoun",
+          "category": "WordChoice",
+          "flags": 4,
+          "per1000": 0.0131
+        },
+        {
+          "ruleId": "harper.ItsPossessive",
+          "category": "Agreement",
+          "flags": 4,
+          "per1000": 0.0131
+        },
+        {
+          "ruleId": "harper.ModalOf",
+          "category": "WordChoice",
+          "flags": 4,
+          "per1000": 0.0131
+        },
+        {
+          "ruleId": "harper.NominalWants",
+          "category": "Miscellaneous",
+          "flags": 4,
+          "per1000": 0.0131
+        },
+        {
+          "ruleId": "harper.ThereToTheir",
+          "category": "Grammar",
+          "flags": 4,
+          "per1000": 0.0131
+        },
+        {
+          "ruleId": "harper.AsHow",
+          "category": "Usage",
+          "flags": 3,
+          "per1000": 0.0098
+        },
+        {
+          "ruleId": "harper.HadOf",
+          "category": "Grammar",
+          "flags": 3,
+          "per1000": 0.0098
+        },
+        {
+          "ruleId": "harper.MergeWords",
+          "category": "WordChoice",
+          "flags": 3,
+          "per1000": 0.0098
+        },
+        {
+          "ruleId": "harper.Nonetheless",
+          "category": "Miscellaneous",
+          "flags": 3,
+          "per1000": 0.0098
+        },
+        {
+          "ruleId": "harper.Roundabout",
+          "category": "Miscellaneous",
+          "flags": 3,
+          "per1000": 0.0098
+        },
+        {
+          "ruleId": "harper.Worthwhile",
+          "category": "Miscellaneous",
+          "flags": 3,
+          "per1000": 0.0098
+        },
+        {
+          "ruleId": "harper.WrongNegative",
+          "category": "WordChoice",
+          "flags": 3,
+          "per1000": 0.0098
+        },
+        {
+          "ruleId": "harper.CapitalizePersonalPronouns",
+          "category": "Capitalization",
+          "flags": 2,
+          "per1000": 0.0066
+        },
+        {
+          "ruleId": "harper.FeelFell",
+          "category": "Typo",
+          "flags": 2,
+          "per1000": 0.0066
+        },
+        {
+          "ruleId": "harper.FindOut",
+          "category": "WordChoice",
+          "flags": 2,
+          "per1000": 0.0066
+        },
+        {
+          "ruleId": "harper.HowTo",
+          "category": "WordChoice",
+          "flags": 2,
+          "per1000": 0.0066
+        },
+        {
+          "ruleId": "harper.InAWhile",
+          "category": "Grammar",
+          "flags": 2,
+          "per1000": 0.0066
+        },
+        {
+          "ruleId": "harper.LetsConfusion",
+          "category": "WordChoice",
+          "flags": 2,
+          "per1000": 0.0066
+        },
+        {
+          "ruleId": "harper.MissingDeterminer",
+          "category": "Grammar",
+          "flags": 2,
+          "per1000": 0.0066
+        },
+        {
+          "ruleId": "harper.NounVerbConfusion",
+          "category": "WordChoice",
+          "flags": 2,
+          "per1000": 0.0066
+        },
+        {
+          "ruleId": "harper.Overall",
+          "category": "Miscellaneous",
+          "flags": 2,
+          "per1000": 0.0066
+        },
+        {
+          "ruleId": "harper.PronounContraction",
+          "category": "WordChoice",
+          "flags": 2,
+          "per1000": 0.0066
+        },
+        {
+          "ruleId": "harper.SubjunctiveWasToWere",
+          "category": "Grammar",
+          "flags": 2,
+          "per1000": 0.0066
+        },
+        {
+          "ruleId": "harper.TheHowWhy",
+          "category": "Miscellaneous",
+          "flags": 2,
+          "per1000": 0.0066
+        },
+        {
+          "ruleId": "harper.ThisTypeOfThing",
+          "category": "Agreement",
+          "flags": 2,
+          "per1000": 0.0066
+        },
+        {
+          "ruleId": "harper.ToSomeDegree",
+          "category": "Eggcorn",
+          "flags": 2,
+          "per1000": 0.0066
+        },
+        {
+          "ruleId": "harper.WhomSubjectOfVerb",
+          "category": "Grammar",
+          "flags": 2,
+          "per1000": 0.0066
+        },
+        {
+          "ruleId": "harper.YehToYeah",
+          "category": "Spelling",
+          "flags": 2,
+          "per1000": 0.0066
+        },
+        {
+          "ruleId": "harper.ABitOfPlural",
+          "category": "Grammar",
+          "flags": 1,
+          "per1000": 0.0033
+        },
+        {
+          "ruleId": "harper.AsEvidentBy",
+          "category": "Grammar",
+          "flags": 1,
+          "per1000": 0.0033
+        },
+        {
+          "ruleId": "harper.DoinToDoing",
+          "category": "Typo",
+          "flags": 1,
+          "per1000": 0.0033
+        },
+        {
+          "ruleId": "harper.DoubleModal",
+          "category": "Miscellaneous",
+          "flags": 1,
+          "per1000": 0.0033
+        },
+        {
+          "ruleId": "harper.EverPresent",
+          "category": "Punctuation",
+          "flags": 1,
+          "per1000": 0.0033
+        },
+        {
+          "ruleId": "harper.ExpandMemoryShorthands",
+          "category": "WordChoice",
+          "flags": 1,
+          "per1000": 0.0033
+        },
+        {
+          "ruleId": "harper.ExpandTimeShorthands",
+          "category": "WordChoice",
+          "flags": 1,
+          "per1000": 0.0033
+        },
+        {
+          "ruleId": "harper.Gotta",
+          "category": "Miscellaneous",
+          "flags": 1,
+          "per1000": 0.0033
+        },
+        {
+          "ruleId": "harper.IAmAgreement",
+          "category": "Agreement",
+          "flags": 1,
+          "per1000": 0.0033
+        },
+        {
+          "ruleId": "harper.IfWouldve",
+          "category": "Nonstandard",
+          "flags": 1,
+          "per1000": 0.0033
+        },
+        {
+          "ruleId": "harper.InterestedIn",
+          "category": "Usage",
+          "flags": 1,
+          "per1000": 0.0033
+        },
+        {
+          "ruleId": "harper.ItsContraction",
+          "category": "Punctuation",
+          "flags": 1,
+          "per1000": 0.0033
+        },
+        {
+          "ruleId": "harper.KindSortOf",
+          "category": "Typo",
+          "flags": 1,
+          "per1000": 0.0033
+        },
+        {
+          "ruleId": "harper.LetToDo",
+          "category": "Usage",
+          "flags": 1,
+          "per1000": 0.0033
+        },
+        {
+          "ruleId": "harper.MultipleFrequencyAdverbs",
+          "category": "Usage",
+          "flags": 1,
+          "per1000": 0.0033
+        },
+        {
+          "ruleId": "harper.NoMatchFor",
+          "category": "WordChoice",
+          "flags": 1,
+          "per1000": 0.0033
+        },
+        {
+          "ruleId": "harper.NorModalPronoun",
+          "category": "Grammar",
+          "flags": 1,
+          "per1000": 0.0033
+        },
+        {
+          "ruleId": "harper.NotTo",
+          "category": "Typo",
+          "flags": 1,
+          "per1000": 0.0033
+        },
+        {
+          "ruleId": "harper.Payed",
+          "category": "Spelling",
+          "flags": 1,
+          "per1000": 0.0033
+        },
+        {
+          "ruleId": "harper.ProgressiveNeedsBe",
+          "category": "WordChoice",
+          "flags": 1,
+          "per1000": 0.0033
+        },
+        {
+          "ruleId": "harper.ProperNouns",
+          "category": "Capitalization",
+          "flags": 1,
+          "per1000": 0.0033
+        },
+        {
+          "ruleId": "harper.QuantifierNumeralConflict",
+          "category": "Grammar",
+          "flags": 1,
+          "per1000": 0.0033
+        },
+        {
+          "ruleId": "harper.ThatThan",
+          "category": "Typo",
+          "flags": 1,
+          "per1000": 0.0033
+        },
+        {
+          "ruleId": "harper.TheirToThere",
+          "category": "Grammar",
+          "flags": 1,
+          "per1000": 0.0033
+        },
+        {
+          "ruleId": "harper.ThenThan",
+          "category": "Miscellaneous",
+          "flags": 1,
+          "per1000": 0.0033
+        },
+        {
+          "ruleId": "harper.WereWhere",
+          "category": "Typo",
+          "flags": 1,
+          "per1000": 0.0033
+        },
+        {
+          "ruleId": "harper.WorseOrWorst",
+          "category": "Agreement",
+          "flags": 1,
+          "per1000": 0.0033
+        },
+        {
+          "ruleId": "harper.WorthToDo",
+          "category": "Grammar",
+          "flags": 1,
+          "per1000": 0.0033
+        }
+      ],
+      "planted": [
+        {
+          "category": "typo",
+          "planted": 500,
+          "checked": 500,
+          "caught": 433,
+          "firstFixRight": 327,
+          "fixInTop5": 394,
+          "catchRate": 0.866,
+          "firstFixRate": 0.7552,
+          "top5FixRate": 0.9099
+        },
+        {
+          "category": "confusable",
+          "planted": 500,
+          "checked": 500,
+          "caught": 171,
+          "firstFixRight": 165,
+          "fixInTop5": 165,
+          "catchRate": 0.342,
+          "firstFixRate": 0.9649,
+          "top5FixRate": 0.9649
+        },
+        {
+          "category": "a-an",
+          "planted": 500,
+          "checked": 500,
+          "caught": 434,
+          "firstFixRight": 434,
+          "fixInTop5": 434,
+          "catchRate": 0.868,
+          "firstFixRate": 1,
+          "top5FixRate": 1
+        },
+        {
+          "category": "repeated-word",
+          "planted": 500,
+          "checked": 500,
+          "caught": 297,
+          "firstFixRight": 292,
+          "fixInTop5": 294,
+          "catchRate": 0.594,
+          "firstFixRate": 0.9832,
+          "top5FixRate": 0.9899
+        },
+        {
+          "category": "agreement",
+          "planted": 500,
+          "checked": 500,
+          "caught": 281,
+          "firstFixRight": 211,
+          "fixInTop5": 211,
+          "catchRate": 0.562,
+          "firstFixRate": 0.7509,
+          "top5FixRate": 0.7509
+        },
+        {
+          "category": "dialogue-punctuation",
+          "planted": 500,
+          "checked": 500,
+          "caught": 1,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0.002,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        }
+      ],
+      "flagsPer1000": 13.7996
+    },
+    {
+      "corpus": "all",
+      "split": "dev",
+      "books": 45,
+      "paragraphs": 31755,
+      "uncheckedParagraphs": 0,
+      "words": 1314247,
+      "flags": 32654,
+      "confirmedRealErrors": 0,
+      "rules": [
+        {
+          "ruleId": "harper.SpellCheck",
+          "category": "Spelling",
+          "flags": 28176,
+          "per1000": 21.4389
+        },
+        {
+          "ruleId": "harper.SplitWords",
+          "category": "Typo",
+          "flags": 986,
+          "per1000": 0.7502
+        },
+        {
+          "ruleId": "harper.SentenceCapitalization",
+          "category": "Capitalization",
+          "flags": 558,
+          "per1000": 0.4246
+        },
+        {
+          "ruleId": "harper.PronounVerbAgreement",
+          "category": "Agreement",
+          "flags": 389,
+          "per1000": 0.296
+        },
+        {
+          "ruleId": "harper.MassNouns",
+          "category": "Agreement",
+          "flags": 309,
+          "per1000": 0.2351
+        },
+        {
+          "ruleId": "harper.CompoundNouns",
+          "category": "WordChoice",
+          "flags": 297,
+          "per1000": 0.226
+        },
+        {
+          "ruleId": "harper.MissingPreposition",
+          "category": "Miscellaneous",
+          "flags": 196,
+          "per1000": 0.1491
+        },
+        {
+          "ruleId": "harper.DisjointPrefixes",
+          "category": "Spelling",
+          "flags": 142,
+          "per1000": 0.108
+        },
+        {
+          "ruleId": "harper.AnA",
+          "category": "Miscellaneous",
+          "flags": 140,
+          "per1000": 0.1065
+        },
+        {
+          "ruleId": "harper.DiscourseMarkers",
+          "category": "Punctuation",
+          "flags": 134,
+          "per1000": 0.102
+        },
+        {
+          "ruleId": "harper.AvoidCurses",
+          "category": "WordChoice",
+          "flags": 132,
+          "per1000": 0.1004
+        },
+        {
+          "ruleId": "harper.PossessiveYour",
+          "category": "WordChoice",
+          "flags": 80,
+          "per1000": 0.0609
+        },
+        {
+          "ruleId": "harper.QuantifierNumeralConflict",
+          "category": "Grammar",
+          "flags": 64,
+          "per1000": 0.0487
+        },
+        {
+          "ruleId": "harper.RepeatedWords",
+          "category": "Repetition",
+          "flags": 64,
+          "per1000": 0.0487
+        },
+        {
+          "ruleId": "harper.ToTwoToo",
+          "category": "WordChoice",
+          "flags": 51,
+          "per1000": 0.0388
+        },
+        {
+          "ruleId": "harper.MissingTo",
+          "category": "WordChoice",
+          "flags": 47,
+          "per1000": 0.0358
+        },
+        {
+          "ruleId": "harper.TheyToThem",
+          "category": "Grammar",
+          "flags": 47,
+          "per1000": 0.0358
+        },
+        {
+          "ruleId": "harper.RegularIrregulars",
+          "category": "Grammar",
+          "flags": 45,
+          "per1000": 0.0342
+        },
+        {
+          "ruleId": "harper.Someone",
+          "category": "Miscellaneous",
+          "flags": 45,
+          "per1000": 0.0342
+        },
+        {
+          "ruleId": "harper.PronounInflectionBe",
+          "category": "Agreement",
+          "flags": 40,
+          "per1000": 0.0304
+        },
+        {
+          "ruleId": "harper.Everyone",
+          "category": "Miscellaneous",
+          "flags": 38,
+          "per1000": 0.0289
+        },
+        {
+          "ruleId": "harper.WrongNegative",
+          "category": "WordChoice",
+          "flags": 35,
+          "per1000": 0.0266
+        },
+        {
+          "ruleId": "harper.MultipleSequentialPronouns",
+          "category": "Repetition",
+          "flags": 32,
+          "per1000": 0.0243
+        },
+        {
+          "ruleId": "harper.QuiteQuiet",
+          "category": "Typo",
+          "flags": 29,
+          "per1000": 0.0221
+        },
+        {
+          "ruleId": "harper.ThereToTheir",
+          "category": "Grammar",
+          "flags": 27,
+          "per1000": 0.0205
+        },
+        {
+          "ruleId": "harper.AWhile",
+          "category": "Typo",
+          "flags": 26,
+          "per1000": 0.0198
+        },
+        {
+          "ruleId": "harper.OneOfTheSingular",
+          "category": "Usage",
+          "flags": 26,
+          "per1000": 0.0198
+        },
+        {
+          "ruleId": "harper.SimplePastToPastParticiple",
+          "category": "Grammar",
+          "flags": 21,
+          "per1000": 0.016
+        },
+        {
+          "ruleId": "harper.LetsConfusion",
+          "category": "WordChoice",
+          "flags": 19,
+          "per1000": 0.0145
+        },
+        {
+          "ruleId": "harper.ModalBeAdjective",
+          "category": "Miscellaneous",
+          "flags": 19,
+          "per1000": 0.0145
+        },
+        {
+          "ruleId": "harper.OrthographicConsistency",
+          "category": "Capitalization",
+          "flags": 19,
+          "per1000": 0.0145
+        },
+        {
+          "ruleId": "harper.DoubleModal",
+          "category": "Miscellaneous",
+          "flags": 18,
+          "per1000": 0.0137
+        },
+        {
+          "ruleId": "harper.FindOut",
+          "category": "WordChoice",
+          "flags": 15,
+          "per1000": 0.0114
+        },
+        {
+          "ruleId": "harper.NominalWants",
+          "category": "Miscellaneous",
+          "flags": 15,
+          "per1000": 0.0114
+        },
+        {
+          "ruleId": "harper.MergeWords",
+          "category": "WordChoice",
+          "flags": 14,
+          "per1000": 0.0107
+        },
+        {
+          "ruleId": "harper.ThereIsAgreement",
+          "category": "Agreement",
+          "flags": 14,
+          "per1000": 0.0107
+        },
+        {
+          "ruleId": "harper.TheirToTheyre",
+          "category": "Grammar",
+          "flags": 11,
+          "per1000": 0.0084
+        },
+        {
+          "ruleId": "harper.WereWhere",
+          "category": "Typo",
+          "flags": 11,
+          "per1000": 0.0084
+        },
+        {
+          "ruleId": "harper.WhomSubjectOfVerb",
+          "category": "Grammar",
+          "flags": 11,
+          "per1000": 0.0084
+        },
+        {
+          "ruleId": "harper.YourPredicateAdjective",
+          "category": "Grammar",
+          "flags": 11,
+          "per1000": 0.0084
+        },
+        {
+          "ruleId": "harper.CapitalizePersonalPronouns",
+          "category": "Capitalization",
+          "flags": 10,
+          "per1000": 0.0076
+        },
+        {
+          "ruleId": "harper.Nonetheless",
+          "category": "Miscellaneous",
+          "flags": 10,
+          "per1000": 0.0076
+        },
+        {
+          "ruleId": "harper.Overall",
+          "category": "Miscellaneous",
+          "flags": 10,
+          "per1000": 0.0076
+        },
+        {
+          "ruleId": "harper.RedundantThat",
+          "category": "Repetition",
+          "flags": 10,
+          "per1000": 0.0076
+        },
+        {
+          "ruleId": "harper.FillerWords",
+          "category": "Miscellaneous",
+          "flags": 9,
+          "per1000": 0.0068
+        },
+        {
+          "ruleId": "harper.ForNoun",
+          "category": "WordChoice",
+          "flags": 9,
+          "per1000": 0.0068
+        },
+        {
+          "ruleId": "harper.ModalOf",
+          "category": "WordChoice",
+          "flags": 9,
+          "per1000": 0.0068
+        },
+        {
+          "ruleId": "harper.YeaToYeah",
+          "category": "Spelling",
+          "flags": 9,
+          "per1000": 0.0068
+        },
+        {
+          "ruleId": "harper.HadOf",
+          "category": "Grammar",
+          "flags": 8,
+          "per1000": 0.0061
+        },
+        {
+          "ruleId": "harper.HowTo",
+          "category": "WordChoice",
+          "flags": 8,
+          "per1000": 0.0061
+        },
+        {
+          "ruleId": "harper.LeftRightHand",
+          "category": "Miscellaneous",
+          "flags": 8,
+          "per1000": 0.0061
+        },
+        {
+          "ruleId": "harper.Wanna",
+          "category": "Miscellaneous",
+          "flags": 8,
+          "per1000": 0.0061
+        },
+        {
+          "ruleId": "harper.PhrasalVerbAsCompoundNoun",
+          "category": "WordChoice",
+          "flags": 7,
+          "per1000": 0.0053
+        },
+        {
+          "ruleId": "harper.ThatThan",
+          "category": "Typo",
+          "flags": 7,
+          "per1000": 0.0053
+        },
+        {
+          "ruleId": "harper.QuantifierNeedsOf",
+          "category": "Miscellaneous",
+          "flags": 6,
+          "per1000": 0.0046
+        },
+        {
+          "ruleId": "harper.Therein",
+          "category": "Miscellaneous",
+          "flags": 6,
+          "per1000": 0.0046
+        },
+        {
+          "ruleId": "harper.Worthwhile",
+          "category": "Miscellaneous",
+          "flags": 6,
+          "per1000": 0.0046
+        },
+        {
+          "ruleId": "harper.Insofar",
+          "category": "Miscellaneous",
+          "flags": 5,
+          "per1000": 0.0038
+        },
+        {
+          "ruleId": "harper.Roundabout",
+          "category": "Miscellaneous",
+          "flags": 5,
+          "per1000": 0.0038
+        },
+        {
+          "ruleId": "harper.Thereupon",
+          "category": "Miscellaneous",
+          "flags": 5,
+          "per1000": 0.0038
+        },
+        {
+          "ruleId": "harper.WillNonLemma",
+          "category": "Grammar",
+          "flags": 5,
+          "per1000": 0.0038
+        },
+        {
+          "ruleId": "harper.FeelFell",
+          "category": "Typo",
+          "flags": 4,
+          "per1000": 0.003
+        },
+        {
+          "ruleId": "harper.GoodAt",
+          "category": "Usage",
+          "flags": 4,
+          "per1000": 0.003
+        },
+        {
+          "ruleId": "harper.ItsContraction",
+          "category": "Punctuation",
+          "flags": 4,
+          "per1000": 0.003
+        },
+        {
+          "ruleId": "harper.PronounContraction",
+          "category": "WordChoice",
+          "flags": 4,
+          "per1000": 0.003
+        },
+        {
+          "ruleId": "harper.The",
+          "category": "Typo",
+          "flags": 4,
+          "per1000": 0.003
+        },
+        {
+          "ruleId": "harper.TheirToThere",
+          "category": "Grammar",
+          "flags": 4,
+          "per1000": 0.003
+        },
+        {
+          "ruleId": "harper.UpdatePlaceNames",
+          "category": "WordChoice",
+          "flags": 4,
+          "per1000": 0.003
+        },
+        {
+          "ruleId": "harper.AskNoPreposition",
+          "category": "WordChoice",
+          "flags": 3,
+          "per1000": 0.0023
+        },
+        {
+          "ruleId": "harper.ForAWhile",
+          "category": "Typo",
+          "flags": 3,
+          "per1000": 0.0023
+        },
+        {
+          "ruleId": "harper.Gonna",
+          "category": "Miscellaneous",
+          "flags": 3,
+          "per1000": 0.0023
+        },
+        {
+          "ruleId": "harper.However",
+          "category": "Miscellaneous",
+          "flags": 3,
+          "per1000": 0.0023
+        },
+        {
+          "ruleId": "harper.InflectedVerbAfterTo",
+          "category": "WordChoice",
+          "flags": 3,
+          "per1000": 0.0023
+        },
+        {
+          "ruleId": "harper.NorModalPronoun",
+          "category": "Grammar",
+          "flags": 3,
+          "per1000": 0.0023
+        },
+        {
+          "ruleId": "harper.NounVerbConfusion",
+          "category": "WordChoice",
+          "flags": 3,
+          "per1000": 0.0023
+        },
+        {
+          "ruleId": "harper.QuestionVerbAgreement",
+          "category": "Agreement",
+          "flags": 3,
+          "per1000": 0.0023
+        },
+        {
+          "ruleId": "harper.SubjunctiveWasToWere",
+          "category": "Grammar",
+          "flags": 3,
+          "per1000": 0.0023
+        },
+        {
+          "ruleId": "harper.ThisTypeOfThing",
+          "category": "Agreement",
+          "flags": 3,
+          "per1000": 0.0023
+        },
+        {
+          "ruleId": "harper.AdjectiveDoubleDegree",
+          "category": "WordChoice",
+          "flags": 2,
+          "per1000": 0.0015
+        },
+        {
+          "ruleId": "harper.AsHow",
+          "category": "Usage",
+          "flags": 2,
+          "per1000": 0.0015
+        },
+        {
+          "ruleId": "harper.Bollocks",
+          "category": "Spelling",
+          "flags": 2,
+          "per1000": 0.0015
+        },
+        {
+          "ruleId": "harper.CommaFixes",
+          "category": "Punctuation",
+          "flags": 2,
+          "per1000": 0.0015
+        },
+        {
+          "ruleId": "harper.Gotta",
+          "category": "Miscellaneous",
+          "flags": 2,
+          "per1000": 0.0015
+        },
+        {
+          "ruleId": "harper.HopHope",
+          "category": "WordChoice",
+          "flags": 2,
+          "per1000": 0.0015
+        },
+        {
+          "ruleId": "harper.IfWouldve",
+          "category": "Nonstandard",
+          "flags": 2,
+          "per1000": 0.0015
+        },
+        {
+          "ruleId": "harper.InDemandInDepth",
+          "category": "Punctuation",
+          "flags": 2,
+          "per1000": 0.0015
+        },
+        {
+          "ruleId": "harper.InterestedIn",
+          "category": "Usage",
+          "flags": 2,
+          "per1000": 0.0015
+        },
+        {
+          "ruleId": "harper.IntroCueCommaBeforeThanks",
+          "category": "Punctuation",
+          "flags": 2,
+          "per1000": 0.0015
+        },
+        {
+          "ruleId": "harper.ItsPossessive",
+          "category": "Agreement",
+          "flags": 2,
+          "per1000": 0.0015
+        },
+        {
+          "ruleId": "harper.MissingDeterminer",
+          "category": "Grammar",
+          "flags": 2,
+          "per1000": 0.0015
+        },
+        {
+          "ruleId": "harper.Nothing",
+          "category": "Miscellaneous",
+          "flags": 2,
+          "per1000": 0.0015
+        },
+        {
+          "ruleId": "harper.OceansAndSeas",
+          "category": "Capitalization",
+          "flags": 2,
+          "per1000": 0.0015
+        },
+        {
+          "ruleId": "harper.OnesSelf",
+          "category": "Usage",
+          "flags": 2,
+          "per1000": 0.0015
+        },
+        {
+          "ruleId": "harper.OutOfDate",
+          "category": "Miscellaneous",
+          "flags": 2,
+          "per1000": 0.0015
+        },
+        {
+          "ruleId": "harper.SingleBe",
+          "category": "Grammar",
+          "flags": 2,
+          "per1000": 0.0015
+        },
+        {
+          "ruleId": "harper.SomeOfThe",
+          "category": "Typo",
+          "flags": 2,
+          "per1000": 0.0015
+        },
+        {
+          "ruleId": "harper.Straightforward",
+          "category": "Miscellaneous",
+          "flags": 2,
+          "per1000": 0.0015
+        },
+        {
+          "ruleId": "harper.SufficeItToSay",
+          "category": "Usage",
+          "flags": 2,
+          "per1000": 0.0015
+        },
+        {
+          "ruleId": "harper.TheHowWhy",
+          "category": "Miscellaneous",
+          "flags": 2,
+          "per1000": 0.0015
+        },
+        {
+          "ruleId": "harper.TheLastDays",
+          "category": "Usage",
+          "flags": 2,
+          "per1000": 0.0015
+        },
+        {
+          "ruleId": "harper.ThenThan",
+          "category": "Miscellaneous",
+          "flags": 2,
+          "per1000": 0.0015
+        },
+        {
+          "ruleId": "harper.VeryUnique",
+          "category": "WordChoice",
+          "flags": 2,
+          "per1000": 0.0015
+        },
+        {
+          "ruleId": "harper.WayTooAdjective",
+          "category": "Miscellaneous",
+          "flags": 2,
+          "per1000": 0.0015
+        },
+        {
+          "ruleId": "harper.APart",
+          "category": "WordChoice",
+          "flags": 1,
+          "per1000": 0.0008
+        },
+        {
+          "ruleId": "harper.AndTheLike",
+          "category": "Usage",
+          "flags": 1,
+          "per1000": 0.0008
+        },
+        {
+          "ruleId": "harper.BellowBelow",
+          "category": "Malapropism",
+          "flags": 1,
+          "per1000": 0.0008
+        },
+        {
+          "ruleId": "harper.BetterOffPhrase",
+          "category": "Grammar",
+          "flags": 1,
+          "per1000": 0.0008
+        },
+        {
+          "ruleId": "harper.DayOneNames",
+          "category": "Capitalization",
+          "flags": 1,
+          "per1000": 0.0008
+        },
+        {
+          "ruleId": "harper.DidPast",
+          "category": "Grammar",
+          "flags": 1,
+          "per1000": 0.0008
+        },
+        {
+          "ruleId": "harper.DoToDueTo",
+          "category": "Usage",
+          "flags": 1,
+          "per1000": 0.0008
+        },
+        {
+          "ruleId": "harper.DoinToDoing",
+          "category": "Typo",
+          "flags": 1,
+          "per1000": 0.0008
+        },
+        {
+          "ruleId": "harper.EverPresent",
+          "category": "Punctuation",
+          "flags": 1,
+          "per1000": 0.0008
+        },
+        {
+          "ruleId": "harper.Everybody",
+          "category": "Miscellaneous",
+          "flags": 1,
+          "per1000": 0.0008
+        },
+        {
+          "ruleId": "harper.FaceFirst",
+          "category": "Punctuation",
+          "flags": 1,
+          "per1000": 0.0008
+        },
+        {
+          "ruleId": "harper.FriendOfMe",
+          "category": "Grammar",
+          "flags": 1,
+          "per1000": 0.0008
+        },
+        {
+          "ruleId": "harper.Hedging",
+          "category": "Miscellaneous",
+          "flags": 1,
+          "per1000": 0.0008
+        },
+        {
+          "ruleId": "harper.ImplementIn",
+          "category": "Usage",
+          "flags": 1,
+          "per1000": 0.0008
+        },
+        {
+          "ruleId": "harper.ItAreTheOne",
+          "category": "Agreement",
+          "flags": 1,
+          "per1000": 0.0008
+        },
+        {
+          "ruleId": "harper.ItTimeAuxiliary",
+          "category": "Grammar",
+          "flags": 1,
+          "per1000": 0.0008
+        },
+        {
+          "ruleId": "harper.Months",
+          "category": "Miscellaneous",
+          "flags": 1,
+          "per1000": 0.0008
+        },
+        {
+          "ruleId": "harper.Myself",
+          "category": "Miscellaneous",
+          "flags": 1,
+          "per1000": 0.0008
+        },
+        {
+          "ruleId": "harper.NationalCapitals",
+          "category": "Capitalization",
+          "flags": 1,
+          "per1000": 0.0008
+        },
+        {
+          "ruleId": "harper.NoLonger",
+          "category": "Usage",
+          "flags": 1,
+          "per1000": 0.0008
+        },
+        {
+          "ruleId": "harper.NoLongerPronoun",
+          "category": "WordOrder",
+          "flags": 1,
+          "per1000": 0.0008
+        },
+        {
+          "ruleId": "harper.Nobody",
+          "category": "WordChoice",
+          "flags": 1,
+          "per1000": 0.0008
+        },
+        {
+          "ruleId": "harper.OldestInTheBook",
+          "category": "Usage",
+          "flags": 1,
+          "per1000": 0.0008
+        },
+        {
+          "ruleId": "harper.OnFloor",
+          "category": "WordChoice",
+          "flags": 1,
+          "per1000": 0.0008
+        },
+        {
+          "ruleId": "harper.Oxymorons",
+          "category": "Miscellaneous",
+          "flags": 1,
+          "per1000": 0.0008
+        },
+        {
+          "ruleId": "harper.PassedPast",
+          "category": "WordChoice",
+          "flags": 1,
+          "per1000": 0.0008
+        },
+        {
+          "ruleId": "harper.RackOnesBrain",
+          "category": "Usage",
+          "flags": 1,
+          "per1000": 0.0008
+        },
+        {
+          "ruleId": "harper.SinceDuration",
+          "category": "Miscellaneous",
+          "flags": 1,
+          "per1000": 0.0008
+        },
+        {
+          "ruleId": "harper.SubjectPronoun",
+          "category": "Grammar",
+          "flags": 1,
+          "per1000": 0.0008
+        },
+        {
+          "ruleId": "harper.TheMy",
+          "category": "Repetition",
+          "flags": 1,
+          "per1000": 0.0008
+        },
+        {
+          "ruleId": "harper.TransposedSpace",
+          "category": "Typo",
+          "flags": 1,
+          "per1000": 0.0008
+        },
+        {
+          "ruleId": "harper.WillContain",
+          "category": "Agreement",
+          "flags": 1,
+          "per1000": 0.0008
+        },
+        {
+          "ruleId": "harper.WorthToDo",
+          "category": "Grammar",
+          "flags": 1,
+          "per1000": 0.0008
+        }
+      ],
+      "planted": [
+        {
+          "category": "typo",
+          "planted": 1000,
+          "checked": 1000,
+          "caught": 902,
+          "firstFixRight": 678,
+          "fixInTop5": 809,
+          "catchRate": 0.902,
+          "firstFixRate": 0.7517,
+          "top5FixRate": 0.8969
+        },
+        {
+          "category": "confusable",
+          "planted": 1000,
+          "checked": 1000,
+          "caught": 359,
+          "firstFixRight": 347,
+          "fixInTop5": 347,
+          "catchRate": 0.359,
+          "firstFixRate": 0.9666,
+          "top5FixRate": 0.9666
+        },
+        {
+          "category": "a-an",
+          "planted": 1000,
+          "checked": 1000,
+          "caught": 909,
+          "firstFixRight": 904,
+          "fixInTop5": 904,
+          "catchRate": 0.909,
+          "firstFixRate": 0.9945,
+          "top5FixRate": 0.9945
+        },
+        {
+          "category": "repeated-word",
+          "planted": 1000,
+          "checked": 1000,
+          "caught": 616,
+          "firstFixRight": 606,
+          "fixInTop5": 609,
+          "catchRate": 0.616,
+          "firstFixRate": 0.9838,
+          "top5FixRate": 0.9886
+        },
+        {
+          "category": "agreement",
+          "planted": 1000,
+          "checked": 1000,
+          "caught": 655,
+          "firstFixRight": 447,
+          "fixInTop5": 447,
+          "catchRate": 0.655,
+          "firstFixRate": 0.6824,
+          "top5FixRate": 0.6824
+        },
+        {
+          "category": "dialogue-punctuation",
+          "planted": 1000,
+          "checked": 1000,
+          "caught": 3,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0.003,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        }
+      ],
+      "flagsPer1000": 24.8462
+    },
+    {
+      "corpus": "all",
+      "split": "test",
+      "books": 19,
+      "paragraphs": 12998,
+      "uncheckedParagraphs": 0,
+      "words": 545117,
+      "flags": 12899,
+      "confirmedRealErrors": 0,
+      "rules": [
+        {
+          "ruleId": "harper.SpellCheck",
+          "category": "Spelling",
+          "flags": 10932,
+          "per1000": 20.0544
+        },
+        {
+          "ruleId": "harper.SplitWords",
+          "category": "Typo",
+          "flags": 532,
+          "per1000": 0.9759
+        },
+        {
+          "ruleId": "harper.SentenceCapitalization",
+          "category": "Capitalization",
+          "flags": 140,
+          "per1000": 0.2568
+        },
+        {
+          "ruleId": "harper.AvoidCurses",
+          "category": "WordChoice",
+          "flags": 132,
+          "per1000": 0.2421
+        },
+        {
+          "ruleId": "harper.CompoundNouns",
+          "category": "WordChoice",
+          "flags": 128,
+          "per1000": 0.2348
+        },
+        {
+          "ruleId": "harper.MassNouns",
+          "category": "Agreement",
+          "flags": 116,
+          "per1000": 0.2128
+        },
+        {
+          "ruleId": "harper.PronounVerbAgreement",
+          "category": "Agreement",
+          "flags": 115,
+          "per1000": 0.211
+        },
+        {
+          "ruleId": "harper.MissingPreposition",
+          "category": "Miscellaneous",
+          "flags": 83,
+          "per1000": 0.1523
+        },
+        {
+          "ruleId": "harper.OrthographicConsistency",
+          "category": "Capitalization",
+          "flags": 68,
+          "per1000": 0.1247
+        },
+        {
+          "ruleId": "harper.DisjointPrefixes",
+          "category": "Spelling",
+          "flags": 59,
+          "per1000": 0.1082
+        },
+        {
+          "ruleId": "harper.DiscourseMarkers",
+          "category": "Punctuation",
+          "flags": 45,
+          "per1000": 0.0826
+        },
+        {
+          "ruleId": "harper.AnA",
+          "category": "Miscellaneous",
+          "flags": 39,
+          "per1000": 0.0715
+        },
+        {
+          "ruleId": "harper.PossessiveYour",
+          "category": "WordChoice",
+          "flags": 29,
+          "per1000": 0.0532
+        },
+        {
+          "ruleId": "harper.YeaToYeah",
+          "category": "Spelling",
+          "flags": 29,
+          "per1000": 0.0532
+        },
+        {
+          "ruleId": "harper.RepeatedWords",
+          "category": "Repetition",
+          "flags": 26,
+          "per1000": 0.0477
+        },
+        {
+          "ruleId": "harper.YehToYeah",
+          "category": "Spelling",
+          "flags": 25,
+          "per1000": 0.0459
+        },
+        {
+          "ruleId": "harper.MissingTo",
+          "category": "WordChoice",
+          "flags": 24,
+          "per1000": 0.044
+        },
+        {
+          "ruleId": "harper.FillerWords",
+          "category": "Miscellaneous",
+          "flags": 22,
+          "per1000": 0.0404
+        },
+        {
+          "ruleId": "harper.PronounInflectionBe",
+          "category": "Agreement",
+          "flags": 22,
+          "per1000": 0.0404
+        },
+        {
+          "ruleId": "harper.ToTwoToo",
+          "category": "WordChoice",
+          "flags": 16,
+          "per1000": 0.0294
+        },
+        {
+          "ruleId": "harper.TheyToThem",
+          "category": "Grammar",
+          "flags": 14,
+          "per1000": 0.0257
+        },
+        {
+          "ruleId": "harper.SimplePastToPastParticiple",
+          "category": "Grammar",
+          "flags": 13,
+          "per1000": 0.0238
+        },
+        {
+          "ruleId": "harper.LetsConfusion",
+          "category": "WordChoice",
+          "flags": 12,
+          "per1000": 0.022
+        },
+        {
+          "ruleId": "harper.AWhile",
+          "category": "Typo",
+          "flags": 11,
+          "per1000": 0.0202
+        },
+        {
+          "ruleId": "harper.OneOfTheSingular",
+          "category": "Usage",
+          "flags": 10,
+          "per1000": 0.0183
+        },
+        {
+          "ruleId": "harper.QuantifierNumeralConflict",
+          "category": "Grammar",
+          "flags": 10,
+          "per1000": 0.0183
+        },
+        {
+          "ruleId": "harper.QuiteQuiet",
+          "category": "Typo",
+          "flags": 10,
+          "per1000": 0.0183
+        },
+        {
+          "ruleId": "harper.ModalBeAdjective",
+          "category": "Miscellaneous",
+          "flags": 9,
+          "per1000": 0.0165
+        },
+        {
+          "ruleId": "harper.RedundantThat",
+          "category": "Repetition",
+          "flags": 9,
+          "per1000": 0.0165
+        },
+        {
+          "ruleId": "harper.Everyone",
+          "category": "Miscellaneous",
+          "flags": 8,
+          "per1000": 0.0147
+        },
+        {
+          "ruleId": "harper.RegularIrregulars",
+          "category": "Grammar",
+          "flags": 8,
+          "per1000": 0.0147
+        },
+        {
+          "ruleId": "harper.ThereIsAgreement",
+          "category": "Agreement",
+          "flags": 8,
+          "per1000": 0.0147
+        },
+        {
+          "ruleId": "harper.YourPredicateAdjective",
+          "category": "Grammar",
+          "flags": 8,
+          "per1000": 0.0147
+        },
+        {
+          "ruleId": "harper.Gotta",
+          "category": "Miscellaneous",
+          "flags": 7,
+          "per1000": 0.0128
+        },
+        {
+          "ruleId": "harper.ItsPossessive",
+          "category": "Agreement",
+          "flags": 7,
+          "per1000": 0.0128
+        },
+        {
+          "ruleId": "harper.MergeWords",
+          "category": "WordChoice",
+          "flags": 7,
+          "per1000": 0.0128
+        },
+        {
+          "ruleId": "harper.ModalOf",
+          "category": "WordChoice",
+          "flags": 7,
+          "per1000": 0.0128
+        },
+        {
+          "ruleId": "harper.MultipleSequentialPronouns",
+          "category": "Repetition",
+          "flags": 7,
+          "per1000": 0.0128
+        },
+        {
+          "ruleId": "harper.WhomSubjectOfVerb",
+          "category": "Grammar",
+          "flags": 7,
+          "per1000": 0.0128
+        },
+        {
+          "ruleId": "harper.Gonna",
+          "category": "Miscellaneous",
+          "flags": 6,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "harper.LeftRightHand",
+          "category": "Miscellaneous",
+          "flags": 6,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "harper.ThereToTheir",
+          "category": "Grammar",
+          "flags": 6,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "harper.FindOut",
+          "category": "WordChoice",
+          "flags": 5,
+          "per1000": 0.0092
+        },
+        {
+          "ruleId": "harper.ForNoun",
+          "category": "WordChoice",
+          "flags": 5,
+          "per1000": 0.0092
+        },
+        {
+          "ruleId": "harper.Someone",
+          "category": "Miscellaneous",
+          "flags": 5,
+          "per1000": 0.0092
+        },
+        {
+          "ruleId": "harper.TheirToTheyre",
+          "category": "Grammar",
+          "flags": 5,
+          "per1000": 0.0092
+        },
+        {
+          "ruleId": "harper.WrongNegative",
+          "category": "WordChoice",
+          "flags": 5,
+          "per1000": 0.0092
+        },
+        {
+          "ruleId": "harper.HadOf",
+          "category": "Grammar",
+          "flags": 4,
+          "per1000": 0.0073
+        },
+        {
+          "ruleId": "harper.NominalWants",
+          "category": "Miscellaneous",
+          "flags": 4,
+          "per1000": 0.0073
+        },
+        {
+          "ruleId": "harper.TheirToThere",
+          "category": "Grammar",
+          "flags": 4,
+          "per1000": 0.0073
+        },
+        {
+          "ruleId": "harper.AsHow",
+          "category": "Usage",
+          "flags": 3,
+          "per1000": 0.0055
+        },
+        {
+          "ruleId": "harper.CapitalizePersonalPronouns",
+          "category": "Capitalization",
+          "flags": 3,
+          "per1000": 0.0055
+        },
+        {
+          "ruleId": "harper.DoinToDoing",
+          "category": "Typo",
+          "flags": 3,
+          "per1000": 0.0055
+        },
+        {
+          "ruleId": "harper.DoubleModal",
+          "category": "Miscellaneous",
+          "flags": 3,
+          "per1000": 0.0055
+        },
+        {
+          "ruleId": "harper.FeelFell",
+          "category": "Typo",
+          "flags": 3,
+          "per1000": 0.0055
+        },
+        {
+          "ruleId": "harper.MissingDeterminer",
+          "category": "Grammar",
+          "flags": 3,
+          "per1000": 0.0055
+        },
+        {
+          "ruleId": "harper.Nonetheless",
+          "category": "Miscellaneous",
+          "flags": 3,
+          "per1000": 0.0055
+        },
+        {
+          "ruleId": "harper.NounVerbConfusion",
+          "category": "WordChoice",
+          "flags": 3,
+          "per1000": 0.0055
+        },
+        {
+          "ruleId": "harper.Overall",
+          "category": "Miscellaneous",
+          "flags": 3,
+          "per1000": 0.0055
+        },
+        {
+          "ruleId": "harper.Roundabout",
+          "category": "Miscellaneous",
+          "flags": 3,
+          "per1000": 0.0055
+        },
+        {
+          "ruleId": "harper.SingleBe",
+          "category": "Grammar",
+          "flags": 3,
+          "per1000": 0.0055
+        },
+        {
+          "ruleId": "harper.SubjunctiveWasToWere",
+          "category": "Grammar",
+          "flags": 3,
+          "per1000": 0.0055
+        },
+        {
+          "ruleId": "harper.Worthwhile",
+          "category": "Miscellaneous",
+          "flags": 3,
+          "per1000": 0.0055
+        },
+        {
+          "ruleId": "harper.HowTo",
+          "category": "WordChoice",
+          "flags": 2,
+          "per1000": 0.0037
+        },
+        {
+          "ruleId": "harper.InAWhile",
+          "category": "Grammar",
+          "flags": 2,
+          "per1000": 0.0037
+        },
+        {
+          "ruleId": "harper.InterestedIn",
+          "category": "Usage",
+          "flags": 2,
+          "per1000": 0.0037
+        },
+        {
+          "ruleId": "harper.PronounContraction",
+          "category": "WordChoice",
+          "flags": 2,
+          "per1000": 0.0037
+        },
+        {
+          "ruleId": "harper.QuantifierNeedsOf",
+          "category": "Miscellaneous",
+          "flags": 2,
+          "per1000": 0.0037
+        },
+        {
+          "ruleId": "harper.ThatThan",
+          "category": "Typo",
+          "flags": 2,
+          "per1000": 0.0037
+        },
+        {
+          "ruleId": "harper.TheHowWhy",
+          "category": "Miscellaneous",
+          "flags": 2,
+          "per1000": 0.0037
+        },
+        {
+          "ruleId": "harper.ThisTypeOfThing",
+          "category": "Agreement",
+          "flags": 2,
+          "per1000": 0.0037
+        },
+        {
+          "ruleId": "harper.ToSomeDegree",
+          "category": "Eggcorn",
+          "flags": 2,
+          "per1000": 0.0037
+        },
+        {
+          "ruleId": "harper.ABitOfPlural",
+          "category": "Grammar",
+          "flags": 1,
+          "per1000": 0.0018
+        },
+        {
+          "ruleId": "harper.AsEvidentBy",
+          "category": "Grammar",
+          "flags": 1,
+          "per1000": 0.0018
+        },
+        {
+          "ruleId": "harper.BellowBelow",
+          "category": "Malapropism",
+          "flags": 1,
+          "per1000": 0.0018
+        },
+        {
+          "ruleId": "harper.BetterOffPhrase",
+          "category": "Grammar",
+          "flags": 1,
+          "per1000": 0.0018
+        },
+        {
+          "ruleId": "harper.BuiltIn",
+          "category": "Punctuation",
+          "flags": 1,
+          "per1000": 0.0018
+        },
+        {
+          "ruleId": "harper.CommaFixes",
+          "category": "Punctuation",
+          "flags": 1,
+          "per1000": 0.0018
+        },
+        {
+          "ruleId": "harper.EverPresent",
+          "category": "Punctuation",
+          "flags": 1,
+          "per1000": 0.0018
+        },
+        {
+          "ruleId": "harper.ExpandMemoryShorthands",
+          "category": "WordChoice",
+          "flags": 1,
+          "per1000": 0.0018
+        },
+        {
+          "ruleId": "harper.ExpandTimeShorthands",
+          "category": "WordChoice",
+          "flags": 1,
+          "per1000": 0.0018
+        },
+        {
+          "ruleId": "harper.GoodAt",
+          "category": "Usage",
+          "flags": 1,
+          "per1000": 0.0018
+        },
+        {
+          "ruleId": "harper.IAmAgreement",
+          "category": "Agreement",
+          "flags": 1,
+          "per1000": 0.0018
+        },
+        {
+          "ruleId": "harper.IfWouldve",
+          "category": "Nonstandard",
+          "flags": 1,
+          "per1000": 0.0018
+        },
+        {
+          "ruleId": "harper.InflectedVerbAfterTo",
+          "category": "WordChoice",
+          "flags": 1,
+          "per1000": 0.0018
+        },
+        {
+          "ruleId": "harper.ItsContraction",
+          "category": "Punctuation",
+          "flags": 1,
+          "per1000": 0.0018
+        },
+        {
+          "ruleId": "harper.KindSortOf",
+          "category": "Typo",
+          "flags": 1,
+          "per1000": 0.0018
+        },
+        {
+          "ruleId": "harper.LetToDo",
+          "category": "Usage",
+          "flags": 1,
+          "per1000": 0.0018
+        },
+        {
+          "ruleId": "harper.MultipleFrequencyAdverbs",
+          "category": "Usage",
+          "flags": 1,
+          "per1000": 0.0018
+        },
+        {
+          "ruleId": "harper.NoMatchFor",
+          "category": "WordChoice",
+          "flags": 1,
+          "per1000": 0.0018
+        },
+        {
+          "ruleId": "harper.NorModalPronoun",
+          "category": "Grammar",
+          "flags": 1,
+          "per1000": 0.0018
+        },
+        {
+          "ruleId": "harper.NotTo",
+          "category": "Typo",
+          "flags": 1,
+          "per1000": 0.0018
+        },
+        {
+          "ruleId": "harper.OceansAndSeas",
+          "category": "Capitalization",
+          "flags": 1,
+          "per1000": 0.0018
+        },
+        {
+          "ruleId": "harper.Payed",
+          "category": "Spelling",
+          "flags": 1,
+          "per1000": 0.0018
+        },
+        {
+          "ruleId": "harper.ProgressiveNeedsBe",
+          "category": "WordChoice",
+          "flags": 1,
+          "per1000": 0.0018
+        },
+        {
+          "ruleId": "harper.ProperNouns",
+          "category": "Capitalization",
+          "flags": 1,
+          "per1000": 0.0018
+        },
+        {
+          "ruleId": "harper.QuestionVerbAgreement",
+          "category": "Agreement",
+          "flags": 1,
+          "per1000": 0.0018
+        },
+        {
+          "ruleId": "harper.ThatChallenged",
+          "category": "Miscellaneous",
+          "flags": 1,
+          "per1000": 0.0018
+        },
+        {
+          "ruleId": "harper.ThenThan",
+          "category": "Miscellaneous",
+          "flags": 1,
+          "per1000": 0.0018
+        },
+        {
+          "ruleId": "harper.ToTo",
+          "category": "Typo",
+          "flags": 1,
+          "per1000": 0.0018
+        },
+        {
+          "ruleId": "harper.Wanna",
+          "category": "Miscellaneous",
+          "flags": 1,
+          "per1000": 0.0018
+        },
+        {
+          "ruleId": "harper.WereWhere",
+          "category": "Typo",
+          "flags": 1,
+          "per1000": 0.0018
+        },
+        {
+          "ruleId": "harper.WillNonLemma",
+          "category": "Grammar",
+          "flags": 1,
+          "per1000": 0.0018
+        },
+        {
+          "ruleId": "harper.WorseOrWorst",
+          "category": "Agreement",
+          "flags": 1,
+          "per1000": 0.0018
+        },
+        {
+          "ruleId": "harper.WorthToDo",
+          "category": "Grammar",
+          "flags": 1,
+          "per1000": 0.0018
+        }
+      ],
+      "planted": [
+        {
+          "category": "typo",
+          "planted": 1000,
+          "checked": 1000,
+          "caught": 868,
+          "firstFixRight": 644,
+          "fixInTop5": 777,
+          "catchRate": 0.868,
+          "firstFixRate": 0.7419,
+          "top5FixRate": 0.8952
+        },
+        {
+          "category": "confusable",
+          "planted": 1000,
+          "checked": 1000,
+          "caught": 328,
+          "firstFixRight": 320,
+          "fixInTop5": 320,
+          "catchRate": 0.328,
+          "firstFixRate": 0.9756,
+          "top5FixRate": 0.9756
+        },
+        {
+          "category": "a-an",
+          "planted": 1000,
+          "checked": 1000,
+          "caught": 879,
+          "firstFixRight": 877,
+          "fixInTop5": 877,
+          "catchRate": 0.879,
+          "firstFixRate": 0.9977,
+          "top5FixRate": 0.9977
+        },
+        {
+          "category": "repeated-word",
+          "planted": 1000,
+          "checked": 1000,
+          "caught": 593,
+          "firstFixRight": 585,
+          "fixInTop5": 587,
+          "catchRate": 0.593,
+          "firstFixRate": 0.9865,
+          "top5FixRate": 0.9899
+        },
+        {
+          "category": "agreement",
+          "planted": 1000,
+          "checked": 1000,
+          "caught": 571,
+          "firstFixRight": 401,
+          "fixInTop5": 401,
+          "catchRate": 0.571,
+          "firstFixRate": 0.7023,
+          "top5FixRate": 0.7023
+        },
+        {
+          "category": "dialogue-punctuation",
+          "planted": 1000,
+          "checked": 1000,
+          "caught": 2,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0.002,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        }
+      ],
+      "flagsPer1000": 23.6628
+    }
+  ]
+}

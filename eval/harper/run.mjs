@@ -1,7 +1,7 @@
 // Runs harper.js over paragraphs exported by the evaluation harness and writes its lints in the
 // format the harness's external checker reads.
 //
-//   node run.mjs <items.jsonl> <issues.jsonl> [--minutes 30] [--shard 0/4] [--dialect American]
+//   node run.mjs <items.jsonl> <issues.jsonl> [--minutes 30] [--shard 0/4]
 //
 // Stops cleanly when the time budget runs out; paragraphs it did not reach count as "not checked"
 // in the report. Running it again continues where it stopped.
@@ -12,7 +12,7 @@ import { binary } from 'harper.js/binary';
 
 const [itemsPath, outPath, ...rest] = process.argv.slice(2);
 if (!itemsPath || !outPath) {
-  console.error('usage: node run.mjs <items.jsonl> <issues.jsonl> [--minutes N] [--shard I/N] [--dialect NAME]');
+  console.error('usage: node run.mjs <items.jsonl> <issues.jsonl> [--minutes N] [--shard I/N]');
   process.exit(2);
 }
 const opt = (name, fallback) => {
@@ -21,7 +21,6 @@ const opt = (name, fallback) => {
 };
 const minutes = Number(opt('--minutes', '30'));
 const [shard, shards] = opt('--shard', '0/1').split('/').map(Number);
-const dialect = harper.Dialect[opt('--dialect', 'American')];
 
 const done = new Set();
 if (fs.existsSync(outPath)) {
@@ -30,8 +29,17 @@ if (fs.existsSync(outPath)) {
   }
 }
 
-const linter = new harper.LocalLinter({ binary, dialect });
-await linter.setup();
+// One linter per dialect; each item says which spelling its book uses.
+const dialects = { US: harper.Dialect.American, GB: harper.Dialect.British };
+const linters = {};
+async function linterFor(code) {
+  const key = code in dialects ? code : 'US';
+  if (!linters[key]) {
+    linters[key] = new harper.LocalLinter({ binary, dialect: dialects[key] });
+    await linters[key].setup();
+  }
+  return linters[key];
+}
 
 const out = fs.createWriteStream(outPath, { flags: 'a' });
 const deadline = Date.now() + minutes * 60_000;
@@ -43,7 +51,7 @@ for await (const line of readline.createInterface({ input: fs.createReadStream(i
   if (!line) continue;
   index++;
   if (index % shards !== shard) continue;
-  const { id, text } = JSON.parse(line);
+  const { id, text, dialect } = JSON.parse(line);
   if (done.has(id)) continue;
   if (Date.now() > deadline) {
     stoppedEarly = true;
@@ -51,6 +59,7 @@ for await (const line of readline.createInterface({ input: fs.createReadStream(i
   }
 
   const issues = [];
+  const linter = await linterFor(dialect);
   const organized = await linter.organizedLints(text, { language: 'plaintext' });
   for (const [ruleId, lints] of Object.entries(organized)) {
     for (const lint of lints) {

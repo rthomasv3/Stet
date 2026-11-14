@@ -15,14 +15,14 @@
       "paragraphs": 14103,
       "uncheckedParagraphs": 0,
       "words": 454679,
-      "flags": 20102,
+      "flags": 19717,
       "confirmedRealErrors": 0,
       "rules": [
         {
           "ruleId": "harper.SpellCheck",
           "category": "Spelling",
-          "flags": 16897,
-          "per1000": 37.1625
+          "flags": 16493,
+          "per1000": 36.2739
         },
         {
           "ruleId": "harper.SplitWords",
@@ -73,16 +73,16 @@
           "per1000": 0.2881
         },
         {
+          "ruleId": "harper.AvoidCurses",
+          "category": "WordChoice",
+          "flags": 108,
+          "per1000": 0.2375
+        },
+        {
           "ruleId": "harper.PronounVerbAgreement",
           "category": "Agreement",
           "flags": 107,
           "per1000": 0.2353
-        },
-        {
-          "ruleId": "harper.AvoidCurses",
-          "category": "WordChoice",
-          "flags": 94,
-          "per1000": 0.2067
         },
         {
           "ruleId": "harper.MassNouns",
@@ -187,6 +187,12 @@
           "per1000": 0.022
         },
         {
+          "ruleId": "harper.HaveTakeALook",
+          "category": "Regionalism",
+          "flags": 9,
+          "per1000": 0.0198
+        },
+        {
           "ruleId": "harper.WouldNeverHave",
           "category": "Style",
           "flags": 9,
@@ -237,12 +243,6 @@
         {
           "ruleId": "harper.AvoidAndAlso",
           "category": "Redundancy",
-          "flags": 7,
-          "per1000": 0.0154
-        },
-        {
-          "ruleId": "harper.HaveTakeALook",
-          "category": "Regionalism",
           "flags": 7,
           "per1000": 0.0154
         },
@@ -457,6 +457,12 @@
           "per1000": 0.0044
         },
         {
+          "ruleId": "harper.Regionalisms",
+          "category": "Regionalism",
+          "flags": 2,
+          "per1000": 0.0044
+        },
+        {
           "ruleId": "harper.SomeOfThe",
           "category": "Typo",
           "flags": 2,
@@ -613,6 +619,12 @@
           "per1000": 0.0022
         },
         {
+          "ruleId": "harper.OutOfTheWindow",
+          "category": "Regionalism",
+          "flags": 1,
+          "per1000": 0.0022
+        },
+        {
           "ruleId": "harper.Oxymorons",
           "category": "Miscellaneous",
           "flags": 1,
@@ -696,12 +708,12 @@
           "category": "typo",
           "planted": 500,
           "checked": 500,
-          "caught": 468,
-          "firstFixRight": 353,
-          "fixInTop5": 424,
-          "catchRate": 0.936,
-          "firstFixRate": 0.7543,
-          "top5FixRate": 0.906
+          "caught": 469,
+          "firstFixRight": 354,
+          "fixInTop5": 425,
+          "catchRate": 0.938,
+          "firstFixRate": 0.7548,
+          "top5FixRate": 0.9062
         },
         {
           "category": "confusable",
@@ -759,7 +771,7 @@
           "top5FixRate": 0
         }
       ],
-      "flagsPer1000": 44.2114
+      "flagsPer1000": 43.3647
     },
     {
       "corpus": "calibre",
@@ -768,14 +780,14 @@
       "paragraphs": 7517,
       "uncheckedParagraphs": 0,
       "words": 240253,
-      "flags": 9842,
+      "flags": 9735,
       "confirmedRealErrors": 0,
       "rules": [
         {
           "ruleId": "harper.SpellCheck",
           "category": "Spelling",
-          "flags": 7774,
-          "per1000": 32.3576
+          "flags": 7665,
+          "per1000": 31.9039
         },
         {
           "ruleId": "harper.LongSentences",
@@ -804,8 +816,8 @@
         {
           "ruleId": "harper.AvoidCurses",
           "category": "WordChoice",
-          "flags": 107,
-          "per1000": 0.4454
+          "flags": 109,
+          "per1000": 0.4537
         },
         {
           "ruleId": "harper.MassNouns",
@@ -1323,12 +1335,12 @@
           "category": "typo",
           "planted": 500,
           "checked": 500,
-          "caught": 431,
-          "firstFixRight": 313,
-          "fixInTop5": 379,
-          "catchRate": 0.862,
-          "firstFixRate": 0.7262,
-          "top5FixRate": 0.8794
+          "caught": 435,
+          "firstFixRight": 317,
+          "fixInTop5": 383,
+          "catchRate": 0.87,
+          "firstFixRate": 0.7287,
+          "top5FixRate": 0.8805
         },
         {
           "category": "confusable",
@@ -1386,7 +1398,7 @@
           "top5FixRate": 0
         }
       ],
-      "flagsPer1000": 40.9651
+      "flagsPer1000": 40.5198
     },
     {
       "corpus": "gutenberg",
@@ -1395,14 +1407,14 @@
       "paragraphs": 17652,
       "uncheckedParagraphs": 0,
       "words": 859568,
-      "flags": 22180,
+      "flags": 20937,
       "confirmedRealErrors": 0,
       "rules": [
         {
           "ruleId": "harper.SpellCheck",
           "category": "Spelling",
-          "flags": 12918,
-          "per1000": 15.0285
+          "flags": 11683,
+          "per1000": 13.5917
         },
         {
           "ruleId": "harper.LongSentences",
@@ -1651,22 +1663,10 @@
           "per1000": 0.0128
         },
         {
-          "ruleId": "harper.OutOfTheWindow",
-          "category": "Regionalism",
-          "flags": 11,
-          "per1000": 0.0128
-        },
-        {
           "ruleId": "harper.FindOut",
           "category": "WordChoice",
           "flags": 10,
           "per1000": 0.0116
-        },
-        {
-          "ruleId": "harper.HaveTakeALook",
-          "category": "Regionalism",
-          "flags": 9,
-          "per1000": 0.0105
         },
         {
           "ruleId": "harper.Nonetheless",
@@ -1735,6 +1735,12 @@
           "per1000": 0.0081
         },
         {
+          "ruleId": "harper.Regionalisms",
+          "category": "Regionalism",
+          "flags": 7,
+          "per1000": 0.0081
+        },
+        {
           "ruleId": "harper.TheirToTheyre",
           "category": "Grammar",
           "flags": 7,
@@ -1779,6 +1785,12 @@
         {
           "ruleId": "harper.CapitalizePersonalPronouns",
           "category": "Capitalization",
+          "flags": 5,
+          "per1000": 0.0058
+        },
+        {
+          "ruleId": "harper.HaveTakeALook",
+          "category": "Regionalism",
           "flags": 5,
           "per1000": 0.0058
         },
@@ -1957,14 +1969,14 @@
           "per1000": 0.0023
         },
         {
-          "ruleId": "harper.PhrasalVerbAsCompoundNoun",
-          "category": "WordChoice",
+          "ruleId": "harper.OutOfTheWindow",
+          "category": "Regionalism",
           "flags": 2,
           "per1000": 0.0023
         },
         {
-          "ruleId": "harper.Regionalisms",
-          "category": "Regionalism",
+          "ruleId": "harper.PhrasalVerbAsCompoundNoun",
+          "category": "WordChoice",
           "flags": 2,
           "per1000": 0.0023
         },
@@ -2208,12 +2220,12 @@
           "category": "typo",
           "planted": 500,
           "checked": 500,
-          "caught": 434,
-          "firstFixRight": 325,
-          "fixInTop5": 385,
-          "catchRate": 0.868,
-          "firstFixRate": 0.7488,
-          "top5FixRate": 0.8871
+          "caught": 433,
+          "firstFixRight": 324,
+          "fixInTop5": 384,
+          "catchRate": 0.866,
+          "firstFixRate": 0.7483,
+          "top5FixRate": 0.8868
         },
         {
           "category": "confusable",
@@ -2271,7 +2283,7 @@
           "top5FixRate": 0
         }
       ],
-      "flagsPer1000": 25.8037
+      "flagsPer1000": 24.3576
     },
     {
       "corpus": "gutenberg",
@@ -2280,14 +2292,14 @@
       "paragraphs": 5481,
       "uncheckedParagraphs": 0,
       "words": 304864,
-      "flags": 6596,
+      "flags": 6079,
       "confirmedRealErrors": 0,
       "rules": [
         {
           "ruleId": "harper.SpellCheck",
           "category": "Spelling",
-          "flags": 3796,
-          "per1000": 12.4515
+          "flags": 3267,
+          "per1000": 10.7163
         },
         {
           "ruleId": "harper.LongSentences",
@@ -2392,6 +2404,12 @@
           "per1000": 0.0558
         },
         {
+          "ruleId": "harper.Regionalisms",
+          "category": "Regionalism",
+          "flags": 17,
+          "per1000": 0.0558
+        },
+        {
           "ruleId": "harper.RepeatedWords",
           "category": "Repetition",
           "flags": 16,
@@ -2474,12 +2492,6 @@
           "category": "WordChoice",
           "flags": 7,
           "per1000": 0.023
-        },
-        {
-          "ruleId": "harper.OutOfTheWindow",
-          "category": "Regionalism",
-          "flags": 6,
-          "per1000": 0.0197
         },
         {
           "ruleId": "harper.RegularIrregulars",
@@ -2854,6 +2866,12 @@
           "per1000": 0.0033
         },
         {
+          "ruleId": "harper.OutOfTheWindow",
+          "category": "Regionalism",
+          "flags": 1,
+          "per1000": 0.0033
+        },
+        {
           "ruleId": "harper.Payed",
           "category": "Spelling",
           "flags": 1,
@@ -2943,12 +2961,12 @@
           "category": "typo",
           "planted": 500,
           "checked": 500,
-          "caught": 432,
+          "caught": 433,
           "firstFixRight": 327,
-          "fixInTop5": 393,
-          "catchRate": 0.864,
-          "firstFixRate": 0.7569,
-          "top5FixRate": 0.9097
+          "fixInTop5": 394,
+          "catchRate": 0.866,
+          "firstFixRate": 0.7552,
+          "top5FixRate": 0.9099
         },
         {
           "category": "confusable",
@@ -3006,7 +3024,7 @@
           "top5FixRate": 0
         }
       ],
-      "flagsPer1000": 21.6359
+      "flagsPer1000": 19.94
     },
     {
       "corpus": "all",
@@ -3015,14 +3033,14 @@
       "paragraphs": 31755,
       "uncheckedParagraphs": 0,
       "words": 1314247,
-      "flags": 42282,
+      "flags": 40654,
       "confirmedRealErrors": 0,
       "rules": [
         {
           "ruleId": "harper.SpellCheck",
           "category": "Spelling",
-          "flags": 29815,
-          "per1000": 22.686
+          "flags": 28176,
+          "per1000": 21.4389
         },
         {
           "ruleId": "harper.LongSentences",
@@ -3123,8 +3141,8 @@
         {
           "ruleId": "harper.AvoidCurses",
           "category": "WordChoice",
-          "flags": 118,
-          "per1000": 0.0898
+          "flags": 132,
+          "per1000": 0.1004
         },
         {
           "ruleId": "harper.PossessiveYour",
@@ -3277,12 +3295,6 @@
           "per1000": 0.0137
         },
         {
-          "ruleId": "harper.HaveTakeALook",
-          "category": "Regionalism",
-          "flags": 16,
-          "per1000": 0.0122
-        },
-        {
           "ruleId": "harper.FindOut",
           "category": "WordChoice",
           "flags": 15,
@@ -3295,6 +3307,12 @@
           "per1000": 0.0114
         },
         {
+          "ruleId": "harper.HaveTakeALook",
+          "category": "Regionalism",
+          "flags": 14,
+          "per1000": 0.0107
+        },
+        {
           "ruleId": "harper.MergeWords",
           "category": "WordChoice",
           "flags": 14,
@@ -3305,12 +3323,6 @@
           "category": "Agreement",
           "flags": 14,
           "per1000": 0.0107
-        },
-        {
-          "ruleId": "harper.OutOfTheWindow",
-          "category": "Regionalism",
-          "flags": 11,
-          "per1000": 0.0084
         },
         {
           "ruleId": "harper.TheirToTheyre",
@@ -3375,6 +3387,12 @@
         {
           "ruleId": "harper.ModalOf",
           "category": "WordChoice",
+          "flags": 9,
+          "per1000": 0.0068
+        },
+        {
+          "ruleId": "harper.Regionalisms",
+          "category": "Regionalism",
           "flags": 9,
           "per1000": 0.0068
         },
@@ -3583,6 +3601,12 @@
           "per1000": 0.0023
         },
         {
+          "ruleId": "harper.OutOfTheWindow",
+          "category": "Regionalism",
+          "flags": 3,
+          "per1000": 0.0023
+        },
+        {
           "ruleId": "harper.QuestionVerbAgreement",
           "category": "Agreement",
           "flags": 3,
@@ -3699,12 +3723,6 @@
         {
           "ruleId": "harper.QuoteSpacing",
           "category": "Formatting",
-          "flags": 2,
-          "per1000": 0.0015
-        },
-        {
-          "ruleId": "harper.Regionalisms",
-          "category": "Regionalism",
           "flags": 2,
           "per1000": 0.0015
         },
@@ -4053,7 +4071,7 @@
           "top5FixRate": 0
         }
       ],
-      "flagsPer1000": 32.172
+      "flagsPer1000": 30.9333
     },
     {
       "corpus": "all",
@@ -4062,14 +4080,14 @@
       "paragraphs": 12998,
       "uncheckedParagraphs": 0,
       "words": 545117,
-      "flags": 16438,
+      "flags": 15814,
       "confirmedRealErrors": 0,
       "rules": [
         {
           "ruleId": "harper.SpellCheck",
           "category": "Spelling",
-          "flags": 11570,
-          "per1000": 21.2248
+          "flags": 10932,
+          "per1000": 20.0544
         },
         {
           "ruleId": "harper.LongSentences",
@@ -4110,8 +4128,8 @@
         {
           "ruleId": "harper.AvoidCurses",
           "category": "WordChoice",
-          "flags": 130,
-          "per1000": 0.2385
+          "flags": 132,
+          "per1000": 0.2421
         },
         {
           "ruleId": "harper.CompoundNouns",
@@ -4228,6 +4246,12 @@
           "per1000": 0.0404
         },
         {
+          "ruleId": "harper.Regionalisms",
+          "category": "Regionalism",
+          "flags": 17,
+          "per1000": 0.0312
+        },
+        {
           "ruleId": "harper.ToTwoToo",
           "category": "WordChoice",
           "flags": 16,
@@ -4302,12 +4326,6 @@
         {
           "ruleId": "harper.Everyone",
           "category": "Miscellaneous",
-          "flags": 8,
-          "per1000": 0.0147
-        },
-        {
-          "ruleId": "harper.OutOfTheWindow",
-          "category": "Regionalism",
           "flags": 8,
           "per1000": 0.0147
         },
@@ -4500,6 +4518,12 @@
         {
           "ruleId": "harper.NounVerbConfusion",
           "category": "WordChoice",
+          "flags": 3,
+          "per1000": 0.0055
+        },
+        {
+          "ruleId": "harper.OutOfTheWindow",
+          "category": "Regionalism",
           "flags": 3,
           "per1000": 0.0055
         },
@@ -4857,12 +4881,12 @@
           "category": "typo",
           "planted": 1000,
           "checked": 1000,
-          "caught": 863,
-          "firstFixRight": 640,
-          "fixInTop5": 772,
-          "catchRate": 0.863,
-          "firstFixRate": 0.7416,
-          "top5FixRate": 0.8946
+          "caught": 868,
+          "firstFixRight": 644,
+          "fixInTop5": 777,
+          "catchRate": 0.868,
+          "firstFixRate": 0.7419,
+          "top5FixRate": 0.8952
         },
         {
           "category": "confusable",
@@ -4920,7 +4944,7 @@
           "top5FixRate": 0
         }
       ],
-      "flagsPer1000": 30.155
+      "flagsPer1000": 29.0103
     }
   ]
 }
