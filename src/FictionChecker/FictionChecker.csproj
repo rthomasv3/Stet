@@ -9,6 +9,12 @@
   <ItemGroup>
     <InternalsVisibleTo Include="FictionChecker.Tests" />
     <InternalsVisibleTo Include="FictionChecker.Eval" />
+    <InternalsVisibleTo Include="FictionChecker.DataBuilder" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Data\lexicon.bin" LogicalName="FictionChecker.Data.lexicon.bin" Condition="Exists('Data\lexicon.bin')" />
+    <EmbeddedResource Include="Data\Lists\*.txt" LogicalName="FictionChecker.Data.Lists.%(Filename)%(Extension)" />
   </ItemGroup>
 
 </Project>

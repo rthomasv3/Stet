@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\FictionChecker\FictionChecker.csproj" />
+    <ProjectReference Include="..\..\src\FictionChecker.DataBuilder\FictionChecker.DataBuilder.csproj" />
   </ItemGroup>
 
 </Project>
