@@ -21,6 +21,12 @@ internal enum SpellingKind
     /// <summary>Not a known word.</summary>
     Misspelling,
 
+    /// <summary>
+    /// An unknown capitalized word that does not look like a slip for any known word: most likely a name
+    /// that is not in a word set yet. Reported apart from misspellings so an app can show it differently.
+    /// </summary>
+    UnknownName,
+
     /// <summary>A correct spelling in another dialect ("colour" in American English).</summary>
     OtherDialect,
 
@@ -43,7 +49,7 @@ internal sealed record SpellingOptions
     /// <summary>Whether another dialect's spelling is reported (as its own kind). When false it is accepted.</summary>
     public bool FlagOtherDialects { get; init; } = true;
 
-    /// <summary>Most suggestions offered for one word.</summary>
+    /// <summary>Most suggestions offered for one word. Zero skips working out suggestions, which is faster.</summary>
     public int MaxSuggestions { get; init; } = 5;
 
     /// <summary>The quote style in effect.</summary>
@@ -62,6 +68,7 @@ internal sealed record SpellingIssue(int Start, int Length, SpellingKind Kind, s
     {
         SpellingKind.OtherDialect => "spelling.other-dialect",
         SpellingKind.Capitalization => "spelling.capitalization",
+        SpellingKind.UnknownName => "spelling.unknown-name",
         _ => "spelling.misspelling",
     };
 }

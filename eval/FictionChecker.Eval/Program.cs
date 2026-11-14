@@ -10,7 +10,7 @@ using FictionChecker.Eval.Scoring;
 using FictionChecker.Eval.Text;
 
 // Usage:
-//   run --checker none|demo
+//   run --checker none|demo|spelling|spelling-world
 //   run --checker external --name harper --issues <issues.jsonl>   score issues produced outside this process
 //   export --out <items.jsonl>                                      write every paragraph an external checker must check
 //   export --out <items.jsonl> --corpus gutenberg --clean-words 2000 --planted 100     a smaller set for slow checkers
@@ -19,7 +19,7 @@ using FictionChecker.Eval.Text;
 //          --root <dir>          repository root (found automatically by default)
 if (args.Length == 0 || args[0] is "-h" or "--help")
 {
-    Console.WriteLine("Commands: run --checker none|demo|external [--name N --issues FILE] [--compare N]");
+    Console.WriteLine("Commands: run --checker none|demo|spelling|spelling-world|external [--name N --issues FILE] [--compare N]");
     Console.WriteLine("          export --out FILE");
     Console.WriteLine("          coverage        measure how much of the books' vocabulary the spelling data knows");
     Console.WriteLine("          dialogue        measure text splitting and dialogue detection on whole books");
@@ -113,6 +113,8 @@ IEvalChecker checker = checkerName switch
 {
     "none" => new NoneChecker(),
     "demo" => new DemoChecker(),
+    "spelling" => new SpellingEvalChecker(corpora, world: false),
+    "spelling-world" => new SpellingEvalChecker(corpora, world: true),
     "external" => new ExternalChecker(
         options.GetValueOrDefault("--source-name") ?? options.GetValueOrDefault("--name") ?? throw new ArgumentException("external needs --name"),
         options.GetValueOrDefault("--issues") ?? throw new ArgumentException("external needs --issues FILE")),
@@ -144,8 +146,20 @@ string markdown = ReportWriter.ToMarkdown(report, previous, baseline);
 File.WriteAllText(Path.Combine(reports, checker.Name + ".md"), markdown);
 ReportWriter.WriteReviewFlags(scorer.ReviewFlags, Path.Combine(localReports, checker.Name + "-flags.tsv"));
 ReportWriter.WriteMissed(scorer.Missed, Path.Combine(localReports, checker.Name + "-missed.tsv"));
+File.WriteAllLines(
+    Path.Combine(localReports, checker.Name + "-books.tsv"),
+    scorer.PerBook.OrderBy(kv => kv.Key.Corpus, StringComparer.Ordinal).ThenBy(kv => kv.Key.BookId, StringComparer.Ordinal)
+        .Select(kv => $"{kv.Key.Corpus}\t{kv.Key.BookId}\t{kv.Key.Split}\t{kv.Value.Words}\t{kv.Value.Flags}\t{(kv.Value.Words == 0 ? 0 : kv.Value.Flags * 1000.0 / kv.Value.Words):0.00}"));
+File.WriteAllLines(
+    Path.Combine(localReports, checker.Name + "-flag-words.tsv"),
+    scorer.FlaggedText.OrderByDescending(kv => kv.Value).ThenBy(kv => kv.Key.Text, StringComparer.Ordinal).Select(kv => $"{kv.Value}\t{kv.Key.Corpus}\t{kv.Key.RuleId}\t{kv.Key.Text}"));
 
 Console.WriteLine(markdown);
+if (checker is SpellingEvalChecker { WorldWordCounts.Count: > 0 } spelling)
+{
+    Console.WriteLine($"Stand-in world lists: {spelling.WorldWordCounts.Values.Average():0} words per book on average ({spelling.WorldWordCounts.Values.Min()} to {spelling.WorldWordCounts.Values.Max()}).");
+}
+
 Console.WriteLine($"Checked in {seconds:0.0} s. Reports: eval/reports/{checker.Name}.md and .json; review files in eval/reports/local/.");
 return 0;
 

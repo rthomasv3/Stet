@@ -20,6 +20,12 @@ internal static class CharClass
     /// <summary>Straight or curly apostrophe (the curly one doubles as a closing single quote).</summary>
     public static bool IsApostrophe(char c) => c is '\'' or RightSingleQuote;
 
+    /// <summary>
+    /// A character that can only be an apostrophe when it sits between two letters, including marks that are
+    /// wrong but common there: an opening quote, a modifier apostrophe, an acute accent or a backtick.
+    /// </summary>
+    public static bool IsApostropheVariant(char c) => c is '\'' or RightSingleQuote or LeftSingleQuote or (char)0x02BC or (char)0x00B4 or '`';
+
     /// <summary>Any single quote mark: straight, opening curly or closing curly.</summary>
     public static bool IsSingleQuote(char c) => c is '\'' or LeftSingleQuote or RightSingleQuote;
 

@@ -1,0 +1,642 @@
+{
+  "checker": "spelling",
+  "libraryVersion": "0.1.0",
+  "settings": {
+    "seed": 20261114,
+    "cleanWordsPerBook": 30000,
+    "plantedPerCategory": 500,
+    "reviewFlagsPerRule": 40
+  },
+  "groups": [
+    {
+      "corpus": "calibre",
+      "split": "dev",
+      "books": 16,
+      "paragraphs": 14103,
+      "uncheckedParagraphs": 0,
+      "words": 454679,
+      "flags": 16126,
+      "confirmedRealErrors": 0,
+      "rules": [
+        {
+          "ruleId": "spelling.unknown-name",
+          "category": "Spelling",
+          "flags": 9435,
+          "per1000": 20.7509
+        },
+        {
+          "ruleId": "spelling.misspelling",
+          "category": "Spelling",
+          "flags": 6644,
+          "per1000": 14.6125
+        },
+        {
+          "ruleId": "spelling.other-dialect",
+          "category": "Spelling",
+          "flags": 29,
+          "per1000": 0.0638
+        },
+        {
+          "ruleId": "spelling.capitalization",
+          "category": "Spelling",
+          "flags": 18,
+          "per1000": 0.0396
+        }
+      ],
+      "planted": [
+        {
+          "category": "typo",
+          "planted": 500,
+          "checked": 500,
+          "caught": 470,
+          "firstFixRight": 417,
+          "fixInTop5": 466,
+          "catchRate": 0.94,
+          "firstFixRate": 0.8872,
+          "top5FixRate": 0.9915
+        },
+        {
+          "category": "confusable",
+          "planted": 500,
+          "checked": 500,
+          "caught": 0,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        },
+        {
+          "category": "a-an",
+          "planted": 500,
+          "checked": 500,
+          "caught": 0,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        },
+        {
+          "category": "repeated-word",
+          "planted": 500,
+          "checked": 500,
+          "caught": 0,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        },
+        {
+          "category": "agreement",
+          "planted": 500,
+          "checked": 500,
+          "caught": 0,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        },
+        {
+          "category": "dialogue-punctuation",
+          "planted": 500,
+          "checked": 500,
+          "caught": 8,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0.016,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        }
+      ],
+      "flagsPer1000": 35.4668
+    },
+    {
+      "corpus": "calibre",
+      "split": "test",
+      "books": 8,
+      "paragraphs": 7517,
+      "uncheckedParagraphs": 0,
+      "words": 240253,
+      "flags": 7717,
+      "confirmedRealErrors": 0,
+      "rules": [
+        {
+          "ruleId": "spelling.unknown-name",
+          "category": "Spelling",
+          "flags": 4695,
+          "per1000": 19.5419
+        },
+        {
+          "ruleId": "spelling.misspelling",
+          "category": "Spelling",
+          "flags": 2997,
+          "per1000": 12.4743
+        },
+        {
+          "ruleId": "spelling.other-dialect",
+          "category": "Spelling",
+          "flags": 19,
+          "per1000": 0.0791
+        },
+        {
+          "ruleId": "spelling.capitalization",
+          "category": "Spelling",
+          "flags": 6,
+          "per1000": 0.025
+        }
+      ],
+      "planted": [
+        {
+          "category": "typo",
+          "planted": 500,
+          "checked": 500,
+          "caught": 479,
+          "firstFixRight": 413,
+          "fixInTop5": 472,
+          "catchRate": 0.958,
+          "firstFixRate": 0.8622,
+          "top5FixRate": 0.9854
+        },
+        {
+          "category": "confusable",
+          "planted": 500,
+          "checked": 500,
+          "caught": 0,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        },
+        {
+          "category": "a-an",
+          "planted": 500,
+          "checked": 500,
+          "caught": 0,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        },
+        {
+          "category": "repeated-word",
+          "planted": 500,
+          "checked": 500,
+          "caught": 0,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        },
+        {
+          "category": "agreement",
+          "planted": 500,
+          "checked": 500,
+          "caught": 0,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        },
+        {
+          "category": "dialogue-punctuation",
+          "planted": 500,
+          "checked": 500,
+          "caught": 1,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0.002,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        }
+      ],
+      "flagsPer1000": 32.1203
+    },
+    {
+      "corpus": "gutenberg",
+      "split": "dev",
+      "books": 29,
+      "paragraphs": 17652,
+      "uncheckedParagraphs": 0,
+      "words": 859568,
+      "flags": 11619,
+      "confirmedRealErrors": 0,
+      "rules": [
+        {
+          "ruleId": "spelling.unknown-name",
+          "category": "Spelling",
+          "flags": 5843,
+          "per1000": 6.7976
+        },
+        {
+          "ruleId": "spelling.misspelling",
+          "category": "Spelling",
+          "flags": 5565,
+          "per1000": 6.4742
+        },
+        {
+          "ruleId": "spelling.other-dialect",
+          "category": "Spelling",
+          "flags": 130,
+          "per1000": 0.1512
+        },
+        {
+          "ruleId": "spelling.capitalization",
+          "category": "Spelling",
+          "flags": 81,
+          "per1000": 0.0942
+        }
+      ],
+      "planted": [
+        {
+          "category": "typo",
+          "planted": 500,
+          "checked": 500,
+          "caught": 479,
+          "firstFixRight": 415,
+          "fixInTop5": 472,
+          "catchRate": 0.958,
+          "firstFixRate": 0.8664,
+          "top5FixRate": 0.9854
+        },
+        {
+          "category": "confusable",
+          "planted": 500,
+          "checked": 500,
+          "caught": 0,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        },
+        {
+          "category": "a-an",
+          "planted": 500,
+          "checked": 500,
+          "caught": 0,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        },
+        {
+          "category": "repeated-word",
+          "planted": 500,
+          "checked": 500,
+          "caught": 1,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0.002,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        },
+        {
+          "category": "agreement",
+          "planted": 500,
+          "checked": 500,
+          "caught": 0,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        },
+        {
+          "category": "dialogue-punctuation",
+          "planted": 500,
+          "checked": 500,
+          "caught": 0,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        }
+      ],
+      "flagsPer1000": 13.5173
+    },
+    {
+      "corpus": "gutenberg",
+      "split": "test",
+      "books": 11,
+      "paragraphs": 5481,
+      "uncheckedParagraphs": 0,
+      "words": 304864,
+      "flags": 2650,
+      "confirmedRealErrors": 0,
+      "rules": [
+        {
+          "ruleId": "spelling.misspelling",
+          "category": "Spelling",
+          "flags": 1417,
+          "per1000": 4.648
+        },
+        {
+          "ruleId": "spelling.unknown-name",
+          "category": "Spelling",
+          "flags": 1183,
+          "per1000": 3.8804
+        },
+        {
+          "ruleId": "spelling.other-dialect",
+          "category": "Spelling",
+          "flags": 35,
+          "per1000": 0.1148
+        },
+        {
+          "ruleId": "spelling.capitalization",
+          "category": "Spelling",
+          "flags": 15,
+          "per1000": 0.0492
+        }
+      ],
+      "planted": [
+        {
+          "category": "typo",
+          "planted": 500,
+          "checked": 500,
+          "caught": 487,
+          "firstFixRight": 424,
+          "fixInTop5": 480,
+          "catchRate": 0.974,
+          "firstFixRate": 0.8706,
+          "top5FixRate": 0.9856
+        },
+        {
+          "category": "confusable",
+          "planted": 500,
+          "checked": 500,
+          "caught": 0,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        },
+        {
+          "category": "a-an",
+          "planted": 500,
+          "checked": 500,
+          "caught": 0,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        },
+        {
+          "category": "repeated-word",
+          "planted": 500,
+          "checked": 500,
+          "caught": 0,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        },
+        {
+          "category": "agreement",
+          "planted": 500,
+          "checked": 500,
+          "caught": 0,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        },
+        {
+          "category": "dialogue-punctuation",
+          "planted": 500,
+          "checked": 500,
+          "caught": 0,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        }
+      ],
+      "flagsPer1000": 8.6924
+    },
+    {
+      "corpus": "all",
+      "split": "dev",
+      "books": 45,
+      "paragraphs": 31755,
+      "uncheckedParagraphs": 0,
+      "words": 1314247,
+      "flags": 27745,
+      "confirmedRealErrors": 0,
+      "rules": [
+        {
+          "ruleId": "spelling.unknown-name",
+          "category": "Spelling",
+          "flags": 15278,
+          "per1000": 11.6249
+        },
+        {
+          "ruleId": "spelling.misspelling",
+          "category": "Spelling",
+          "flags": 12209,
+          "per1000": 9.2897
+        },
+        {
+          "ruleId": "spelling.other-dialect",
+          "category": "Spelling",
+          "flags": 159,
+          "per1000": 0.121
+        },
+        {
+          "ruleId": "spelling.capitalization",
+          "category": "Spelling",
+          "flags": 99,
+          "per1000": 0.0753
+        }
+      ],
+      "planted": [
+        {
+          "category": "typo",
+          "planted": 1000,
+          "checked": 1000,
+          "caught": 949,
+          "firstFixRight": 832,
+          "fixInTop5": 938,
+          "catchRate": 0.949,
+          "firstFixRate": 0.8767,
+          "top5FixRate": 0.9884
+        },
+        {
+          "category": "confusable",
+          "planted": 1000,
+          "checked": 1000,
+          "caught": 0,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        },
+        {
+          "category": "a-an",
+          "planted": 1000,
+          "checked": 1000,
+          "caught": 0,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        },
+        {
+          "category": "repeated-word",
+          "planted": 1000,
+          "checked": 1000,
+          "caught": 1,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0.001,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        },
+        {
+          "category": "agreement",
+          "planted": 1000,
+          "checked": 1000,
+          "caught": 0,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        },
+        {
+          "category": "dialogue-punctuation",
+          "planted": 1000,
+          "checked": 1000,
+          "caught": 8,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0.008,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        }
+      ],
+      "flagsPer1000": 21.1109
+    },
+    {
+      "corpus": "all",
+      "split": "test",
+      "books": 19,
+      "paragraphs": 12998,
+      "uncheckedParagraphs": 0,
+      "words": 545117,
+      "flags": 10367,
+      "confirmedRealErrors": 0,
+      "rules": [
+        {
+          "ruleId": "spelling.unknown-name",
+          "category": "Spelling",
+          "flags": 5878,
+          "per1000": 10.783
+        },
+        {
+          "ruleId": "spelling.misspelling",
+          "category": "Spelling",
+          "flags": 4414,
+          "per1000": 8.0973
+        },
+        {
+          "ruleId": "spelling.other-dialect",
+          "category": "Spelling",
+          "flags": 54,
+          "per1000": 0.0991
+        },
+        {
+          "ruleId": "spelling.capitalization",
+          "category": "Spelling",
+          "flags": 21,
+          "per1000": 0.0385
+        }
+      ],
+      "planted": [
+        {
+          "category": "typo",
+          "planted": 1000,
+          "checked": 1000,
+          "caught": 966,
+          "firstFixRight": 837,
+          "fixInTop5": 952,
+          "catchRate": 0.966,
+          "firstFixRate": 0.8665,
+          "top5FixRate": 0.9855
+        },
+        {
+          "category": "confusable",
+          "planted": 1000,
+          "checked": 1000,
+          "caught": 0,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        },
+        {
+          "category": "a-an",
+          "planted": 1000,
+          "checked": 1000,
+          "caught": 0,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        },
+        {
+          "category": "repeated-word",
+          "planted": 1000,
+          "checked": 1000,
+          "caught": 0,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        },
+        {
+          "category": "agreement",
+          "planted": 1000,
+          "checked": 1000,
+          "caught": 0,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        },
+        {
+          "category": "dialogue-punctuation",
+          "planted": 1000,
+          "checked": 1000,
+          "caught": 1,
+          "firstFixRight": 0,
+          "fixInTop5": 0,
+          "catchRate": 0.001,
+          "firstFixRate": 0,
+          "top5FixRate": 0
+        }
+      ],
+      "flagsPer1000": 19.0179
+    }
+  ]
+}

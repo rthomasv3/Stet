@@ -121,9 +121,9 @@ internal static class Tokenizer
     private static bool IsJoiner(string text, int index, bool inNumber)
     {
         char c = text[index];
-        if (CharClass.IsApostrophe(c) || CharClass.IsHyphen(c))
+        if (CharClass.IsApostropheVariant(c) || CharClass.IsHyphen(c))
         {
-            return true;
+            return true; // only reached between two letters, where even a stray opening quote is an apostrophe
         }
 
         return inNumber && c is '.' or ',' && inNumber && char.IsDigit(text[index + 1]);

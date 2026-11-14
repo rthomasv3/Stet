@@ -100,6 +100,11 @@ internal sealed class WordClassifier
             return WordVerdict.Valid;
         }
 
+        if (IsArchaicVerb(lower, context) || IsRegularDerivation(lower, context))
+        {
+            return WordVerdict.Valid;
+        }
+
         if (context.InDialogue && context.Lenient && IsInformal(lower, flags, context))
         {
             return WordVerdict.Valid;
@@ -117,7 +122,7 @@ internal sealed class WordClassifier
     /// Whether a part of a hyphenated word is acceptable on its own merits: a prefix (non-, semi-), a single
     /// letter (T-shirt), or a word.
     /// </summary>
-    public WordVerdict ClassifyHyphenPart(ReadOnlySpan<char> part, TokenFlags flags, in Context context)
+    public WordVerdict ClassifyHyphenPart(ReadOnlySpan<char> part, TokenFlags flags, in Context context, bool isFirstPart)
     {
         if (part.Length <= 1)
         {
@@ -134,7 +139,13 @@ internal sealed class WordClassifier
             }
         }
 
-        return Classify(part, flags, context);
+        WordVerdict verdict = Classify(part, flags, context);
+        if (verdict.Status == WordStatus.Unknown && !isFirstPart && part.Length <= 64 && IsNounPlusEd(lower, context))
+        {
+            return WordVerdict.Valid;
+        }
+
+        return verdict;
     }
 
     /// <summary>
@@ -201,7 +212,7 @@ internal sealed class WordClassifier
                 best = Better(best, Look(buffer, context));
             }
         }
-        else if (shape == Shape.Lower && best == WordStatus.Unknown)
+        else if (shape == Shape.Lower && best == WordStatus.Unknown && word.Length >= 4)
         {
             // Only valid with a capital: london, elizabeth, kaelith.
             word.CopyTo(buffer);
@@ -241,6 +252,107 @@ internal sealed class WordClassifier
         }
 
         return WordStatus.OtherDialect;
+    }
+
+    // Old third-person verbs: "maketh", "springeth", "fleeth". The -est forms are left out because they
+    // collide with misspelled superlatives ("bigest").
+    private bool IsArchaicVerb(ReadOnlySpan<char> lower, in Context context)
+    {
+        if (lower.Length < 5 || !lower.EndsWith("th", StringComparison.Ordinal))
+        {
+            return false;
+        }
+
+        if (lower.EndsWith("eth", StringComparison.Ordinal))
+        {
+            ReadOnlySpan<char> stem = lower[..^3];
+            if (stem.Length >= 2 && (Look(stem, context) == WordStatus.Valid || (stem.Length >= 3 && stem[^1] == stem[^2] && Look(stem[..^1], context) == WordStatus.Valid)))
+            {
+                return true; // walketh, runneth
+            }
+        }
+
+        ReadOnlySpan<char> withE = lower[..^2];
+        return withE[^1] == 'e' && withE.Length >= 3 && Look(withE, context) == WordStatus.Valid; // maketh, fleeth
+    }
+
+    // Regular derivations fiction coins freely and no dictionary lists in full: "bellowings", "slurringly",
+    // "unlidded", "buglike", "wickless". Each needs its base to be a known word.
+    private bool IsRegularDerivation(ReadOnlySpan<char> lower, in Context context)
+    {
+        if (lower.Length < 6)
+        {
+            return false;
+        }
+
+        // -ings (plural of an -ing noun), -ingly and -edly (adverb from a participle).
+        if (lower.EndsWith("ings", StringComparison.Ordinal) && Look(lower[..^1], context) == WordStatus.Valid)
+        {
+            return true;
+        }
+
+        if ((lower.EndsWith("ingly", StringComparison.Ordinal) || lower.EndsWith("edly", StringComparison.Ordinal))
+            && Look(lower[..^2], context) == WordStatus.Valid)
+        {
+            return true;
+        }
+
+        // -like, -less and -ness on a known word of three letters or more.
+        foreach (string suffix in (ReadOnlySpan<string>)["like", "less", "ness"])
+        {
+            if (lower.Length >= suffix.Length + 3 && lower.EndsWith(suffix, StringComparison.Ordinal)
+                && Look(lower[..^suffix.Length], context) == WordStatus.Valid)
+            {
+                return true;
+            }
+        }
+
+        // un- on a known participle or adjective: unlidded, unbonded, unwinking.
+        if (lower.StartsWith("un", StringComparison.Ordinal) && lower.Length >= 7)
+        {
+            ReadOnlySpan<char> rest = lower[2..];
+            bool descriptive = rest.EndsWith("ed", StringComparison.Ordinal) || rest.EndsWith("ing", StringComparison.Ordinal)
+                || rest.EndsWith("able", StringComparison.Ordinal) || rest.EndsWith("ingly", StringComparison.Ordinal);
+            if (descriptive && (Look(rest, context) == WordStatus.Valid || (rest.EndsWith("ingly", StringComparison.Ordinal) && Look(rest[..^2], context) == WordStatus.Valid)))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    // The second half of compounds like "dark-browed", "long-limbed", "good-humouredly": a noun plus -ed.
+    private bool IsNounPlusEd(ReadOnlySpan<char> lower, in Context context)
+    {
+        Span<char> withE = stackalloc char[lower.Length];
+        foreach (string ending in (ReadOnlySpan<string>)["edly", "edness", "ed"])
+        {
+            if (lower.Length <= ending.Length + 2 || !lower.EndsWith(ending, StringComparison.Ordinal))
+            {
+                continue;
+            }
+
+            ReadOnlySpan<char> stem = lower[..^ending.Length];
+            if (Look(stem, context) == WordStatus.Valid)
+            {
+                return true; // browed, limbed
+            }
+
+            stem.CopyTo(withE);
+            withE[stem.Length] = 'e';
+            if (Look(withE[..(stem.Length + 1)], context) == WordStatus.Valid)
+            {
+                return true; // nosed, natured
+            }
+
+            if (stem.Length >= 3 && stem[^1] == stem[^2] && Look(stem[..^1], context) == WordStatus.Valid)
+            {
+                return true; // legged, lipped
+            }
+        }
+
+        return false;
     }
 
     private bool IsInformal(ReadOnlySpan<char> lower, TokenFlags flags, in Context context)

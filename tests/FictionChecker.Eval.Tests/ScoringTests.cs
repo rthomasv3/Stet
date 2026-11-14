@@ -165,8 +165,8 @@ public class ScoringTests
     {
         var filtered = new FilteredChecker(new DemoChecker(), "demo-x", ["mechanics"]);
 
-        Assert.Empty(filtered.CheckDocument(["the the cat"], "US")[0]!);
-        Assert.Single(new DemoChecker().CheckDocument(["the the cat"], "US")[0]!);
+        Assert.Empty(filtered.CheckDocument(["the the cat"], new DocumentInfo("c", "b", "US"))[0]!);
+        Assert.Single(new DemoChecker().CheckDocument(["the the cat"], new DocumentInfo("c", "b", "US"))[0]!);
     }
 
     [Fact]

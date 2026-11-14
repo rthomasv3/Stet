@@ -91,7 +91,7 @@ internal sealed class SpellChecker
         DialogueResult dialogue = context.Dialogue
             ?? DialogueDetector.Detect(text, options.EffectiveQuoteStyle, context.StartsInDialogue, context.SkipRanges, context.DialogueRanges);
         var issues = new List<SpellingIssue>();
-        CheckTokens(text, Tokenizer.Tokenize(text, context.SkipRanges), dialogue, options, _state, issues, withSuggestions: true);
+        CheckTokens(text, Tokenizer.Tokenize(text, context.SkipRanges), dialogue, options, _state, issues, withSuggestions: options.MaxSuggestions > 0);
         return new SpellingResult(issues, dialogue.EndsInDialogue);
     }
 
@@ -148,7 +148,7 @@ internal sealed class SpellChecker
             token.TextIn(text).CopyTo(word);
             for (int k = 0; k < word.Length; k++)
             {
-                if (word[k] == CharClass.RightSingleQuote)
+                if (CharClass.IsApostropheVariant(word[k]))
                 {
                     word[k] = '\'';
                 }
@@ -199,7 +199,7 @@ internal sealed class SpellChecker
 
                 if (part.Length > 0)
                 {
-                    Report(text, tokens, -1, token.Start + partStart, part, _classifier.ClassifyHyphenPart(part, flags, context), context, options, state, issues, withSuggestions);
+                    Report(text, tokens, -1, token.Start + partStart, part, _classifier.ClassifyHyphenPart(part, flags, context, partStart == 0), context, options, state, issues, withSuggestions);
                 }
 
                 partStart = k + 1;
@@ -234,6 +234,12 @@ internal sealed class SpellChecker
             _ => SpellingKind.Misspelling,
         };
 
+        if (kind == SpellingKind.Misspelling && IsCapitalized(word) && tokenIndex >= 0
+            && !LooksLikeSlipCached(written, context, IsSentenceStart(text, tokens, tokenIndex), state))
+        {
+            kind = SpellingKind.UnknownName;
+        }
+
         if (kind == SpellingKind.Capitalization)
         {
             suggestions.Add(new SpellingSuggestion(start, word.Length, Restyle(text, start, verdict.Correction!)));
@@ -257,6 +263,69 @@ internal sealed class SpellChecker
         }
 
         issues.Add(new SpellingIssue(start, word.Length, kind, text.Substring(start, word.Length), suggestions));
+    }
+
+    private static bool IsCapitalized(ReadOnlySpan<char> word)
+    {
+        if (word.Length < 2 || !char.IsUpper(word[0]))
+        {
+            return false;
+        }
+
+        // At least one lowercase letter: KAELITH in capitals could be any shouted word.
+        foreach (char c in word[1..])
+        {
+            if (char.IsLower(c))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    // Whether a word opens a sentence or a quoted speech, where any word gets a capital.
+    private static bool IsSentenceStart(string text, List<Token> tokens, int index)
+    {
+        for (int i = index - 1; i >= 0; i--)
+        {
+            Token token = tokens[i];
+            if (token.Kind != TokenKind.Punctuation)
+            {
+                return false;
+            }
+
+            char c = text[token.Start];
+            if (c is '.' or '!' or '?' or ':' or CharClass.Ellipsis or CharClass.LeftDoubleQuote or '"' or CharClass.EmDash)
+            {
+                return true;
+            }
+
+            if (c is not (CharClass.LeftSingleQuote or '\'' or '(' or '[' or CharClass.RightDoubleQuote or CharClass.RightSingleQuote))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private bool LooksLikeSlipCached(string word, in WordClassifier.Context context, bool sentenceStart, State state)
+    {
+        var key = (word, context.Dialect, context.InDialogue, sentenceStart);
+        if (state.Slips.TryGetValue(key, out bool cached))
+        {
+            return cached;
+        }
+
+        bool slip = _suggester.LooksLikeSlip(word, context, sentenceStart);
+        if (state.Slips.Count >= SuggestionCacheLimit)
+        {
+            state.Slips.Clear();
+        }
+
+        state.Slips[key] = slip;
+        return slip;
     }
 
     // "any where" → "anywhere": an unknown word that makes a word with its neighbour.
@@ -325,5 +394,7 @@ internal sealed class SpellChecker
         public CustomWords Custom { get; } = custom;
 
         public ConcurrentDictionary<(string Word, Dialect Dialect, bool InDialogue), List<string>> Suggestions { get; } = new();
+
+        public ConcurrentDictionary<(string Word, Dialect Dialect, bool InDialogue, bool SentenceStart), bool> Slips { get; } = new();
     }
 }

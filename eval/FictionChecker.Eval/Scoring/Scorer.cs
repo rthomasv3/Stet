@@ -23,6 +23,15 @@ public sealed class Scorer
     /// <summary>Flags on clean text sampled for review. Filled by <see cref="Run"/>.</summary>
     public List<ReviewFlag> ReviewFlags { get; } = [];
 
+    /// <summary>
+    /// How often each piece of text was flagged on the dev books, by corpus and rule. Contains words from the
+    /// books: local reports only. Test books are left out so they are never looked at.
+    /// </summary>
+    public Dictionary<(string Corpus, string RuleId, string Text), int> FlaggedText { get; } = [];
+
+    /// <summary>Clean-text words and flags per book, to see how uneven the books are. Local reports only.</summary>
+    public Dictionary<(string Corpus, string BookId, string Split), (long Words, int Flags)> PerBook { get; } = [];
+
     /// <summary>Planted errors that were not caught, sampled for review. Filled by <see cref="Run"/>.</summary>
     public List<MissedPlant> Missed { get; } = [];
 
@@ -37,7 +46,9 @@ public sealed class Scorer
         {
             Tally tally = GetTally(groups, sample.Corpus, sample.Book.Split);
             tally.Books++;
-            IReadOnlyList<IReadOnlyList<Issue>?> results = checker.CheckDocument(sample.Paragraphs, sample.Book.Dialect);
+            long bookWords = 0;
+            int bookFlags = 0;
+            IReadOnlyList<IReadOnlyList<Issue>?> results = checker.CheckDocument(sample.Paragraphs, new DocumentInfo(sample.Corpus, sample.Book.Id, sample.Book.Dialect));
             for (int i = 0; i < sample.Paragraphs.Count; i++)
             {
                 string text = sample.Paragraphs[i];
@@ -50,7 +61,9 @@ public sealed class Scorer
                     continue;
                 }
 
-                tally.Words += Words.Count(text);
+                int paragraphWords = Words.Count(text);
+                tally.Words += paragraphWords;
+                bookWords += paragraphWords;
                 string hash = WorkSet.HashOf(text);
                 foreach (Issue issue in issues)
                 {
@@ -61,7 +74,14 @@ public sealed class Scorer
                     }
 
                     tally.Flags++;
+                    bookFlags++;
                     tally.CountRule(issue);
+                    if (sample.Book.Split == Split.Dev && issue.Start >= 0 && issue.Start + issue.Length <= text.Length)
+                    {
+                        var flagged = (sample.Corpus, issue.RuleId, text.Substring(issue.Start, issue.Length));
+                        FlaggedText[flagged] = FlaggedText.GetValueOrDefault(flagged) + 1;
+                    }
+
                     var key = (sample.Corpus, issue.RuleId);
                     int seen = perRuleSeen.GetValueOrDefault(key);
                     perRuleSeen[key] = seen + 1;
@@ -71,15 +91,18 @@ public sealed class Scorer
                     }
                 }
             }
+
+            PerBook[(sample.Corpus, sample.Book.Id, SplitName(sample.Book.Split))] = (bookWords, bookFlags);
         }
 
+        // (per-book totals are filled in the loop above)
         var missedSeen = new Dictionary<(string Corpus, string Category), int>();
         foreach (PlantedItem item in work.Planted)
         {
             Tally tally = GetTally(groups, item.Corpus, item.Split);
             PlantedTally planted = tally.GetPlanted(item.Category);
             planted.Planted++;
-            IReadOnlyList<Issue>? issues = checker.CheckDocument([item.Error.Text], item.Dialect)[0];
+            IReadOnlyList<Issue>? issues = checker.CheckDocument([item.Error.Text], new DocumentInfo(item.Corpus, item.BookId, item.Dialect))[0];
             cleanIssues.TryGetValue(item.Clean, out IReadOnlyList<Issue>? before);
             if (issues is null || before is null)
             {

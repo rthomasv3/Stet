@@ -75,6 +75,22 @@ internal static class LexiconBuilder
             Console.WriteLine($"  {source.Name,-36} {words.Count,8:N0} words, {added,7:N0} beyond the normal lists");
         }
 
+        // SCOWL lists one variant per dialect (British "amongst", American "among"), but fiction in every
+        // dialect uses both. A word stays restricted only when it has a twin in the other dialects that
+        // differs by a systematic spelling pattern (colour/color); otherwise every dialect accepts it.
+        int widened = 0;
+        foreach (string word in dialects.Keys.ToList())
+        {
+            (byte mask, bool noSuggest) = dialects[word];
+            if (mask != AllDialects && !HasDialectTwin(word, mask, dialects))
+            {
+                dialects[word] = (AllDialects, noSuggest);
+                widened++;
+            }
+        }
+
+        Console.WriteLine($"  {widened:N0} variants opened to every dialect; {dialects.Count(kv => kv.Value.Mask != AllDialects):N0} words stay dialect-specific");
+
         // The library accepts X's whenever X is a word, so storing possessives would only repeat the list.
         int before = dialects.Count;
         foreach (string word in dialects.Keys.Where(w => w.EndsWith("'s", StringComparison.Ordinal)).ToList())
@@ -109,6 +125,49 @@ internal static class LexiconBuilder
         }
 
         return entries;
+    }
+
+    // Spelling patterns that separate the dialects, as (one side, other side).
+    private static readonly (string A, string B)[] DialectPatterns =
+    [
+        ("our", "or"), ("tre", "ter"), ("bre", "ber"), ("is", "iz"), ("ys", "yz"), ("ll", "l"), ("pp", "p"),
+        ("tt", "t"), ("ence", "ense"), ("ogue", "og"), ("ae", "e"), ("oe", "e"), ("oul", "ol"), ("mme", "m"),
+        ("oeu", "eu"), ("gue", "g"),
+    ];
+
+    // Dialect words whose twin does not follow a pattern. They stay restricted to their own dialects.
+    private static readonly HashSet<string> IrregularDialectWords = new(StringComparer.Ordinal)
+    {
+        "tyre", "tyres", "kerb", "kerbs", "plough", "ploughs", "ploughed", "ploughing", "plow", "plows", "plowed",
+        "plowing", "pyjamas", "pajamas", "aluminium", "aluminum", "jewellery", "jewelry", "sceptic", "sceptics",
+        "sceptical", "skeptic", "skeptics", "skeptical", "cosy", "cozy", "cheque", "cheques", "manoeuvre",
+        "manoeuvres", "manoeuvred", "manoeuvring", "maneuver", "maneuvers", "maneuvered", "maneuvering",
+    };
+
+    private static bool HasDialectTwin(string word, byte mask, Dictionary<string, (byte Mask, bool NoSuggest)> dialects)
+    {
+        if (IrregularDialectWords.Contains(word.ToLowerInvariant()))
+        {
+            return true;
+        }
+
+        foreach ((string a, string b) in DialectPatterns)
+        {
+            foreach ((string from, string to) in new[] { (a, b), (b, a) })
+            {
+                for (int at = word.IndexOf(from, StringComparison.Ordinal); at >= 0; at = word.IndexOf(from, at + 1, StringComparison.Ordinal))
+                {
+                    string twin = string.Concat(word.AsSpan(0, at), to, word.AsSpan(at + from.Length));
+                    // The twin must cover a dialect this word lacks, and must itself be restricted.
+                    if (dialects.TryGetValue(twin, out (byte Mask, bool NoSuggest) other) && (other.Mask & ~mask) != 0 && other.Mask != AllDialects)
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 
     /// <summary>

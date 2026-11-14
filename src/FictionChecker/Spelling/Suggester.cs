@@ -6,6 +6,8 @@ internal sealed class Suggester
     private const int EditPenalty = 60;      // one edit outweighs about six doublings of frequency
     private const int UnseenFrequency = 30;  // words absent from the fiction counts are not treated as worthless
     private const int CustomFrequency = 150; // the writer's own words are likely what they meant
+    private const int CommonWordFrequency = 110;
+    private const int ProperNameFrequency = 90;
 
     private static readonly string[] KeyboardRows = ["qwertyuiop", "asdfghjkl", "zxcvbnm"];
 
@@ -94,6 +96,56 @@ internal sealed class Suggester
         }
 
         return result;
+    }
+
+    /// <summary>
+    /// Whether an unknown capitalized word looks like a slip for a known word rather than a new name.
+    /// Away from a sentence start only a near miss of a known name counts ("Lodnon", or a custom name one
+    /// letter off), because an ordinary word would not have a capital there. At a sentence start a near miss
+    /// of a common word counts too ("Teh").
+    /// </summary>
+    public bool LooksLikeSlip(string word, in WordClassifier.Context context, bool sentenceStart)
+    {
+        string lower = word.ToLowerInvariant();
+        if (_lists.Misspellings.ContainsKey(lower))
+        {
+            return true;
+        }
+
+        int maxDistance = lower.Length >= 7 ? 2 : 1;
+        bool slip = false;
+        Dialect dialect = context.Dialect;
+        _lexicon.Search.Find(lower, maxDistance, (index, distance) =>
+        {
+            if (slip)
+            {
+                return;
+            }
+
+            WordInfo info = _lexicon.InfoAt(index);
+            if (!info.IsIn(dialect) || info.IsRare || info.NeverSuggest)
+            {
+                return;
+            }
+
+            string candidate = _lexicon.WordAt(index);
+            bool proper = char.IsUpper(candidate[0]);
+            if (proper ? info.Frequency >= ProperNameFrequency || distance == 1 && info.Frequency > 0 : sentenceStart && info.Frequency >= CommonWordFrequency)
+            {
+                // A proper name must share the first letter: "Lodnon" is London, but "Mara" is not a slip for "Sara".
+                slip = !proper || char.ToLowerInvariant(candidate[0]) == lower[0];
+            }
+        });
+
+        if (!slip && !context.Custom.IsEmpty)
+        {
+            CustomWords custom = context.Custom;
+            string[] words = custom.SortedWords;
+            bool inDialogue = context.InDialogue;
+            custom.Search.Find(lower, maxDistance, (index, _) => slip |= custom.Contains(words[index], inDialogue) && char.ToLowerInvariant(words[index][0]) == lower[0]);
+        }
+
+        return slip;
     }
 
     /// <summary>Gives a suggestion the capitals of the word it replaces, unless it has capitals of its own.</summary>

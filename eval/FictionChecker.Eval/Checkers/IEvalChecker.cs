@@ -31,6 +31,12 @@ public sealed record Issue(int Start, int Length, string RuleId, string Category
     public bool Overlaps(int start, int length) => Start < start + length && start < Start + Math.Max(Length, 1);
 }
 
+/// <summary>Where a run of paragraphs comes from.</summary>
+/// <param name="Corpus">Corpus name.</param>
+/// <param name="BookId">Book identifier within the corpus.</param>
+/// <param name="Dialect">The spelling the book uses: "US" or "GB".</param>
+public sealed record DocumentInfo(string Corpus, string BookId, string Dialect);
+
 /// <summary>What the harness needs from a checker. The library's checker is wrapped in one of these.</summary>
 public interface IEvalChecker
 {
@@ -43,6 +49,6 @@ public interface IEvalChecker
     /// paragraph was not checked (only checkers that run outside this process do that).
     /// </summary>
     /// <param name="paragraphs">The paragraphs, in order.</param>
-    /// <param name="dialect">The spelling the text uses: "US" or "GB".</param>
-    IReadOnlyList<IReadOnlyList<Issue>?> CheckDocument(IReadOnlyList<string> paragraphs, string dialect);
+    /// <param name="document">Which book the paragraphs come from and the spelling it uses.</param>
+    IReadOnlyList<IReadOnlyList<Issue>?> CheckDocument(IReadOnlyList<string> paragraphs, DocumentInfo document);
 }

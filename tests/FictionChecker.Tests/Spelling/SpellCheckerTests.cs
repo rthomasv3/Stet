@@ -78,6 +78,28 @@ public class SpellCheckerTests
     }
 
     [Fact]
+    public void UnknownCapitalizedWordsAreReportedAsProbableNames()
+    {
+        Assert.Equal(["UnknownName:Aragost", "UnknownName:Zorvath"], Flagged("Then Aragost rode to Zorvath."));
+        Assert.Equal(["UnknownName:Aragost"], Flagged("Aragost rode north."));
+
+        SpellingIssue issue = NewChecker().CheckParagraph("Then Aragost rode.", US).Issues[0];
+        Assert.Equal("spelling.unknown-name", issue.RuleId);
+    }
+
+    [Fact]
+    public void CapitalizedSlipsAreStillMisspellings()
+    {
+        Assert.Equal(["Misspelling:Teh"], Flagged("Teh door opened."));
+        Assert.Equal(["Misspelling:Lodnon"], Flagged("We left Lodnon at dawn."));
+        Assert.Equal(["Misspelling:Becuase"], Flagged("“Becuase I said so,” she said."));
+
+        SpellChecker checker = NewChecker();
+        checker.SetWords("world", ["Kaelith"]);
+        Assert.Equal(["Misspelling:Kaelth"], Flagged("Then Kaelth spoke.", checker: checker));
+    }
+
+    [Fact]
     public void MixedCaseMustMatchExactly()
     {
         AssertClean("An iPhone lay on the table at McDonald’s.");
@@ -182,10 +204,34 @@ public class SpellCheckerTests
         AssertClean(text);
     }
 
+    [Theory]
+    [InlineData("He maketh and she springeth; the river runneth and time fleeth.")]
+    [InlineData("A dark-browed, long-limbed, good-naturedly red-nosed man.")]
+    [InlineData("The bellowings and creakings went on slurringly, unwinkingly.")]
+    [InlineData("An unlidded, buglike, wickless thing.")]
+    [InlineData("He didn‘t care; it wasn´t his. A bona fide lapis lazuli.")]
+    [InlineData("They walked among the trees, amongst friends, under a grey sky; she had learnt and dreamt.")]
+    public void RegularDerivationsAndVariantsAreAccepted(string text)
+    {
+        AssertClean(text);
+        AssertClean(text, GB);
+    }
+
+    [Theory]
+    [InlineData("The bigest one.", "bigest")]
+    [InlineData("A qwickings sound.", "qwickings")]
+    [InlineData("An unqwicked thing.", "unqwicked")]
+    [InlineData("A dark-qwicked man.", "qwicked")]
+    [InlineData("We saw le chat.", "le")]
+    public void DerivationRulesDoNotExcuseRealErrors(string text, string flagged)
+    {
+        Assert.Equal([$"Misspelling:{flagged}"], Flagged(text));
+    }
+
     [Fact]
     public void StretchedAndStutteredTyposAreStillFlagged()
     {
-        Assert.Equal(["Misspelling:Qwiiick"], Flagged("Qwiiick now."));
+        Assert.Equal(["Misspelling:qwiiick"], Flagged("A qwiiick step."));
         Assert.Equal(["Misspelling:qwick"], Flagged("Q-q-qwick now."));
     }
 

@@ -12,7 +12,7 @@ public sealed class DemoChecker : IEvalChecker
     public string Name => "demo";
 
     /// <inheritdoc />
-    public IReadOnlyList<IReadOnlyList<Issue>?> CheckDocument(IReadOnlyList<string> paragraphs, string dialect)
+    public IReadOnlyList<IReadOnlyList<Issue>?> CheckDocument(IReadOnlyList<string> paragraphs, DocumentInfo document)
     {
         var results = new IReadOnlyList<Issue>[paragraphs.Count];
         for (int p = 0; p < paragraphs.Count; p++)
