@@ -1,0 +1,27 @@
+# Ready for when the repository gets a GitHub remote. It does nothing until then.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+      - run: dotnet build -c Release
+      - run: dotnet test -c Release --no-build
+      - name: Publish Native AOT test app
+        run: dotnet publish tests/FictionChecker.AotTest -c Release -o aot-out
+      - name: Run Native AOT test app
+        shell: bash
+        run: ./aot-out/FictionChecker.AotTest

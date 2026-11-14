@@ -1,0 +1,16 @@
+<Solution>
+  <Folder Name="/bench/">
+    <Project Path="bench/FictionChecker.Bench/FictionChecker.Bench.csproj" />
+  </Folder>
+  <Folder Name="/eval/">
+    <Project Path="eval/FictionChecker.Eval/FictionChecker.Eval.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/FictionChecker.DataBuilder/FictionChecker.DataBuilder.csproj" />
+    <Project Path="src/FictionChecker/FictionChecker.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/FictionChecker.AotTest/FictionChecker.AotTest.csproj" />
+    <Project Path="tests/FictionChecker.Tests/FictionChecker.Tests.csproj" />
+  </Folder>
+</Solution>
