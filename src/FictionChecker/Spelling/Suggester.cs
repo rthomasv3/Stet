@@ -35,6 +35,7 @@ internal sealed class Suggester
 
         int maxDistance = lower.Length <= 3 ? 1 : 2;
         Dialect dialect = context.Dialect;
+        bool typedLower = !char.IsUpper(word[0]);
         _lexicon.Search.Find(lower, maxDistance, (index, distance) =>
         {
             WordInfo info = _lexicon.InfoAt(index);
@@ -49,8 +50,21 @@ internal sealed class Suggester
                 return;
             }
 
+            int penalty = info.IsRare ? 25 : 0;
+            if (typedLower && char.IsUpper(candidate[0]))
+            {
+                // A lowercase slip is rarely meant as a name. Drop the name when the same word exists in
+                // lowercase ("Glass" beside "glass"), and rank it lower otherwise.
+                if (_lexicon.TryGet(candidate.ToLowerInvariant(), out WordInfo plain) && plain.IsIn(dialect))
+                {
+                    return;
+                }
+
+                penalty += 30;
+            }
+
             int frequency = info.Frequency == 0 ? UnseenFrequency : info.Frequency;
-            Add(scored, candidate, Score(lower, candidate, distance, frequency) - (info.IsRare ? 25 : 0));
+            Add(scored, candidate, Score(lower, candidate, distance, frequency) - penalty);
         });
 
         CustomWords custom = context.Custom;

@@ -21,6 +21,7 @@ if (args.Length == 0 || args[0] is "-h" or "--help")
 {
     Console.WriteLine("Commands: run --checker none|demo|spelling|spelling-world|external [--name N --issues FILE] [--compare N]");
     Console.WriteLine("          export --out FILE");
+    Console.WriteLine("          perf            time the spelling checker against the performance targets");
     Console.WriteLine("          coverage        measure how much of the books' vocabulary the spelling data knows");
     Console.WriteLine("          dialogue        measure text splitting and dialogue detection on whole books");
     return 0;
@@ -63,6 +64,15 @@ if (command == "dialogue")
     string dialogueMarkdown = DialogueStats.Run(corpora, Path.Combine(dialogueReports, "local", "dialogue-sample.tsv"));
     File.WriteAllText(Path.Combine(dialogueReports, "dialogue.md"), dialogueMarkdown);
     Console.WriteLine(dialogueMarkdown);
+    return 0;
+}
+
+if (command == "perf")
+{
+    string perfMarkdown = PerfStats.Run(corpora);
+    Directory.CreateDirectory(Path.Combine(evalDir, "reports"));
+    File.WriteAllText(Path.Combine(evalDir, "reports", "perf.md"), perfMarkdown);
+    Console.WriteLine(perfMarkdown);
     return 0;
 }
 
@@ -146,6 +156,7 @@ string markdown = ReportWriter.ToMarkdown(report, previous, baseline);
 File.WriteAllText(Path.Combine(reports, checker.Name + ".md"), markdown);
 ReportWriter.WriteReviewFlags(scorer.ReviewFlags, Path.Combine(localReports, checker.Name + "-flags.tsv"));
 ReportWriter.WriteMissed(scorer.Missed, Path.Combine(localReports, checker.Name + "-missed.tsv"));
+File.WriteAllLines(Path.Combine(localReports, checker.Name + "-wrong-fix.tsv"), scorer.WrongFirstFix);
 File.WriteAllLines(
     Path.Combine(localReports, checker.Name + "-books.tsv"),
     scorer.PerBook.OrderBy(kv => kv.Key.Corpus, StringComparer.Ordinal).ThenBy(kv => kv.Key.BookId, StringComparer.Ordinal)

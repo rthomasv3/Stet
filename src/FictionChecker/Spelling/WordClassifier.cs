@@ -110,7 +110,7 @@ internal sealed class WordClassifier
             return WordVerdict.Valid;
         }
 
-        if (IsStretched(lower, context))
+        if (IsStretched(lower, context, context.InDialogue && context.Lenient))
         {
             return WordVerdict.Valid;
         }
@@ -394,30 +394,32 @@ internal sealed class WordClassifier
         return false;
     }
 
-    // "Nooooo", "sooo", "hmmmm": valid when squeezing the repeated letters gives a word.
-    private bool IsStretched(ReadOnlySpan<char> lower, in Context context)
+    // "Nooooo", "sooo", "hmmmm": valid when squeezing the repeated letters gives a word. A letter typed three
+    // times in a longer word ("businesss") is more often a slip, so outside lenient dialogue the word must be
+    // short once squeezed, or stretched to four or more.
+    private bool IsStretched(ReadOnlySpan<char> lower, in Context context, bool lenientDialogue)
     {
-        bool hasRun = false;
-        for (int i = 2; i < lower.Length; i++)
+        int longestRun = 1;
+        int run = 1;
+        for (int i = 1; i < lower.Length; i++)
         {
-            if (lower[i] == lower[i - 1] && lower[i] == lower[i - 2])
-            {
-                hasRun = true;
-                break;
-            }
+            run = lower[i] == lower[i - 1] ? run + 1 : 1;
+            longestRun = Math.Max(longestRun, run);
         }
 
-        if (!hasRun)
+        if (longestRun < 3)
         {
             return false;
         }
+
+        int maxSqueezedLength = lenientDialogue || longestRun >= 4 ? int.MaxValue : 4;
 
         // Try every run squeezed to one letter, then to two (so "noooo" finds "no" and "coool" finds "cool").
         Span<char> squeezed = stackalloc char[lower.Length];
         for (int keep = 1; keep <= 2; keep++)
         {
             int length = 0;
-            int run = 0;
+            run = 0;
             for (int i = 0; i < lower.Length; i++)
             {
                 run = i > 0 && lower[i] == lower[i - 1] ? run + 1 : 1;
@@ -427,7 +429,7 @@ internal sealed class WordClassifier
                 }
             }
 
-            if (length >= 2 && ClassifyForms(squeezed[..length], context).Status == WordStatus.Valid)
+            if (length >= 2 && length <= maxSqueezedLength && ClassifyForms(squeezed[..length], context).Status == WordStatus.Valid)
             {
                 return true;
             }

@@ -23,8 +23,8 @@ Flags per 1,000 words over all corpora. Target for a rule to be on by default: u
 
 | Rule | Category | Dev | Test | Change (dev) |
 |---|---|---:|---:|---:|
-| spelling.misspelling | Spelling | 1.252 | 1.477 | -0.431 |
-| spelling.unknown-name | Spelling | 0.431 | 0.36 | +0.431 |
+| spelling.misspelling | Spelling | 1.252 | 1.477 | 0 |
+| spelling.unknown-name | Spelling | 0.431 | 0.36 | 0 |
 | spelling.other-dialect | Spelling | 0.121 | 0.099 | 0 |
 | spelling.capitalization | Spelling | 0.097 | 0.061 | 0 |
 
@@ -38,7 +38,7 @@ Caught: share of planted errors that were flagged. First fix right and fix in to
 
 | Category | Planted | Checked | Caught | Change | harper caught | First fix right | Fix in top 5 |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| typo | 1000 | 1000 | 96% | 0 | 90.2% | 87.8% | 98.9% |
+| typo | 1000 | 1000 | 96% | 0 | 90.2% | 91.2% | 99.1% |
 | confusable | 1000 | 1000 | 0% | 0 | 35.9% | 0% | 0% |
 | a-an | 1000 | 1000 | 0% | 0 | 90.9% | 0% | 0% |
 | repeated-word | 1000 | 1000 | 0% | 0 | 61.9% | 0% | 0% |
@@ -49,7 +49,7 @@ Caught: share of planted errors that were flagged. First fix right and fix in to
 
 | Category | Planted | Checked | Caught | Change | harper caught | First fix right | Fix in top 5 |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| typo | 1000 | 1000 | 97.3% | 0 | 86.8% | 86.7% | 98.6% |
+| typo | 1000 | 1000 | 97.3% | 0 | 86.8% | 90.5% | 98.8% |
 | confusable | 1000 | 1000 | 0% | 0 | 32.8% | 0% | 0% |
 | a-an | 1000 | 1000 | 0% | 0 | 87.9% | 0% | 0% |
 | repeated-word | 1000 | 1000 | 0% | 0 | 59.9% | 0% | 0% |
@@ -60,7 +60,7 @@ Caught: share of planted errors that were flagged. First fix right and fix in to
 
 | Category | Planted | Checked | Caught | Change | harper caught | First fix right | Fix in top 5 |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| typo | 500 | 500 | 95.6% | 0 | 93.8% | 88.9% | 99.2% |
+| typo | 500 | 500 | 95.6% | 0 | 93.8% | 90.4% | 99.4% |
 | confusable | 500 | 500 | 0% | 0 | 37.2% | 0% | 0% |
 | a-an | 500 | 500 | 0% | 0 | 96.4% | 0% | 0% |
 | repeated-word | 500 | 500 | 0% | 0 | 64.8% | 0% | 0% |
@@ -71,7 +71,7 @@ Caught: share of planted errors that were flagged. First fix right and fix in to
 
 | Category | Planted | Checked | Caught | Change | harper caught | First fix right | Fix in top 5 |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| typo | 500 | 500 | 97.2% | 0 | 87% | 86.4% | 98.6% |
+| typo | 500 | 500 | 97.2% | 0 | 87% | 90.1% | 98.8% |
 | confusable | 500 | 500 | 0% | 0 | 31.4% | 0% | 0% |
 | a-an | 500 | 500 | 0% | 0 | 89% | 0% | 0% |
 | repeated-word | 500 | 500 | 0% | 0 | 59.8% | 0% | 0% |
@@ -82,7 +82,7 @@ Caught: share of planted errors that were flagged. First fix right and fix in to
 
 | Category | Planted | Checked | Caught | Change | harper caught | First fix right | Fix in top 5 |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| typo | 500 | 500 | 96.4% | 0 | 86.6% | 86.7% | 98.6% |
+| typo | 500 | 500 | 96.4% | 0 | 86.6% | 91.9% | 98.8% |
 | confusable | 500 | 500 | 0% | 0 | 34.6% | 0% | 0% |
 | a-an | 500 | 500 | 0% | 0 | 85.4% | 0% | 0% |
 | repeated-word | 500 | 500 | 0% | 0 | 59% | 0% | 0% |
@@ -93,7 +93,7 @@ Caught: share of planted errors that were flagged. First fix right and fix in to
 
 | Category | Planted | Checked | Caught | Change | harper caught | First fix right | Fix in top 5 |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| typo | 500 | 500 | 97.4% | 0 | 86.6% | 87.1% | 98.6% |
+| typo | 500 | 500 | 97.4% | 0 | 86.6% | 91% | 98.8% |
 | confusable | 500 | 500 | 0% | 0 | 34.2% | 0% | 0% |
 | a-an | 500 | 500 | 0% | 0 | 86.8% | 0% | 0% |
 | repeated-word | 500 | 500 | 0% | 0 | 60% | 0% | 0% |

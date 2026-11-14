@@ -42,9 +42,19 @@ not already have that flag. A fix counts as right when applying it gives back th
 
 Each book carries the spelling it uses (US or GB, detected from the text), and checkers are told it.
 
-Checkers: `none` (flags nothing; the placeholder until the library has a checker), `demo` (a naive
-repeated-word check that exercises the harness), and `external` (scores issues produced outside the
-process; see `harper/` and `languagetool/`).
+Checkers:
+
+- `spelling`: the library's spelling checker with no custom words, so every name and coined word is
+  flagged. The worst case, and the view that shows what the checker itself does not know.
+- `spelling-world`: the same, with a stand-in for the word list a writer would have. Every unknown word
+  a book uses twice or more is treated as a custom word for that book, on the reasoning that a spelling
+  repeated exactly is intended. Words used once stay flagged. This is a simulation, not a real word list.
+- `none` (flags nothing), `demo` (a naive repeated-word check that exercises the harness), and
+  `external` (scores issues produced outside the process; see `harper/` and `languagetool/`).
+
+Speed against the targets in the requirements (run in Release):
+
+    dotnet run -c Release --project eval/FictionChecker.Eval -- perf
 
 To measure the library's text splitting on whole books (share of words in speech, quote marks that
 could not be paired, speed):
@@ -59,6 +69,7 @@ To measure how much of the books' vocabulary the spelling data knows:
 
 - `reports/dialogue.md`: text splitting and dialogue detection numbers.
 - `reports/coverage.md`: unknown words per 1,000 words with the current spelling data.
+- `reports/perf.md`: speed and memory of the spelling checker.
 
 - `reports/<checker>.json` and `.md`: numbers only, committed. The Markdown shows changes against the
   previous run of the same checker and, with `--compare`, another checker's numbers alongside.

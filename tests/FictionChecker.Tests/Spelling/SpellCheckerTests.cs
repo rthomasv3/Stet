@@ -310,6 +310,22 @@ public class SpellCheckerTests
     }
 
     [Fact]
+    public void LowercaseSlipsAreNotOfferedNames()
+    {
+        IReadOnlyList<string> suggestions = NewChecker().Suggest("glaas", US);
+
+        Assert.Equal("glass", suggestions[0]);
+        Assert.DoesNotContain("Glass", suggestions);
+    }
+
+    [Fact]
+    public void TripledLettersInLongWordsAreSlipsOutsideDialogue()
+    {
+        Assert.Equal(["Misspelling:businesss", "Misspelling:noddded"], Flagged("The businesss was closed and he noddded."));
+        AssertClean("Nooo. Sooo good. The crowd went “Businessss!” and he said, “Pleeease.”");
+    }
+
+    [Fact]
     public void SuggestionsFollowTheDialect()
     {
         Assert.Contains("color", NewChecker().Suggest("colro", US));

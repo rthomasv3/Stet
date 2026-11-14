@@ -49,11 +49,11 @@
           "planted": 500,
           "checked": 500,
           "caught": 478,
-          "firstFixRight": 425,
-          "fixInTop5": 474,
+          "firstFixRight": 432,
+          "fixInTop5": 475,
           "catchRate": 0.956,
-          "firstFixRate": 0.8891,
-          "top5FixRate": 0.9916
+          "firstFixRate": 0.9038,
+          "top5FixRate": 0.9937
         },
         {
           "category": "confusable",
@@ -154,11 +154,11 @@
           "planted": 500,
           "checked": 500,
           "caught": 486,
-          "firstFixRight": 420,
-          "fixInTop5": 479,
+          "firstFixRight": 438,
+          "fixInTop5": 480,
           "catchRate": 0.972,
-          "firstFixRate": 0.8642,
-          "top5FixRate": 0.9856
+          "firstFixRate": 0.9012,
+          "top5FixRate": 0.9877
         },
         {
           "category": "confusable",
@@ -259,11 +259,11 @@
           "planted": 500,
           "checked": 500,
           "caught": 482,
-          "firstFixRight": 418,
-          "fixInTop5": 475,
+          "firstFixRight": 443,
+          "fixInTop5": 476,
           "catchRate": 0.964,
-          "firstFixRate": 0.8672,
-          "top5FixRate": 0.9855
+          "firstFixRate": 0.9191,
+          "top5FixRate": 0.9876
         },
         {
           "category": "confusable",
@@ -364,11 +364,11 @@
           "planted": 500,
           "checked": 500,
           "caught": 487,
-          "firstFixRight": 424,
-          "fixInTop5": 480,
+          "firstFixRight": 443,
+          "fixInTop5": 481,
           "catchRate": 0.974,
-          "firstFixRate": 0.8706,
-          "top5FixRate": 0.9856
+          "firstFixRate": 0.9097,
+          "top5FixRate": 0.9877
         },
         {
           "category": "confusable",
@@ -469,11 +469,11 @@
           "planted": 1000,
           "checked": 1000,
           "caught": 960,
-          "firstFixRight": 843,
-          "fixInTop5": 949,
+          "firstFixRight": 875,
+          "fixInTop5": 951,
           "catchRate": 0.96,
-          "firstFixRate": 0.8781,
-          "top5FixRate": 0.9885
+          "firstFixRate": 0.9115,
+          "top5FixRate": 0.9906
         },
         {
           "category": "confusable",
@@ -574,11 +574,11 @@
           "planted": 1000,
           "checked": 1000,
           "caught": 973,
-          "firstFixRight": 844,
-          "fixInTop5": 959,
+          "firstFixRight": 881,
+          "fixInTop5": 961,
           "catchRate": 0.973,
-          "firstFixRate": 0.8674,
-          "top5FixRate": 0.9856
+          "firstFixRate": 0.9054,
+          "top5FixRate": 0.9877
         },
         {
           "category": "confusable",

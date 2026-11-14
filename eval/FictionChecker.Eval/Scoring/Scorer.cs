@@ -29,6 +29,12 @@ public sealed class Scorer
     /// </summary>
     public Dictionary<(string Corpus, string RuleId, string Text), int> FlaggedText { get; } = [];
 
+    /// <summary>
+    /// Planted errors on dev books that were caught but whose first suggestion was not the original text:
+    /// category, kind, what was planted, what was wanted, what was offered. Local reports only.
+    /// </summary>
+    public List<string> WrongFirstFix { get; } = [];
+
     /// <summary>Clean-text words and flags per book, to see how uneven the books are. Local reports only.</summary>
     public Dictionary<(string Corpus, string BookId, string Split), (long Words, int Flags)> PerBook { get; } = [];
 
@@ -115,6 +121,14 @@ public sealed class Scorer
             {
                 planted.Caught++;
                 planted.FirstFixRight += outcome.FirstFixRight ? 1 : 0;
+                if (!outcome.FirstFixRight && item.Split == Split.Dev)
+                {
+                    Issue hit = issues.First(issue => issue.Overlaps(item.Error.Start, item.Error.Length));
+                    string plantedText = item.Error.Text.Substring(item.Error.Start, item.Error.Length);
+                    string wanted = item.Clean.Substring(item.Error.OriginalStart, item.Error.OriginalLength);
+                    string offered = string.Join(", ", hit.Suggestions.Take(5).Select(s => s.Edits.Count == 1 ? s.Edits[0].Text : "(multi)"));
+                    WrongFirstFix.Add($"{item.Category}\t{item.Error.Kind}\t{plantedText}\t{wanted}\t{offered}");
+                }
                 planted.FixInTop5 += outcome.FixInTop5 ? 1 : 0;
             }
             else
