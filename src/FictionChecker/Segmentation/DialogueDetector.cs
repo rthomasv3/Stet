@@ -35,6 +35,9 @@ internal static class DialogueDetector
     /// </param>
     /// <param name="skipRanges">Ranges to ignore; quote marks inside them do not count.</param>
     /// <param name="dialogueRanges">Ranges the caller wants treated as speech whatever the marks say.</param>
+    /// <param name="wholeParagraphContinues">
+    /// The paragraph has no marks of its own and sits inside a longer speech (used by <see cref="DetectDocument"/>).
+    /// </param>
     /// <param name="openAtEndIsDialogue">
     /// Whether a quote still open at the end counts as speech running into the next paragraph (true), or as an
     /// unmatched mark (false, used when the next paragraph is known not to continue it).
@@ -45,12 +48,17 @@ internal static class DialogueDetector
         bool startsInDialogue = false,
         IReadOnlyList<TextSpan>? skipRanges = null,
         IReadOnlyList<TextSpan>? dialogueRanges = null,
-        bool openAtEndIsDialogue = true)
+        bool openAtEndIsDialogue = true,
+        bool wholeParagraphContinues = false)
     {
-        var spans = new List<TextSpan>();
-        int unmatched = 0;
-        int open = -1;
+        if (wholeParagraphContinues)
+        {
+            // A line of a song or letter inside a longer speech: no marks of its own, speech on both sides.
+            return new DialogueResult([new TextSpan(0, text.Length)], true, 0);
+        }
 
+        int carried = 0;
+        int continuedUntil = -1;
         if (startsInDialogue)
         {
             int first = 0;
@@ -64,43 +72,42 @@ internal static class DialogueDetector
                 : text[first] is '\'' or CharClass.LeftSingleQuote);
             if (!reopens)
             {
-                unmatched++;
-            }
-        }
-
-        for (int i = 0; i < text.Length; i++)
-        {
-            char c = text[i];
-            Mark mark = style == QuoteStyle.Double ? ClassifyDouble(text, i, open >= 0) : ClassifySingle(text, i, open);
-            if (mark == Mark.None || TextSpan.AnyContains(skipRanges, i))
-            {
-                continue;
-            }
-
-            if (mark == Mark.Open)
-            {
-                if (open >= 0)
+                // No reopening mark. If the first mark is a closing one, the speech simply ran on across a
+                // paragraph break; otherwise the earlier open mark was a slip.
+                continuedUntil = FirstMarkIsClose(text, style, skipRanges);
+                if (continuedUntil < 0)
                 {
-                    unmatched++; // the earlier mark never closed; what followed it stays narration
+                    carried = 1;
                 }
-
-                open = i;
-            }
-            else if (open >= 0)
-            {
-                spans.Add(TextSpan.FromBounds(open, i + 1));
-                open = -1;
-            }
-            else
-            {
-                unmatched++;
             }
         }
 
-        bool endsOpen = open >= 0;
+        if (continuedUntil >= 0)
+        {
+            // Scan the rest on its own; the part up to the closing mark is speech.
+            skipRanges = [.. skipRanges ?? [], new TextSpan(0, continuedUntil + 1)];
+        }
+
+        // First assume a second opening mark is a quote within the speech (some books nest the same marks).
+        // If that leaves the paragraph unbalanced, the extra mark was more likely a missing closing mark, so
+        // scan again treating each opening mark as a fresh start.
+        Scan scan = ScanMarks(text, style, skipRanges, allowNesting: true);
+        if (scan.OpenAt >= 0 && scan.Nested)
+        {
+            scan = ScanMarks(text, style, skipRanges, allowNesting: false);
+        }
+
+        List<TextSpan> spans = scan.Spans;
+        if (continuedUntil >= 0)
+        {
+            spans.Insert(0, new TextSpan(0, continuedUntil + 1));
+        }
+
+        int unmatched = scan.Unmatched + carried;
+        bool endsOpen = scan.OpenAt >= 0;
         if (endsOpen && openAtEndIsDialogue)
         {
-            spans.Add(TextSpan.FromBounds(open, text.Length));
+            spans.Add(TextSpan.FromBounds(scan.OpenAt, text.Length));
         }
         else if (endsOpen)
         {
@@ -119,18 +126,36 @@ internal static class DialogueDetector
 
     /// <summary>
     /// Finds the speech in consecutive paragraphs, carrying an open quote from one to the next. A quote left
-    /// open is only believed when the next paragraph reopens it.
+    /// open is only believed when what follows continues it: the next paragraph reopens it, or closes it before
+    /// opening another, possibly after a few lines with no marks at all (a song or letter).
     /// </summary>
     public static List<DialogueResult> DetectDocument(IReadOnlyList<string> paragraphs, QuoteStyle style)
     {
         var results = new List<DialogueResult>(paragraphs.Count);
         bool carry = false;
+        int markless = 0; // paragraphs still to be taken whole as speech
         for (int p = 0; p < paragraphs.Count; p++)
         {
-            DialogueResult result = Detect(paragraphs[p], style, carry);
-            if (result.EndsInDialogue && p + 1 < paragraphs.Count && !StartsWithOpeningQuote(paragraphs[p + 1], style))
+            if (markless > 0)
             {
-                result = Detect(paragraphs[p], style, carry, openAtEndIsDialogue: false);
+                markless--;
+                results.Add(Detect(paragraphs[p], style, wholeParagraphContinues: true));
+                carry = true;
+                continue;
+            }
+
+            DialogueResult result = Detect(paragraphs[p], style, carry);
+            if (result.EndsInDialogue && p + 1 < paragraphs.Count)
+            {
+                int linesBeforeClose = ContinuationLength(paragraphs, p + 1, style);
+                if (linesBeforeClose < 0)
+                {
+                    result = Detect(paragraphs[p], style, carry, openAtEndIsDialogue: false);
+                }
+                else
+                {
+                    markless = linesBeforeClose;
+                }
             }
 
             results.Add(result);
@@ -138,6 +163,52 @@ internal static class DialogueDetector
         }
 
         return results;
+    }
+
+    // How the paragraphs from <paramref name="start"/> carry on a speech left open: 0 when the next one reopens
+    // or closes it, n when n paragraphs without any marks come first (lines of a song or letter), and -1 when
+    // nothing within reach continues it.
+    private static int ContinuationLength(IReadOnlyList<string> paragraphs, int start, QuoteStyle style)
+    {
+        const int MaxLines = 8;
+        for (int i = start; i < paragraphs.Count && i - start <= MaxLines; i++)
+        {
+            string text = paragraphs[i];
+            if (i == start && StartsWithOpeningQuote(text, style))
+            {
+                return 0;
+            }
+
+            switch (FirstMark(text, style, null, out _))
+            {
+                case Mark.Close:
+                    return i - start;
+                case Mark.Open:
+                    return -1;
+            }
+        }
+
+        return -1;
+    }
+
+    private static int FirstMarkIsClose(string text, QuoteStyle style, IReadOnlyList<TextSpan>? skipRanges) =>
+        FirstMark(text, style, skipRanges, out int at) == Mark.Close ? at : -1;
+
+    // The first quote mark of a paragraph, read as if a speech were already open.
+    private static Mark FirstMark(string text, QuoteStyle style, IReadOnlyList<TextSpan>? skipRanges, out int at)
+    {
+        for (int i = 0; i < text.Length; i++)
+        {
+            Mark mark = style == QuoteStyle.Double ? ClassifyDouble(text, i, isOpen: true) : ClassifySingle(text, i, isOpen: true, openedAt: -1);
+            if (mark != Mark.None && !TextSpan.AnyContains(skipRanges, i))
+            {
+                at = i;
+                return mark;
+            }
+        }
+
+        at = -1;
+        return Mark.None;
     }
 
     /// <summary>
@@ -160,6 +231,57 @@ internal static class DialogueDetector
         }
 
         return singles > doubles ? QuoteStyle.Single : QuoteStyle.Double;
+    }
+
+    private static Scan ScanMarks(string text, QuoteStyle style, IReadOnlyList<TextSpan>? skipRanges, bool allowNesting)
+    {
+        var spans = new List<TextSpan>();
+        int unmatched = 0;
+        int open = -1;
+        int depth = 0;
+        bool nested = false;
+
+        for (int i = 0; i < text.Length; i++)
+        {
+            Mark mark = style == QuoteStyle.Double ? ClassifyDouble(text, i, open >= 0) : ClassifySingle(text, i, open >= 0, open);
+            if (mark == Mark.None || TextSpan.AnyContains(skipRanges, i))
+            {
+                continue;
+            }
+
+            if (mark == Mark.Open)
+            {
+                if (open < 0)
+                {
+                    open = i;
+                    depth = 1;
+                }
+                else if (allowNesting)
+                {
+                    depth++;
+                    nested = true;
+                }
+                else
+                {
+                    unmatched++; // the earlier mark never closed; what followed it stays narration
+                    open = i;
+                }
+            }
+            else if (open >= 0)
+            {
+                if (--depth == 0)
+                {
+                    spans.Add(TextSpan.FromBounds(open, i + 1));
+                    open = -1;
+                }
+            }
+            else
+            {
+                unmatched++;
+            }
+        }
+
+        return new Scan(spans, unmatched, open, nested);
     }
 
     private static bool StartsWithOpeningQuote(string text, QuoteStyle style)
@@ -201,7 +323,7 @@ internal static class DialogueDetector
     }
 
     // Single quotes share their marks with apostrophes, so each one is judged by what surrounds it.
-    private static Mark ClassifySingle(string text, int i, int open)
+    private static Mark ClassifySingle(string text, int i, bool isOpen, int openedAt)
     {
         char c = text[i];
         if (!CharClass.IsSingleQuote(c))
@@ -211,7 +333,6 @@ internal static class DialogueDetector
 
         bool letterBefore = CharClass.IsWordChar(text, i - 1);
         bool letterAfter = CharClass.IsWordChar(text, i + 1);
-        bool isOpen = open >= 0;
 
         if (letterBefore && letterAfter)
         {
@@ -254,6 +375,11 @@ internal static class DialogueDetector
             }
 
             string word = WordBefore(text, i);
+            if (openedAt >= 0 && openedAt == i - word.Length - 1)
+            {
+                return Mark.Close; // a single quoted word or letter: the ‘i’ in a name
+            }
+
             bool droppedEnding = WordLists.TrailingApostropheWords.Contains(word) || (word.Length >= 4 && word.EndsWith("in", StringComparison.Ordinal));
             if (droppedEnding)
             {
@@ -263,7 +389,8 @@ internal static class DialogueDetector
             if (word.EndsWith('s') && i + 2 < text.Length && text[i + 1] == ' ' && char.IsLower(text[i + 2]))
             {
                 // "the boys' toys" deep inside speech is a possessive; a short quoted phrase is just closing.
-                return WordsBetween(text, open, i) > 3 ? Mark.None : Mark.Close;
+                // A speech opened in an earlier paragraph (openedAt < 0) is long by definition.
+                return openedAt < 0 || WordsBetween(text, openedAt, i) > 3 ? Mark.None : Mark.Close;
             }
 
             return Mark.Close;
@@ -355,6 +482,8 @@ internal static class DialogueDetector
 
         return words;
     }
+
+    private readonly record struct Scan(List<TextSpan> Spans, int Unmatched, int OpenAt, bool Nested);
 
     private enum Mark
     {

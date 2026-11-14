@@ -46,7 +46,14 @@ Checkers: `none` (flags nothing; the placeholder until the library has a checker
 repeated-word check that exercises the harness), and `external` (scores issues produced outside the
 process; see `harper/` and `languagetool/`).
 
+To measure the library's text splitting on whole books (share of words in speech, quote marks that
+could not be paired, speed):
+
+    dotnet run --project eval/FictionChecker.Eval -- dialogue
+
 ## Reports
+
+- `reports/dialogue.md`: text splitting and dialogue detection numbers.
 
 - `reports/<checker>.json` and `.md`: numbers only, committed. The Markdown shows changes against the
   previous run of the same checker and, with `--compare`, another checker's numbers alongside.

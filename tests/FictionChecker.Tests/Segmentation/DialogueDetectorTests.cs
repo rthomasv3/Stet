@@ -29,6 +29,8 @@ public class DialogueDetectorTests
     [InlineData("No speech, only Tom’s dog and the boys’ cat.", new string[0])]
     [InlineData("He called it ‘magic’ and left.", new[] { "‘magic’" })]
     [InlineData("He called them ‘heroes’ and left.", new[] { "‘heroes’" })]
+    [InlineData("The ‘i’ has the sound of long ‘e’ in her name.", new[] { "‘i’", "‘e’" })]
+    [InlineData("They called it ‘runnin’’ back then.", new[] { "‘runnin’" })]
     public void FindsSingleQuotedSpeech(string text, string[] expected)
     {
         Assert.Equal(expected, Speech(text, QuoteStyle.Single));
@@ -105,6 +107,15 @@ public class DialogueDetectorTests
     }
 
     [Fact]
+    public void SameMarksNestedInsideSpeechStayInside()
+    {
+        string text = "“He says, “I want to see him.” I have heard him,” said Wemmick.";
+
+        Assert.Equal(["“He says, “I want to see him.” I have heard him,”"], Speech(text, QuoteStyle.Double));
+        Assert.Equal(0, DialogueDetector.Detect(text, QuoteStyle.Double).UnmatchedQuotes);
+    }
+
+    [Fact]
     public void SkipRangesHideTheirQuoteMarks()
     {
         string text = "The note read “gone” and he said, “Fine.”";
@@ -147,6 +158,44 @@ public class DialogueDetectorTests
         Assert.Equal(1, results[2].UnmatchedQuotes);
         Assert.Empty(results[3].Spans);
         Assert.Equal(0, results[3].UnmatchedQuotes);
+    }
+
+    [Fact]
+    public void SpeechBrokenAcrossParagraphsWithoutAReopeningMarkIsStillSpeech()
+    {
+        string[] paragraphs = ["He said, “The law is the law, and I take care", "of law and order here.” He sat down.", "Nobody spoke."];
+
+        List<DialogueResult> results = DialogueDetector.DetectDocument(paragraphs, QuoteStyle.Double);
+
+        Assert.Equal(0, results.Sum(r => r.UnmatchedQuotes));
+        Assert.True(results[0].EndsInDialogue);
+        Assert.Equal(new TextSpan(0, 23), Assert.Single(results[1].Spans));
+        Assert.False(results[1].EndsInDialogue);
+        Assert.Empty(results[2].Spans);
+    }
+
+    [Fact]
+    public void SongLinesInsideSpeechAreSpeech()
+    {
+        string[] paragraphs = ["‘The wind is old,", "The road is long,", "And the boys’ boots are thin.’", "She stopped singing."];
+
+        List<DialogueResult> results = DialogueDetector.DetectDocument(paragraphs, QuoteStyle.Single);
+
+        Assert.Equal(0, results.Sum(r => r.UnmatchedQuotes));
+        Assert.Equal(new TextSpan(0, 17), Assert.Single(results[1].Spans));
+        Assert.True(results[2].IsDialogue(5));
+        Assert.False(results[2].EndsInDialogue);
+        Assert.Empty(results[3].Spans);
+    }
+
+    [Fact]
+    public void ContinuationThatClosesFirstCarriesOnThenScansTheRest()
+    {
+        string text = "of it.” He rose. “Come.”";
+        DialogueResult result = DialogueDetector.Detect(text, QuoteStyle.Double, startsInDialogue: true);
+
+        Assert.Equal(["of it.”", "“Come.”"], result.Spans.Select(s => text.Substring(s.Start, s.Length)));
+        Assert.Equal(0, result.UnmatchedQuotes);
     }
 
     [Fact]

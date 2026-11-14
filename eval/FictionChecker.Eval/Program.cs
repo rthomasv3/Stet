@@ -21,6 +21,7 @@ if (args.Length == 0 || args[0] is "-h" or "--help")
 {
     Console.WriteLine("Commands: run --checker none|demo|external [--name N --issues FILE] [--compare N]");
     Console.WriteLine("          export --out FILE");
+    Console.WriteLine("          dialogue        measure text splitting and dialogue detection on whole books");
     return 0;
 }
 
@@ -52,6 +53,16 @@ if (corpora.Count == 0)
 {
     Console.Error.WriteLine("No corpora available. Check eval/eval.local.json.");
     return 1;
+}
+
+if (command == "dialogue")
+{
+    string dialogueReports = Path.Combine(evalDir, "reports");
+    Directory.CreateDirectory(Path.Combine(dialogueReports, "local"));
+    string dialogueMarkdown = DialogueStats.Run(corpora, Path.Combine(dialogueReports, "local", "dialogue-sample.tsv"));
+    File.WriteAllText(Path.Combine(dialogueReports, "dialogue.md"), dialogueMarkdown);
+    Console.WriteLine(dialogueMarkdown);
+    return 0;
 }
 
 var clock = Stopwatch.StartNew();
