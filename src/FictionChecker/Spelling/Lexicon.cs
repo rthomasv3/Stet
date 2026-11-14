@@ -61,20 +61,40 @@ internal sealed class Lexicon
 
     private const string ResourceName = "FictionChecker.Data.lexicon.bin";
 
-    private readonly Dictionary<string, WordInfo> _words;
-    private readonly Dictionary<string, WordInfo>.AlternateLookup<ReadOnlySpan<char>> _bySpan;
+    private readonly string[] _words;
+    private readonly WordInfo[] _infos;
+    private readonly Dictionary<string, int> _index;
+    private readonly Dictionary<string, int>.AlternateLookup<ReadOnlySpan<char>> _bySpan;
 
-    private Lexicon(Dictionary<string, WordInfo> words)
+    private Lexicon(string[] words, WordInfo[] infos)
     {
         _words = words;
-        _bySpan = words.GetAlternateLookup<ReadOnlySpan<char>>();
+        _infos = infos;
+        _index = new Dictionary<string, int>(words.Length, StringComparer.Ordinal);
+        for (int i = 0; i < words.Length; i++)
+        {
+            _index.Add(words[i], i);
+        }
+
+        _bySpan = _index.GetAlternateLookup<ReadOnlySpan<char>>();
+        Search = new SuggestionIndex(words);
     }
 
     /// <summary>Number of words.</summary>
-    public int Count => _words.Count;
+    public int Count => _words.Length;
 
-    /// <summary>Every word with its information, in no particular order.</summary>
-    public IEnumerable<KeyValuePair<string, WordInfo>> Words => _words;
+    /// <summary>Every word with its information, in sorted order.</summary>
+    public IEnumerable<KeyValuePair<string, WordInfo>> Words =>
+        _words.Select((word, i) => new KeyValuePair<string, WordInfo>(word, _infos[i]));
+
+    /// <summary>Finds words within a few edits of a misspelling.</summary>
+    public SuggestionIndex Search { get; }
+
+    /// <summary>The information for the word at an index reported by <see cref="Search"/>.</summary>
+    public WordInfo InfoAt(int index) => _infos[index];
+
+    /// <summary>The word at an index reported by <see cref="Search"/>.</summary>
+    public string WordAt(int index) => _words[index];
 
     /// <summary>Loads the lexicon embedded in this assembly.</summary>
     public static Lexicon LoadEmbedded()
@@ -107,7 +127,8 @@ internal sealed class Lexicon
         }
 
         int count = BinaryPrimitives.ReadInt32LittleEndian(data[6..]);
-        var words = new Dictionary<string, WordInfo>(count, StringComparer.Ordinal);
+        var words = new string[count];
+        var infos = new WordInfo[count];
         Span<byte> buffer = stackalloc byte[255];
         int at = 10;
         for (int i = 0; i < count; i++)
@@ -116,13 +137,24 @@ internal sealed class Lexicon
             int rest = data[at + 1];
             data.Slice(at + 2, rest).CopyTo(buffer[shared..]);
             at += 2 + rest;
-            words.Add(Encoding.UTF8.GetString(buffer[..(shared + rest)]), new WordInfo(data[at], data[at + 1]));
+            words[i] = Encoding.UTF8.GetString(buffer[..(shared + rest)]);
+            infos[i] = new WordInfo(data[at], data[at + 1]);
             at += 2;
         }
 
-        return new Lexicon(words);
+        return new Lexicon(words, infos);
     }
 
     /// <summary>Looks a word up exactly as written.</summary>
-    public bool TryGet(ReadOnlySpan<char> word, out WordInfo info) => _bySpan.TryGetValue(word, out info);
+    public bool TryGet(ReadOnlySpan<char> word, out WordInfo info)
+    {
+        if (_bySpan.TryGetValue(word, out int index))
+        {
+            info = _infos[index];
+            return true;
+        }
+
+        info = default;
+        return false;
+    }
 }
