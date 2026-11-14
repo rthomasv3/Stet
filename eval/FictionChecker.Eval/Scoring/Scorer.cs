@@ -91,7 +91,8 @@ public sealed class Scorer
                     var key = (sample.Corpus, issue.RuleId);
                     int seen = perRuleSeen.GetValueOrDefault(key);
                     perRuleSeen[key] = seen + 1;
-                    if (seen < _settings.ReviewFlagsPerRule)
+                    // Only dev books are written out for review; test books are measured, never read.
+                    if (seen < _settings.ReviewFlagsPerRule && sample.Book.Split == Split.Dev)
                     {
                         ReviewFlags.Add(new ReviewFlag(sample.Corpus, sample.Book.Id, sample.FirstParagraph + i, hash, issue.Start, issue.Length, issue.RuleId, Snippet(text, issue.Start, issue.Length)));
                     }

@@ -12,35 +12,35 @@
       "corpus": "calibre",
       "split": "dev",
       "books": 16,
-      "paragraphs": 14103,
+      "paragraphs": 12879,
       "uncheckedParagraphs": 0,
-      "words": 454679,
-      "flags": 16126,
-      "confirmedRealErrors": 0,
+      "words": 454434,
+      "flags": 14576,
+      "confirmedRealErrors": 4,
       "rules": [
         {
           "ruleId": "spelling.unknown-name",
           "category": "Spelling",
-          "flags": 9435,
-          "per1000": 20.7509
+          "flags": 8516,
+          "per1000": 18.7398
         },
         {
           "ruleId": "spelling.misspelling",
           "category": "Spelling",
-          "flags": 6644,
-          "per1000": 14.6125
+          "flags": 6015,
+          "per1000": 13.2362
         },
         {
           "ruleId": "spelling.other-dialect",
           "category": "Spelling",
-          "flags": 29,
-          "per1000": 0.0638
+          "flags": 33,
+          "per1000": 0.0726
         },
         {
           "ruleId": "spelling.capitalization",
           "category": "Spelling",
-          "flags": 18,
-          "per1000": 0.0396
+          "flags": 12,
+          "per1000": 0.0264
         }
       ],
       "planted": [
@@ -48,12 +48,12 @@
           "category": "typo",
           "planted": 500,
           "checked": 500,
-          "caught": 470,
-          "firstFixRight": 424,
+          "caught": 471,
+          "firstFixRight": 436,
           "fixInTop5": 467,
-          "catchRate": 0.94,
-          "firstFixRate": 0.9021,
-          "top5FixRate": 0.9936
+          "catchRate": 0.942,
+          "firstFixRate": 0.9257,
+          "top5FixRate": 0.9915
         },
         {
           "category": "confusable",
@@ -81,10 +81,10 @@
           "category": "repeated-word",
           "planted": 500,
           "checked": 500,
-          "caught": 0,
+          "caught": 1,
           "firstFixRight": 0,
           "fixInTop5": 0,
-          "catchRate": 0,
+          "catchRate": 0.002,
           "firstFixRate": 0,
           "top5FixRate": 0
         },
@@ -103,15 +103,15 @@
           "category": "dialogue-punctuation",
           "planted": 500,
           "checked": 500,
-          "caught": 8,
+          "caught": 10,
           "firstFixRight": 0,
           "fixInTop5": 0,
-          "catchRate": 0.016,
+          "catchRate": 0.02,
           "firstFixRate": 0,
           "top5FixRate": 0
         }
       ],
-      "flagsPer1000": 35.4668
+      "flagsPer1000": 32.0751
     },
     {
       "corpus": "calibre",
@@ -120,7 +120,7 @@
       "paragraphs": 7517,
       "uncheckedParagraphs": 0,
       "words": 240253,
-      "flags": 7717,
+      "flags": 7707,
       "confirmedRealErrors": 0,
       "rules": [
         {
@@ -132,8 +132,8 @@
         {
           "ruleId": "spelling.misspelling",
           "category": "Spelling",
-          "flags": 2997,
-          "per1000": 12.4743
+          "flags": 2987,
+          "per1000": 12.4327
         },
         {
           "ruleId": "spelling.other-dialect",
@@ -216,7 +216,7 @@
           "top5FixRate": 0
         }
       ],
-      "flagsPer1000": 32.1203
+      "flagsPer1000": 32.0787
     },
     {
       "corpus": "gutenberg",
@@ -225,20 +225,20 @@
       "paragraphs": 17652,
       "uncheckedParagraphs": 0,
       "words": 859568,
-      "flags": 11619,
-      "confirmedRealErrors": 0,
+      "flags": 11532,
+      "confirmedRealErrors": 1,
       "rules": [
         {
           "ruleId": "spelling.unknown-name",
           "category": "Spelling",
-          "flags": 5843,
-          "per1000": 6.7976
+          "flags": 5838,
+          "per1000": 6.7918
         },
         {
           "ruleId": "spelling.misspelling",
           "category": "Spelling",
-          "flags": 5565,
-          "per1000": 6.4742
+          "flags": 5483,
+          "per1000": 6.3788
         },
         {
           "ruleId": "spelling.other-dialect",
@@ -321,7 +321,7 @@
           "top5FixRate": 0
         }
       ],
-      "flagsPer1000": 13.5173
+      "flagsPer1000": 13.416
     },
     {
       "corpus": "gutenberg",
@@ -330,20 +330,20 @@
       "paragraphs": 5481,
       "uncheckedParagraphs": 0,
       "words": 304864,
-      "flags": 2650,
+      "flags": 2621,
       "confirmedRealErrors": 0,
       "rules": [
         {
           "ruleId": "spelling.misspelling",
           "category": "Spelling",
-          "flags": 1417,
-          "per1000": 4.648
+          "flags": 1403,
+          "per1000": 4.6021
         },
         {
           "ruleId": "spelling.unknown-name",
           "category": "Spelling",
-          "flags": 1183,
-          "per1000": 3.8804
+          "flags": 1168,
+          "per1000": 3.8312
         },
         {
           "ruleId": "spelling.other-dialect",
@@ -426,41 +426,41 @@
           "top5FixRate": 0
         }
       ],
-      "flagsPer1000": 8.6924
+      "flagsPer1000": 8.5973
     },
     {
       "corpus": "all",
       "split": "dev",
       "books": 45,
-      "paragraphs": 31755,
+      "paragraphs": 30531,
       "uncheckedParagraphs": 0,
-      "words": 1314247,
-      "flags": 27745,
-      "confirmedRealErrors": 0,
+      "words": 1314002,
+      "flags": 26108,
+      "confirmedRealErrors": 5,
       "rules": [
         {
           "ruleId": "spelling.unknown-name",
           "category": "Spelling",
-          "flags": 15278,
-          "per1000": 11.6249
+          "flags": 14354,
+          "per1000": 10.9239
         },
         {
           "ruleId": "spelling.misspelling",
           "category": "Spelling",
-          "flags": 12209,
-          "per1000": 9.2897
+          "flags": 11498,
+          "per1000": 8.7504
         },
         {
           "ruleId": "spelling.other-dialect",
           "category": "Spelling",
-          "flags": 159,
-          "per1000": 0.121
+          "flags": 163,
+          "per1000": 0.124
         },
         {
           "ruleId": "spelling.capitalization",
           "category": "Spelling",
-          "flags": 99,
-          "per1000": 0.0753
+          "flags": 93,
+          "per1000": 0.0708
         }
       ],
       "planted": [
@@ -468,12 +468,12 @@
           "category": "typo",
           "planted": 1000,
           "checked": 1000,
-          "caught": 949,
-          "firstFixRight": 864,
+          "caught": 950,
+          "firstFixRight": 876,
           "fixInTop5": 940,
-          "catchRate": 0.949,
-          "firstFixRate": 0.9104,
-          "top5FixRate": 0.9905
+          "catchRate": 0.95,
+          "firstFixRate": 0.9221,
+          "top5FixRate": 0.9895
         },
         {
           "category": "confusable",
@@ -501,10 +501,10 @@
           "category": "repeated-word",
           "planted": 1000,
           "checked": 1000,
-          "caught": 1,
+          "caught": 2,
           "firstFixRight": 0,
           "fixInTop5": 0,
-          "catchRate": 0.001,
+          "catchRate": 0.002,
           "firstFixRate": 0,
           "top5FixRate": 0
         },
@@ -523,15 +523,15 @@
           "category": "dialogue-punctuation",
           "planted": 1000,
           "checked": 1000,
-          "caught": 8,
+          "caught": 10,
           "firstFixRight": 0,
           "fixInTop5": 0,
-          "catchRate": 0.008,
+          "catchRate": 0.01,
           "firstFixRate": 0,
           "top5FixRate": 0
         }
       ],
-      "flagsPer1000": 21.1109
+      "flagsPer1000": 19.8691
     },
     {
       "corpus": "all",
@@ -540,20 +540,20 @@
       "paragraphs": 12998,
       "uncheckedParagraphs": 0,
       "words": 545117,
-      "flags": 10367,
+      "flags": 10328,
       "confirmedRealErrors": 0,
       "rules": [
         {
           "ruleId": "spelling.unknown-name",
           "category": "Spelling",
-          "flags": 5878,
-          "per1000": 10.783
+          "flags": 5863,
+          "per1000": 10.7555
         },
         {
           "ruleId": "spelling.misspelling",
           "category": "Spelling",
-          "flags": 4414,
-          "per1000": 8.0973
+          "flags": 4390,
+          "per1000": 8.0533
         },
         {
           "ruleId": "spelling.other-dialect",
@@ -636,7 +636,7 @@
           "top5FixRate": 0
         }
       ],
-      "flagsPer1000": 19.0179
+      "flagsPer1000": 18.9464
     }
   ]
 }

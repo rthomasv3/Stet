@@ -10,12 +10,12 @@ Target: under 1 per 1,000 words. Flags confirmed as real errors in the source ar
 
 | Corpus | Split | Books | Words | Flags | Per 1,000 words | Change | harper | Confirmed real errors | Not checked |
 |---|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| calibre | dev | 16 | 454,679 | 16,126 | 35.467 | 0 | 43.365 | 0 | 0 |
-| calibre | test | 8 | 240,253 | 7,717 | 32.12 | 0 | 40.52 | 0 | 0 |
-| gutenberg | dev | 29 | 859,568 | 11,619 | 13.517 | 0 | 24.358 | 0 | 0 |
-| gutenberg | test | 11 | 304,864 | 2,650 | 8.692 | 0 | 19.94 | 0 | 0 |
-| all | dev | 45 | 1,314,247 | 27,745 | 21.111 | 0 | 30.933 | 0 | 0 |
-| all | test | 19 | 545,117 | 10,367 | 19.018 | 0 | 29.01 | 0 | 0 |
+| calibre | dev | 16 | 454,434 | 14,576 | 32.075 | -3.392 | 40.089 | 4 | 0 |
+| calibre | test | 8 | 240,253 | 7,707 | 32.079 | -0.042 | 40.52 | 0 | 0 |
+| gutenberg | dev | 29 | 859,568 | 11,532 | 13.416 | -0.101 | 24.358 | 1 | 0 |
+| gutenberg | test | 11 | 304,864 | 2,621 | 8.597 | -0.095 | 19.94 | 0 | 0 |
+| all | dev | 45 | 1,314,002 | 26,108 | 19.869 | -1.242 | 29.798 | 5 | 0 |
+| all | test | 19 | 545,117 | 10,328 | 18.946 | -0.072 | 29.01 | 0 | 0 |
 
 ## False alarms per rule
 
@@ -23,10 +23,10 @@ Flags per 1,000 words over all corpora. Target for a rule to be on by default: u
 
 | Rule | Category | Dev | Test | Change (dev) |
 |---|---|---:|---:|---:|
-| spelling.unknown-name | Spelling | 11.625 | 10.783 | 0 |
-| spelling.misspelling | Spelling | 9.29 | 8.097 | 0 |
-| spelling.other-dialect | Spelling | 0.121 | 0.099 | 0 |
-| spelling.capitalization | Spelling | 0.075 | 0.039 | 0 |
+| spelling.unknown-name | Spelling | 10.924 | 10.756 | -0.701 |
+| spelling.misspelling | Spelling | 8.75 | 8.053 | -0.539 |
+| spelling.other-dialect | Spelling | 0.124 | 0.099 | +0.003 |
+| spelling.capitalization | Spelling | 0.071 | 0.039 | -0.005 |
 
 0 other rules flagged something but stayed under the bar.
 
@@ -38,12 +38,12 @@ Caught: share of planted errors that were flagged. First fix right and fix in to
 
 | Category | Planted | Checked | Caught | Change | harper caught | First fix right | Fix in top 5 |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| typo | 1000 | 1000 | 94.9% | 0 | 90.2% | 91% | 99.1% |
-| confusable | 1000 | 1000 | 0% | 0 | 35.9% | 0% | 0% |
-| a-an | 1000 | 1000 | 0% | 0 | 90.9% | 0% | 0% |
-| repeated-word | 1000 | 1000 | 0.1% | 0 | 61.9% | 0% | 0% |
-| agreement | 1000 | 1000 | 0% | 0 | 65.5% | 0% | 0% |
-| dialogue-punctuation | 1000 | 1000 | 0.8% | 0 | 0.4% | 0% | 0% |
+| typo | 1000 | 1000 | 95% | +0.1 pts | 90.7% | 92.2% | 99% |
+| confusable | 1000 | 1000 | 0% | 0 | 35.8% | 0% | 0% |
+| a-an | 1000 | 1000 | 0% | 0 | 90.7% | 0% | 0% |
+| repeated-word | 1000 | 1000 | 0.2% | +0.1 pts | 63.8% | 0% | 0% |
+| agreement | 1000 | 1000 | 0% | 0 | 66.5% | 0% | 0% |
+| dialogue-punctuation | 1000 | 1000 | 1% | +0.2 pts | 0.2% | 0% | 0% |
 
 ### all, test
 
@@ -60,12 +60,12 @@ Caught: share of planted errors that were flagged. First fix right and fix in to
 
 | Category | Planted | Checked | Caught | Change | harper caught | First fix right | Fix in top 5 |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| typo | 500 | 500 | 94% | 0 | 93.8% | 90.2% | 99.4% |
-| confusable | 500 | 500 | 0% | 0 | 37.2% | 0% | 0% |
-| a-an | 500 | 500 | 0% | 0 | 96.4% | 0% | 0% |
-| repeated-word | 500 | 500 | 0% | 0 | 64.8% | 0% | 0% |
-| agreement | 500 | 500 | 0% | 0 | 69.6% | 0% | 0% |
-| dialogue-punctuation | 500 | 500 | 1.6% | 0 | 0.4% | 0% | 0% |
+| typo | 500 | 500 | 94.2% | +0.2 pts | 94.8% | 92.6% | 99.2% |
+| confusable | 500 | 500 | 0% | 0 | 37% | 0% | 0% |
+| a-an | 500 | 500 | 0% | 0 | 96% | 0% | 0% |
+| repeated-word | 500 | 500 | 0.2% | +0.2 pts | 68.6% | 0% | 0% |
+| agreement | 500 | 500 | 0% | 0 | 71.6% | 0% | 0% |
+| dialogue-punctuation | 500 | 500 | 2% | +0.4 pts | 0% | 0% | 0% |
 
 ### calibre, test
 

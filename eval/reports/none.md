@@ -10,11 +10,11 @@ Target: under 1 per 1,000 words. Flags confirmed as real errors in the source ar
 
 | Corpus | Split | Books | Words | Flags | Per 1,000 words | Change | harper | Confirmed real errors | Not checked |
 |---|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| calibre | dev | 16 | 454,679 | 0 | 0 | 0 | 43.365 | 0 | 0 |
+| calibre | dev | 16 | 454,434 | 0 | 0 | 0 | 40.089 | 0 | 0 |
 | calibre | test | 8 | 240,253 | 0 | 0 | 0 | 40.52 | 0 | 0 |
 | gutenberg | dev | 29 | 859,568 | 0 | 0 | 0 | 24.358 | 0 | 0 |
 | gutenberg | test | 11 | 304,864 | 0 | 0 | 0 | 19.94 | 0 | 0 |
-| all | dev | 45 | 1,314,247 | 0 | 0 | 0 | 30.933 | 0 | 0 |
+| all | dev | 45 | 1,314,002 | 0 | 0 | 0 | 29.798 | 0 | 0 |
 | all | test | 19 | 545,117 | 0 | 0 | 0 | 29.01 | 0 | 0 |
 
 ## False alarms per rule
@@ -31,12 +31,12 @@ Caught: share of planted errors that were flagged. First fix right and fix in to
 
 | Category | Planted | Checked | Caught | Change | harper caught | First fix right | Fix in top 5 |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| typo | 1000 | 1000 | 0% | 0 | 90.2% | 0% | 0% |
-| confusable | 1000 | 1000 | 0% | 0 | 35.9% | 0% | 0% |
-| a-an | 1000 | 1000 | 0% | 0 | 90.9% | 0% | 0% |
-| repeated-word | 1000 | 1000 | 0% | 0 | 61.9% | 0% | 0% |
-| agreement | 1000 | 1000 | 0% | 0 | 65.5% | 0% | 0% |
-| dialogue-punctuation | 1000 | 1000 | 0% | 0 | 0.4% | 0% | 0% |
+| typo | 1000 | 1000 | 0% | 0 | 90.7% | 0% | 0% |
+| confusable | 1000 | 1000 | 0% | 0 | 35.8% | 0% | 0% |
+| a-an | 1000 | 1000 | 0% | 0 | 90.7% | 0% | 0% |
+| repeated-word | 1000 | 1000 | 0% | 0 | 63.8% | 0% | 0% |
+| agreement | 1000 | 1000 | 0% | 0 | 66.5% | 0% | 0% |
+| dialogue-punctuation | 1000 | 1000 | 0% | 0 | 0.2% | 0% | 0% |
 
 ### all, test
 
@@ -53,12 +53,12 @@ Caught: share of planted errors that were flagged. First fix right and fix in to
 
 | Category | Planted | Checked | Caught | Change | harper caught | First fix right | Fix in top 5 |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| typo | 500 | 500 | 0% | 0 | 93.8% | 0% | 0% |
-| confusable | 500 | 500 | 0% | 0 | 37.2% | 0% | 0% |
-| a-an | 500 | 500 | 0% | 0 | 96.4% | 0% | 0% |
-| repeated-word | 500 | 500 | 0% | 0 | 64.8% | 0% | 0% |
-| agreement | 500 | 500 | 0% | 0 | 69.6% | 0% | 0% |
-| dialogue-punctuation | 500 | 500 | 0% | 0 | 0.4% | 0% | 0% |
+| typo | 500 | 500 | 0% | 0 | 94.8% | 0% | 0% |
+| confusable | 500 | 500 | 0% | 0 | 37% | 0% | 0% |
+| a-an | 500 | 500 | 0% | 0 | 96% | 0% | 0% |
+| repeated-word | 500 | 500 | 0% | 0 | 68.6% | 0% | 0% |
+| agreement | 500 | 500 | 0% | 0 | 71.6% | 0% | 0% |
+| dialogue-punctuation | 500 | 500 | 0% | 0 | 0% | 0% | 0% |
 
 ### calibre, test
 

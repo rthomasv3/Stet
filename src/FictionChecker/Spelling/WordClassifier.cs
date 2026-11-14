@@ -212,6 +212,12 @@ internal sealed class WordClassifier
                 best = Better(best, Look(buffer, context));
             }
         }
+        else if (shape == Shape.Mixed && IsTitleCasedAroundApostrophe(word))
+        {
+            // O'Clock, Ne'er in a title: capitals at the start and after the apostrophe only.
+            word.ToLowerInvariant(buffer);
+            best = Better(best, Look(buffer, context));
+        }
         else if (shape == Shape.Lower && best == WordStatus.Unknown && word.Length >= 4)
         {
             // Only valid with a capital: london, elizabeth, kaelith.
@@ -302,6 +308,16 @@ internal sealed class WordClassifier
         {
             if (lower.Length >= suffix.Length + 3 && lower.EndsWith(suffix, StringComparison.Ordinal)
                 && Look(lower[..^suffix.Length], context) == WordStatus.Valid)
+            {
+                return true;
+            }
+        }
+
+        // A productive prefix on a known word of four letters or more: nonuniversity, premilitary, semitrance.
+        foreach (string prefix in (ReadOnlySpan<string>)["non", "semi", "pre", "anti", "sub", "super", "inter", "over", "under", "multi", "counter"])
+        {
+            if (lower.Length >= prefix.Length + 4 && lower.StartsWith(prefix, StringComparison.Ordinal)
+                && Look(lower[prefix.Length..], context) == WordStatus.Valid)
             {
                 return true;
             }
@@ -454,6 +470,24 @@ internal sealed class WordClassifier
         }
 
         return end - start + 1 >= 3;
+    }
+
+    private static bool IsTitleCasedAroundApostrophe(ReadOnlySpan<char> word)
+    {
+        bool sawApostrophe = false;
+        for (int i = 1; i < word.Length; i++)
+        {
+            if (word[i] == '\'')
+            {
+                sawApostrophe = true;
+            }
+            else if (char.IsUpper(word[i]) && word[i - 1] != '\'')
+            {
+                return false;
+            }
+        }
+
+        return sawApostrophe && char.IsUpper(word[0]);
     }
 
     private static WordVerdict Better(WordVerdict a, WordVerdict b) => new(Better(a.Status, b.Status), a.Correction ?? b.Correction);

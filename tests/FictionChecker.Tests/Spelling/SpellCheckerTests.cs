@@ -211,6 +211,7 @@ public class SpellCheckerTests
     [InlineData("An unlidded, buglike, wickless thing.")]
     [InlineData("He didn‘t care; it wasn´t his. A bona fide lapis lazuli.")]
     [InlineData("They walked among the trees, amongst friends, under a grey sky; she had learnt and dreamt.")]
+    [InlineData("A nonuniversity, premilitary friend in a semitrance sang “Three O’Clock in the Morning”. Ay, ay.")]
     public void RegularDerivationsAndVariantsAreAccepted(string text)
     {
         AssertClean(text);
@@ -223,6 +224,8 @@ public class SpellCheckerTests
     [InlineData("An unqwicked thing.", "unqwicked")]
     [InlineData("A dark-qwicked man.", "qwicked")]
     [InlineData("We saw le chat.", "le")]
+    [InlineData("A preqwick thing.", "preqwick")]
+    [InlineData("Come overthe hill.", "overthe")]
     public void DerivationRulesDoNotExcuseRealErrors(string text, string flagged)
     {
         Assert.Equal([$"Misspelling:{flagged}"], Flagged(text));

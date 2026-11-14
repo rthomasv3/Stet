@@ -15,6 +15,7 @@ using FictionChecker.Eval.Text;
 //   export --out <items.jsonl>                                      write every paragraph an external checker must check
 //   export --out <items.jsonl> --corpus gutenberg --clean-words 2000 --planted 100     a smaller set for slow checkers
 // Options: --compare <checker>   add a column comparing with another checker's committed report
+//          --review-flags N      write up to N flags per rule and corpus to the local review file (dev books only)
 //          --exclude-categories A,B   drop issues in these categories (with --name for the report name)
 //          --root <dir>          repository root (found automatically by default)
 if (args.Length == 0 || args[0] is "-h" or "--help")
@@ -37,6 +38,11 @@ for (int i = 1; i + 1 < args.Length; i += 2)
 string root = options.GetValueOrDefault("--root") ?? FindRoot();
 string evalDir = Path.Combine(root, "eval");
 EvalSettings settings = EvalSettings.Load(Path.Combine(evalDir, "eval.json"));
+if (options.TryGetValue("--review-flags", out string? reviewFlags))
+{
+    settings = settings with { ReviewFlagsPerRule = int.Parse(reviewFlags, CultureInfo.InvariantCulture) };
+}
+
 LocalSettings local = LocalSettings.Load(Path.Combine(evalDir, "eval.local.json"));
 
 var corpora = new List<Corpus>();
