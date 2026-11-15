@@ -34,7 +34,7 @@ internal sealed class GrammarEngine
             new CouldOfRule(),
             new DoubleComparativeRule(),
             new DoubledSpaceRule(),
-            new CommaSpacingRule(),
+            new PunctuationSpacingRule(),
             new SentenceCapitalRule(),
             new LowercaseIRule(),
             new PronounVerbRule(),

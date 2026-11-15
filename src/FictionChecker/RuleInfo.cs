@@ -73,14 +73,11 @@ public static class RuleIds
     /// <summary>The word "I" written in lowercase.</summary>
     public const string LowercaseI = "mechanics.lowercase-i";
 
-    /// <summary>A space before a comma, or two commas in a row.</summary>
-    public const string CommaSpacing = "mechanics.comma-spacing";
+    /// <summary>A space before a comma or a full stop, or two commas in a row.</summary>
+    public const string PunctuationSpacing = "mechanics.punctuation-spacing";
 
     /// <summary>"more stronger", "most quickest".</summary>
     public const string DoubleComparative = "mechanics.double-comparative";
-
-    /// <summary>A space before a full stop.</summary>
-    public const string FullStopSpacing = "mechanics.full-stop-spacing";
 
     /// <summary>"wont" or "cant" written for "won't" or "can't".</summary>
     public const string MissingApostrophe = "mechanics.missing-apostrophe";

@@ -47,7 +47,7 @@ foreach (Issue issue in results[0].Issues)
 | `mechanics.a-an` | "a apple", "an unicorn", judged by sound | on |
 | `mechanics.could-of` | "could of gone" (formal) | on |
 | `mechanics.doubled-space` | two spaces inside a sentence | on |
-| `mechanics.comma-spacing` | "the door , and", "up,, then" | on |
+| `mechanics.punctuation-spacing` | "the door , and", "up,, then", "dry . They" | on |
 | `mechanics.sentence-capital` | "He left. she stayed." | on |
 | `mechanics.lowercase-i` | "then i saw" | on |
 | `agreement.pronoun-verb` | "I has", "they is" | on |

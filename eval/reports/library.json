@@ -55,7 +55,7 @@
           "per1000": 0.0066
         },
         {
-          "ruleId": "mechanics.comma-spacing",
+          "ruleId": "mechanics.punctuation-spacing",
           "category": "Mechanics",
           "flags": 3,
           "per1000": 0.0066
@@ -703,7 +703,7 @@
           "per1000": 0.0023
         },
         {
-          "ruleId": "mechanics.comma-spacing",
+          "ruleId": "mechanics.punctuation-spacing",
           "category": "Mechanics",
           "flags": 3,
           "per1000": 0.0023
