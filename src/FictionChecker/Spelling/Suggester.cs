@@ -65,6 +65,8 @@ internal sealed class Suggester
         int maxDistance = SuggestionDistance(lower);
         Dialect dialect = context.Dialect;
         bool typedLower = !char.IsUpper(word[0]);
+        string sound = SoundKey(lower);
+        char[] key = new char[48];
         foreach ((int index, int distance) in Near(lower, maxDistance))
         {
             WordInfo info = _lexicon.InfoAt(index);
@@ -93,7 +95,7 @@ internal sealed class Suggester
             }
 
             int frequency = info.Frequency == 0 ? UnseenFrequency : info.Frequency;
-            Add(scored, candidate, Score(lower, candidate, distance, frequency) - penalty);
+            Add(scored, candidate, Score(lower, sound, key, candidate, distance, frequency) - penalty);
         }
 
         CustomWords custom = context.Custom;
@@ -105,7 +107,7 @@ internal sealed class Suggester
             {
                 if (custom.Contains(words[index], inDialogue))
                 {
-                    Add(scored, words[index], Score(lower, words[index], distance, CustomFrequency));
+                    Add(scored, words[index], Score(lower, sound, key, words[index], distance, CustomFrequency));
                 }
             });
         }
@@ -241,7 +243,8 @@ internal sealed class Suggester
         }
     }
 
-    private static int Score(string lower, string candidate, int distance, int frequency)
+    // lowerSound is the sound key of lower, worked out once for all the candidates.
+    private static int Score(string lower, string lowerSound, Span<char> key, string candidate, int distance, int frequency)
     {
         int score = frequency - (EditPenalty * distance);
         string candidateLower = candidate.ToLowerInvariant();
@@ -255,7 +258,7 @@ internal sealed class Suggester
             score += 12;
         }
 
-        if (distance > 0 && SoundKey(lower) == SoundKey(candidateLower))
+        if (distance > 0 && lowerSound.AsSpan().SequenceEqual(key[..SoundKey(candidateLower, key)]))
         {
             score += 15;
         }
@@ -322,9 +325,16 @@ internal sealed class Suggester
     // doubles collapsed. "recieve" and "receive" share a key; so do "definately" and "definitely".
     private static string SoundKey(string word)
     {
-        Span<char> key = stackalloc char[Math.Min(word.Length, 48)];
+        Span<char> key = stackalloc char[48];
+        return new string(key[..SoundKey(word, key)]);
+    }
+
+    // Writes the key into the buffer (48 letters at most) and returns its length.
+    private static int SoundKey(string word, Span<char> key)
+    {
+        int limit = Math.Min(word.Length, key.Length);
         int length = 0;
-        for (int i = 0; i < word.Length && length < key.Length; i++)
+        for (int i = 0; i < word.Length && length < limit; i++)
         {
             char c = word[i];
             if (c == 'p' && i + 1 < word.Length && word[i + 1] == 'h')
@@ -353,6 +363,6 @@ internal sealed class Suggester
             }
         }
 
-        return new string(key[..length]);
+        return length;
     }
 }

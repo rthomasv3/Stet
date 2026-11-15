@@ -73,8 +73,11 @@ internal sealed class SuggestionIndex
         // maxDistance of the diagonal are ever filled in: a cell further out stands for more edits than are
         // allowed, so it keeps the "too far" value it starts with.
         int width = n + 1;
-        int[] rows = new int[(MaxLength + 2) * width];
-        Array.Fill(rows, TooFar);
+        // No word longer than the target plus maxDistance is looked at, so that many rows are enough. The
+        // table is borrowed from the shared pool, so a search does not allocate one each time.
+        int size = (Math.Min(MaxLength, n + maxDistance) + 1) * width;
+        int[] rows = System.Buffers.ArrayPool<int>.Shared.Rent(size);
+        Array.Fill(rows, TooFar, 0, size);
         for (int j = 0; j <= n; j++)
         {
             rows[j] = j;
@@ -150,5 +153,7 @@ internal sealed class SuggestionIndex
                 }
             }
         }
+
+        System.Buffers.ArrayPool<int>.Shared.Return(rows);
     }
 }
