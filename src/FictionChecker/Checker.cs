@@ -143,7 +143,7 @@ public sealed class Checker
 
         ResolvedOptions resolved = Resolve(context?.Options);
         DialogueResult dialogue = DialogueDetector.Detect(text, resolved.QuoteStyle, startsInDialogue, context?.SkipRanges, context?.DialogueRanges);
-        return CheckCore(text, dialogue, context?.SkipRanges, resolved, StateFor(resolved), cache, false);
+        return CheckCore(text, dialogue, context?.SkipRanges, resolved, StateFor(resolved), cache, context?.StartsMidSentence ?? false);
     }
 
     internal IReadOnlyList<ParagraphResult> CheckDocument(IReadOnlyList<string> paragraphs, CheckerOptions? options, CancellationToken cancel, CheckCache? cache)
@@ -226,7 +226,7 @@ public sealed class Checker
     {
         if (!resolved.AnySpelling && !resolved.AnyGrammar)
         {
-            return new ParagraphResult(NoIssues, dialogue.EndsInDialogue);
+            return new ParagraphResult(NoIssues, dialogue.EndsInDialogue, LeavesSentenceOpen(text));
         }
 
         CheckCache.Key? key = null;
@@ -266,7 +266,7 @@ public sealed class Checker
         }
 
         IReadOnlyList<Issue> issues = list is { Count: > 0 } ? list.ToArray() : NoIssues;
-        var result = new ParagraphResult(issues, dialogue.EndsInDialogue);
+        var result = new ParagraphResult(issues, dialogue.EndsInDialogue, LeavesSentenceOpen(text));
         cache?.Add(key!, result);
         return result;
     }

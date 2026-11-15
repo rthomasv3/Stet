@@ -476,4 +476,23 @@ public class CheckerTests
         Assert.Contains(cache.CheckDocument(["He left at dawn.", "she stayed behind."])[1].Issues, i => i.RuleId == RuleIds.SentenceCapital);
         Assert.DoesNotContain(cache.CheckDocument(["He left at dawn, and", "she stayed behind."])[1].Issues, i => i.RuleId == RuleIds.SentenceCapital);
     }
+
+    [Fact]
+    public void Paragraphs_checked_one_at_a_time_can_say_the_one_before_was_left_unfinished()
+    {
+        static bool Flagged(ParagraphResult result) => result.Issues.Any(i => i.RuleId == RuleIds.SentenceCapital);
+
+        ParagraphResult open = Shared.CheckParagraph("He read the sign, which said");
+        ParagraphResult closed = Shared.CheckParagraph("He left at dawn.”");
+
+        Assert.True(open.EndsMidSentence);
+        Assert.False(closed.EndsMidSentence);
+        Assert.False(Shared.CheckParagraph("* * *").EndsMidSentence);
+        Assert.False(Flagged(Shared.CheckParagraph("no way through.", new ParagraphContext { StartsMidSentence = open.EndsMidSentence })));
+        Assert.True(Flagged(Shared.CheckParagraph("no way through.", new ParagraphContext { StartsMidSentence = closed.EndsMidSentence })));
+
+        var cache = new CheckCache(Shared);
+        Assert.False(Flagged(cache.CheckParagraph("no way through.", new ParagraphContext { StartsMidSentence = true })));
+        Assert.True(Flagged(cache.CheckParagraph("no way through.")));
+    }
 }

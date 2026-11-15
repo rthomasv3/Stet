@@ -78,10 +78,11 @@ public sealed class Issue
 /// <summary>The result of checking one paragraph.</summary>
 public sealed class ParagraphResult
 {
-    internal ParagraphResult(IReadOnlyList<Issue> issues, bool endsInDialogue)
+    internal ParagraphResult(IReadOnlyList<Issue> issues, bool endsInDialogue, bool endsMidSentence = false)
     {
         Issues = issues;
         EndsInDialogue = endsInDialogue;
+        EndsMidSentence = endsMidSentence;
     }
 
     /// <summary>The issues found, in text order.</summary>
@@ -92,6 +93,13 @@ public sealed class ParagraphResult
     /// when checking the next paragraph.
     /// </summary>
     public bool EndsInDialogue { get; }
+
+    /// <summary>
+    /// The paragraph stopped without ending its sentence: a line of verse, a heading, or prose broken off by an
+    /// inserted letter or picture. Pass this as <see cref="ParagraphContext.StartsMidSentence"/> when checking
+    /// the next paragraph, which may then rightly begin without a capital.
+    /// </summary>
+    public bool EndsMidSentence { get; }
 }
 
 /// <summary>What the caller knows about a paragraph beyond its text.</summary>
@@ -99,6 +107,12 @@ public sealed record ParagraphContext
 {
     /// <summary>The previous paragraph ended with its quote still open.</summary>
     public bool StartsInDialogue { get; init; }
+
+    /// <summary>
+    /// The previous paragraph stopped without ending its sentence, so this one may carry on from it and begin
+    /// without a capital. Checking a whole document works this out by itself.
+    /// </summary>
+    public bool StartsMidSentence { get; init; }
 
     /// <summary>Ranges to leave unchecked: foreign words in italics, a letter written in deliberately bad spelling.</summary>
     public IReadOnlyList<TextSpan>? SkipRanges { get; init; }

@@ -28,7 +28,7 @@ foreach (Issue issue in results[0].Issues)
 }
 ```
 
-- **One paragraph at a time:** `CheckParagraph(text, context)`. Pass `ParagraphResult.EndsInDialogue` on as the next paragraph's `ParagraphContext.StartsInDialogue`. The context also takes ranges to skip and ranges to treat as dialogue.
+- **One paragraph at a time:** `CheckParagraph(text, context)`. Pass `ParagraphResult.EndsInDialogue` on as the next paragraph's `ParagraphContext.StartsInDialogue`. Do the same with `EndsMidSentence` and `StartsMidSentence`, so a paragraph that carries on an unfinished one (after a line of verse or an inserted letter) is not flagged for starting without a capital. The context also takes ranges to skip and ranges to treat as dialogue.
 - **Options per check:** every check accepts its own `CheckerOptions` (dialect, quote style, dialogue strictness, rules on or off, which word sets apply), so one checker serves books with different settings.
 - **Rules:** `checker.Rules` lists every rule with its ID, name, description and examples. Turn one off with `options.WithRule(RuleIds.UnknownName, false)`, or a whole category with `options.WithCategory(RuleCategory.Spelling, false)`. Unknown IDs are ignored, so saved settings survive upgrades.
 - **Single words:** `IsValidWord(word)` and `Suggest(word)`, for a right-click menu.
