@@ -22,6 +22,14 @@ internal static class ConfusableSets
     /// </summary>
     public const int DefaultThreshold = 10;
 
+    /// <summary>
+    /// The default for the families from "allowed, aloud" on. Their words are rarer in the development books,
+    /// so those books say less about how often a correct use looks wrong; the bar is set one doubling higher.
+    /// </summary>
+    public const int RarerThreshold = 12;
+
+    private const int FirstRarerFamily = 27;
+
     // Pairs that need stronger evidence, as "written>meant". The more often the written word is right in
     // ordinary text, the more chances it has to look wrong by accident, so the common words sit highest.
     // Each value is the strongest evidence seen against a correct word in the development books, plus a margin
@@ -71,6 +79,21 @@ internal static class ConfusableSets
         [("piece", "peace")] = 19,
         [("weather", "whether")] = 18,
         [("week", "weak")] = 15,
+        [("bored", "board")] = 14,
+        [("plain", "plane")] = 18,
+        [("rains", "reins")] = 16,
+        [("right", "write")] = 22,
+        [("sole", "soul")] = 16,
+        [("soles", "souls")] = 14,
+        [("wait", "weight")] = 19,
+        [("weight", "wait")] = 13,
+        [("whole", "hole")] = 14,
+        [("write", "right")] = 16,
+
+        // "rein", "reign" and "rain": a correct word here looked wrong three times in one book that was not
+        // used for tuning, so every direction is held to the higher bar.
+        [("rein", "reign")] = 16, [("rein", "rain")] = 16, [("reign", "rein")] = 16, [("reign", "rain")] = 16, [("rain", "rein")] = 16, [("rain", "reign")] = 16,
+        [("reins", "reigns")] = 16, [("reins", "rains")] = 16, [("reigns", "reins")] = 16, [("reigns", "rains")] = 16, [("rains", "reigns")] = 16,
     };
 
     /// <summary>The number of the family a lowercase word belongs to, or -1.</summary>
@@ -98,7 +121,7 @@ internal static class ConfusableSets
 
     /// <summary>Whether the evidence that <paramref name="best"/> was meant is strong enough to flag <paramref name="written"/>.</summary>
     public static bool IsStrongEnough(string written, string best, ConfusableEvidence evidence) =>
-        evidence.Total * 2 >= Thresholds.GetValueOrDefault((written, best), DefaultThreshold) * ConfusableData.Unit;
+        evidence.Total * 2 >= Thresholds.GetValueOrDefault((written, best), FamilyOf(written) >= FirstRarerFamily ? RarerThreshold : DefaultThreshold) * ConfusableData.Unit;
 
     /// <summary>Every family, in the order their rules are listed.</summary>
     public static readonly ConfusableFamily[] Families =
@@ -238,6 +261,91 @@ internal static class ConfusableSets
             [["piece", "peace"]],
             ["She tore off a peace of cloth.", "They lived in piece for years."],
             ["She ate a piece of bread in peace.", "At last she found a peace of mind she had not known."]),
+        new(RuleIds.ConfusableAllowedAloud, "Allowed, aloud",
+            "\"Allowed\" means permitted. \"Aloud\" means spoken so it can be heard.",
+            [["allowed", "aloud"]],
+            ["She was aloud to stay up late."],
+            ["He was allowed to read aloud."]),
+        new(RuleIds.ConfusableThroneThrown, "Throne, thrown",
+            "\"Throne\" is a ruler's seat. \"Thrown\" is the past of \"throw\".",
+            [["throne", "thrown"]],
+            ["The king sat on his thrown and said nothing."],
+            ["He was thrown down before the throne."]),
+        new(RuleIds.ConfusableStakeSteak, "Stake, steak",
+            "\"Stake\" is a pointed post, or what is risked. \"Steak\" is a cut of meat.",
+            [["stake", "steak"], ["stakes", "steaks"]],
+            ["He cut into the juicy stake."],
+            ["He drove a stake into the ground and went in for his steak."]),
+        new(RuleIds.ConfusableWaistWaste, "Waist, waste",
+            "\"Waist\" is the middle of the body. \"Waste\" is to use badly, or what is thrown away.",
+            [["waist", "waste"]],
+            ["It was a waist of time."],
+            ["She tied the rope round her waist and did not waste a moment."]),
+        new(RuleIds.ConfusableBoredBoard, "Bored, board",
+            "\"Bored\" means weary of something dull. \"Board\" is a plank, or to get on a ship.",
+            [["bored", "board"]],
+            ["They went on bored the ship."],
+            ["Bored, he tapped the board with one finger."]),
+        new(RuleIds.ConfusableWholeHole, "Whole, hole",
+            "\"Whole\" means all of something. \"Hole\" is a gap or hollow.",
+            [["whole", "hole"]],
+            ["She ate the hole thing."],
+            ["The whole floor fell into the hole."]),
+        new(RuleIds.ConfusableWeightWait, "Weight, wait",
+            "\"Weight\" is how heavy something is. \"Wait\" is to stay until something happens.",
+            [["weight", "wait"]],
+            ["I cannot weight any longer."],
+            ["Wait until you feel the weight of it."]),
+        new(RuleIds.ConfusableWriteRight, "Write, right",
+            "\"Write\" is to put words down. \"Right\" means correct, or the opposite of left.",
+            [["write", "right"]],
+            ["You were write about him.", "Turn write at the mill."],
+            ["You were right to write to her."]),
+        new(RuleIds.ConfusablePlainPlane, "Plain, plane",
+            "\"Plain\" means simple, or flat open land. \"Plane\" is an aircraft, a flat surface or a tool.",
+            [["plain", "plane"], ["plains", "planes"]],
+            ["The plain landed at dawn."],
+            ["The plane crossed the plain in an hour."]),
+        new(RuleIds.ConfusableRoleRoll, "Role, roll",
+            "\"Role\" is a part played. \"Roll\" is to turn over, or a small loaf.",
+            [["role", "roll"], ["roles", "rolls"]],
+            ["She played the leading roll."],
+            ["His role was to roll the barrels out."]),
+        new(RuleIds.ConfusableSightSite, "Sight, site",
+            "\"Sight\" is seeing, or something seen. \"Site\" is a place.",
+            [["sight", "site"], ["sights", "sites"]],
+            ["He caught site of her in the crowd."],
+            ["The site of the battle was a grim sight."]),
+        new(RuleIds.ConfusableSoulSole, "Soul, sole",
+            "\"Soul\" is the spirit. \"Sole\" means only, or the bottom of a foot.",
+            [["soul", "sole"], ["souls", "soles"]],
+            ["There was not a sole in sight."],
+            ["The sole survivor prayed for his soul."]),
+        new(RuleIds.ConfusableTailTale, "Tail, tale",
+            "\"Tail\" is the end of an animal. \"Tale\" is a story.",
+            [["tail", "tale"], ["tails", "tales"]],
+            ["The fox had a bushy tale."],
+            ["It was a tale about a fox with no tail."]),
+        new(RuleIds.ConfusableStealSteel, "Steal, steel",
+            "\"Steal\" is to take what is not yours. \"Steel\" is the metal.",
+            [["steal", "steel"]],
+            ["He tried to steel a horse."],
+            ["He would not steal the steel sword."]),
+        new(RuleIds.ConfusableHealHeel, "Heal, heel",
+            "\"Heal\" is to make or get well. \"Heel\" is the back of the foot.",
+            [["heal", "heel"], ["heals", "heels"]],
+            ["The wound would not heel."],
+            ["His heel would heal in time."]),
+        new(RuleIds.ConfusablePourPore, "Pour, pore",
+            "\"Pour\" is to tip liquid out. \"Pore\" is to study closely (\"pore over\"), or a tiny opening in skin.",
+            [["pour", "pore"], ["poured", "pored"], ["pouring", "poring"]],
+            ["She pored the wine into his cup."],
+            ["He poured a drink and pored over the map."]),
+        new(RuleIds.ConfusableReinReign, "Rein, reign, rain",
+            "\"Rein\" is a strap for guiding a horse. \"Reign\" is a ruler's time in power. \"Rain\" is water from the sky.",
+            [["rein", "reign", "rain"], ["reins", "reigns", "rains"]],
+            ["The rein fell all night."],
+            ["In the rain he took the reins, in the last year of her reign."]),
     ];
 
     // Declared last: it is built from the list above, and static fields are set in the order written.

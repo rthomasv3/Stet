@@ -186,6 +186,57 @@ public static class RuleIds
 
     /// <summary>Mixing up piece and peace.</summary>
     public const string ConfusablePiecePeace = "confusable.piece-peace";
+
+    /// <summary>Mixing up allowed and aloud.</summary>
+    public const string ConfusableAllowedAloud = "confusable.allowed-aloud";
+
+    /// <summary>Mixing up throne and thrown.</summary>
+    public const string ConfusableThroneThrown = "confusable.throne-thrown";
+
+    /// <summary>Mixing up stake and steak.</summary>
+    public const string ConfusableStakeSteak = "confusable.stake-steak";
+
+    /// <summary>Mixing up waist and waste.</summary>
+    public const string ConfusableWaistWaste = "confusable.waist-waste";
+
+    /// <summary>Mixing up bored and board.</summary>
+    public const string ConfusableBoredBoard = "confusable.bored-board";
+
+    /// <summary>Mixing up whole and hole.</summary>
+    public const string ConfusableWholeHole = "confusable.whole-hole";
+
+    /// <summary>Mixing up weight and wait.</summary>
+    public const string ConfusableWeightWait = "confusable.weight-wait";
+
+    /// <summary>Mixing up write and right.</summary>
+    public const string ConfusableWriteRight = "confusable.write-right";
+
+    /// <summary>Mixing up plain and plane.</summary>
+    public const string ConfusablePlainPlane = "confusable.plain-plane";
+
+    /// <summary>Mixing up role and roll.</summary>
+    public const string ConfusableRoleRoll = "confusable.role-roll";
+
+    /// <summary>Mixing up sight and site.</summary>
+    public const string ConfusableSightSite = "confusable.sight-site";
+
+    /// <summary>Mixing up soul and sole.</summary>
+    public const string ConfusableSoulSole = "confusable.soul-sole";
+
+    /// <summary>Mixing up tail and tale.</summary>
+    public const string ConfusableTailTale = "confusable.tail-tale";
+
+    /// <summary>Mixing up steal and steel.</summary>
+    public const string ConfusableStealSteel = "confusable.steal-steel";
+
+    /// <summary>Mixing up heal and heel.</summary>
+    public const string ConfusableHealHeel = "confusable.heal-heel";
+
+    /// <summary>Mixing up pour and pore.</summary>
+    public const string ConfusablePourPore = "confusable.pour-pore";
+
+    /// <summary>Mixing up rein, reign, rain.</summary>
+    public const string ConfusableReinReign = "confusable.rein-reign";
 }
 
 internal static class RuleCatalog

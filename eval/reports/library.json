@@ -492,7 +492,7 @@
       "paragraphs": 5481,
       "uncheckedParagraphs": 0,
       "words": 304864,
-      "flags": 526,
+      "flags": 527,
       "confirmedRealErrors": 0,
       "rules": [
         {
@@ -551,6 +551,12 @@
         },
         {
           "ruleId": "confusable.past-passed",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0033
+        },
+        {
+          "ruleId": "confusable.rein-reign",
           "category": "ConfusableWords",
           "flags": 1,
           "per1000": 0.0033
@@ -636,7 +642,7 @@
           "top5FixRate": 1
         }
       ],
-      "flagsPer1000": 1.7254
+      "flagsPer1000": 1.7286
     },
     {
       "corpus": "all",
@@ -834,7 +840,7 @@
       "paragraphs": 12998,
       "uncheckedParagraphs": 0,
       "words": 545117,
-      "flags": 1165,
+      "flags": 1166,
       "confirmedRealErrors": 0,
       "rules": [
         {
@@ -911,6 +917,12 @@
         },
         {
           "ruleId": "confusable.past-passed",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0018
+        },
+        {
+          "ruleId": "confusable.rein-reign",
           "category": "ConfusableWords",
           "flags": 1,
           "per1000": 0.0018
@@ -1002,7 +1014,7 @@
           "top5FixRate": 1
         }
       ],
-      "flagsPer1000": 2.1372
+      "flagsPer1000": 2.139
     }
   ]
 }

@@ -87,6 +87,23 @@ foreach (Issue issue in results[0].Issues)
 | `confusable.week-weak` | week, weak mixed up | on |
 | `confusable.know-no` | know, no mixed up | on |
 | `confusable.piece-peace` | piece, peace mixed up | on |
+| `confusable.allowed-aloud` | allowed, aloud mixed up | on |
+| `confusable.throne-thrown` | throne, thrown mixed up | on |
+| `confusable.stake-steak` | stake, steak mixed up | on |
+| `confusable.waist-waste` | waist, waste mixed up | on |
+| `confusable.bored-board` | bored, board mixed up | on |
+| `confusable.whole-hole` | whole, hole mixed up | on |
+| `confusable.weight-wait` | weight, wait mixed up | on |
+| `confusable.write-right` | write, right mixed up | on |
+| `confusable.plain-plane` | plain, plane mixed up | on |
+| `confusable.role-roll` | role, roll mixed up | on |
+| `confusable.sight-site` | sight, site mixed up | on |
+| `confusable.soul-sole` | soul, sole mixed up | on |
+| `confusable.tail-tale` | tail, tale mixed up | on |
+| `confusable.steal-steel` | steal, steel mixed up | on |
+| `confusable.heal-heel` | heal, heel mixed up | on |
+| `confusable.pour-pore` | pour, pore mixed up | on |
+| `confusable.rein-reign` | rein, reign, rain mixed up | on |
 
 The confusable-word rules flag a word only when the words on either side show strongly that another was
 meant ("taller then her", "their was"), judged from how often each word is seen in those surroundings in
