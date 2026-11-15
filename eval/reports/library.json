@@ -315,7 +315,7 @@
       "paragraphs": 17652,
       "uncheckedParagraphs": 0,
       "words": 859568,
-      "flags": 1540,
+      "flags": 1542,
       "confirmedRealErrors": 1,
       "rules": [
         {
@@ -375,6 +375,12 @@
         {
           "ruleId": "confusable.lose-loose",
           "category": "ConfusableWords",
+          "flags": 2,
+          "per1000": 0.0023
+        },
+        {
+          "ruleId": "mechanics.double-comparative",
+          "category": "Mechanics",
           "flags": 2,
           "per1000": 0.0023
         },
@@ -477,7 +483,7 @@
           "top5FixRate": 0.9956
         }
       ],
-      "flagsPer1000": 1.7916
+      "flagsPer1000": 1.7939
     },
     {
       "corpus": "gutenberg",
@@ -639,7 +645,7 @@
       "paragraphs": 30531,
       "uncheckedParagraphs": 0,
       "words": 1314002,
-      "flags": 2226,
+      "flags": 2228,
       "confirmedRealErrors": 6,
       "rules": [
         {
@@ -717,6 +723,12 @@
         {
           "ruleId": "confusable.lose-loose",
           "category": "ConfusableWords",
+          "flags": 2,
+          "per1000": 0.0015
+        },
+        {
+          "ruleId": "mechanics.double-comparative",
+          "category": "Mechanics",
           "flags": 2,
           "per1000": 0.0015
         },
@@ -813,7 +825,7 @@
           "top5FixRate": 0.9978
         }
       ],
-      "flagsPer1000": 1.6941
+      "flagsPer1000": 1.6956
     },
     {
       "corpus": "all",

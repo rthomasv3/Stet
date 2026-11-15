@@ -4,7 +4,8 @@
 //   bigrams   stream Google Books fiction 2-grams (47 files, ~31 GB) into downloads/ngram/2grams/ (run once)
 //   wordinfo  build src/FictionChecker/Data/wordinfo.bin (needs lexicon.bin, the 1-gram table and the 2-gram files)
 //   bigrams-closed  second pass over the 2-grams: word types beside each function word (run once)
-//   bigrams-more    another pass: neighbours of the confusable words in Lists/focus-more.txt (run once)
+//   bigrams-all     another pass: keep every common pair of plain tokens as a local copy (run once, a few GB)
+//   bigrams-more    neighbours of the confusable words in Lists/focus-more.txt, from the local copy (seconds)
 //   bigrams-tagged  third pass over the 2-grams: what follows the 's that means "is" (run once)
 //   confusables  build src/FictionChecker/Data/confusables.bin (needs lexicon.bin and the 2-gram files)
 //   lexicon   build src/FictionChecker/Data/lexicon.bin from SCOWL and the 1-gram table
@@ -43,9 +44,18 @@ switch (command)
             return 0;
         }
 
+    case "bigrams-all":
+        {
+            // One pass that keeps every pair of plain tokens seen 40 times or more since 1950 (a few GB, in the
+            // ignored downloads folder). Word lists added later are then filled from this copy in seconds.
+            using var timeout = new CancellationTokenSource(TimeSpan.FromHours(3));
+            await BigramExtractor.RunAsync(Path.Combine(downloads, "ngram", "2grams-all"), new HashSet<string>(StringComparer.Ordinal), false, args.Length > 1 ? int.Parse(args[1]) : 12, timeout.Token, keepAll: true);
+            return 0;
+        }
+
     case "bigrams-more":
         {
-            // Neighbours of confusable words added after the first pass. Kept apart so the first pass need not be repeated.
+            // Neighbours of the confusable words added after the first pass, taken from the local copy.
             var more = new HashSet<string>(StringComparer.Ordinal);
             foreach (string line in File.ReadLines(Path.Combine(root, "src", "FictionChecker.DataBuilder", "Lists", "focus-more.txt")))
             {
@@ -55,8 +65,45 @@ switch (command)
                 }
             }
 
-            using var timeout = new CancellationTokenSource(TimeSpan.FromHours(3));
-            await BigramExtractor.RunAsync(Path.Combine(downloads, "ngram", "2grams-more"), more, false, args.Length > 1 ? int.Parse(args[1]) : 12, timeout.Token);
+            string all = Path.Combine(downloads, "ngram", "2grams-all");
+            if (!Directory.Exists(all) || Directory.GetFiles(all, "*.tsv").Length < BigramExtractor.Files)
+            {
+                Console.Error.WriteLine("Run the 'bigrams-all' command first.");
+                return 1;
+            }
+
+            string target = Path.Combine(downloads, "ngram", "2grams-more");
+            Directory.CreateDirectory(target);
+            long kept = 0;
+            using (var writer = new StreamWriter(Path.Combine(target, "more.tsv.part")))
+            {
+                foreach (string file in Directory.GetFiles(all, "*.tsv").Order(StringComparer.Ordinal))
+                {
+                    foreach (string line in File.ReadLines(file))
+                    {
+                        int firstTab = line.IndexOf('\t');
+                        int secondTab = line.IndexOf('\t', firstTab + 1);
+                        if (firstTab <= 0 || secondTab <= 0)
+                        {
+                            continue;
+                        }
+
+                        if (more.Contains(line[..firstTab].ToLowerInvariant()) || more.Contains(line[(firstTab + 1)..secondTab].ToLowerInvariant()))
+                        {
+                            writer.WriteLine(line);
+                            kept++;
+                        }
+                    }
+                }
+            }
+
+            foreach (string old in Directory.GetFiles(target, "*.tsv").Concat(Directory.GetFiles(target, "*.sha256")))
+            {
+                File.Delete(old);
+            }
+
+            File.Move(Path.Combine(target, "more.tsv.part"), Path.Combine(target, "more.tsv"));
+            Console.WriteLine($"Kept {kept:N0} pairs for {more.Count} words.");
             return 0;
         }
 

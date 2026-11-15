@@ -14,8 +14,8 @@ internal sealed class VerbFormRule : GrammarRule
         RuleCategory.Agreement,
         true,
         true,
-        ["I have went there many times.", "She has ate nothing since morning.", "He did not went to the meeting.", "They should has known better.", "She wanted to went home.", "He didn't walked far.", "We had already took the road north."],
-        ["I have gone there many times.", "He did not go to the meeting.", "The little she had went to her son.", "He had rose bushes by the gate.", "The man she spoke to gave a nod.", "“I have went there many times,” he said.", "He didn't used to mind.", "Those he had known came to see him.", "May came too soon that year."]);
+        ["I have went there many times.", "She has ate nothing since morning.", "He did not went to the meeting.", "They should has known better.", "She wanted to went home.", "He didn't walked far.", "We had already took the road north.", "He didn't had any money left.", "She does not likes the cold.", "I have saw that man before."],
+        ["I have gone there many times.", "He did not go to the meeting.", "The little she had went to her son.", "He had rose bushes by the gate.", "The man she spoke to gave a nod.", "“I have went there many times,” he said.", "He didn't used to mind.", "Those he had known came to see him.", "May came too soon that year.", "She does not like the cold.", "He had saw blades in his pack."]);
 
     // Past forms that are never also the base form, a noun or an adjective: past, base, form after "have".
     private static readonly Dictionary<string, (string Base, string Participle)> PastOnly = Table(
@@ -79,6 +79,11 @@ internal sealed class VerbFormRule : GrammarRule
                 {
                     fix = forms.Participle;
                 }
+                else if (verb == "saw" && v == i + 1 && !OwnedBefore(sentence, i) && !(sentence.IsWord(v + 1) && sentence.Type(v + 1) == WordType.Noun && !sentence.Is(v + 1, "that", "this", "him", "her", "them", "it")))
+                {
+                    // "have saw him". "Saw" is also a tool ("had saw blades"), so only straight after "have".
+                    fix = "seen";
+                }
             }
             else if (did || didNot)
             {
@@ -89,8 +94,17 @@ internal sealed class VerbFormRule : GrammarRule
                     {
                         fix = past.Base;
                     }
+                    else if (verb is "had" or "has")
+                    {
+                        fix = "have";
+                    }
+                    else if (verb is not ("does" or "is" or "was") && sentence.Type(v) == WordType.Verb && sentence.Forms(v) == WordForms.VerbThirdPerson && RegularBase(sentence, v, WordForms.VerbThirdPerson) is { } plain3)
+                    {
+                        // "does not likes": the -s form, for a word that is nothing else.
+                        fix = plain3;
+                    }
                     else if (verb != "used" && sentence.Type(v) == WordType.Verb && (sentence.Forms(v) & WordForms.VerbPast) != 0 && (sentence.Forms(v) & WordForms.VerbBase) == 0
-                        && verb.EndsWith("ed", StringComparison.Ordinal) && RegularBase(sentence, v) is { } regular)
+                        && verb.EndsWith("ed", StringComparison.Ordinal) && RegularBase(sentence, v, WordForms.VerbPast) is { } regular)
                     {
                         fix = regular;
                     }
@@ -142,7 +156,7 @@ internal sealed class VerbFormRule : GrammarRule
     }
 
     // The base of a regular past form ("walked" gives "walk"), when the word data links them.
-    private static string? RegularBase(Sentence sentence, int v)
+    private static string? RegularBase(Sentence sentence, int v, WordForms form)
     {
         int word = sentence.WordIndex(v);
         if (word < 0)
@@ -152,7 +166,7 @@ internal sealed class VerbFormRule : GrammarRule
 
         foreach ((int baseWord, WordForms forms) in sentence.Data.BasesOf(word))
         {
-            if ((forms & WordForms.VerbPast) != 0)
+            if ((forms & form) != 0)
             {
                 return sentence.Data.Lexicon.WordAt(baseWord);
             }

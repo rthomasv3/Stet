@@ -32,6 +32,7 @@ internal sealed class GrammarEngine
             new RepeatedWordRule(),
             new ArticleRule(),
             new CouldOfRule(),
+            new DoubleComparativeRule(),
             new DoubledSpaceRule(),
             new CommaSpacingRule(),
             new SentenceCapitalRule(),
