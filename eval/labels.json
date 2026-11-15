@@ -33,5 +33,12 @@
   "length": 11,
   "ruleId": "spelling.misspelling",
   "verdict": "real-error"
+ },
+ {
+  "hash": "f464c0834f60822d",
+  "start": 1080,
+  "length": 3,
+  "ruleId": "mechanics.repeated-word",
+  "verdict": "real-error"
  }
 ]

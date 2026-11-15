@@ -1,7 +1,7 @@
 # FictionChecker (working title)
 
 An offline spelling and grammar checker for fiction, written in pure managed C#.
-Early development. Spelling works through the public API below; grammar rules come next. The API can still change before 1.0.
+Early development. Spelling works through the public API below, and the grammar side has its foundation (word types, a tagger, a rule engine) with one rule so far, repeated words. The API can still change before 1.0.
 
 ## Using it
 

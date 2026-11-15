@@ -49,6 +49,8 @@ Checkers:
 - `spelling-world`: the same, with a stand-in for the word list a writer would have. Every unknown word
   a book uses twice or more is treated as a custom word for that book, on the reasoning that a spelling
   repeated exactly is intended. Words used once stay flagged. This is a simulation, not a real word list.
+- `library`: everything the library checks at its defaults (spelling and grammar rules), with the same
+  stand-in word list. This is what an app gets.
 - `none` (flags nothing), `demo` (a naive repeated-word check that exercises the harness), and
   `external` (scores issues produced outside the process; see `harper/` and `languagetool/`).
 
@@ -69,6 +71,7 @@ To measure how much of the books' vocabulary the spelling data knows:
 
 - `reports/dialogue.md`: text splitting and dialogue detection numbers.
 - `reports/coverage.md`: unknown words per 1,000 words with the current spelling data.
+- `reports/library.md`: the whole library (spelling and grammar) against the Harper baseline.
 - `reports/perf.md`: speed and memory of the spelling checker.
 
 - `reports/<checker>.json` and `.md`: numbers only, committed. The Markdown shows changes against the

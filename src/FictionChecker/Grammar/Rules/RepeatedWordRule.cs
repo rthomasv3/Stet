@@ -6,10 +6,16 @@ internal sealed class RepeatedWordRule : GrammarRule
     // Pairs that are ordinary English: "he had had enough", "I know that that is true", "gave her her coat".
     private static readonly HashSet<string> Allowed = new(StringComparer.Ordinal)
     {
-        "had", "that", "her", "you", "it", "is", "do", "so", "no", "now", "there", "well", "bye", "ha", "ho", "he", "hee", "oh", "ah",
-        "yes", "hush", "tut", "hear", "come", "go", "knock", "night", "boo", "blah", "yada", "pom", "tick", "choo", "aye", "nay", "never",
-        "please", "wait", "again", "very", "really", "far", "long", "many", "much", "more", "big", "old", "poor", "dear", "little",
-        "ever", "on", "out", "up", "down", "over", "round", "in", "la", "na", "da", "ta", "bla", "woof", "quack", "chop", "hip",
+        "had", "that", "her", "you", "it", "is", "do", "so", "no", "now", "there", "well", "bye", "ha", "ho", "hee", "oh", "ah",
+        "yes", "hush", "tut", "hear", "come", "go", "knock", "night", "boo", "blah", "yada", "pom", "tick", "choo", "aye", "nay",
+        "please", "wait", "la", "na", "da", "ta", "bla", "woof", "quack", "chop", "hip",
+    };
+
+    // Words doubled for emphasis: "very very tired", "never ever ever", "far far away".
+    private static readonly HashSet<string> Emphatic = new(StringComparer.Ordinal)
+    {
+        "very", "really", "so", "too", "far", "long", "much", "more", "many", "never", "ever", "again", "quite", "always", "almost",
+        "over", "on", "round", "down", "up", "away", "back", "nearly", "pretty", "awfully", "terribly",
     };
 
     private static readonly RuleInfo Description = new(
@@ -39,10 +45,15 @@ internal sealed class RepeatedWordRule : GrammarRule
                 continue;
             }
 
-            // Describing words are repeated for emphasis ("a cold cold night"), and names can be doubled
-            // ("Walla Walla").
+            // Describing words are repeated for emphasis ("a cold cold night", "very very"), and names can be
+            // doubled ("Walla Walla").
             WordType type = sentence.Type(i + 1);
-            if (type is WordType.Adjective or WordType.Adverb or WordType.Other || (sentence.IsCapitalized(i + 1) && word.Length > 1))
+            if (type is WordType.Adjective or WordType.Other || (type == WordType.Adverb && Emphatic.Contains(word)))
+            {
+                continue;
+            }
+
+            if (i > 0 && sentence.IsCapitalized(i) && sentence.IsCapitalized(i + 1) && word != "i" && !word.StartsWith("i'", StringComparison.Ordinal))
             {
                 continue;
             }

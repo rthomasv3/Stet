@@ -127,6 +127,21 @@ public class RuleEngineTests
         Assert.Single(Check("She walked to  to the gate."));
     }
 
+    [Theory]
+    [InlineData("He was not not going.", 1)]
+    [InlineData("I'm I'm sorry.", 1)]
+    [InlineData("It's it's cold.", 1)]
+    [InlineData("They sailed to Walla Walla in spring.", 0)]
+    [InlineData("It was a cold cold night.", 0)]
+    [InlineData("It was far far away.", 0)]
+    [InlineData("Never never do that.", 0)]
+    [InlineData("Now now, child.", 0)]
+    [InlineData("I gave her her coat and told you you were wrong.", 0)]
+    public void Repeats_for_emphasis_names_and_ordinary_pairs_are_told_from_slips(string text, int expected)
+    {
+        Assert.Equal(expected, Check(text).Count);
+    }
+
     private sealed class FormalRule : GrammarRule
     {
         public override RuleInfo Info { get; } = new("test.formal", "Formal", "Flags every 'ain't'.", RuleCategory.Agreement, true, true, ["It ain't so."], ["It is not so."]);
