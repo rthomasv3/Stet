@@ -239,7 +239,7 @@ internal sealed class SpellChecker
         };
 
         if (kind == SpellingKind.Misspelling && IsCapitalized(word) && tokenIndex >= 0
-            && !LooksLikeSlipCached(written, context, IsSentenceStart(text, tokens, tokenIndex), state))
+            && !LooksLikeSlipCached(written, context, IsSentenceStart(text, tokens, tokenIndex), state, withSuggestions))
         {
             kind = SpellingKind.UnknownName;
         }
@@ -314,7 +314,7 @@ internal sealed class SpellChecker
         return true;
     }
 
-    private bool LooksLikeSlipCached(string word, in WordClassifier.Context context, bool sentenceStart, SpellingState state)
+    private bool LooksLikeSlipCached(string word, in WordClassifier.Context context, bool sentenceStart, SpellingState state, bool suggestionsFollow)
     {
         var key = (word, context.Dialect, context.InDialogue, sentenceStart);
         if (state.Slips.TryGetValue(key, out bool cached))
@@ -322,7 +322,7 @@ internal sealed class SpellChecker
             return cached;
         }
 
-        bool slip = _suggester.LooksLikeSlip(word, context, sentenceStart);
+        bool slip = _suggester.LooksLikeSlip(word, context, sentenceStart, suggestionsFollow);
         if (state.Slips.Count >= SuggestionCacheLimit)
         {
             state.Slips.Clear();

@@ -11,15 +11,44 @@ internal sealed class Suggester
 
     private static readonly string[] KeyboardRows = ["qwertyuiop", "asdfghjkl", "zxcvbnm"];
 
+    private const int NearCacheLimit = 4000;
+
     private readonly Lexicon _lexicon;
     private readonly BuiltInLists _lists;
     private readonly WordClassifier _classifier;
+
+    // Dictionary words near a word, remembered so that deciding "name or slip" and then working out
+    // suggestions for the same word scans the dictionary once, not twice. The dictionary never changes, so
+    // this holds whatever the dialect or the custom words.
+    private readonly System.Collections.Concurrent.ConcurrentDictionary<string, (int MaxDistance, (int Index, int Distance)[] Words)> _near = new(StringComparer.Ordinal);
 
     public Suggester(Lexicon lexicon, BuiltInLists lists, WordClassifier classifier)
     {
         _lexicon = lexicon;
         _lists = lists;
         _classifier = classifier;
+    }
+
+    // The most edits a suggestion may be from the word.
+    private static int SuggestionDistance(string lower) => lower.Length <= 3 ? 1 : 2;
+
+    private (int Index, int Distance)[] Near(string lower, int maxDistance)
+    {
+        if (_near.TryGetValue(lower, out (int MaxDistance, (int Index, int Distance)[] Words) cached) && cached.MaxDistance >= maxDistance)
+        {
+            return cached.Words;
+        }
+
+        var found = new List<(int, int)>();
+        _lexicon.Search.Find(lower, maxDistance, (index, distance) => found.Add((index, distance)));
+        (int, int)[] words = [.. found];
+        if (_near.Count >= NearCacheLimit)
+        {
+            _near.Clear();
+        }
+
+        _near[lower] = (maxDistance, words);
+        return words;
     }
 
     /// <summary>
@@ -33,21 +62,21 @@ internal sealed class Suggester
         // A known misspelling's correction always comes first.
         string? known = _lists.Misspellings.GetValueOrDefault(lower);
 
-        int maxDistance = lower.Length <= 3 ? 1 : 2;
+        int maxDistance = SuggestionDistance(lower);
         Dialect dialect = context.Dialect;
         bool typedLower = !char.IsUpper(word[0]);
-        _lexicon.Search.Find(lower, maxDistance, (index, distance) =>
+        foreach ((int index, int distance) in Near(lower, maxDistance))
         {
             WordInfo info = _lexicon.InfoAt(index);
-            if (!info.IsIn(dialect) || info.NeverSuggest)
+            if (distance > maxDistance || !info.IsIn(dialect) || info.NeverSuggest)
             {
-                return;
+                continue;
             }
 
             string candidate = _lexicon.WordAt(index);
             if (info.IsRare && _lists.Misspellings.ContainsKey(candidate))
             {
-                return;
+                continue;
             }
 
             int penalty = info.IsRare ? 25 : 0;
@@ -57,7 +86,7 @@ internal sealed class Suggester
                 // lowercase ("Glass" beside "glass"), and rank it lower otherwise.
                 if (_lexicon.TryGet(candidate.ToLowerInvariant(), out WordInfo plain) && plain.IsIn(dialect))
                 {
-                    return;
+                    continue;
                 }
 
                 penalty += 30;
@@ -65,7 +94,7 @@ internal sealed class Suggester
 
             int frequency = info.Frequency == 0 ? UnseenFrequency : info.Frequency;
             Add(scored, candidate, Score(lower, candidate, distance, frequency) - penalty);
-        });
+        }
 
         CustomWords custom = context.Custom;
         if (!custom.IsEmpty)
@@ -116,9 +145,10 @@ internal sealed class Suggester
     /// Whether an unknown capitalized word looks like a slip for a known word rather than a new name.
     /// Away from a sentence start only a near miss of a known name counts ("Lodnon", or a custom name one
     /// letter off), because an ordinary word would not have a capital there. At a sentence start a near miss
-    /// of a common word counts too ("Teh").
+    /// of a common word counts too ("Teh"). With <paramref name="suggestionsFollow"/> the dictionary is
+    /// searched as widely as suggestions need, so that the search is done once for both.
     /// </summary>
-    public bool LooksLikeSlip(string word, in WordClassifier.Context context, bool sentenceStart)
+    public bool LooksLikeSlip(string word, in WordClassifier.Context context, bool sentenceStart, bool suggestionsFollow = false)
     {
         string lower = word.ToLowerInvariant();
         if (_lists.Misspellings.ContainsKey(lower))
@@ -129,17 +159,17 @@ internal sealed class Suggester
         int maxDistance = lower.Length >= 7 ? 2 : 1;
         bool slip = false;
         Dialect dialect = context.Dialect;
-        _lexicon.Search.Find(lower, maxDistance, (index, distance) =>
+        foreach ((int index, int distance) in Near(lower, suggestionsFollow ? Math.Max(maxDistance, SuggestionDistance(lower)) : maxDistance))
         {
             if (slip)
             {
-                return;
+                break;
             }
 
             WordInfo info = _lexicon.InfoAt(index);
-            if (!info.IsIn(dialect) || info.IsRare || info.NeverSuggest)
+            if (distance > maxDistance || !info.IsIn(dialect) || info.IsRare || info.NeverSuggest)
             {
-                return;
+                continue;
             }
 
             string candidate = _lexicon.WordAt(index);
@@ -149,7 +179,7 @@ internal sealed class Suggester
                 // A proper name must share the first letter: "Lodnon" is London, but "Mara" is not a slip for "Sara".
                 slip = !proper || char.ToLowerInvariant(candidate[0]) == lower[0];
             }
-        });
+        }
 
         if (!slip && !context.Custom.IsEmpty)
         {
