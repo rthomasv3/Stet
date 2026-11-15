@@ -87,6 +87,66 @@ public static class RuleIds
 
     /// <summary>A comma placed after the closing quote mark, before a tag.</summary>
     public const string CommaOutsideQuote = "dialogue.comma-outside-quote";
+
+    /// <summary>Mixing up their, there and they're.</summary>
+    public const string ConfusableTheirThere = "confusable.their-there";
+
+    /// <summary>Mixing up its and it's.</summary>
+    public const string ConfusableItsIts = "confusable.its-its";
+
+    /// <summary>Mixing up your and you're.</summary>
+    public const string ConfusableYourYoure = "confusable.your-youre";
+
+    /// <summary>Mixing up whose and who's.</summary>
+    public const string ConfusableWhoseWhos = "confusable.whose-whos";
+
+    /// <summary>Mixing up then and than.</summary>
+    public const string ConfusableThenThan = "confusable.then-than";
+
+    /// <summary>Mixing up lose and loose.</summary>
+    public const string ConfusableLoseLoose = "confusable.lose-loose";
+
+    /// <summary>Mixing up affect and effect.</summary>
+    public const string ConfusableAffectEffect = "confusable.affect-effect";
+
+    /// <summary>Mixing up accept and except.</summary>
+    public const string ConfusableAcceptExcept = "confusable.accept-except";
+
+    /// <summary>Mixing up to and too.</summary>
+    public const string ConfusableToToo = "confusable.to-too";
+
+    /// <summary>Mixing up of and off.</summary>
+    public const string ConfusableOfOff = "confusable.of-off";
+
+    /// <summary>Mixing up lead and led.</summary>
+    public const string ConfusableLeadLed = "confusable.lead-led";
+
+    /// <summary>Mixing up past and passed.</summary>
+    public const string ConfusablePastPassed = "confusable.past-passed";
+
+    /// <summary>Mixing up breath and breathe.</summary>
+    public const string ConfusableBreathBreathe = "confusable.breath-breathe";
+
+    /// <summary>Mixing up quite and quiet.</summary>
+    public const string ConfusableQuiteQuiet = "confusable.quite-quiet";
+
+    /// <summary>Mixing up peek, peak and pique.</summary>
+    public const string ConfusablePeekPeak = "confusable.peek-peak";
+
+    /// <summary>Mixing up wander and wonder.</summary>
+    public const string ConfusableWanderWonder = "confusable.wander-wonder";
+
+    /// <summary>Mixing up desert and dessert.</summary>
+    public const string ConfusableDesertDessert = "confusable.desert-dessert";
+
+    /// <summary>Mixing up brake and break.</summary>
+    public const string ConfusableBrakeBreak = "confusable.brake-break";
+
+    /// <summary>Mixing up principal and principle.</summary>
+    public const string ConfusablePrincipalPrinciple = "confusable.principal-principle";
+
+    /// <summary>Mixing up compliment and complement.</summary>
+    public const string ConfusableComplimentComplement = "confusable.compliment-complement";
 }
 
 internal static class RuleCatalog

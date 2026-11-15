@@ -11,7 +11,8 @@ namespace FictionChecker.DataBuilder;
 /// counts of one word type following another (for the tagger), and the neighbours of a short list of focus
 /// words (for confusable-word statistics and for telling counted nouns from measured ones). Nothing large is
 /// stored: each file is filtered as it downloads. A second mode keeps, for the function words, only the
-/// counts of the word type before and after each ("they _VERB_"), which sharpen the tagger.
+/// counts of the word type before and after each ("they _VERB_"), which sharpen the tagger. A third keeps
+/// what follows a word with one exact tag, to tell the 's of "it's" from the 's of "John's".
 /// </summary>
 internal static class BigramExtractor
 {
@@ -25,8 +26,9 @@ internal static class BigramExtractor
         string.Create(CultureInfo.InvariantCulture, $"http://storage.googleapis.com/books/ngrams/books/20200217/eng-fiction/2-{file:00000}-of-{Files:00000}.gz");
 
     /// <summary>Filters every file not already done into <paramref name="outputDir"/>, several at a time.</summary>
-    public static async Task RunAsync(string outputDir, IReadOnlySet<string> focus, bool onlyBesideTypes, int parallel, CancellationToken cancel)
+    public static async Task RunAsync(string outputDir, IReadOnlySet<string> focus, bool onlyBesideTypes, int parallel, CancellationToken cancel, string[]? taggedFirst = null)
     {
+        byte[][]? exactFirst = taggedFirst?.Select(Encoding.UTF8.GetBytes).ToArray();
         Directory.CreateDirectory(outputDir);
         using var http = new HttpClient { Timeout = Timeout.InfiniteTimeSpan };
         await Parallel.ForEachAsync(Enumerable.Range(0, Files), new ParallelOptions { MaxDegreeOfParallelism = parallel, CancellationToken = cancel }, async (file, token) =>
@@ -41,7 +43,7 @@ internal static class BigramExtractor
             {
                 try
                 {
-                    (long lines, long kept, string hash) = await FilterAsync(http, Url(file), output + ".part", focus, onlyBesideTypes, token);
+                    (long lines, long kept, string hash) = await FilterAsync(http, Url(file), output + ".part", focus, onlyBesideTypes, exactFirst, token);
                     File.Move(output + ".part", output, overwrite: true);
                     await File.WriteAllTextAsync(output + ".sha256", hash + "\n", token);
                     Console.WriteLine($"  file {file}: {lines:N0} lines read, {kept:N0} kept, SHA-256 {hash}");
@@ -55,7 +57,7 @@ internal static class BigramExtractor
         });
     }
 
-    private static async Task<(long Lines, long Kept, string Hash)> FilterAsync(HttpClient http, string url, string outputPath, IReadOnlySet<string> focus, bool onlyBesideTypes, CancellationToken cancel)
+    private static async Task<(long Lines, long Kept, string Hash)> FilterAsync(HttpClient http, string url, string outputPath, IReadOnlySet<string> focus, bool onlyBesideTypes, byte[][]? exactFirst, CancellationToken cancel)
     {
         using HttpResponseMessage response = await http.GetAsync(url, HttpCompletionOption.ResponseHeadersRead, cancel);
         response.EnsureSuccessStatusCode();
@@ -89,7 +91,7 @@ internal static class BigramExtractor
                 }
 
                 lines++;
-                if (Keep(buffer.AsSpan(start, newline), lookup, onlyBesideTypes, out int tab, out long count))
+                if (Keep(buffer.AsSpan(start, newline), lookup, onlyBesideTypes, exactFirst, out int tab, out long count))
                 {
                     writer.Write(Encoding.UTF8.GetString(buffer, start, tab).Replace(' ', '\t'));
                     writer.Write('\t');
@@ -114,7 +116,7 @@ internal static class BigramExtractor
     }
 
     // A line is "first second TAB year,count,volumes TAB ...".
-    private static bool Keep(ReadOnlySpan<byte> line, HashSet<string>.AlternateLookup<ReadOnlySpan<char>> focus, bool onlyBesideTypes, out int tab, out long count)
+    private static bool Keep(ReadOnlySpan<byte> line, HashSet<string>.AlternateLookup<ReadOnlySpan<char>> focus, bool onlyBesideTypes, byte[][]? exactFirst, out int tab, out long count)
     {
         count = 0;
         tab = line.IndexOf((byte)'\t');
@@ -128,6 +130,24 @@ internal static class BigramExtractor
         if (space <= 0 || space == gram.Length - 1)
         {
             return false;
+        }
+
+        if (exactFirst is not null)
+        {
+            // Third mode: what follows a word carrying one exact tag ("'s_VERB", the 's that stands for "is").
+            bool match = false;
+            foreach (byte[] wantedFirst in exactFirst)
+            {
+                match |= gram[..space].SequenceEqual(wantedFirst);
+            }
+
+            if (!match || Classify(gram[(space + 1)..], focus) == Kind.Tagged)
+            {
+                return false;
+            }
+
+            count = SumRecent(line[(tab + 1)..]);
+            return count >= MinCount;
         }
 
         Kind first = Classify(gram[..space], focus);

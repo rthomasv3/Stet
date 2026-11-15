@@ -26,6 +26,7 @@ internal sealed class GrammarEngine
         _data = data;
         _functionWords = functionWords;
         _tagger = new Tagger(data);
+        var confusables = new Lazy<ConfusableData>(() => ConfusableData.LoadEmbedded(data.Lexicon));
         Rules = rules ??
         [
             new RepeatedWordRule(),
@@ -39,6 +40,7 @@ internal sealed class GrammarEngine
             new CapitalizedTagRule(),
             new MissingCommaBeforeTagRule(),
             new CommaOutsideQuoteRule(),
+            .. ConfusableSets.Families.Select(family => new ConfusableWordRule(family, () => confusables.Value)),
         ];
     }
 

@@ -4,6 +4,8 @@
 //   bigrams   stream Google Books fiction 2-grams (47 files, ~31 GB) into downloads/ngram/2grams/ (run once)
 //   wordinfo  build src/FictionChecker/Data/wordinfo.bin (needs lexicon.bin, the 1-gram table and the 2-gram files)
 //   bigrams-closed  second pass over the 2-grams: word types beside each function word (run once)
+//   bigrams-tagged  third pass over the 2-grams: what follows the 's that means "is" (run once)
+//   confusables  build src/FictionChecker/Data/confusables.bin (needs lexicon.bin and the 2-gram files)
 //   lexicon   build src/FictionChecker/Data/lexicon.bin from SCOWL and the 1-gram table
 //
 // Raw downloads go to the ignored downloads/ folder and are never committed.
@@ -54,6 +56,14 @@ switch (command)
             return 0;
         }
 
+    case "bigrams-tagged":
+        {
+            // What follows the 's that stands for "is" or "has", which the plain counts mix with the 's of "John's".
+            using var timeout = new CancellationTokenSource(TimeSpan.FromHours(3));
+            await BigramExtractor.RunAsync(Path.Combine(downloads, "ngram", "2grams-tagged"), new HashSet<string>(StringComparer.Ordinal), false, args.Length > 1 ? int.Parse(args[1]) : 12, timeout.Token, ["'s_VERB"]);
+            return 0;
+        }
+
     case "lexicon":
         {
             if (!File.Exists(ngramTable))
@@ -87,6 +97,19 @@ switch (command)
             }
 
             Console.WriteLine($"Wrote wordinfo.bin, {bytes.Length:N0} bytes.");
+            return 0;
+        }
+
+    case "confusables":
+        {
+            string data = Path.Combine(root, "src", "FictionChecker", "Data");
+            var lexicon = FictionChecker.Spelling.Lexicon.Read(File.ReadAllBytes(Path.Combine(data, "lexicon.bin")));
+            var stats = new List<(string Name, long Value)>();
+            long minTotal = args.Length > 1 ? long.Parse(args[1]) : BigramExtractor.MinCount;
+            byte[] bytes = ConfusableBuilder.Build(lexicon, Path.Combine(downloads, "ngram", "2grams"), Path.Combine(downloads, "ngram", "2grams-tagged"), minTotal, stats);
+            File.WriteAllBytes(args.Length > 2 ? args[2] : Path.Combine(data, "confusables.bin"), bytes);
+            File.WriteAllLines(Path.Combine(downloads, "confusables-stats.local.tsv"), stats.Select(s => $"{s.Name}\t{s.Value}"));
+            Console.WriteLine($"Wrote confusables.bin, {bytes.Length:N0} bytes, {stats[^1].Value:N0} neighbour entries.");
             return 0;
         }
 

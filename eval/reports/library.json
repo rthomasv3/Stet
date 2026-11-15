@@ -5,7 +5,7 @@
     "seed": 20261114,
     "cleanWordsPerBook": 30000,
     "plantedPerCategory": 500,
-    "reviewFlagsPerRule": 40
+    "reviewFlagsPerRule": 3000
   },
   "groups": [
     {
@@ -83,12 +83,12 @@
           "category": "confusable",
           "planted": 500,
           "checked": 500,
-          "caught": 0,
-          "firstFixRight": 0,
-          "fixInTop5": 0,
-          "catchRate": 0,
-          "firstFixRate": 0,
-          "top5FixRate": 0
+          "caught": 310,
+          "firstFixRight": 308,
+          "fixInTop5": 308,
+          "catchRate": 0.62,
+          "firstFixRate": 0.9935,
+          "top5FixRate": 0.9935
         },
         {
           "category": "a-an",
@@ -106,10 +106,10 @@
           "planted": 500,
           "checked": 500,
           "caught": 401,
-          "firstFixRight": 401,
+          "firstFixRight": 399,
           "fixInTop5": 401,
           "catchRate": 0.802,
-          "firstFixRate": 1,
+          "firstFixRate": 0.995,
           "top5FixRate": 1
         },
         {
@@ -144,7 +144,7 @@
       "paragraphs": 7517,
       "uncheckedParagraphs": 0,
       "words": 240253,
-      "flags": 626,
+      "flags": 631,
       "confirmedRealErrors": 0,
       "rules": [
         {
@@ -184,6 +184,12 @@
           "per1000": 0.0624
         },
         {
+          "ruleId": "confusable.of-off",
+          "category": "ConfusableWords",
+          "flags": 3,
+          "per1000": 0.0125
+        },
+        {
           "ruleId": "dialogue.full-stop-before-tag",
           "category": "DialoguePunctuation",
           "flags": 3,
@@ -194,6 +200,18 @@
           "category": "DialoguePunctuation",
           "flags": 2,
           "per1000": 0.0083
+        },
+        {
+          "ruleId": "confusable.their-there",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0042
+        },
+        {
+          "ruleId": "confusable.then-than",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0042
         }
       ],
       "planted": [
@@ -212,12 +230,12 @@
           "category": "confusable",
           "planted": 500,
           "checked": 500,
-          "caught": 0,
-          "firstFixRight": 0,
-          "fixInTop5": 0,
-          "catchRate": 0,
-          "firstFixRate": 0,
-          "top5FixRate": 0
+          "caught": 298,
+          "firstFixRight": 296,
+          "fixInTop5": 296,
+          "catchRate": 0.596,
+          "firstFixRate": 0.9933,
+          "top5FixRate": 0.9933
         },
         {
           "category": "a-an",
@@ -235,10 +253,10 @@
           "planted": 500,
           "checked": 500,
           "caught": 382,
-          "firstFixRight": 382,
+          "firstFixRight": 381,
           "fixInTop5": 382,
           "catchRate": 0.764,
-          "firstFixRate": 1,
+          "firstFixRate": 0.9974,
           "top5FixRate": 1
         },
         {
@@ -264,7 +282,7 @@
           "top5FixRate": 1
         }
       ],
-      "flagsPer1000": 2.6056
+      "flagsPer1000": 2.6264
     },
     {
       "corpus": "gutenberg",
@@ -359,12 +377,12 @@
           "category": "confusable",
           "planted": 500,
           "checked": 500,
-          "caught": 0,
-          "firstFixRight": 0,
-          "fixInTop5": 0,
-          "catchRate": 0,
-          "firstFixRate": 0,
-          "top5FixRate": 0
+          "caught": 302,
+          "firstFixRight": 300,
+          "fixInTop5": 300,
+          "catchRate": 0.604,
+          "firstFixRate": 0.9934,
+          "top5FixRate": 0.9934
         },
         {
           "category": "a-an",
@@ -420,7 +438,7 @@
       "paragraphs": 5481,
       "uncheckedParagraphs": 0,
       "words": 304864,
-      "flags": 519,
+      "flags": 521,
       "confirmedRealErrors": 0,
       "rules": [
         {
@@ -472,6 +490,18 @@
           "per1000": 0.0066
         },
         {
+          "ruleId": "confusable.of-off",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0033
+        },
+        {
+          "ruleId": "confusable.their-there",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0033
+        },
+        {
           "ruleId": "dialogue.full-stop-before-tag",
           "category": "DialoguePunctuation",
           "flags": 1,
@@ -494,12 +524,12 @@
           "category": "confusable",
           "planted": 500,
           "checked": 500,
-          "caught": 0,
-          "firstFixRight": 0,
-          "fixInTop5": 0,
-          "catchRate": 0,
-          "firstFixRate": 0,
-          "top5FixRate": 0
+          "caught": 293,
+          "firstFixRight": 291,
+          "fixInTop5": 291,
+          "catchRate": 0.586,
+          "firstFixRate": 0.9932,
+          "top5FixRate": 0.9932
         },
         {
           "category": "a-an",
@@ -517,10 +547,10 @@
           "planted": 500,
           "checked": 500,
           "caught": 406,
-          "firstFixRight": 406,
+          "firstFixRight": 405,
           "fixInTop5": 406,
           "catchRate": 0.812,
-          "firstFixRate": 1,
+          "firstFixRate": 0.9975,
           "top5FixRate": 1
         },
         {
@@ -546,7 +576,7 @@
           "top5FixRate": 1
         }
       ],
-      "flagsPer1000": 1.7024
+      "flagsPer1000": 1.709
     },
     {
       "corpus": "all",
@@ -641,12 +671,12 @@
           "category": "confusable",
           "planted": 1000,
           "checked": 1000,
-          "caught": 0,
-          "firstFixRight": 0,
-          "fixInTop5": 0,
-          "catchRate": 0,
-          "firstFixRate": 0,
-          "top5FixRate": 0
+          "caught": 612,
+          "firstFixRight": 608,
+          "fixInTop5": 608,
+          "catchRate": 0.612,
+          "firstFixRate": 0.9935,
+          "top5FixRate": 0.9935
         },
         {
           "category": "a-an",
@@ -664,10 +694,10 @@
           "planted": 1000,
           "checked": 1000,
           "caught": 810,
-          "firstFixRight": 810,
+          "firstFixRight": 808,
           "fixInTop5": 810,
           "catchRate": 0.81,
-          "firstFixRate": 1,
+          "firstFixRate": 0.9975,
           "top5FixRate": 1
         },
         {
@@ -702,7 +732,7 @@
       "paragraphs": 12998,
       "uncheckedParagraphs": 0,
       "words": 545117,
-      "flags": 1145,
+      "flags": 1152,
       "confirmedRealErrors": 0,
       "rules": [
         {
@@ -742,6 +772,12 @@
           "per1000": 0.0312
         },
         {
+          "ruleId": "confusable.of-off",
+          "category": "ConfusableWords",
+          "flags": 4,
+          "per1000": 0.0073
+        },
+        {
           "ruleId": "dialogue.full-stop-before-tag",
           "category": "DialoguePunctuation",
           "flags": 4,
@@ -754,6 +790,12 @@
           "per1000": 0.0055
         },
         {
+          "ruleId": "confusable.their-there",
+          "category": "ConfusableWords",
+          "flags": 2,
+          "per1000": 0.0037
+        },
+        {
           "ruleId": "dialogue.capitalized-tag",
           "category": "DialoguePunctuation",
           "flags": 2,
@@ -764,6 +806,12 @@
           "category": "DialoguePunctuation",
           "flags": 2,
           "per1000": 0.0037
+        },
+        {
+          "ruleId": "confusable.then-than",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0018
         }
       ],
       "planted": [
@@ -782,12 +830,12 @@
           "category": "confusable",
           "planted": 1000,
           "checked": 1000,
-          "caught": 0,
-          "firstFixRight": 0,
-          "fixInTop5": 0,
-          "catchRate": 0,
-          "firstFixRate": 0,
-          "top5FixRate": 0
+          "caught": 591,
+          "firstFixRight": 587,
+          "fixInTop5": 587,
+          "catchRate": 0.591,
+          "firstFixRate": 0.9932,
+          "top5FixRate": 0.9932
         },
         {
           "category": "a-an",
@@ -805,10 +853,10 @@
           "planted": 1000,
           "checked": 1000,
           "caught": 788,
-          "firstFixRight": 788,
+          "firstFixRight": 786,
           "fixInTop5": 788,
           "catchRate": 0.788,
-          "firstFixRate": 1,
+          "firstFixRate": 0.9975,
           "top5FixRate": 1
         },
         {
@@ -834,7 +882,7 @@
           "top5FixRate": 1
         }
       ],
-      "flagsPer1000": 2.1005
+      "flagsPer1000": 2.1133
     }
   ]
 }

@@ -11,6 +11,7 @@ using FictionChecker.Eval.Text;
 
 // Usage:
 //   snapshot [--out FILE]   every issue and suggestion on the work set, to compare before and after a change
+//   confusable-dump         how each confusable word in the dev books fits its neighbours, for choosing thresholds
 //   run --checker none|demo|spelling|spelling-world|library|library-all
 //   run --checker external --name harper --issues <issues.jsonl>   score issues produced outside this process
 //   export --out <items.jsonl>                                      write every paragraph an external checker must check
@@ -97,6 +98,14 @@ var clock = Stopwatch.StartNew();
 WorkSet work = WorkSet.Build(corpora, settings, Planters.All);
 long cleanWords = work.Clean.Sum(s => s.Paragraphs.Sum(p => (long)Words.Count(p)));
 Console.WriteLine($"Work set: {work.Clean.Count} books, {cleanWords:N0} clean words, {work.Planted.Count:N0} planted errors ({clock.ElapsedMilliseconds} ms)");
+
+if (command == "confusable-dump")
+{
+    Directory.CreateDirectory(Path.Combine(evalDir, "reports", "local"));
+    string dumpPath = options.GetValueOrDefault("--out") ?? Path.Combine(evalDir, "reports", "local", "confusables-dev.tsv");
+    Console.WriteLine($"Wrote {ConfusableDump.Run(work, dumpPath):N0} rows to {dumpPath}");
+    return 0;
+}
 
 if (command == "export")
 {
