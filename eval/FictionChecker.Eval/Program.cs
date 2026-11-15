@@ -31,6 +31,17 @@ if (args.Length == 0 || args[0] is "-h" or "--help")
 }
 
 string command = args[0];
+if (command == "confusable-explain")
+{
+    // Shows the evidence behind the confusable-word rules for the sentences given.
+    foreach (string sentence in args.Skip(1))
+    {
+        ConfusableDump.Explain(sentence);
+    }
+
+    return 0;
+}
+
 var options = new Dictionary<string, string>(StringComparer.Ordinal);
 for (int i = 1; i + 1 < args.Length; i += 2)
 {

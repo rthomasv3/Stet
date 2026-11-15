@@ -78,6 +78,26 @@ public static class ConfusableDump
         return rows;
     }
 
+    /// <summary>Prints, for each confusable word of a text, the evidence for the other words of its group.</summary>
+    public static void Explain(string text)
+    {
+        Lexicon lexicon = Lexicon.LoadEmbedded();
+        GrammarEngine engine = GrammarEngine.CreateDefault(lexicon);
+        ConfusableData data = ConfusableData.LoadEmbedded(lexicon);
+        foreach (Sentence sentence in engine.Sentences(text, Tokenizer.Tokenize(text), null, CustomWords.Empty))
+        {
+            for (int i = 0; i < sentence.Count; i++)
+            {
+                if (ConfusableScorer.TryScore(sentence, i, data, out ConfusableEvidence e))
+                {
+                    string[] members = data.Members(e.Group);
+                    double unit = ConfusableData.Unit;
+                    Console.WriteLine(string.Create(CultureInfo.InvariantCulture, $"{members[e.Written]}>{members[e.Best]} total={e.Total / unit:0.0} left={e.Left / unit:0.0}{(e.LeftKnown ? "w" : "t")} right={e.Right / unit:0.0}{(e.RightKnown ? "w" : "t")} prior={e.Prior / unit:0.0} flag={ConfusableSets.IsStrongEnough(members[e.Written], members[e.Best], e)} | {text}"));
+                }
+            }
+        }
+    }
+
     private static string Join(ReadOnlySpan<int> values)
     {
         var builder = new StringBuilder();

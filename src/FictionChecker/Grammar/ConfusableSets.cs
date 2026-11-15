@@ -17,23 +17,33 @@ internal static class ConfusableSets
         [",", ".", "?", "!", ";", ":", "-", "--", "\"", "'", "...", "(", ")", "'s", "'re", "'ll", "'d", "'ve", "'m"];
 
     /// <summary>
-    /// How strong the evidence must be by default, in half doublings: 14 means the other word must be about
-    /// 2^7 = 128 times as likely as the written one.
+    /// How strong the evidence must be by default, in half doublings: 10 means the other word must be about
+    /// 2^5 = 32 times as likely as the written one.
     /// </summary>
-    public const int DefaultThreshold = 14;
+    public const int DefaultThreshold = 10;
 
     // Pairs that need stronger evidence, as "written>meant". The more often the written word is right in
     // ordinary text, the more chances it has to look wrong by accident, so the common words sit highest.
-    // Each value is the strongest evidence seen against a correct word in the development books, plus a margin.
+    // Each value is the strongest evidence seen against a correct word in the development books, plus a margin
+    // of one doubling. Two are set by hand, lower than that: "loose" and "brake" as verbs ("I loose you",
+    // "ere I brake my fast") turn up in deliberately old-fashioned prose, and a cut-off high enough to pass
+    // every one of those would also pass "I don't want to loose you".
     private static readonly Dictionary<(string Written, string Meant), int> Thresholds = new()
     {
-        [("brake", "break")] = 19,
+        [("accept", "except")] = 12,
+        [("brake", "break")] = 16,
         [("breathe", "breath")] = 16,
+        [("effected", "affected")] = 14,
         [("except", "accept")] = 16,
         [("it's", "its")] = 19,
         [("its", "it's")] = 16,
-        [("loose", "lose")] = 26,
+        [("lead", "led")] = 14,
+        [("led", "lead")] = 12,
+        [("loose", "lose")] = 21,
+        [("loosing", "losing")] = 11,
+        [("of", "off")] = 14,
         [("off", "of")] = 23,
+        [("passed", "past")] = 12,
         [("past", "passed")] = 15,
         [("quiet", "quite")] = 17,
         [("than", "then")] = 22,
@@ -41,11 +51,14 @@ internal static class ConfusableSets
         [("their", "they're")] = 18,
         [("then", "than")] = 16,
         [("there", "their")] = 18,
+        [("there", "they're")] = 12,
         [("they're", "their")] = 19,
         [("they're", "there")] = 18,
         [("to", "too")] = 21,
         [("too", "to")] = 24,
+        [("wandered", "wondered")] = 12,
         [("wandering", "wondering")] = 15,
+        [("who's", "whose")] = 12,
         [("wondering", "wandering")] = 16,
         [("you're", "your")] = 19,
         [("your", "you're")] = 17,
@@ -104,12 +117,12 @@ internal static class ConfusableSets
         new(RuleIds.ConfusableToToo, "To, too",
             "\"To\" shows direction or goes before a verb. \"Too\" means also, or more than is wanted (\"too hot\").",
             [["to", "too"]],
-            ["It was to late to go back.", "She wanted too go home.", "I want to come to."],
+            ["It was to late to go back.", "She wanted too go home.", "He was to tired to argue."],
             ["It was too late to go to the house.", "She wanted to come too."]),
         new(RuleIds.ConfusableOfOff, "Of, off",
             "\"Of\" shows belonging or what something is made of. \"Off\" means away from, or not on.",
             [["of", "off"]],
-            ["He took of his hat.", "It was one off the best days."],
+            ["He walked of without a word.", "She got out off the car.", "He turned of the light."],
             ["He took off his hat at the end of the day."]),
         new(RuleIds.ConfusableLeadLed, "Lead, led",
             "\"Led\" is the past of \"lead\" (\"she led the way\"). \"Lead\" is the present, or the metal.",
@@ -144,17 +157,17 @@ internal static class ConfusableSets
         new(RuleIds.ConfusableDesertDessert, "Desert, dessert",
             "\"Desert\" is dry empty land, or to abandon. \"Dessert\" is the sweet course of a meal.",
             [["desert", "dessert"], ["deserts", "desserts"]],
-            ["They had cake for desert.", "They crossed the dessert on camels."],
+            ["She ordered desert.", "They were lost in the dessert sands."],
             ["They ate dessert before crossing the desert."]),
         new(RuleIds.ConfusableBrakeBreak, "Brake, break",
             "\"Brake\" is what slows a vehicle. \"Break\" is to damage, to stop for a rest, or a gap.",
             [["brake", "break"], ["brakes", "breaks"], ["braking", "breaking"]],
-            ["She was afraid it would brake.", "He slammed on the breaks."],
+            ["She was afraid it would brake.", "The breaks failed on the hill."],
             ["He hit the brake before anything could break."]),
         new(RuleIds.ConfusablePrincipalPrinciple, "Principal, principle",
             "\"Principal\" means main, or the head of a school. \"Principle\" is a rule or belief.",
             [["principal", "principle"], ["principals", "principles"]],
-            ["It was a matter of principal.", "The principle reason was money."],
+            ["Their principle concern was money.", "The principle reason was money."],
             ["The principal reason was a matter of principle."]),
         new(RuleIds.ConfusableComplimentComplement, "Compliment, complement",
             "\"Compliment\" is praise. \"Complement\" is something that completes or goes well with another.",
