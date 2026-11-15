@@ -24,12 +24,17 @@ public sealed class SpellingEvalChecker : IEvalChecker
     private readonly Dictionary<string, Book> _books = new(StringComparer.Ordinal);
     private readonly Dictionary<string, (Checker Checker, CheckerOptions Options)> _prepared = new(StringComparer.Ordinal);
     private readonly bool _world;
+    private readonly bool _spellingOnly;
 
-    /// <summary>Creates the wrapper.</summary>
-    public SpellingEvalChecker(IEnumerable<Corpus> corpora, bool world)
+    /// <summary>
+    /// Creates the wrapper. With <paramref name="spellingOnly"/> the grammar rules are switched off; without
+    /// it every rule runs at its default, which is what an app gets (reported as "library").
+    /// </summary>
+    public SpellingEvalChecker(IEnumerable<Corpus> corpora, bool world, bool spellingOnly = true)
     {
         _world = world;
-        Name = world ? "spelling-world" : "spelling";
+        _spellingOnly = spellingOnly;
+        Name = !spellingOnly ? "library" : world ? "spelling-world" : "spelling";
         foreach (Corpus corpus in corpora)
         {
             foreach (Book book in corpus.Books)
@@ -76,6 +81,13 @@ public sealed class SpellingEvalChecker : IEvalChecker
             Dialect = document.Dialect == "GB" ? PickBritish(checker, text) : Dialect.American,
             QuoteStyle = DialogueDetector.GuessStyle(text),
         };
+        if (_spellingOnly)
+        {
+            options = options with
+            {
+                CategoryOverrides = Enum.GetValues<RuleCategory>().Where(c => c != RuleCategory.Spelling).ToDictionary(c => c, _ => false),
+            };
+        }
 
         if (_world && text.Count > 0)
         {

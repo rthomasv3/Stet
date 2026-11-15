@@ -54,6 +54,9 @@ public static class RuleIds
 
     /// <summary>A word that needs a capital letter.</summary>
     public const string Capitalization = "spelling.capitalization";
+
+    /// <summary>The same word twice in a row.</summary>
+    public const string RepeatedWord = "mechanics.repeated-word";
 }
 
 internal static class RuleCatalog
@@ -98,5 +101,6 @@ internal static class RuleCatalog
         ["She sailed for london."],
         ["She sailed for London."]);
 
-    public static readonly IReadOnlyList<RuleInfo> All = [Misspelling, UnknownName, OtherDialect, Capitalization];
+    /// <summary>The spelling rules. Grammar rules describe themselves (see GrammarRule).</summary>
+    public static readonly IReadOnlyList<RuleInfo> Spelling = [Misspelling, UnknownName, OtherDialect, Capitalization];
 }

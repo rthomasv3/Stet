@@ -43,4 +43,10 @@ internal static class Sources
         "eng-fiction-1-00000-of-00001.gz",
         "http://storage.googleapis.com/books/ngrams/books/20200217/eng-fiction/1-00000-of-00001.gz",
         "8640fb65e15484592665237df129de132032e25354d5f984f61c32100d901461");
+
+    /// <summary>The CMU Pronouncing Dictionary, at a fixed commit of its repository.</summary>
+    public static readonly SourceFile CmuDict = new(
+        "cmudict.dict",
+        "https://raw.githubusercontent.com/cmusphinx/cmudict/74790861f652b15e4ac49015a90074ad62a27690/cmudict.dict",
+        "81917843c7f44ce2b094ac63873c2c7a4cf802040792c455ba3ca406891c3d22");
 }

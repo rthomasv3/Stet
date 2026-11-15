@@ -61,6 +61,9 @@ internal sealed class Lexicon
         Search = new SuggestionIndex(words);
     }
 
+    /// <summary>A fingerprint of the data the lexicon was read from.</summary>
+    public uint Checksum { get; private init; }
+
     /// <summary>Number of words.</summary>
     public int Count => _words.Length;
 
@@ -123,8 +126,18 @@ internal sealed class Lexicon
             at += 2;
         }
 
-        return new Lexicon(words, infos);
+        // A fingerprint of the words, so data built to run parallel to them can tell it still fits.
+        uint checksum = 2166136261;
+        foreach (byte b in data)
+        {
+            checksum = (checksum ^ b) * 16777619;
+        }
+
+        return new Lexicon(words, infos) { Checksum = checksum };
     }
+
+    /// <summary>The position of a word written exactly so, or -1.</summary>
+    public int IndexOf(ReadOnlySpan<char> word) => _bySpan.TryGetValue(word, out int index) ? index : -1;
 
     /// <summary>Looks a word up exactly as written.</summary>
     public bool TryGet(ReadOnlySpan<char> word, out WordInfo info)

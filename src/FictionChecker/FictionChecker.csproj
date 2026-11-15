@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Data\lexicon.bin" LogicalName="FictionChecker.Data.lexicon.bin" Condition="Exists('Data\lexicon.bin')" />
+    <EmbeddedResource Include="Data\wordinfo.bin" LogicalName="FictionChecker.Data.wordinfo.bin" Condition="Exists('Data\wordinfo.bin')" />
     <EmbeddedResource Include="Data\Lists\*.txt" LogicalName="FictionChecker.Data.Lists.%(Filename)%(Extension)" />
   </ItemGroup>
 

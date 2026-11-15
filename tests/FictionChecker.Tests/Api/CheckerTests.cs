@@ -79,7 +79,7 @@ public class CheckerTests
         {
             CheckerOptions options = CheckerOptions.Default.WithRule(rule.Id, false);
             ParagraphResult result = Shared.CheckParagraph(Text, new ParagraphContext { Options = options });
-            Assert.Equal(3, result.Issues.Count);
+            Assert.Equal(rule.Category == RuleCategory.Spelling ? 3 : 4, result.Issues.Count);
             Assert.DoesNotContain(result.Issues, i => i.RuleId == rule.Id);
         }
     }
@@ -117,7 +117,8 @@ public class CheckerTests
     [Fact]
     public void Rules_are_listed_with_what_a_settings_screen_needs()
     {
-        Assert.Equal(4, Shared.Rules.Count);
+        Assert.Equal(5, Shared.Rules.Count);
+        Assert.Equal(4, Shared.Rules.Count(r => r.Category == RuleCategory.Spelling));
         Assert.Equal(Shared.Rules.Count, Shared.Rules.Select(r => r.Id).Distinct().Count());
         Assert.All(Shared.Rules, rule =>
         {
@@ -137,6 +138,60 @@ public class CheckerTests
             Assert.All(rule.FlaggedExamples, example => Assert.Contains(Shared.CheckParagraph(example).Issues, i => i.RuleId == rule.Id));
             Assert.All(rule.AcceptedExamples, example => Assert.DoesNotContain(Shared.CheckParagraph(example).Issues, i => i.RuleId == rule.Id));
         }
+    }
+
+    [Fact]
+    public void A_grammar_issue_carries_its_rule_and_a_fix_for_the_whole_slip()
+    {
+        ParagraphResult result = Shared.CheckParagraph("She opened the the door.");
+
+        Issue issue = Assert.Single(result.Issues);
+        Assert.Equal(RuleIds.RepeatedWord, issue.RuleId);
+        Assert.Equal(RuleCategory.Mechanics, issue.Category);
+        Assert.Equal(IssueKind.Grammar, issue.Kind);
+        Assert.Equal(15, issue.Start);
+        Assert.Equal("the", issue.Text);
+        Suggestion fix = Assert.Single(issue.Suggestions);
+        Assert.Equal((11, 7, "the"), (fix.Start, fix.Length, fix.Text));
+    }
+
+    [Fact]
+    public void Spelling_and_grammar_issues_come_in_text_order()
+    {
+        ParagraphResult result = Shared.CheckParagraph("She beleived the the door was smal.");
+
+        Assert.Equal(["beleived", "the", "smal"], result.Issues.Select(i => i.Text));
+    }
+
+    [Fact]
+    public void Grammar_rules_follow_rule_and_category_switches()
+    {
+        const string Text = "She opened the the door.";
+        var ruleOff = new ParagraphContext { Options = CheckerOptions.Default.WithRule(RuleIds.RepeatedWord, false) };
+        var categoryOff = new ParagraphContext { Options = CheckerOptions.Default.WithCategory(RuleCategory.Mechanics, false) };
+        var spellingOff = new ParagraphContext { Options = CheckerOptions.Default.WithCategory(RuleCategory.Spelling, false) };
+
+        Assert.Empty(Shared.CheckParagraph(Text, ruleOff).Issues);
+        Assert.Empty(Shared.CheckParagraph(Text, categoryOff).Issues);
+        Assert.Single(Shared.CheckParagraph(Text, spellingOff).Issues);
+    }
+
+    [Fact]
+    public void Grammar_is_not_checked_in_speech_when_dialogue_checking_is_off()
+    {
+        const string Text = "“She opened the the door,” he said to to her.";
+        var off = new ParagraphContext { Options = CheckerOptions.Default with { DialogueStrictness = DialogueStrictness.Off } };
+
+        Assert.Equal(2, Shared.CheckParagraph(Text).Issues.Count);
+        Assert.Equal(38, Assert.Single(Shared.CheckParagraph(Text, off).Issues).Start);
+    }
+
+    [Fact]
+    public void Skipped_ranges_are_not_checked_by_grammar_rules()
+    {
+        const string Text = "She opened the the door.";
+
+        Assert.Empty(Shared.CheckParagraph(Text, new ParagraphContext { SkipRanges = [new TextSpan(11, 7)] }).Issues);
     }
 
     [Fact]

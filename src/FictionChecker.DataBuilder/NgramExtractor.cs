@@ -29,7 +29,7 @@ internal static class NgramExtractor
 
         using var sha = IncrementalHash.CreateHash(HashAlgorithmName.SHA256);
         await using Stream network = await response.Content.ReadAsStreamAsync(cancel);
-        await using var hashing = new HashingStream(network, sha);
+        await using var hashing = new HashingReadStream(network, sha);
         await using var gzip = new GZipStream(hashing, CompressionMode.Decompress);
         using var reader = new StreamReader(gzip, Encoding.UTF8, false, 1 << 20);
 
@@ -100,41 +100,42 @@ internal static class NgramExtractor
 
         return total;
     }
+}
 
-    private sealed class HashingStream(Stream inner, IncrementalHash hash) : Stream
+/// <summary>Passes a stream through while adding what is read to a hash.</summary>
+internal sealed class HashingReadStream(Stream inner, IncrementalHash hash) : Stream
+{
+    public override bool CanRead => true;
+
+    public override bool CanSeek => false;
+
+    public override bool CanWrite => false;
+
+    public override long Length => throw new NotSupportedException();
+
+    public override long Position { get => throw new NotSupportedException(); set => throw new NotSupportedException(); }
+
+    public override int Read(byte[] buffer, int offset, int count)
     {
-        public override bool CanRead => true;
-
-        public override bool CanSeek => false;
-
-        public override bool CanWrite => false;
-
-        public override long Length => throw new NotSupportedException();
-
-        public override long Position { get => throw new NotSupportedException(); set => throw new NotSupportedException(); }
-
-        public override int Read(byte[] buffer, int offset, int count)
-        {
-            int read = inner.Read(buffer, offset, count);
-            hash.AppendData(buffer, offset, read);
-            return read;
-        }
-
-        public override async ValueTask<int> ReadAsync(Memory<byte> buffer, CancellationToken cancellationToken = default)
-        {
-            int read = await inner.ReadAsync(buffer, cancellationToken);
-            hash.AppendData(buffer.Span[..read]);
-            return read;
-        }
-
-        public override void Flush()
-        {
-        }
-
-        public override long Seek(long offset, SeekOrigin origin) => throw new NotSupportedException();
-
-        public override void SetLength(long value) => throw new NotSupportedException();
-
-        public override void Write(byte[] buffer, int offset, int count) => throw new NotSupportedException();
+        int read = inner.Read(buffer, offset, count);
+        hash.AppendData(buffer, offset, read);
+        return read;
     }
+
+    public override async ValueTask<int> ReadAsync(Memory<byte> buffer, CancellationToken cancellationToken = default)
+    {
+        int read = await inner.ReadAsync(buffer, cancellationToken);
+        hash.AppendData(buffer.Span[..read]);
+        return read;
+    }
+
+    public override void Flush()
+    {
+    }
+
+    public override long Seek(long offset, SeekOrigin origin) => throw new NotSupportedException();
+
+    public override void SetLength(long value) => throw new NotSupportedException();
+
+    public override void Write(byte[] buffer, int offset, int count) => throw new NotSupportedException();
 }

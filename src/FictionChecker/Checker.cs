@@ -1,5 +1,6 @@
 using System.Collections.Concurrent;
 using System.Runtime.CompilerServices;
+using FictionChecker.Grammar;
 using FictionChecker.Segmentation;
 using FictionChecker.Spelling;
 
@@ -18,6 +19,8 @@ public sealed class Checker
     private static readonly IReadOnlyList<Issue> NoIssues = [];
 
     private readonly SpellChecker _spelling;
+    private readonly GrammarEngine _grammar;
+    private readonly RuleInfo[] _rules;
     private readonly ConditionalWeakTable<CheckerOptions, ResolvedOptions> _resolved = [];
     private volatile WordState _words = new(CustomWords.Empty, null);
 
@@ -31,6 +34,8 @@ public sealed class Checker
     internal Checker(Lexicon lexicon, BuiltInLists lists, CheckerOptions? options = null)
     {
         _spelling = new SpellChecker(lexicon, lists);
+        _grammar = GrammarEngine.CreateDefault(lexicon);
+        _rules = [.. RuleCatalog.Spelling, .. _grammar.Rules.Select(r => r.Info)];
         Options = options ?? CheckerOptions.Default;
     }
 
@@ -38,7 +43,7 @@ public sealed class Checker
     public CheckerOptions Options { get; }
 
     /// <summary>Every rule the checker has, for a settings screen.</summary>
-    public IReadOnlyList<RuleInfo> Rules => RuleCatalog.All;
+    public IReadOnlyList<RuleInfo> Rules => _rules;
 
     /// <summary>Names of the word sets the checker holds.</summary>
     public IReadOnlyCollection<string> WordSetNames => [.. _words.Master.SetNames];
@@ -204,7 +209,7 @@ public sealed class Checker
     // The result depends only on what is passed here, which is what makes it safe to cache by these values.
     private ParagraphResult CheckCore(string text, DialogueResult dialogue, IReadOnlyList<TextSpan>? skipRanges, ResolvedOptions resolved, SpellingState state, CheckCache? cache)
     {
-        if (!resolved.AnySpelling)
+        if (!resolved.AnySpelling && !resolved.AnyGrammar)
         {
             return new ParagraphResult(NoIssues, dialogue.EndsInDialogue);
         }
@@ -219,22 +224,33 @@ public sealed class Checker
             }
         }
 
-        SpellingResult found = _spelling.CheckParagraph(text, resolved.Spelling, new SpellingContext { SkipRanges = skipRanges, Dialogue = dialogue }, state);
-        IReadOnlyList<Issue> issues = NoIssues;
-        if (found.Issues.Count > 0)
+        List<Token> tokens = Tokenizer.Tokenize(text, skipRanges);
+        List<Issue>? list = null;
+        if (resolved.AnySpelling)
         {
-            var list = new List<Issue>(found.Issues.Count);
+            SpellingResult found = _spelling.CheckParagraph(text, resolved.Spelling, new SpellingContext { SkipRanges = skipRanges, Dialogue = dialogue, Tokens = tokens }, state);
             foreach (SpellingIssue issue in found.Issues)
             {
                 if (resolved.KindEnabled[(int)issue.Kind])
                 {
-                    list.Add(ToIssue(issue, resolved.Spelling.Dialect));
+                    (list ??= []).Add(ToIssue(issue, resolved.Spelling.Dialect));
                 }
             }
-
-            issues = list.Count == 0 ? NoIssues : list.ToArray();
         }
 
+        if (resolved.AnyGrammar)
+        {
+            int before = list?.Count ?? 0;
+            list ??= [];
+            _grammar.Check(text, tokens, dialogue, state.Custom, resolved.GrammarEnabled, resolved.Spelling.Dialogue, list);
+            if (list.Count > before && before > 0)
+            {
+                // Issues are reported in text order whichever part found them.
+                list.Sort(static (a, b) => a.Start != b.Start ? a.Start.CompareTo(b.Start) : string.CompareOrdinal(a.RuleId, b.RuleId));
+            }
+        }
+
+        IReadOnlyList<Issue> issues = list is { Count: > 0 } ? list.ToArray() : NoIssues;
         var result = new ParagraphResult(issues, dialogue.EndsInDialogue);
         cache?.Add(key!, result);
         return result;
@@ -288,7 +304,7 @@ public sealed class Checker
     };
 
     private ResolvedOptions Resolve(CheckerOptions? options) =>
-        _resolved.GetValue(options ?? Options, static o => new ResolvedOptions(o));
+        _resolved.GetValue(options ?? Options, o => new ResolvedOptions(o, _grammar.Rules));
 
     private SpellingState StateFor(ResolvedOptions resolved)
     {
@@ -367,7 +383,7 @@ public sealed class Checker
     /// <summary>Options worked out once into the form the checking code uses.</summary>
     private sealed class ResolvedOptions
     {
-        public ResolvedOptions(CheckerOptions options)
+        public ResolvedOptions(CheckerOptions options, IReadOnlyList<GrammarRule> grammarRules)
         {
             KindEnabled = new bool[4];
             KindEnabled[(int)SpellingKind.Misspelling] = options.IsEnabled(RuleCatalog.Misspelling);
@@ -385,15 +401,17 @@ public sealed class Checker
                 MaxSuggestions = Math.Max(0, options.MaxSuggestions),
             };
 
-            int mask = 0;
-            for (int i = 0; i < KindEnabled.Length; i++)
+            GrammarEnabled = [.. grammarRules.Select(rule => options.IsEnabled(rule.Info))];
+            AnyGrammar = Array.IndexOf(GrammarEnabled, true) >= 0;
+            var mask = new System.Text.StringBuilder(KindEnabled.Length + GrammarEnabled.Length);
+            foreach (bool on in (ReadOnlySpan<bool>)[.. KindEnabled, .. GrammarEnabled])
             {
-                mask |= KindEnabled[i] ? 1 << i : 0;
+                mask.Append(on ? '1' : '0');
             }
 
             // Everything that changes a paragraph's result, apart from the text, the speech found in it and
             // the word sets, which a cache key carries separately.
-            Fingerprint = string.Create(null, stackalloc char[64], $"{(int)options.Dialect}.{(int)options.DialogueStrictness}.{Spelling.MaxSuggestions}.{mask}");
+            Fingerprint = string.Create(System.Globalization.CultureInfo.InvariantCulture, $"{(int)options.Dialect}.{(int)options.DialogueStrictness}.{Spelling.MaxSuggestions}.{mask}");
             if (options.WordSets is not null)
             {
                 SetNames = [.. options.WordSets.Distinct(StringComparer.Ordinal).Order(StringComparer.Ordinal)];
@@ -408,6 +426,10 @@ public sealed class Checker
         public bool[] KindEnabled { get; }
 
         public bool AnySpelling { get; }
+
+        public bool[] GrammarEnabled { get; }
+
+        public bool AnyGrammar { get; }
 
         public string Fingerprint { get; }
 

@@ -1,0 +1,239 @@
+# Irregular forms, hand-written. Regular -s and -ing forms are found by rule and are not listed.
+# V base past past-participle (alternatives separated by /)
+# N singular plural
+# A base comparative superlative
+V arise arose arisen
+V awake awoke awoken
+V bear bore borne/born
+V beat beat beaten
+V become became become
+V begin began begun
+V bend bent bent
+V bet bet bet
+V bid bid/bade bid/bidden
+V bind bound bound
+V bite bit bitten
+V bleed bled bled
+V blow blew blown
+V break broke broken
+V breed bred bred
+V bring brought brought
+V build built built
+V burn burned/burnt burned/burnt
+V burst burst burst
+V buy bought bought
+V cast cast cast
+V catch caught caught
+V choose chose chosen
+V cling clung clung
+V come came come
+V cost cost cost
+V creep crept crept
+V cut cut cut
+V deal dealt dealt
+V dig dug dug
+V dive dived/dove dived
+V do did done
+V draw drew drawn
+V dream dreamed/dreamt dreamed/dreamt
+V drink drank drunk
+V drive drove driven
+V dwell dwelt/dwelled dwelt/dwelled
+V eat ate eaten
+V fall fell fallen
+V feed fed fed
+V feel felt felt
+V fight fought fought
+V find found found
+V flee fled fled
+V fling flung flung
+V fly flew flown
+V forbid forbade/forbad forbidden
+V forget forgot forgotten/forgot
+V forgive forgave forgiven
+V forsake forsook forsaken
+V freeze froze frozen
+V get got got/gotten
+V give gave given
+V go went gone
+V grind ground ground
+V grow grew grown
+V hang hung/hanged hung/hanged
+V have had had
+V hear heard heard
+V hide hid hidden/hid
+V hit hit hit
+V hold held held
+V hurt hurt hurt
+V keep kept kept
+V kneel knelt/kneeled knelt/kneeled
+V knit knitted/knit knitted/knit
+V know knew known
+V lay laid laid
+V lead led led
+V lean leaned/leant leaned/leant
+V leap leaped/leapt leaped/leapt
+V learn learned/learnt learned/learnt
+V leave left left
+V lend lent lent
+V let let let
+V lie lay lain
+V light lit/lighted lit/lighted
+V lose lost lost
+V make made made
+V mean meant meant
+V meet met met
+V mistake mistook mistaken
+V overcome overcame overcome
+V overhear overheard overheard
+V overtake overtook overtaken
+V pay paid paid
+V put put put
+V quit quit quit
+V read read read
+V rid rid rid
+V ride rode ridden
+V ring rang rung
+V rise rose risen
+V run ran run
+V say said said
+V see saw seen
+V seek sought sought
+V sell sold sold
+V send sent sent
+V set set set
+V sew sewed sewn/sewed
+V shake shook shaken
+V shed shed shed
+V shine shone/shined shone/shined
+V shoot shot shot
+V show showed shown/showed
+V shrink shrank/shrunk shrunk
+V shut shut shut
+V sing sang sung
+V sink sank/sunk sunk
+V sit sat sat
+V slay slew slain
+V sleep slept slept
+V slide slid slid
+V sling slung slung
+V slink slunk slunk
+V slit slit slit
+V smell smelled/smelt smelled/smelt
+V sow sowed sown/sowed
+V speak spoke spoken
+V speed sped/speeded sped/speeded
+V spell spelled/spelt spelled/spelt
+V spend spent spent
+V spill spilled/spilt spilled/spilt
+V spin spun spun
+V spit spat/spit spat/spit
+V split split split
+V spoil spoiled/spoilt spoiled/spoilt
+V spread spread spread
+V spring sprang/sprung sprung
+V stand stood stood
+V steal stole stolen
+V stick stuck stuck
+V sting stung stung
+V stink stank/stunk stunk
+V stride strode stridden
+V strike struck struck/stricken
+V string strung strung
+V strive strove/strived striven/strived
+V swear swore sworn
+V sweep swept swept
+V swell swelled swollen/swelled
+V swim swam swum
+V swing swung swung
+V take took taken
+V teach taught taught
+V tear tore torn
+V tell told told
+V think thought thought
+V throw threw thrown
+V thrust thrust thrust
+V tread trod trodden/trod
+V understand understood understood
+V undo undid undone
+V upset upset upset
+V wake woke/waked woken/waked
+V wear wore worn
+V weave wove woven
+V wed wed/wedded wed/wedded
+V weep wept wept
+V wet wet/wetted wet/wetted
+V win won won
+V wind wound wound
+V withdraw withdrew withdrawn
+V withstand withstood withstood
+V wring wrung wrung
+V write wrote written
+N man men
+N woman women
+N child children
+N foot feet
+N tooth teeth
+N goose geese
+N mouse mice
+N louse lice
+N ox oxen
+N person people
+N leaf leaves
+N life lives
+N knife knives
+N wife wives
+N wolf wolves
+N half halves
+N self selves
+N shelf shelves
+N thief thieves
+N loaf loaves
+N calf calves
+N elf elves
+N dwarf dwarves
+N hoof hooves
+N scarf scarves
+N die dice
+N crisis crises
+N analysis analyses
+N basis bases
+N phenomenon phenomena
+N criterion criteria
+N cactus cacti
+N fungus fungi
+N nucleus nuclei
+N radius radii
+N stimulus stimuli
+N datum data
+N medium media
+N bacterium bacteria
+N curriculum curricula
+N sheep sheep
+N deer deer
+N fish fish
+N swine swine
+N aircraft aircraft
+N spacecraft spacecraft
+N series series
+N species species
+N fisherman fishermen
+N gentleman gentlemen
+N policeman policemen
+N horseman horsemen
+N nobleman noblemen
+N countryman countrymen
+N workman workmen
+N seaman seamen
+N swordsman swordsmen
+N watchman watchmen
+N clergyman clergymen
+N kinsman kinsmen
+N footman footmen
+A good better best
+A bad worse worst
+A far farther/further farthest/furthest
+A little less least
+A much more most
+A many more most
+A well better best

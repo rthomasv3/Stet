@@ -1,0 +1,25 @@
+# Words whose neighbours are kept from the Google Books 2-grams (see BigramExtractor).
+# Confusable words and their forms, for the confusable-word statistics.
+their there they 're theirs
+its it 's
+your you yours
+whose who
+then than
+lose loses losing lost loose looses loosed loosing looser
+affect affects affected affecting effect effects effected effecting
+accept accepts accepted accepting except
+to too two
+of off have 've
+lead leads led
+past passed
+breath breaths breathe breathes breathed breathing
+quite quiet
+peek peeks peeked peak peaks peaked pique piqued
+wander wanders wandered wandering wonder wonders wondered wondering
+desert deserts dessert desserts
+brake brakes braked braking break breaks broke breaking
+principal principals principle principles
+compliment compliments complimented complement complements complemented
+could should would might must
+# Words that show whether a noun is counted or measured.
+a an many much few fewer less little several every each these those

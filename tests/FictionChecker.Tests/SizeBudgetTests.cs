@@ -27,6 +27,14 @@ public class SizeBudgetTests
     }
 
     [Fact]
+    public void WordInfoAndTaggerDataFitTheirBudget()
+    {
+        long size = FictionChecker.Grammar.WordData.EmbeddedSize();
+
+        Assert.InRange(size, 1, 3 * Megabyte / 2);
+    }
+
+    [Fact]
     public void LibraryCodeAndDataFitTheHardCap()
     {
         long size = new FileInfo(typeof(LibraryInfo).Assembly.Location).Length;

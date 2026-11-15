@@ -1,0 +1,198 @@
+# Function words: the small fixed classes of English, with the facts rules need about them.
+# word, then traits. The data builder also reads the first column: these are the words whose following
+# word types are counted one by one for the tagger.
+#
+# pron: pronoun (subj, obj, poss, refl; p1 p2 p3; sg pl)   det: determiner (art, dem, quant)
+# be / have / do: forms of those verbs (pres, past, base, part; with person and number where fixed)
+# modal, prep, conj (coordinating), sub (subordinating), adv, neg, wh, clitic (the tail of a contraction)
+i pron subj p1 sg
+me pron obj p1 sg
+my pron poss p1 sg
+mine pron poss p1 sg
+myself pron refl p1 sg
+you pron subj obj p2
+your pron poss p2
+yours pron poss p2
+yourself pron refl p2 sg
+yourselves pron refl p2 pl
+he pron subj p3 sg
+him pron obj p3 sg
+his pron poss p3 sg
+himself pron refl p3 sg
+she pron subj p3 sg
+her pron obj poss p3 sg
+hers pron poss p3 sg
+herself pron refl p3 sg
+it pron subj obj p3 sg
+its pron poss p3 sg
+itself pron refl p3 sg
+we pron subj p1 pl
+us pron obj p1 pl
+our pron poss p1 pl
+ours pron poss p1 pl
+ourselves pron refl p1 pl
+they pron subj p3 pl
+them pron obj p3 pl
+their pron poss p3 pl
+theirs pron poss p3 pl
+themselves pron refl p3 pl
+who pron wh subj
+whom pron wh obj
+whose pron wh poss
+what pron wh
+which pron wh
+someone pron p3 sg
+somebody pron p3 sg
+something pron p3 sg
+anyone pron p3 sg
+anybody pron p3 sg
+anything pron p3 sg
+everyone pron p3 sg
+everybody pron p3 sg
+everything pron p3 sg
+nobody pron p3 sg
+nothing pron p3 sg
+none pron
+one pron p3 sg
+am be pres p1 sg
+is be pres p3 sg
+are be pres pl
+was be past sg
+were be past pl
+be be base
+been be part
+being be part
+have have pres base
+has have pres p3 sg
+had have past part
+having have part
+do do pres base
+does do pres p3 sg
+did do past
+done do part
+doing do part
+can modal
+could modal
+will modal
+would modal
+shall modal
+should modal
+may modal
+might modal
+must modal
+ought modal
+the det art
+a det art
+an det art
+this det dem sg
+that det dem sg sub
+these det dem pl
+those det dem pl
+every det quant sg
+each det quant sg
+some det quant
+any det quant
+no det quant neg
+all det quant
+both det quant pl
+either det quant
+neither det quant neg
+another det quant sg
+such det
+much det quant
+many det quant pl
+few det quant pl
+several det quant pl
+more det quant
+most det quant
+less det quant
+other det
+of prep
+in prep
+to prep
+for prep conj
+with prep
+on prep
+at prep
+by prep
+from prep
+up prep
+about prep
+into prep
+over prep
+after prep sub
+under prep
+between prep
+through prep
+during prep
+before prep sub
+against prep
+without prep
+within prep
+along prep
+across prep
+behind prep
+beyond prep
+near prep
+toward prep
+towards prep
+upon prep
+off prep
+down prep
+out prep
+around prep
+among prep
+above prep
+below prep
+beside prep
+inside prep
+outside prep
+until prep sub
+since prep sub
+like prep
+than prep sub
+as prep sub
+and conj
+or conj
+but conj
+nor conj neg
+so conj adv
+yet conj adv
+if sub
+because sub
+although sub
+though sub
+while sub
+when sub wh
+where sub wh
+why wh
+how wh
+unless sub
+whether sub
+once sub adv
+not adv neg
+never adv neg
+very adv
+too adv
+also adv
+just adv
+only adv
+then adv
+there adv
+here adv
+now adv
+always adv
+often adv
+again adv
+still adv
+even adv
+quite adv
+rather adv
+almost adv
+'s clitic
+'re clitic be pres
+'ve clitic have pres
+'ll clitic modal
+'d clitic
+'m clitic be pres p1 sg
+n't clitic neg

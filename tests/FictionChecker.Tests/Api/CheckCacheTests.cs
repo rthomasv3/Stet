@@ -75,6 +75,17 @@ public class CheckCacheTests
     }
 
     [Fact]
+    public void Turning_a_grammar_rule_off_is_not_answered_from_memory()
+    {
+        var cache = new CheckCache(new Checker());
+        var off = new ParagraphContext { Options = CheckerOptions.Default.WithRule(RuleIds.RepeatedWord, false) };
+
+        Assert.Single(cache.CheckParagraph("She opened the the door.").Issues);
+        Assert.Empty(cache.CheckParagraph("She opened the the door.", off).Issues);
+        Assert.Single(cache.CheckParagraph("She opened the the door.").Issues);
+    }
+
+    [Fact]
     public void Changing_a_word_set_drops_the_results_made_with_it()
     {
         var checker = new Checker();

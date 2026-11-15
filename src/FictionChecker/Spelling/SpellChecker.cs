@@ -18,6 +18,9 @@ internal sealed record SpellingContext
     /// <summary>Dialogue already found for this paragraph (used when checking a whole document).</summary>
     public DialogueResult? Dialogue { get; init; }
 
+    /// <summary>The paragraph's tokens, when the caller already has them.</summary>
+    public List<Token>? Tokens { get; init; }
+
     /// <summary>No extra information.</summary>
     public static SpellingContext None { get; } = new();
 }
@@ -92,7 +95,7 @@ internal sealed class SpellChecker
         DialogueResult dialogue = context.Dialogue
             ?? DialogueDetector.Detect(text, options.EffectiveQuoteStyle, context.StartsInDialogue, context.SkipRanges, context.DialogueRanges);
         var issues = new List<SpellingIssue>();
-        CheckTokens(text, Tokenizer.Tokenize(text, context.SkipRanges), dialogue, options, state ?? _state, issues, withSuggestions: options.MaxSuggestions > 0);
+        CheckTokens(text, context.Tokens ?? Tokenizer.Tokenize(text, context.SkipRanges), dialogue, options, state ?? _state, issues, withSuggestions: options.MaxSuggestions > 0);
         return new SpellingResult(issues, dialogue.EndsInDialogue);
     }
 

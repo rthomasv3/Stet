@@ -10,7 +10,7 @@ using FictionChecker.Eval.Scoring;
 using FictionChecker.Eval.Text;
 
 // Usage:
-//   run --checker none|demo|spelling|spelling-world
+//   run --checker none|demo|spelling|spelling-world|library
 //   run --checker external --name harper --issues <issues.jsonl>   score issues produced outside this process
 //   export --out <items.jsonl>                                      write every paragraph an external checker must check
 //   export --out <items.jsonl> --corpus gutenberg --clean-words 2000 --planted 100     a smaller set for slow checkers
@@ -20,7 +20,7 @@ using FictionChecker.Eval.Text;
 //          --root <dir>          repository root (found automatically by default)
 if (args.Length == 0 || args[0] is "-h" or "--help")
 {
-    Console.WriteLine("Commands: run --checker none|demo|spelling|spelling-world|external [--name N --issues FILE] [--compare N]");
+    Console.WriteLine("Commands: run --checker none|demo|spelling|spelling-world|library|external [--name N --issues FILE] [--compare N]");
     Console.WriteLine("          export --out FILE");
     Console.WriteLine("          perf            time the spelling checker against the performance targets");
     Console.WriteLine("          coverage        measure how much of the books' vocabulary the spelling data knows");
@@ -131,6 +131,7 @@ IEvalChecker checker = checkerName switch
     "demo" => new DemoChecker(),
     "spelling" => new SpellingEvalChecker(corpora, world: false),
     "spelling-world" => new SpellingEvalChecker(corpora, world: true),
+    "library" => new SpellingEvalChecker(corpora, world: true, spellingOnly: false),
     "external" => new ExternalChecker(
         options.GetValueOrDefault("--source-name") ?? options.GetValueOrDefault("--name") ?? throw new ArgumentException("external needs --name"),
         options.GetValueOrDefault("--issues") ?? throw new ArgumentException("external needs --issues FILE")),

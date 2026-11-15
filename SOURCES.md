@@ -22,6 +22,8 @@ licenses such as SCOWL's. Not allowed: non-commercial terms, GPL, AGPL, and for 
 | SCOWL Hunspell `en_CA-large` | 2026.02.25 | SCOWL (MIT-like) | same release | `b4b7bf4a7885de1c35fa1b3aa68317209afa58f04d60e8a07e124693485c59e3` | Rarer words beyond the normal list; marked as rarer in the data. |
 | SCOWL Hunspell `en_AU-large` | 2026.02.25 | SCOWL (MIT-like) | same release | `46a265883d1d01c889b7173ba1cabae0ca915aa403d6a2f93cee4cc661087db4` | Rarer words beyond the normal list; marked as rarer in the data. |
 | Google Books Ngram, English Fiction, 1-grams | 20200217 | CC BY 3.0 | http://storage.googleapis.com/books/ngrams/books/20200217/eng-fiction/1-00000-of-00001.gz | `8640fb65e15484592665237df129de132032e25354d5f984f61c32100d901461` | Word counts from 1950 on, reduced to one log-scale frequency per word. Streamed; the 0.94 GB file is not stored. |
+| Google Books Ngram, English Fiction, 2-grams | 20200217 | CC BY 3.0 | http://storage.googleapis.com/books/ngrams/books/20200217/eng-fiction/2-00000-of-00047.gz to `2-00046-of-00047.gz` | one per file, in `src/FictionChecker.DataBuilder/ngram-2gram-checksums.txt` | Counts from 1950 on of one word type following another, and of the word type following each function word (the tagger's statistics); and which nouns follow "much", "many" and similar words (counted or measured nouns). Streamed twice; the 31 GB of files are not stored. The first pass also keeps, in the ignored `downloads/` folder only, the neighbours of the confusable words for later work. |
+| CMU Pronouncing Dictionary | commit `74790861` (2025-10-24) | BSD 2-clause | https://github.com/cmusphinx/cmudict/blob/74790861f652b15e4ac49015a90074ad62a27690/cmudict.dict | `81917843c7f44ce2b094ac63873c2c7a4cf802040792c455ba3ca406891c3d22` | Which words start with a vowel sound. Only the words whose first sound disagrees with their first letter are kept (about 400), as positions in the word list. |
 | System Reference Document 5.2.1 (PDF) | 5.2.1 | CC BY 4.0 | https://media.dndbeyond.com/compendium-images/srd/5.2/SRD_CC_v5.2.1.pdf | `8974902d109d6e63672d7c490bde9ccf052410503d9cfa768237154fbc5e3d87` | Seed for the genre word list: words it uses that SCOWL lacks were reviewed by hand. Not read by the builder. |
 
 ## Written by this project
@@ -36,14 +38,23 @@ These lists are hand-written and are part of the project's own MIT-licensed sour
 | `src/FictionChecker/Data/Lists/informal.txt` | Informal speech accepted in lenient dialogue. |
 | `src/FictionChecker/Data/Lists/archaic.txt` | Archaic forms (hath, dost). |
 | `src/FictionChecker/Data/Lists/misspellings.txt` | Common misspellings and corrections. Not taken from any published list. |
+| `src/FictionChecker/Data/Lists/closed.txt` | Function words (pronouns, determiners, auxiliaries, prepositions) with the facts rules need. |
+| `src/FictionChecker.DataBuilder/Lists/irregular.txt` | Irregular verb, noun and adjective forms. Regular forms are found by spelling rules checked against the Google Books counts. |
+| `src/FictionChecker.DataBuilder/Lists/focus.txt` | The words whose neighbours are kept from the 2-grams. |
 
 ## Rebuilding
 
     dotnet run -c Release --project src/FictionChecker.DataBuilder -- ngram
     dotnet run -c Release --project src/FictionChecker.DataBuilder -- lexicon
+    dotnet run -c Release --project src/FictionChecker.DataBuilder -- bigrams
+    dotnet run -c Release --project src/FictionChecker.DataBuilder -- bigrams-closed
+    dotnet run -c Release --project src/FictionChecker.DataBuilder -- wordinfo
 
 The first command streams the Ngram file once (about 1 GB) into `downloads/`; the second writes
-`src/FictionChecker/Data/lexicon.bin`.
+`src/FictionChecker/Data/lexicon.bin`. The two `bigrams` commands each stream the 47 2-gram files (about 31 GB,
+20 minutes on a fast connection) into small tables in `downloads/`, and `wordinfo` writes
+`src/FictionChecker/Data/wordinfo.bin`. Rebuild the word info whenever the lexicon is rebuilt: it is tied to
+the exact word list and the library refuses data built for another one.
 
 ## Evaluation only (nothing ships)
 
