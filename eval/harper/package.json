@@ -1,5 +1,5 @@
 {
-  "name": "fictionchecker-harper-baseline",
+  "name": "stet-harper-baseline",
   "private": true,
   "type": "module",
   "description": "Runs harper.js over exported evaluation paragraphs. Dev-only; nothing here ships.",

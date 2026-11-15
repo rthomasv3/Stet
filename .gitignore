@@ -481,7 +481,7 @@ $RECYCLE.BIN/
 # Vim temporary swap files
 *.swp
 
-# FictionChecker: nothing below is ever committed
+# Stet: nothing below is ever committed
 # Scratch tooling, raw downloads and book text
 /tools/
 /corpora/

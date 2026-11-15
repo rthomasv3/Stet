@@ -21,7 +21,7 @@ jobs:
       - run: dotnet build -c Release
       - run: dotnet test -c Release --no-build
       - name: Publish Native AOT test app
-        run: dotnet publish tests/FictionChecker.AotTest -c Release -o aot-out
+        run: dotnet publish tests/Stet.AotTest -c Release -o aot-out
       - name: Run Native AOT test app
         shell: bash
-        run: ./aot-out/FictionChecker.AotTest
+        run: ./aot-out/Stet.AotTest

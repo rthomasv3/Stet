@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>Stet</RootNamespace>
+    <IsAotCompatible>true</IsAotCompatible>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Stet.Tests" />
+    <InternalsVisibleTo Include="Stet.Eval" />
+    <InternalsVisibleTo Include="Stet.DataBuilder" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Data\lexicon.bin" LogicalName="Stet.Data.lexicon.bin" Condition="Exists('Data\lexicon.bin')" />
+    <EmbeddedResource Include="Data\wordinfo.bin" LogicalName="Stet.Data.wordinfo.bin" Condition="Exists('Data\wordinfo.bin')" />
+    <EmbeddedResource Include="Data\confusables.bin" LogicalName="Stet.Data.confusables.bin" Condition="Exists('Data\confusables.bin')" />
+    <EmbeddedResource Include="Data\Lists\*.txt" LogicalName="Stet.Data.Lists.%(Filename)%(Extension)" />
+  </ItemGroup>
+
+</Project>

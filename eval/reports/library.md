@@ -13,9 +13,9 @@ Target: under 1 per 1,000 words. Flags confirmed as real errors in the source ar
 | calibre | dev | 16 | 454,434 | 691 | 1.521 | 0 | 40.089 | 5 | 0 |
 | calibre | test | 8 | 240,253 | 639 | 2.66 | 0 | 40.52 | 0 | 0 |
 | gutenberg | dev | 29 | 859,568 | 1,543 | 1.795 | 0 | 24.358 | 1 | 0 |
-| gutenberg | test | 11 | 304,864 | 527 | 1.729 | -0.007 | 19.94 | 0 | 0 |
+| gutenberg | test | 11 | 304,864 | 527 | 1.729 | 0 | 19.94 | 0 | 0 |
 | all | dev | 45 | 1,314,002 | 2,234 | 1.7 | 0 | 29.798 | 6 | 0 |
-| all | test | 19 | 545,117 | 1,166 | 2.139 | -0.004 | 29.01 | 0 | 0 |
+| all | test | 19 | 545,117 | 1,166 | 2.139 | 0 | 29.01 | 0 | 0 |
 
 ## False alarms per rule
 

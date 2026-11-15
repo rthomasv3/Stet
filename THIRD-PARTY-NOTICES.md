@@ -1,6 +1,6 @@
 # Third-party notices
 
-FictionChecker embeds data derived from the sources below. Each entry gives the license and the
+Stet embeds data derived from the sources below. Each entry gives the license and the
 notice it requires, so applications using the package can copy the entries they need.
 
 No third-party code ships in the package.

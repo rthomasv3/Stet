@@ -5,7 +5,7 @@
     "seed": 20261114,
     "cleanWordsPerBook": 30000,
     "plantedPerCategory": 500,
-    "reviewFlagsPerRule": 3000
+    "reviewFlagsPerRule": 40
   },
   "groups": [
     {

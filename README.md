@@ -1,12 +1,18 @@
-# FictionChecker (working title)
+# Stet
 
-An offline spelling and grammar checker for fiction, written in pure managed C#.
-Early development. Spelling and the first grammar rules (mechanics, agreement, dialogue punctuation) work through the public API below. Confusable words (their/there, its/it's) come next. The API can still change before 1.0.
+A spelling and grammar checker built for fiction. Offline, pure managed C#, no native code, Native AOT safe.
+
+"Stet" is the proofreader's mark for "let it stand". The library is tuned to stay quiet on correct prose:
+it accepts a character's voice in dialogue, takes the writer's own names and coined words, checks the
+punctuation around speech, and flags a word only when the evidence that it is wrong is strong.
+
+Early development. Spelling and the grammar rules listed below (mechanics, agreement, dialogue punctuation,
+confusable words) work through the public API. The API can still change before 1.0.
 
 ## Using it
 
 ```csharp
-using FictionChecker;
+using Stet;
 
 // Create once and keep: this loads the built-in data (about 10 ms). Safe to share between threads.
 var checker = new Checker(new CheckerOptions { Dialect = Dialect.American });
@@ -115,10 +121,10 @@ them on purpose for a character's voice. `checker.Rules` gives the same list wit
 
 ## Layout
 
-- `src/FictionChecker` - the library (no runtime dependencies, Native AOT safe)
-- `src/FictionChecker.DataBuilder` - builds the embedded data files from recorded sources
-- `tests/FictionChecker.Tests` - unit tests
-- `tests/FictionChecker.AotTest` - small app published with Native AOT as a check
+- `src/Stet` - the library (no runtime dependencies, Native AOT safe)
+- `src/Stet.DataBuilder` - builds the embedded data files from recorded sources
+- `tests/Stet.Tests` - unit tests
+- `tests/Stet.AotTest` - small app published with Native AOT as a check
 - `eval/` - evaluation harness (corpora stay outside the repo)
 - `bench/` - benchmarks
 
@@ -126,8 +132,8 @@ them on purpose for a character's voice. `checker.Rules` gives the same list wit
 
     dotnet build
     dotnet test
-    dotnet publish tests/FictionChecker.AotTest -c Release -o aot-out && ./aot-out/FictionChecker.AotTest
-    dotnet run -c Release --project bench/FictionChecker.Bench -- --filter '*'
+    dotnet publish tests/Stet.AotTest -c Release -o aot-out && ./aot-out/Stet.AotTest
+    dotnet run -c Release --project bench/Stet.Bench -- --filter '*'
 
 ## Licensing
 

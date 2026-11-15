@@ -37,8 +37,8 @@ not already have that flag. A fix counts as right when applying it gives back th
 
 ## Running
 
-    dotnet run --project eval/FictionChecker.Eval -- run --checker none
-    dotnet run --project eval/FictionChecker.Eval -- run --checker none --compare harper
+    dotnet run --project eval/Stet.Eval -- run --checker none
+    dotnet run --project eval/Stet.Eval -- run --checker none --compare harper
 
 Each book carries the spelling it uses (US or GB, detected from the text), and checkers are told it.
 
@@ -58,24 +58,24 @@ Checkers:
 
 Speed against the targets in the requirements (run in Release):
 
-    dotnet run -c Release --project eval/FictionChecker.Eval -- perf
+    dotnet run -c Release --project eval/Stet.Eval -- perf
 
 To measure the library's text splitting on whole books (share of words in speech, quote marks that
 could not be paired, speed):
 
-    dotnet run --project eval/FictionChecker.Eval -- dialogue
+    dotnet run --project eval/Stet.Eval -- dialogue
 
 To measure how much of the books' vocabulary the spelling data knows:
 
-    dotnet run --project eval/FictionChecker.Eval -- coverage
+    dotnet run --project eval/Stet.Eval -- coverage
 
 Confusable-word rules are tuned with two more commands. The first writes, for every confusable word in
 the dev books' clean text, how well each word of its group fits the words around it (to the ignored
 `reports/local/` folder, since it holds pieces of the books). The second prints the same evidence for
 sentences given on the command line:
 
-    dotnet run -c Release --project eval/FictionChecker.Eval -- confusable-dump
-    dotnet run -c Release --project eval/FictionChecker.Eval -- confusable-explain "She was taller then her brother."
+    dotnet run -c Release --project eval/Stet.Eval -- confusable-dump
+    dotnet run -c Release --project eval/Stet.Eval -- confusable-explain "She was taller then her brother."
 
 ## Reports
 

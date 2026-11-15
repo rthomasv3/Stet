@@ -1,0 +1,17 @@
+<Solution>
+  <Folder Name="/bench/">
+    <Project Path="bench/Stet.Bench/Stet.Bench.csproj" />
+  </Folder>
+  <Folder Name="/eval/">
+    <Project Path="eval/Stet.Eval/Stet.Eval.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/Stet.DataBuilder/Stet.DataBuilder.csproj" />
+    <Project Path="src/Stet/Stet.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Stet.AotTest/Stet.AotTest.csproj" />
+    <Project Path="tests/Stet.Eval.Tests/Stet.Eval.Tests.csproj" />
+    <Project Path="tests/Stet.Tests/Stet.Tests.csproj" />
+  </Folder>
+</Solution>
