@@ -6,6 +6,29 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
+  <!-- What nuget.org shows. The version is set once for the whole repository, in Directory.Build.props. -->
+  <PropertyGroup>
+    <PackageId>Stet</PackageId>
+    <Title>Stet</Title>
+    <Authors>rthomasv3</Authors>
+    <Description>A spelling and grammar checker built for fiction. Offline, pure managed C#, no native code, Native AOT safe. Tuned to stay quiet on correct prose: it accepts a character's voice in dialogue, takes the writer's own names and coined words, and checks the punctuation around speech.</Description>
+    <PackageTags>spelling;grammar;spellcheck;spell-checker;grammar-checker;proofreading;fiction;writing;english;offline;aot</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageProjectUrl>https://github.com/rthomasv3/Stet</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/rthomasv3/Stet</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Copyright>Copyright (c) 2026 Stet authors</Copyright>
+    <PackageReleaseNotes>First pre-release. Spelling, mechanics, agreement, dialogue punctuation and confusable-word rules. The API can still change before 1.0.</PackageReleaseNotes>
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+    <None Include="..\..\THIRD-PARTY-NOTICES.md" Pack="true" PackagePath="\" />
+    <None Include="..\..\LICENSE" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
   <ItemGroup>
     <InternalsVisibleTo Include="Stet.Tests" />
     <InternalsVisibleTo Include="Stet.Eval" />
