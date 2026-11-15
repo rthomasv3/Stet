@@ -23,13 +23,13 @@ public static class PerfStats
 
         long memoryBefore = GC.GetTotalMemory(true);
         var clock = Stopwatch.StartNew();
-        SpellChecker first = SpellChecker.CreateDefault();
+        Checker first = new Checker();
         clock.Stop();
         long firstLoad = clock.ElapsedMilliseconds;
         double checkerMegabytes = (GC.GetTotalMemory(true) - memoryBefore) / (1024.0 * 1024.0);
         GC.KeepAlive(first);
         clock.Restart();
-        SpellChecker warm = SpellChecker.CreateDefault();
+        Checker warm = new Checker();
         clock.Stop();
         long load = clock.ElapsedMilliseconds;
 
@@ -43,6 +43,9 @@ public static class PerfStats
             new[] { "One paragraph, with word list (median / worst)", "5 ms / 20 ms" },
             new[] { "Suggestions for one word (median / worst)", "5 ms" },
             new[] { "Replace a 20,000-word word set", "50 ms" },
+            new[] { "Recheck the novel through the cache, nothing changed", "" },
+            new[] { "Recheck the novel through the cache, one paragraph edited (median / worst)", "" },
+            new[] { "Recheck the novel through the cache, one word added to the word list", "" },
         };
 
         foreach (Corpus corpus in corpora)
@@ -61,20 +64,20 @@ public static class PerfStats
                 words += Text.Words.Count(p);
             }
 
-            var options = new SpellingOptions { Dialect = book.Dialect == "GB" ? Dialect.British : Dialect.American, QuoteStyle = DialogueDetector.GuessStyle(paragraphs) };
-            var checker = SpellChecker.CreateDefault();
+            var options = new CheckerOptions { Dialect = book.Dialect == "GB" ? Dialect.British : Dialect.American, QuoteStyle = DialogueDetector.GuessStyle(paragraphs) };
+            var checker = new Checker();
             checker.CheckDocument(paragraphs.Take(50).ToList(), options); // warm up the JIT
 
-            checker = SpellChecker.CreateDefault();
+            checker = new Checker();
             clock.Restart();
-            List<SpellingResult> results = checker.CheckDocument(paragraphs, options);
+            IReadOnlyList<ParagraphResult> results = checker.CheckDocument(paragraphs, options);
             clock.Stop();
             long novelBare = clock.ElapsedMilliseconds;
 
             // A word list like a writer's: every unknown word the book uses twice or more.
-            var unknown = results.SelectMany(r => r.Issues).Where(i => i.Kind is SpellingKind.Misspelling or SpellingKind.UnknownName)
-                .GroupBy(i => i.Word, StringComparer.Ordinal).Where(g => g.Count() >= 2).Select(g => g.Key).ToList();
-            checker = SpellChecker.CreateDefault();
+            var unknown = results.SelectMany(r => r.Issues).Where(i => i.Kind is IssueKind.Misspelling or IssueKind.UnknownName)
+                .GroupBy(i => i.Text, StringComparer.Ordinal).Where(g => g.Count() >= 2).Select(g => g.Key).ToList();
+            checker = new Checker();
             checker.SetWords("world", unknown);
             clock.Restart();
             results = checker.CheckDocument(paragraphs, options);
@@ -82,7 +85,7 @@ public static class PerfStats
             long novelWorld = clock.ElapsedMilliseconds;
 
             // Scenes of about 1,500 words and single paragraphs, on a fresh checker so nothing is cached.
-            checker = SpellChecker.CreateDefault();
+            checker = new Checker();
             checker.SetWords("world", unknown);
             var sceneTimes = new List<double>();
             var paragraphTimes = new List<double>();
@@ -91,7 +94,7 @@ public static class PerfStats
             foreach (string p in paragraphs)
             {
                 clock.Restart();
-                checker.CheckParagraph(p, options);
+                checker.CheckParagraph(p, new ParagraphContext { Options = options });
                 clock.Stop();
                 paragraphTimes.Add(clock.Elapsed.TotalMilliseconds);
                 sceneTime += clock.Elapsed.TotalMilliseconds;
@@ -105,8 +108,8 @@ public static class PerfStats
             }
 
             var suggestTimes = new List<double>();
-            checker = SpellChecker.CreateDefault();
-            foreach (string word in results.SelectMany(r => r.Issues).Select(i => i.Word).Distinct(StringComparer.Ordinal).Take(400))
+            checker = new Checker();
+            foreach (string word in results.SelectMany(r => r.Issues).Select(i => i.Text).Distinct(StringComparer.Ordinal).Take(400))
             {
                 clock.Restart();
                 checker.Suggest(word, options);
@@ -120,6 +123,35 @@ public static class PerfStats
             checker.SetWords("world", names);
             clock.Stop();
 
+            long setSwap = clock.ElapsedMilliseconds;
+
+            // The cache: an app rechecks the whole document after every edit and only pays for what changed.
+            checker = new Checker();
+            checker.SetWords("world", unknown);
+            var cache = new CheckCache(checker);
+            cache.CheckDocument(paragraphs, options);
+            clock.Restart();
+            cache.CheckDocument(paragraphs, options);
+            clock.Stop();
+            double unchanged = clock.Elapsed.TotalMilliseconds;
+            var editTimes = new List<double>();
+            var edited = new List<string>(paragraphs);
+            for (int i = 0; i < 200; i++)
+            {
+                int at = (i * 7919) % edited.Count;
+                edited[at] += " Then the smal door openned.";
+                clock.Restart();
+                cache.CheckDocument(edited, options);
+                clock.Stop();
+                editTimes.Add(clock.Elapsed.TotalMilliseconds);
+            }
+
+            checker.AddWords("world", ["Zorvathiel"]);
+            clock.Restart();
+            cache.CheckDocument(edited, options);
+            clock.Stop();
+            double afterWord = clock.Elapsed.TotalMilliseconds;
+
             string[] cells =
             [
                 $"{firstLoad} ms",
@@ -129,7 +161,10 @@ public static class PerfStats
                 $"{Median(sceneTimes):0.0} ms / {(sceneTimes.Count == 0 ? 0 : sceneTimes.Max()):0.0} ms",
                 $"{Median(paragraphTimes):0.00} ms / {paragraphTimes.Max():0.0} ms",
                 $"{Median(suggestTimes):0.00} ms / {(suggestTimes.Count == 0 ? 0 : suggestTimes.Max()):0.0} ms",
-                $"{clock.ElapsedMilliseconds} ms",
+                $"{setSwap} ms",
+                $"{unchanged:0.0} ms",
+                $"{Median(editTimes):0.0} ms / {editTimes.Max():0.0} ms",
+                $"{afterWord:0} ms",
             ];
             for (int i = 0; i < rows.Count; i++)
             {

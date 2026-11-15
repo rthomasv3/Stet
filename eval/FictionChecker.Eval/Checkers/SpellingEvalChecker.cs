@@ -2,10 +2,12 @@ using FictionChecker.Eval.Corpora;
 using FictionChecker.Segmentation;
 using FictionChecker.Spelling;
 
+
 namespace FictionChecker.Eval.Checkers;
 
 /// <summary>
-/// The library's spelling checker, wrapped for the harness.
+/// The library's spelling checker, wrapped for the harness. It goes through the public API, so the numbers
+/// are for what an app would get.
 ///
 /// With <c>world</c> set, each book gets a stand-in for the word list its writer would have: every unknown
 /// word the book uses twice or more is treated as a custom word, on the reasoning that a spelling repeated
@@ -20,7 +22,7 @@ public sealed class SpellingEvalChecker : IEvalChecker
     private readonly Lexicon _lexicon = Lexicon.LoadEmbedded();
     private readonly BuiltInLists _lists = BuiltInLists.LoadEmbedded();
     private readonly Dictionary<string, Book> _books = new(StringComparer.Ordinal);
-    private readonly Dictionary<string, (SpellChecker Checker, SpellingOptions Options)> _prepared = new(StringComparer.Ordinal);
+    private readonly Dictionary<string, (Checker Checker, CheckerOptions Options)> _prepared = new(StringComparer.Ordinal);
     private readonly bool _world;
 
     /// <summary>Creates the wrapper.</summary>
@@ -46,30 +48,30 @@ public sealed class SpellingEvalChecker : IEvalChecker
     /// <inheritdoc />
     public IReadOnlyList<IReadOnlyList<EvalIssue>?> CheckDocument(IReadOnlyList<string> paragraphs, DocumentInfo document)
     {
-        (SpellChecker checker, SpellingOptions options) = Prepare(document);
+        (Checker checker, CheckerOptions options) = Prepare(document);
         return checker.CheckDocument(paragraphs, options)
             .Select(result => (IReadOnlyList<EvalIssue>?)result.Issues
                 .Select(issue => new EvalIssue(
                     issue.Start,
                     issue.Length,
                     issue.RuleId,
-                    "Spelling",
+                    issue.Category.ToString(),
                     issue.Suggestions.Select(s => new EvalSuggestion([new Edit(s.Start, s.Length, s.Text)])).ToList()))
                 .ToList())
             .ToList();
     }
 
-    private (SpellChecker Checker, SpellingOptions Options) Prepare(DocumentInfo document)
+    private (Checker Checker, CheckerOptions Options) Prepare(DocumentInfo document)
     {
         string key = document.Corpus + "/" + document.BookId;
-        if (_prepared.TryGetValue(key, out (SpellChecker, SpellingOptions) ready))
+        if (_prepared.TryGetValue(key, out (Checker, CheckerOptions) ready))
         {
             return ready;
         }
 
-        var checker = new SpellChecker(_lexicon, _lists);
+        var checker = new Checker(_lexicon, _lists);
         IReadOnlyList<string> text = _books.TryGetValue(key, out Book? book) ? book.Paragraphs : [];
-        var options = new SpellingOptions
+        var options = new CheckerOptions
         {
             Dialect = document.Dialect == "GB" ? PickBritish(checker, text) : Dialect.American,
             QuoteStyle = DialogueDetector.GuessStyle(text),
@@ -86,29 +88,29 @@ public sealed class SpellingEvalChecker : IEvalChecker
     }
 
     // British books use -ise or -ize; take whichever leaves fewer other-dialect flags.
-    private static Dialect PickBritish(SpellChecker checker, IReadOnlyList<string> paragraphs)
+    private static Dialect PickBritish(Checker checker, IReadOnlyList<string> paragraphs)
     {
         var sample = paragraphs.Take(1500).ToList();
         int Count(Dialect dialect)
         {
-            var options = new SpellingOptions { Dialect = dialect, MaxSuggestions = 0, QuoteStyle = QuoteStyle.Double };
-            return sample.Sum(p => checker.CheckParagraph(p, options).Issues.Count(i => i.Kind == SpellingKind.OtherDialect));
+            var context = new ParagraphContext { Options = new CheckerOptions { Dialect = dialect, MaxSuggestions = 0, QuoteStyle = QuoteStyle.Double } };
+            return sample.Sum(p => checker.CheckParagraph(p, context).Issues.Count(i => i.Kind == IssueKind.OtherDialectSpelling));
         }
 
         return Count(Dialect.BritishIze) < Count(Dialect.British) ? Dialect.BritishIze : Dialect.British;
     }
 
-    private static List<string> WorldWords(SpellChecker checker, SpellingOptions options, IReadOnlyList<string> paragraphs)
+    private static List<string> WorldWords(Checker checker, CheckerOptions options, IReadOnlyList<string> paragraphs)
     {
         var counts = new Dictionary<string, int>(StringComparer.Ordinal);
-        SpellingOptions quick = options with { MaxSuggestions = 0 };
-        foreach (SpellingResult result in checker.CheckDocument(paragraphs, quick))
+        CheckerOptions quick = options with { MaxSuggestions = 0 };
+        foreach (ParagraphResult result in checker.CheckDocument(paragraphs, quick))
         {
-            foreach (SpellingIssue issue in result.Issues)
+            foreach (Issue issue in result.Issues)
             {
-                if (issue.Kind is SpellingKind.Misspelling or SpellingKind.UnknownName)
+                if (issue.Kind is IssueKind.Misspelling or IssueKind.UnknownName)
                 {
-                    string word = issue.Word.Replace('’', '\'');
+                    string word = issue.Text.Replace('’', '\'');
                     if (word.EndsWith("'s", StringComparison.Ordinal))
                     {
                         word = word[..^2];

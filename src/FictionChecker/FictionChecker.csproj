@@ -10,7 +10,6 @@
     <InternalsVisibleTo Include="FictionChecker.Tests" />
     <InternalsVisibleTo Include="FictionChecker.Eval" />
     <InternalsVisibleTo Include="FictionChecker.DataBuilder" />
-    <InternalsVisibleTo Include="FictionChecker.AotTest" />
   </ItemGroup>
 
   <ItemGroup>
