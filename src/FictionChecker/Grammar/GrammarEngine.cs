@@ -33,6 +33,7 @@ internal sealed class GrammarEngine
             new ArticleRule(),
             new CouldOfRule(),
             new DoubledSpaceRule(),
+            new CommaSpacingRule(),
             new SentenceCapitalRule(),
             new LowercaseIRule(),
             new PronounVerbRule(),
