@@ -105,7 +105,9 @@ switch (command)
             string data = Path.Combine(root, "src", "FictionChecker", "Data");
             var lexicon = FictionChecker.Spelling.Lexicon.Read(File.ReadAllBytes(Path.Combine(data, "lexicon.bin")));
             var stats = new List<(string Name, long Value)>();
-            long minTotal = args.Length > 1 ? long.Parse(args[1]) : BigramExtractor.MinCount;
+            // Neighbours seen fewer than 200 times with a whole group are left out: measured on the evaluation
+            // books, keeping them (2.4 MB against 1.4 MB) catches no more errors and raises no fewer false alarms.
+            long minTotal = args.Length > 1 ? long.Parse(args[1]) : 200;
             byte[] bytes = ConfusableBuilder.Build(lexicon, Path.Combine(downloads, "ngram", "2grams"), Path.Combine(downloads, "ngram", "2grams-tagged"), minTotal, stats);
             File.WriteAllBytes(args.Length > 2 ? args[2] : Path.Combine(data, "confusables.bin"), bytes);
             File.WriteAllLines(Path.Combine(downloads, "confusables-stats.local.tsv"), stats.Select(s => $"{s.Name}\t{s.Value}"));

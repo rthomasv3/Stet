@@ -15,6 +15,7 @@ internal sealed class Sentence
     private readonly WordData _data;
     private readonly FunctionWords _functionWords;
     private readonly DialogueResult? _dialogue;
+    private List<(int Position, int Family, bool First)>? _confusables;
 
     public Sentence(string text, Token[] tokens, WordType[] types, int[] words, WordData data, FunctionWords functionWords, DialogueResult? dialogue)
     {
@@ -55,6 +56,38 @@ internal sealed class Sentence
         Span<char> buffer = stackalloc char[Math.Min(_tokens[i].Length, 64)];
         ReadOnlySpan<char> plain = Tagger.Normalize(Written(i)[..buffer.Length], buffer);
         return _lower[i] = plain.ToString().ToLowerInvariant();
+    }
+
+    /// <summary>
+    /// Where the sentence has a confusable word, which family it belongs to and whether it is the sentence's
+    /// first word. Worked out once and shared by the confusable-word rules, which would otherwise each walk
+    /// the sentence.
+    /// </summary>
+    public List<(int Position, int Family, bool First)> Confusables()
+    {
+        if (_confusables is { } known)
+        {
+            return known;
+        }
+
+        var found = new List<(int, int, bool)>();
+        bool first = true;
+        for (int i = 0; i < _tokens.Length; i++)
+        {
+            if (!IsWord(i))
+            {
+                continue;
+            }
+
+            if (ConfusableSets.FamilyOf(Lower(i)) is >= 0 and int family)
+            {
+                found.Add((i, family, first));
+            }
+
+            first = false;
+        }
+
+        return _confusables = found;
     }
 
     /// <summary>Whether the token is one of the given words, ignoring capitals.</summary>

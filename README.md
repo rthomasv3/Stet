@@ -54,6 +54,31 @@ foreach (Issue issue in results[0].Issues)
 | `dialogue.capitalized-tag` | "Hello," She said. | on |
 | `dialogue.missing-comma` | "Hello" she said. | on |
 | `dialogue.comma-outside-quote` | "Hello", she said. | on |
+| `confusable.their-there` | their, there, they're mixed up | on |
+| `confusable.its-its` | its, it's mixed up | on |
+| `confusable.your-youre` | your, you're mixed up | on |
+| `confusable.whose-whos` | whose, who's mixed up | on |
+| `confusable.then-than` | then, than mixed up | on |
+| `confusable.lose-loose` | lose, loose mixed up | on |
+| `confusable.affect-effect` | affect, effect mixed up | on |
+| `confusable.accept-except` | accept, except mixed up | on |
+| `confusable.to-too` | to, too mixed up | on |
+| `confusable.of-off` | of, off mixed up | on |
+| `confusable.lead-led` | lead, led mixed up | on |
+| `confusable.past-passed` | past, passed mixed up | on |
+| `confusable.breath-breathe` | breath, breathe mixed up | on |
+| `confusable.quite-quiet` | quite, quiet mixed up | on |
+| `confusable.peek-peak` | peek, peak, pique mixed up | on |
+| `confusable.wander-wonder` | wander, wonder mixed up | on |
+| `confusable.desert-dessert` | desert, dessert mixed up | on |
+| `confusable.brake-break` | brake, break mixed up | on |
+| `confusable.principal-principle` | principal, principle mixed up | on |
+| `confusable.compliment-complement` | compliment, complement mixed up | on |
+
+The confusable-word rules flag a word only when the words on either side show strongly that another was
+meant ("taller then her", "their was"), judged from how often each word is seen in those surroundings in
+published fiction. They are tuned to stay quiet when unsure, so they miss swaps that only the wider
+sentence gives away ("a matter of principal").
 
 Formal rules are skipped inside dialogue unless dialogue strictness is set to strict, because writers break
 them on purpose for a character's voice. `checker.Rules` gives the same list with descriptions and examples.

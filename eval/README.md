@@ -69,6 +69,14 @@ To measure how much of the books' vocabulary the spelling data knows:
 
     dotnet run --project eval/FictionChecker.Eval -- coverage
 
+Confusable-word rules are tuned with two more commands. The first writes, for every confusable word in
+the dev books' clean text, how well each word of its group fits the words around it (to the ignored
+`reports/local/` folder, since it holds pieces of the books). The second prints the same evidence for
+sentences given on the command line:
+
+    dotnet run -c Release --project eval/FictionChecker.Eval -- confusable-dump
+    dotnet run -c Release --project eval/FictionChecker.Eval -- confusable-explain "She was taller then her brother."
+
 ## Reports
 
 - `reports/dialogue.md`: text splitting and dialogue detection numbers.

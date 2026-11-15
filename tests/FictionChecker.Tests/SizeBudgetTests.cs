@@ -35,6 +35,14 @@ public class SizeBudgetTests
     }
 
     [Fact]
+    public void ConfusableWordDataFitsItsBudget()
+    {
+        long size = FictionChecker.Grammar.ConfusableData.EmbeddedSize();
+
+        Assert.InRange(size, 1, 5 * Megabyte);
+    }
+
+    [Fact]
     public void LibraryCodeAndDataFitTheHardCap()
     {
         long size = new FileInfo(typeof(LibraryInfo).Assembly.Location).Length;

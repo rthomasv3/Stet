@@ -64,6 +64,26 @@ internal static class ConfusableSets
         [("your", "you're")] = 17,
     };
 
+    /// <summary>The number of the family a lowercase word belongs to, or -1.</summary>
+    public static int FamilyOf(string lower) => FamilyByWord.GetValueOrDefault(lower, -1);
+
+    private static Dictionary<string, int> BuildIndex()
+    {
+        var index = new Dictionary<string, int>(StringComparer.Ordinal);
+        for (int f = 0; f < Families.Length; f++)
+        {
+            foreach (string[] group in Families[f].Groups)
+            {
+                foreach (string word in group)
+                {
+                    index[word] = f;
+                }
+            }
+        }
+
+        return index;
+    }
+
     /// <summary>Whether a family's rule is on unless the options say otherwise.</summary>
     public static bool OnByDefault(string ruleId) => true;
 
@@ -175,4 +195,7 @@ internal static class ConfusableSets
             ["She paid him a complement.", "The ship had its full compliment of men."],
             ["He paid her a compliment on how the wine complemented the meal."]),
     ];
+
+    // Declared last: it is built from the list above, and static fields are set in the order written.
+    private static readonly Dictionary<string, int> FamilyByWord = BuildIndex();
 }

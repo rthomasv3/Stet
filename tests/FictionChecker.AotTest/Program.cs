@@ -32,7 +32,8 @@ bool ok = issues.Length == 3
     && ReferenceEquals(results[0], again[0])
     && checker.Rules.Count > 0
     && checker.IsValidWord("Kaelith") && !checker.IsValidWord("Kaelth") && checker.Suggest("Kaelth")[0] == "Kaelith"
-    && checker.CheckParagraph(scene[0], new ParagraphContext { Options = checker.Options.WithCategory(RuleCategory.Spelling, false) }).Issues.Count == 1;
+    && checker.CheckParagraph(scene[0], new ParagraphContext { Options = checker.Options.WithCategory(RuleCategory.Spelling, false) }).Issues.Count == 1
+    && checker.CheckParagraph("She was taller then her brother.").Issues is [{ RuleId: RuleIds.ConfusableThenThan, Category: RuleCategory.ConfusableWords }];
 if (!ok)
 {
     Console.Error.WriteLine("FAIL: unexpected results: " + string.Join("; ", issues.Select(i => i.ToString())));

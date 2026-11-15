@@ -8,17 +8,14 @@ internal sealed class ConfusableWordRule : GrammarRule
 {
     private readonly ConfusableFamily _family;
     private readonly Func<ConfusableData> _data;
-    private readonly HashSet<string> _words = new(StringComparer.Ordinal);
+    private readonly int _number;
     private readonly RuleInfo _info;
 
     public ConfusableWordRule(ConfusableFamily family, Func<ConfusableData> data)
     {
         _family = family;
         _data = data;
-        foreach (string[] group in family.Groups)
-        {
-            _words.UnionWith(group);
-        }
+        _number = Array.IndexOf(ConfusableSets.Families, family);
 
         _info = new RuleInfo(
             family.RuleId,
@@ -35,24 +32,17 @@ internal sealed class ConfusableWordRule : GrammarRule
 
     public override void Check(Sentence sentence, List<Finding> findings)
     {
-        bool leading = true;
-        for (int i = 0; i < sentence.Count; i++)
+        foreach ((int i, int family, bool first) in sentence.Confusables())
         {
-            if (!sentence.IsWord(i))
-            {
-                continue;
-            }
-
-            bool first = leading;
-            leading = false;
-            if (!_words.Contains(sentence.Lower(i)))
+            if (family != _number)
             {
                 continue;
             }
 
             // A capital in the middle of a sentence marks a name or a title, which follows its own rules.
             // So does a capital followed by another capital, even at the start ("Than Kosis looked up").
-            if (sentence.IsCapitalized(i) && (!first || (sentence.IsWord(i + 1) && sentence.IsCapitalized(i + 1) && !sentence.Is(i + 1, "i"))))
+            // A word all in capitals is shouting, not a name, and is checked like any other.
+            if (sentence.IsCapitalized(i) && !(sentence.IsAllCapitals(i) && sentence.Token(i).Length > 1) && (!first || (sentence.IsWord(i + 1) && sentence.IsCapitalized(i + 1) && !sentence.Is(i + 1, "i"))))
             {
                 continue;
             }

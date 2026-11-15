@@ -26,6 +26,9 @@ public static class PerfStats
         Checker first = new Checker();
         clock.Stop();
         long firstLoad = clock.ElapsedMilliseconds;
+
+        // The confusable-word data loads on first use, so use it before measuring memory.
+        first.CheckParagraph("They went over there to see their friends.");
         double checkerMegabytes = (GC.GetTotalMemory(true) - memoryBefore) / (1024.0 * 1024.0);
         GC.KeepAlive(first);
         clock.Restart();
