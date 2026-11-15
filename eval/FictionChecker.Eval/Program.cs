@@ -11,6 +11,7 @@ using FictionChecker.Eval.Text;
 
 // Usage:
 //   snapshot [--out FILE]   every issue and suggestion on the work set, to compare before and after a change
+//   sideset [--detail]      the library on the small made-up side set (eval/sideset)
 //   confusable-dump         how each confusable word in the dev books fits its neighbours, for choosing thresholds
 //   run --checker none|demo|spelling|spelling-world|library|library-all
 //   run --checker external --name harper --issues <issues.jsonl>   score issues produced outside this process
@@ -31,6 +32,13 @@ if (args.Length == 0 || args[0] is "-h" or "--help")
 }
 
 string command = args[0];
+if (command == "sideset")
+{
+    // The small made-up side set; needs no corpora.
+    Console.Write(SideSet.Run(Path.Combine(FindRoot(), "eval", "sideset", "set.tsv"), args.Contains("--detail")));
+    return 0;
+}
+
 if (command == "confusable-explain")
 {
     // Shows the evidence behind the confusable-word rules for the sentences given.
