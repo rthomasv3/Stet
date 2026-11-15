@@ -10,12 +10,12 @@ Target: under 1 per 1,000 words. Flags confirmed as real errors in the source ar
 
 | Corpus | Split | Books | Words | Flags | Per 1,000 words | Change | harper | Confirmed real errors | Not checked |
 |---|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| calibre | dev | 16 | 454,434 | 676 | 1.488 | -0.013 | 40.089 | 5 | 0 |
-| calibre | test | 8 | 240,253 | 597 | 2.485 | -0.121 | 40.52 | 0 | 0 |
-| gutenberg | dev | 29 | 859,568 | 1,531 | 1.781 | -0.002 | 24.358 | 1 | 0 |
-| gutenberg | test | 11 | 304,864 | 514 | 1.686 | -0.016 | 19.94 | 0 | 0 |
-| all | dev | 45 | 1,314,002 | 2,207 | 1.68 | -0.006 | 29.798 | 6 | 0 |
-| all | test | 19 | 545,117 | 1,111 | 2.038 | -0.062 | 29.01 | 0 | 0 |
+| calibre | dev | 16 | 454,434 | 682 | 1.501 | +0.013 | 40.089 | 5 | 0 |
+| calibre | test | 8 | 240,253 | 626 | 2.606 | +0.121 | 40.52 | 0 | 0 |
+| gutenberg | dev | 29 | 859,568 | 1,533 | 1.784 | +0.002 | 24.358 | 1 | 0 |
+| gutenberg | test | 11 | 304,864 | 519 | 1.702 | +0.016 | 19.94 | 0 | 0 |
+| all | dev | 45 | 1,314,002 | 2,215 | 1.686 | +0.006 | 29.798 | 6 | 0 |
+| all | test | 19 | 545,117 | 1,145 | 2.101 | +0.062 | 29.01 | 0 | 0 |
 
 ## False alarms per rule
 
@@ -27,6 +27,7 @@ Flags per 1,000 words over all corpora. Target for a rule to be on by default: u
 | spelling.unknown-name | Spelling | 0.316 | 0.358 | 0 |
 | spelling.other-dialect | Spelling | 0.124 | 0.099 | 0 |
 | spelling.capitalization | Spelling | 0.091 | 0.061 | 0 |
+| mechanics.sentence-capital | Mechanics | 0.006 | 0.062 | +0.006 |
 
 7 other rules flagged something but stayed under the bar.
 
@@ -43,7 +44,7 @@ Caught: share of planted errors that were flagged. First fix right and fix in to
 | a-an | 1000 | 1000 | 93.1% | 0 | 90.7% | 100% | 100% |
 | repeated-word | 1000 | 1000 | 81% | 0 | 63.8% | 100% | 100% |
 | agreement | 1000 | 1000 | 63.9% | 0 | 66.5% | 100% | 100% |
-| dialogue-punctuation | 1000 | 1000 | 91.1% | -0.2 pts | 0.2% | 100% | 100% |
+| dialogue-punctuation | 1000 | 1000 | 91.3% | +0.2 pts | 0.2% | 99.8% | 99.8% |
 
 ### all, test
 
@@ -87,7 +88,7 @@ Caught: share of planted errors that were flagged. First fix right and fix in to
 | a-an | 500 | 500 | 93.6% | 0 | 85.4% | 100% | 100% |
 | repeated-word | 500 | 500 | 81.8% | 0 | 59% | 100% | 100% |
 | agreement | 500 | 500 | 67.6% | 0 | 61.4% | 100% | 100% |
-| dialogue-punctuation | 500 | 500 | 90.4% | -0.4 pts | 0.4% | 100% | 100% |
+| dialogue-punctuation | 500 | 500 | 90.8% | +0.4 pts | 0.4% | 99.6% | 99.6% |
 
 ### gutenberg, test
 

@@ -126,6 +126,7 @@ public class CheckerTests
             Assert.NotEmpty(rule.Description);
             Assert.NotEmpty(rule.FlaggedExamples);
             Assert.NotEmpty(rule.AcceptedExamples);
+            Assert.True(rule.EnabledByDefault);
         });
     }
 
@@ -140,23 +141,11 @@ public class CheckerTests
         }
     }
 
-    [Fact]
-    public void A_rule_that_is_off_by_default_is_silent_until_it_is_turned_on()
-    {
-        RuleInfo rule = Shared.Rules.Single(r => r.Id == RuleIds.SentenceCapital);
-        const string Text = "He left. she stayed.";
-
-        Assert.False(rule.EnabledByDefault);
-        Assert.Empty(Shared.CheckParagraph(Text).Issues);
-        Issue issue = Assert.Single(Shared.CheckParagraph(Text, new ParagraphContext { Options = CheckerOptions.Default.WithRule(rule.Id, true) }).Issues);
-        Assert.Equal("She", issue.Suggestions[0].Text);
-        Assert.Single(Shared.CheckParagraph(Text, new ParagraphContext { Options = CheckerOptions.Default.WithCategory(RuleCategory.Mechanics, true) }).Issues);
-    }
-
     [Theory]
     [InlineData("She ate a apple.", RuleIds.Article, 8, 1, "an")]
     [InlineData("He could of gone home.", RuleIds.CouldOf, 9, 2, "have")]
     [InlineData("She opened  the door.", RuleIds.DoubledSpace, 10, 2, " ")]
+    [InlineData("He left. she stayed.", RuleIds.SentenceCapital, 9, 3, "She")]
     [InlineData("I has no idea.", RuleIds.PronounVerb, 2, 3, "have")]
     [InlineData("They was late again.", RuleIds.DialectVerbForm, 5, 3, "were")]
     [InlineData("“Hello.” she said.", RuleIds.FullStopBeforeTag, 6, 1, ",")]
@@ -194,11 +183,13 @@ public class CheckerTests
     }
 
     [Fact]
-    public void Comma_placement_is_only_checked_with_double_quote_marks()
+    public void Dialogue_punctuation_is_checked_with_single_quote_marks_too()
     {
         var single = new ParagraphContext { Options = CheckerOptions.Default with { QuoteStyle = QuoteStyle.Single } };
 
-        Assert.Empty(Shared.CheckParagraph("‘Hello’, she said.", single).Issues);
+        Issue issue = Assert.Single(Shared.CheckParagraph("‘Hello there’, she said.", single).Issues);
+        Assert.Equal(RuleIds.CommaOutsideQuote, issue.RuleId);
+        Assert.Equal(",’", issue.Suggestions[0].Text);
         Assert.Equal(RuleIds.MissingCommaBeforeTag, Assert.Single(Shared.CheckParagraph("‘Hello there’ she said.", single).Issues).RuleId);
     }
 

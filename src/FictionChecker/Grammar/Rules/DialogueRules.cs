@@ -148,7 +148,7 @@ internal sealed class CommaOutsideQuoteRule : GrammarRule
     private static readonly RuleInfo Description = new(
         RuleIds.CommaOutsideQuote,
         "Comma outside the quote marks",
-        "Flags a comma placed after the closing quote mark when a dialogue tag follows, as in “Hello”, she said. The comma goes inside the quote marks. This applies with double quote marks; with single quote marks, placement is not checked.",
+        "Flags a comma placed after the closing quote mark when a dialogue tag follows, as in “Hello”, she said. The comma goes inside the quote marks, with double and with single quote marks alike.",
         RuleCategory.DialoguePunctuation,
         true,
         false,
@@ -159,11 +159,6 @@ internal sealed class CommaOutsideQuoteRule : GrammarRule
 
     public override void CheckParagraph(Paragraph paragraph, List<Finding> findings)
     {
-        if (paragraph.QuoteStyle != QuoteStyle.Double)
-        {
-            return;
-        }
-
         string text = paragraph.Text;
         foreach (TaggedSpeech speech in DialogueTags.Find(paragraph))
         {

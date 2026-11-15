@@ -47,13 +47,13 @@ foreach (Issue issue in results[0].Issues)
 | `mechanics.a-an` | "a apple", "an unicorn", judged by sound | on |
 | `mechanics.could-of` | "could of gone" (formal) | on |
 | `mechanics.doubled-space` | two spaces inside a sentence | on |
-| `mechanics.sentence-capital` | "He left. she stayed." | off |
+| `mechanics.sentence-capital` | "He left. she stayed." | on |
 | `agreement.pronoun-verb` | "I has", "they is" | on |
 | `agreement.dialect-verb-form` | "they was", "he don't" (formal) | on |
 | `dialogue.full-stop-before-tag` | "Hello." she said. | on |
 | `dialogue.capitalized-tag` | "Hello," She said. | on |
 | `dialogue.missing-comma` | "Hello" she said. | on |
-| `dialogue.comma-outside-quote` | "Hello", she said. (double quote marks only) | on |
+| `dialogue.comma-outside-quote` | "Hello", she said. | on |
 
 Formal rules are skipped inside dialogue unless dialogue strictness is set to strict, because writers break
 them on purpose for a character's voice. `checker.Rules` gives the same list with descriptions and examples.
