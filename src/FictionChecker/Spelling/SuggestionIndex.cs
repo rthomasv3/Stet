@@ -13,6 +13,8 @@ internal sealed class SuggestionIndex
     /// <summary>Longest word considered; anything longer is never a candidate.</summary>
     public const int MaxLength = 40;
 
+    private const int TooFar = 1000;
+
     private readonly string[] _words;
     private readonly byte[] _shared;
 
@@ -51,9 +53,12 @@ internal sealed class SuggestionIndex
             return;
         }
 
-        // rows[d] is the edit-distance row after d letters of the current word.
+        // rows[d] is the edit-distance row after d letters of the current word. Only the cells within
+        // maxDistance of the diagonal are ever filled in: a cell further out stands for more edits than are
+        // allowed, so it keeps the "too far" value it starts with.
         int width = n + 1;
         int[] rows = new int[(MaxLength + 2) * width];
+        Array.Fill(rows, TooFar);
         for (int j = 0; j <= n; j++)
         {
             rows[j] = j;
@@ -92,7 +97,8 @@ internal sealed class SuggestionIndex
                 int above = row - width;
                 rows[row] = depth;
                 int min = depth;
-                for (int j = 1; j <= n; j++)
+                int last = Math.Min(n, depth + maxDistance);
+                for (int j = Math.Max(1, depth - maxDistance); j <= last; j++)
                 {
                     int cost = target[j - 1] == c ? 0 : 1;
                     int value = Math.Min(Math.Min(rows[above + j] + 1, rows[row + j - 1] + 1), rows[above + j - 1] + cost);
