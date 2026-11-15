@@ -12,12 +12,14 @@ internal sealed class SentenceCapitalRule : GrammarRule
         RuleCategory.Mechanics,
         true,
         false,
-        ["He left. she stayed.", "The lords gathered at the end. the singing began.", "“Go.” he turned away."],
-        ["He left. She stayed.", "“Why?” she asked.", "He waited... and waited.", "They sold nails, rope, etc. and little else.", "It cost approx. five crowns.", "the door was open.", "The Louis XV. clock struck.", "See chap. ii. for more.", "She wrote: no. not now. not ever.", "“you are a long walker. you find me here,” she said."]);
+        ["He left. she stayed.", "The lords gathered at the end. the singing began.", "“Go.” he turned away.", "The road was long. it wound through the hills."],
+        ["He left. She stayed.", "“Why?” she asked.", "He waited... and waited.", "They sold nails, rope, etc. and little else.", "It cost approx. five crowns.", "the door was open.", "The Louis XV. clock struck.", "See chap. ii. for more.", "Ten per cent. of the men were sick.", "She wrote: no. not now. not ever.", "“you are a long walker. you find me here,” she said."]);
 
+    // Only abbreviations that are not also everyday words: "long.", "art." and "par." far more often end a
+    // sentence ("The road was long.") than stand for longitude, article or paragraph.
     private static readonly HashSet<string> MoreAbbreviations = new(StringComparer.Ordinal)
     {
-        "chap", "ch", "sec", "op", "pg", "pgs", "deg", "long", "lat", "cit", "ibid", "al", "nat", "amer", "ser", "art", "par", "ex", "gen", "div", "pt", "cent", "ca", "c", "v",
+        "chap", "ch", "sec", "op", "pg", "pgs", "deg", "lat", "cit", "ibid", "al", "nat", "amer", "ser", "ex", "gen", "div", "pt", "ca", "c", "v",
     };
 
     public override RuleInfo Info => Description;
@@ -131,6 +133,12 @@ internal sealed class SentenceCapitalRule : GrammarRule
         }
 
         string word = paragraph.Lower(j - 1);
+        if (word == "cent")
+        {
+            // "ten per cent. of them" in older books; otherwise an ordinary word ("It cost one cent.").
+            return !(j >= 2 && paragraph.IsWord(j - 2) && paragraph.Lower(j - 2) == "per");
+        }
+
         return !WordLists.TitleAbbreviations.Contains(word) && !WordLists.OtherAbbreviations.Contains(word) && !MoreAbbreviations.Contains(word)
             && !word.Contains('.', StringComparison.Ordinal) && !IsRomanNumeral(word);
     }
