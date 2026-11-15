@@ -45,7 +45,7 @@ public sealed class Scorer
     public EvalReport Run(IEvalChecker checker, WorkSet work, string libraryVersion)
     {
         var groups = new Dictionary<(string Corpus, Split Split), Tally>();
-        var cleanIssues = new Dictionary<string, IReadOnlyList<Issue>?>(StringComparer.Ordinal);
+        var cleanIssues = new Dictionary<string, IReadOnlyList<EvalIssue>?>(StringComparer.Ordinal);
         var perRuleSeen = new Dictionary<(string Corpus, string RuleId), int>();
 
         foreach (CleanSample sample in work.Clean)
@@ -54,11 +54,11 @@ public sealed class Scorer
             tally.Books++;
             long bookWords = 0;
             int bookFlags = 0;
-            IReadOnlyList<IReadOnlyList<Issue>?> results = checker.CheckDocument(sample.Paragraphs, new DocumentInfo(sample.Corpus, sample.Book.Id, sample.Book.Dialect));
+            IReadOnlyList<IReadOnlyList<EvalIssue>?> results = checker.CheckDocument(sample.Paragraphs, new DocumentInfo(sample.Corpus, sample.Book.Id, sample.Book.Dialect));
             for (int i = 0; i < sample.Paragraphs.Count; i++)
             {
                 string text = sample.Paragraphs[i];
-                IReadOnlyList<Issue>? issues = i < results.Count ? results[i] : null;
+                IReadOnlyList<EvalIssue>? issues = i < results.Count ? results[i] : null;
                 cleanIssues[text] = issues;
                 tally.Paragraphs++;
                 if (issues is null)
@@ -71,7 +71,7 @@ public sealed class Scorer
                 tally.Words += paragraphWords;
                 bookWords += paragraphWords;
                 string hash = WorkSet.HashOf(text);
-                foreach (Issue issue in issues)
+                foreach (EvalIssue issue in issues)
                 {
                     if (_labels.IsRealError(hash, issue.Start, issue.Length, issue.RuleId))
                     {
@@ -109,8 +109,8 @@ public sealed class Scorer
             Tally tally = GetTally(groups, item.Corpus, item.Split);
             PlantedTally planted = tally.GetPlanted(item.Category);
             planted.Planted++;
-            IReadOnlyList<Issue>? issues = checker.CheckDocument([item.Error.Text], new DocumentInfo(item.Corpus, item.BookId, item.Dialect))[0];
-            cleanIssues.TryGetValue(item.Clean, out IReadOnlyList<Issue>? before);
+            IReadOnlyList<EvalIssue>? issues = checker.CheckDocument([item.Error.Text], new DocumentInfo(item.Corpus, item.BookId, item.Dialect))[0];
+            cleanIssues.TryGetValue(item.Clean, out IReadOnlyList<EvalIssue>? before);
             if (issues is null || before is null)
             {
                 continue;
@@ -124,7 +124,7 @@ public sealed class Scorer
                 planted.FirstFixRight += outcome.FirstFixRight ? 1 : 0;
                 if (!outcome.FirstFixRight && item.Split == Split.Dev)
                 {
-                    Issue hit = issues.First(issue => issue.Overlaps(item.Error.Start, item.Error.Length));
+                    EvalIssue hit = issues.First(issue => issue.Overlaps(item.Error.Start, item.Error.Length));
                     string plantedText = item.Error.Text.Substring(item.Error.Start, item.Error.Length);
                     string wanted = item.Clean.Substring(item.Error.OriginalStart, item.Error.OriginalLength);
                     string offered = string.Join(", ", hit.Suggestions.Take(5).Select(s => s.Edits.Count == 1 ? s.Edits[0].Text : "(multi)"));
@@ -177,7 +177,7 @@ public sealed class Scorer
     /// Decides whether a planted error was caught: a flag must touch the planted region, and must not be a flag
     /// the clean paragraph already had there under the same rule.
     /// </summary>
-    public static PlantOutcome Judge(PlantedItem item, IReadOnlyList<Issue> issues, IReadOnlyList<Issue> cleanIssues)
+    public static PlantOutcome Judge(PlantedItem item, IReadOnlyList<EvalIssue> issues, IReadOnlyList<EvalIssue> cleanIssues)
     {
         var catching = issues
             .Where(issue => issue.Overlaps(item.Error.Start, item.Error.Length))
@@ -240,7 +240,7 @@ public sealed class Scorer
         public int Flags;
         public int RealErrors;
 
-        public void CountRule(Issue issue)
+        public void CountRule(EvalIssue issue)
         {
             (string category, int flags) = _rules.GetValueOrDefault(issue.RuleId, (issue.Category, 0));
             _rules[issue.RuleId] = (category, flags + 1);

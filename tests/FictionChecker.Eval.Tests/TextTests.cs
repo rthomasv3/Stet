@@ -43,7 +43,7 @@ public class TextTests
     [Fact]
     public void SuggestionAppliesEditsFromTheEnd()
     {
-        var suggestion = new Suggestion([new Edit(0, 1, "H"), new Edit(5, 1, ","), new Edit(8, 3, "she")]);
+        var suggestion = new EvalSuggestion([new Edit(0, 1, "H"), new Edit(5, 1, ","), new Edit(8, 3, "she")]);
 
         Assert.Equal("Hello,” she said", suggestion.ApplyTo("hello.” She said"));
     }
@@ -51,6 +51,6 @@ public class TextTests
     [Fact]
     public void SuggestionWithBadPositionsChangesNothing()
     {
-        Assert.Equal("abc", new Suggestion([new Edit(2, 5, "x")]).ApplyTo("abc"));
+        Assert.Equal("abc", new EvalSuggestion([new Edit(2, 5, "x")]).ApplyTo("abc"));
     }
 }

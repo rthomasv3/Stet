@@ -3,16 +3,6 @@ using FictionChecker.Segmentation;
 
 namespace FictionChecker.Spelling;
 
-/// <summary>Where a custom word set applies.</summary>
-internal enum WordScope
-{
-    /// <summary>Valid in narration and dialogue.</summary>
-    Everywhere,
-
-    /// <summary>Valid only inside dialogue: a book's invented slang or a character's way of speaking.</summary>
-    DialogueOnly,
-}
-
 /// <summary>
 /// An unchanging snapshot of the caller's word sets (world names, personal dictionary, a book's slang).
 /// Changing a set makes a new snapshot, so a check that is running never sees half an update.
@@ -117,6 +107,24 @@ internal sealed class CustomWords
 
         var remove = new HashSet<string>(words.Select(w => w.Replace(CharClass.RightSingleQuote, '\'')), StringComparer.Ordinal);
         return WithSet(name, existing.Words.Where(w => !remove.Contains(w)), existing.Scope);
+    }
+
+    /// <summary>
+    /// Returns a snapshot holding only the named sets (names that do not exist are ignored), or this snapshot
+    /// when that is every set.
+    /// </summary>
+    public CustomWords Subset(IReadOnlyCollection<string> names)
+    {
+        var kept = _sets.Where(kv => names.Contains(kv.Key)).ToList();
+        return kept.Count == _sets.Count ? this : new CustomWords(kept.ToFrozenDictionary(StringComparer.Ordinal));
+    }
+
+    /// <summary>Whether a named set is the very same in another snapshot (or missing from both).</summary>
+    public bool HasSameSet(CustomWords other, string name)
+    {
+        bool here = _sets.TryGetValue(name, out (FrozenSet<string> Words, WordScope Scope) mine);
+        bool there = other._sets.TryGetValue(name, out (FrozenSet<string> Words, WordScope Scope) theirs);
+        return here == there && (!here || (ReferenceEquals(mine.Words, theirs.Words) && mine.Scope == theirs.Scope));
     }
 
     /// <summary>Returns a snapshot without the named set.</summary>

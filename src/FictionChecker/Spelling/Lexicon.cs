@@ -4,25 +4,6 @@ using System.Text;
 
 namespace FictionChecker.Spelling;
 
-/// <summary>The spelling dialects, in the order of their bits in the lexicon data.</summary>
-internal enum Dialect
-{
-    /// <summary>American English.</summary>
-    US = 0,
-
-    /// <summary>British English with -ise spellings (organise).</summary>
-    GBIse = 1,
-
-    /// <summary>British English with -ize spellings (organize, as Oxford prefers).</summary>
-    GBIze = 2,
-
-    /// <summary>Canadian English.</summary>
-    CA = 3,
-
-    /// <summary>Australian English.</summary>
-    AU = 4,
-}
-
 /// <summary>What the lexicon knows about one word.</summary>
 /// <param name="Flags">
 /// Bits 0-4: the dialects that accept the word. Bit 5: never offer it as a suggestion. Bit 6: a rarer word. Bit 7: added by this project (genre and general lists).

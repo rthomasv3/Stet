@@ -30,10 +30,10 @@ public class LexiconTests
 
         Assert.Equal(6, lexicon.Count);
         Assert.True(lexicon.TryGet("colour", out WordInfo colour));
-        Assert.False(colour.IsIn(Dialect.US));
-        Assert.True(colour.IsIn(Dialect.GBIse) && colour.IsIn(Dialect.GBIze) && colour.IsIn(Dialect.CA) && colour.IsIn(Dialect.AU));
+        Assert.False(colour.IsIn(Dialect.American));
+        Assert.True(colour.IsIn(Dialect.British) && colour.IsIn(Dialect.BritishIze) && colour.IsIn(Dialect.Canadian) && colour.IsIn(Dialect.Australian));
         Assert.True(lexicon.TryGet("color", out WordInfo color));
-        Assert.True(color.IsIn(Dialect.US));
+        Assert.True(color.IsIn(Dialect.American));
         Assert.False(color.IsInEveryDialect);
         Assert.True(color.Frequency > colour.Frequency);
         Assert.True(lexicon.TryGet("Haydée", out WordInfo name));
@@ -100,14 +100,14 @@ public class LexiconTests
         Assert.InRange(Embedded.Count, 140_000, 170_000);
 
         Assert.True(Get("the").IsInEveryDialect);
-        Assert.True(Get("color").IsIn(Dialect.US));
-        Assert.False(Get("color").IsIn(Dialect.GBIse));
-        Assert.True(Get("colour").IsIn(Dialect.GBIse) && Get("colour").IsIn(Dialect.GBIze) && Get("colour").IsIn(Dialect.CA) && Get("colour").IsIn(Dialect.AU));
-        Assert.False(Get("colour").IsIn(Dialect.US));
-        Assert.True(Get("organise").IsIn(Dialect.GBIse));
-        Assert.False(Get("organise").IsIn(Dialect.GBIze));
-        Assert.True(Get("organize").IsIn(Dialect.GBIze) && Get("organize").IsIn(Dialect.US));
-        Assert.False(Get("organize").IsIn(Dialect.GBIse));
+        Assert.True(Get("color").IsIn(Dialect.American));
+        Assert.False(Get("color").IsIn(Dialect.British));
+        Assert.True(Get("colour").IsIn(Dialect.British) && Get("colour").IsIn(Dialect.BritishIze) && Get("colour").IsIn(Dialect.Canadian) && Get("colour").IsIn(Dialect.Australian));
+        Assert.False(Get("colour").IsIn(Dialect.American));
+        Assert.True(Get("organise").IsIn(Dialect.British));
+        Assert.False(Get("organise").IsIn(Dialect.BritishIze));
+        Assert.True(Get("organize").IsIn(Dialect.BritishIze) && Get("organize").IsIn(Dialect.American));
+        Assert.False(Get("organize").IsIn(Dialect.British));
     }
 
     [Fact]

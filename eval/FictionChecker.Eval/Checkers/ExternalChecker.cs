@@ -11,7 +11,7 @@ public sealed class ExternalChecker : IEvalChecker
 {
     private static readonly JsonSerializerOptions JsonOptions = new() { PropertyNameCaseInsensitive = true };
 
-    private readonly Dictionary<string, IReadOnlyList<Issue>> _issues = new(StringComparer.Ordinal);
+    private readonly Dictionary<string, IReadOnlyList<EvalIssue>> _issues = new(StringComparer.Ordinal);
 
     /// <summary>Loads an issues file.</summary>
     public ExternalChecker(string name, string issuesPath)
@@ -31,12 +31,12 @@ public sealed class ExternalChecker : IEvalChecker
             }
 
             _issues[parsed.Id] = (parsed.Issues ?? [])
-                .Select(i => new Issue(
+                .Select(i => new EvalIssue(
                     i.Start,
                     i.Length,
                     i.RuleId ?? "unknown",
                     i.Category ?? "",
-                    (i.Suggestions ?? []).Select(edits => new Suggestion(edits)).ToList()))
+                    (i.Suggestions ?? []).Select(edits => new EvalSuggestion(edits)).ToList()))
                 .ToList();
         }
     }
@@ -45,7 +45,7 @@ public sealed class ExternalChecker : IEvalChecker
     public string Name { get; }
 
     /// <inheritdoc />
-    public IReadOnlyList<IReadOnlyList<Issue>?> CheckDocument(IReadOnlyList<string> paragraphs, DocumentInfo document) =>
+    public IReadOnlyList<IReadOnlyList<EvalIssue>?> CheckDocument(IReadOnlyList<string> paragraphs, DocumentInfo document) =>
         paragraphs.Select(p => _issues.GetValueOrDefault(WorkSet.HashOf(p))).ToList();
 
     private sealed record Line(string? Id, List<LineIssue>? Issues);

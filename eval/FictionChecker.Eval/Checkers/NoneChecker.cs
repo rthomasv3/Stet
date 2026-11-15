@@ -7,9 +7,9 @@ public sealed class NoneChecker : IEvalChecker
     public string Name => "none";
 
     /// <inheritdoc />
-    public IReadOnlyList<IReadOnlyList<Issue>?> CheckDocument(IReadOnlyList<string> paragraphs, DocumentInfo document)
+    public IReadOnlyList<IReadOnlyList<EvalIssue>?> CheckDocument(IReadOnlyList<string> paragraphs, DocumentInfo document)
     {
-        var results = new IReadOnlyList<Issue>[paragraphs.Count];
+        var results = new IReadOnlyList<EvalIssue>[paragraphs.Count];
         Array.Fill(results, []);
         return results;
     }

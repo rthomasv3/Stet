@@ -1,15 +1,5 @@
 namespace FictionChecker.Segmentation;
 
-/// <summary>Which quote marks a text uses for speech.</summary>
-internal enum QuoteStyle
-{
-    /// <summary>Double quotes for speech (usual in US publishing): “Hello,” she said.</summary>
-    Double,
-
-    /// <summary>Single quotes for speech (usual in UK publishing): ‘Hello,’ she said.</summary>
-    Single,
-}
-
 /// <summary>Where the speech in a paragraph is.</summary>
 /// <param name="Spans">Each stretch of speech, from its opening quote mark through its closing one.</param>
 /// <param name="EndsInDialogue">The last quote was still open at the end of the paragraph.</param>
@@ -129,7 +119,11 @@ internal static class DialogueDetector
     /// open is only believed when what follows continues it: the next paragraph reopens it, or closes it before
     /// opening another, possibly after a few lines with no marks at all (a song or letter).
     /// </summary>
-    public static List<DialogueResult> DetectDocument(IReadOnlyList<string> paragraphs, QuoteStyle style)
+    public static List<DialogueResult> DetectDocument(
+        IReadOnlyList<string> paragraphs,
+        QuoteStyle style,
+        Func<int, IReadOnlyList<TextSpan>?>? skipRanges = null,
+        Func<int, IReadOnlyList<TextSpan>?>? dialogueRanges = null)
     {
         var results = new List<DialogueResult>(paragraphs.Count);
         bool carry = false;
@@ -144,13 +138,15 @@ internal static class DialogueDetector
                 continue;
             }
 
-            DialogueResult result = Detect(paragraphs[p], style, carry);
+            IReadOnlyList<TextSpan>? skip = skipRanges?.Invoke(p);
+            IReadOnlyList<TextSpan>? speech = dialogueRanges?.Invoke(p);
+            DialogueResult result = Detect(paragraphs[p], style, carry, skip, speech);
             if (result.EndsInDialogue && p + 1 < paragraphs.Count)
             {
-                int linesBeforeClose = ContinuationLength(paragraphs, p + 1, style);
+                int linesBeforeClose = ContinuationLength(paragraphs, p + 1, style, skipRanges);
                 if (linesBeforeClose < 0)
                 {
-                    result = Detect(paragraphs[p], style, carry, openAtEndIsDialogue: false);
+                    result = Detect(paragraphs[p], style, carry, skip, speech, openAtEndIsDialogue: false);
                 }
                 else
                 {
@@ -168,7 +164,7 @@ internal static class DialogueDetector
     // How the paragraphs from <paramref name="start"/> carry on a speech left open: 0 when the next one reopens
     // or closes it, n when n paragraphs without any marks come first (lines of a song or letter), and -1 when
     // nothing within reach continues it.
-    private static int ContinuationLength(IReadOnlyList<string> paragraphs, int start, QuoteStyle style)
+    private static int ContinuationLength(IReadOnlyList<string> paragraphs, int start, QuoteStyle style, Func<int, IReadOnlyList<TextSpan>?>? skipRanges)
     {
         const int MaxLines = 8;
         for (int i = start; i < paragraphs.Count && i - start <= MaxLines; i++)
@@ -179,7 +175,7 @@ internal static class DialogueDetector
                 return 0;
             }
 
-            switch (FirstMark(text, style, null, out _))
+            switch (FirstMark(text, style, skipRanges?.Invoke(i), out _))
             {
                 case Mark.Close:
                     return i - start;

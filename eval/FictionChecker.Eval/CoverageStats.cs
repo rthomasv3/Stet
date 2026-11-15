@@ -185,7 +185,7 @@ public static class CoverageStats
             return Verdict.Unknown;
         }
 
-        bool inDialect = british ? info.IsIn(Dialect.GBIse) || info.IsIn(Dialect.GBIze) : info.IsIn(Dialect.US);
+        bool inDialect = british ? info.IsIn(Dialect.British) || info.IsIn(Dialect.BritishIze) : info.IsIn(Dialect.American);
         return inDialect ? Verdict.Known : Verdict.OtherDialect;
     }
 

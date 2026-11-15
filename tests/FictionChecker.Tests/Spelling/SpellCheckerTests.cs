@@ -8,7 +8,7 @@ public class SpellCheckerTests
     private static readonly Lexicon Words = Lexicon.LoadEmbedded();
     private static readonly BuiltInLists Lists = BuiltInLists.LoadEmbedded();
     private static readonly SpellingOptions US = new();
-    private static readonly SpellingOptions GB = new() { Dialect = Dialect.GBIse, QuoteStyle = QuoteStyle.Double };
+    private static readonly SpellingOptions GB = new() { Dialect = Dialect.British, QuoteStyle = QuoteStyle.Double };
 
     private static SpellChecker NewChecker() => new(Words, Lists);
 
@@ -59,7 +59,7 @@ public class SpellCheckerTests
         Assert.Equal(["OtherDialect:colour"], Flagged("The colour faded."));
         Assert.Equal(["OtherDialect:color"], Flagged("The color faded.", GB));
         Assert.Equal(["OtherDialect:organize"], Flagged("They organize it.", GB));
-        AssertClean("They organize it.", GB with { Dialect = Dialect.GBIze });
+        AssertClean("They organize it.", GB with { Dialect = Dialect.BritishIze });
         AssertClean("The colour faded.", US with { FlagOtherDialects = false });
 
         SpellingIssue issue = NewChecker().CheckParagraph("The colour faded.", US).Issues[0];
@@ -188,7 +188,7 @@ public class SpellCheckerTests
     [Fact]
     public void SingleQuoteStyleFindsDialogueToo()
     {
-        var options = new SpellingOptions { Dialect = Dialect.GBIse };
+        var options = new SpellingOptions { Dialect = Dialect.British };
 
         AssertClean("‘I dunno, I’m gonna go,’ he said.", options);
         Assert.Equal(["Misspelling:coulda"], Flagged("‘I dunno,’ he said, and it coulda gone badly.", options));
@@ -360,7 +360,7 @@ public class SpellCheckerTests
     [Fact]
     public void OffensiveWordsAreValidButNeverSuggested()
     {
-        var offensive = Words.Words.Where(w => w.Value.NeverSuggest && w.Value.IsIn(Dialect.US) && w.Key.Length >= 5).Select(w => w.Key).Take(5).ToList();
+        var offensive = Words.Words.Where(w => w.Value.NeverSuggest && w.Value.IsIn(Dialect.American) && w.Key.Length >= 5).Select(w => w.Key).Take(5).ToList();
         Assert.NotEmpty(offensive);
         SpellChecker checker = NewChecker();
 

@@ -21,8 +21,8 @@ public sealed class FilteredChecker : IEvalChecker
     public string Name { get; }
 
     /// <inheritdoc />
-    public IReadOnlyList<IReadOnlyList<Issue>?> CheckDocument(IReadOnlyList<string> paragraphs, DocumentInfo document) =>
+    public IReadOnlyList<IReadOnlyList<EvalIssue>?> CheckDocument(IReadOnlyList<string> paragraphs, DocumentInfo document) =>
         _inner.CheckDocument(paragraphs, document)
-            .Select(issues => (IReadOnlyList<Issue>?)issues?.Where(i => !_excluded.Contains(i.Category)).ToList())
+            .Select(issues => (IReadOnlyList<EvalIssue>?)issues?.Where(i => !_excluded.Contains(i.Category)).ToList())
             .ToList();
 }

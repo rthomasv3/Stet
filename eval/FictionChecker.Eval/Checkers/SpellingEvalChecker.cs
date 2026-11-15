@@ -44,17 +44,17 @@ public sealed class SpellingEvalChecker : IEvalChecker
     public Dictionary<string, int> WorldWordCounts { get; } = new(StringComparer.Ordinal);
 
     /// <inheritdoc />
-    public IReadOnlyList<IReadOnlyList<Issue>?> CheckDocument(IReadOnlyList<string> paragraphs, DocumentInfo document)
+    public IReadOnlyList<IReadOnlyList<EvalIssue>?> CheckDocument(IReadOnlyList<string> paragraphs, DocumentInfo document)
     {
         (SpellChecker checker, SpellingOptions options) = Prepare(document);
         return checker.CheckDocument(paragraphs, options)
-            .Select(result => (IReadOnlyList<Issue>?)result.Issues
-                .Select(issue => new Issue(
+            .Select(result => (IReadOnlyList<EvalIssue>?)result.Issues
+                .Select(issue => new EvalIssue(
                     issue.Start,
                     issue.Length,
                     issue.RuleId,
                     "Spelling",
-                    issue.Suggestions.Select(s => new Suggestion([new Edit(s.Start, s.Length, s.Text)])).ToList()))
+                    issue.Suggestions.Select(s => new EvalSuggestion([new Edit(s.Start, s.Length, s.Text)])).ToList()))
                 .ToList())
             .ToList();
     }
@@ -71,7 +71,7 @@ public sealed class SpellingEvalChecker : IEvalChecker
         IReadOnlyList<string> text = _books.TryGetValue(key, out Book? book) ? book.Paragraphs : [];
         var options = new SpellingOptions
         {
-            Dialect = document.Dialect == "GB" ? PickBritish(checker, text) : Dialect.US,
+            Dialect = document.Dialect == "GB" ? PickBritish(checker, text) : Dialect.American,
             QuoteStyle = DialogueDetector.GuessStyle(text),
         };
 
@@ -95,7 +95,7 @@ public sealed class SpellingEvalChecker : IEvalChecker
             return sample.Sum(p => checker.CheckParagraph(p, options).Issues.Count(i => i.Kind == SpellingKind.OtherDialect));
         }
 
-        return Count(Dialect.GBIze) < Count(Dialect.GBIse) ? Dialect.GBIze : Dialect.GBIse;
+        return Count(Dialect.BritishIze) < Count(Dialect.British) ? Dialect.BritishIze : Dialect.British;
     }
 
     private static List<string> WorldWords(SpellChecker checker, SpellingOptions options, IReadOnlyList<string> paragraphs)

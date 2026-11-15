@@ -1,7 +1,7 @@
-namespace FictionChecker.Segmentation;
+namespace FictionChecker;
 
 /// <summary>A range of text. Positions are UTF-16 units, matching .NET and JavaScript strings.</summary>
-internal readonly record struct TextSpan(int Start, int Length)
+public readonly record struct TextSpan(int Start, int Length)
 {
     /// <summary>Position just past the range.</summary>
     public int End => Start + Length;
@@ -13,7 +13,7 @@ internal readonly record struct TextSpan(int Start, int Length)
     public static TextSpan FromBounds(int start, int end) => new(start, end - start);
 
     /// <summary>Whether a position falls in any of the given spans.</summary>
-    public static bool AnyContains(IReadOnlyList<TextSpan>? spans, int position)
+    internal static bool AnyContains(IReadOnlyList<TextSpan>? spans, int position)
     {
         if (spans is null)
         {

@@ -61,7 +61,7 @@ public static class PerfStats
                 words += Text.Words.Count(p);
             }
 
-            var options = new SpellingOptions { Dialect = book.Dialect == "GB" ? Dialect.GBIse : Dialect.US, QuoteStyle = DialogueDetector.GuessStyle(paragraphs) };
+            var options = new SpellingOptions { Dialect = book.Dialect == "GB" ? Dialect.British : Dialect.American, QuoteStyle = DialogueDetector.GuessStyle(paragraphs) };
             var checker = SpellChecker.CreateDefault();
             checker.CheckDocument(paragraphs.Take(50).ToList(), options); // warm up the JIT
 

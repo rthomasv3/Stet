@@ -4,7 +4,7 @@ namespace FictionChecker.Eval.Checkers;
 public sealed record Edit(int Start, int Length, string Text);
 
 /// <summary>A suggested fix: one or more edits applied together.</summary>
-public sealed record Suggestion(IReadOnlyList<Edit> Edits)
+public sealed record EvalSuggestion(IReadOnlyList<Edit> Edits)
 {
     /// <summary>Returns <paramref name="text"/> with the edits applied.</summary>
     public string ApplyTo(string text)
@@ -25,7 +25,7 @@ public sealed record Suggestion(IReadOnlyList<Edit> Edits)
 }
 
 /// <summary>Something a checker flagged in a paragraph.</summary>
-public sealed record Issue(int Start, int Length, string RuleId, string Category, IReadOnlyList<Suggestion> Suggestions)
+public sealed record EvalIssue(int Start, int Length, string RuleId, string Category, IReadOnlyList<EvalSuggestion> Suggestions)
 {
     /// <summary>Whether this issue's span touches the given span.</summary>
     public bool Overlaps(int start, int length) => Start < start + length && start < Start + Math.Max(Length, 1);
@@ -50,5 +50,5 @@ public interface IEvalChecker
     /// </summary>
     /// <param name="paragraphs">The paragraphs, in order.</param>
     /// <param name="document">Which book the paragraphs come from and the spelling it uses.</param>
-    IReadOnlyList<IReadOnlyList<Issue>?> CheckDocument(IReadOnlyList<string> paragraphs, DocumentInfo document);
+    IReadOnlyList<IReadOnlyList<EvalIssue>?> CheckDocument(IReadOnlyList<string> paragraphs, DocumentInfo document);
 }

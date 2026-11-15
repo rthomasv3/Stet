@@ -2,19 +2,6 @@ using FictionChecker.Segmentation;
 
 namespace FictionChecker.Spelling;
 
-/// <summary>How much to check inside dialogue.</summary>
-internal enum DialogueStrictness
-{
-    /// <summary>Dialogue is checked exactly like narration.</summary>
-    Strict,
-
-    /// <summary>Real typos are still caught, but informal speech (gonna, runnin', 'em) is accepted.</summary>
-    Lenient,
-
-    /// <summary>Nothing inside dialogue is checked.</summary>
-    Off,
-}
-
 /// <summary>The kind of spelling problem.</summary>
 internal enum SpellingKind
 {
@@ -38,7 +25,7 @@ internal enum SpellingKind
 internal sealed record SpellingOptions
 {
     /// <summary>The dialect whose spellings are correct.</summary>
-    public Dialect Dialect { get; init; } = Dialect.US;
+    public Dialect Dialect { get; init; } = Dialect.American;
 
     /// <summary>Which quote marks delimit speech. Null means the dialect's usual style.</summary>
     public QuoteStyle? QuoteStyle { get; init; }
@@ -54,7 +41,7 @@ internal sealed record SpellingOptions
 
     /// <summary>The quote style in effect.</summary>
     public QuoteStyle EffectiveQuoteStyle =>
-        QuoteStyle ?? (Dialect is Dialect.GBIse or Dialect.GBIze ? Segmentation.QuoteStyle.Single : Segmentation.QuoteStyle.Double);
+        QuoteStyle ?? (Dialect is Dialect.British or Dialect.BritishIze ? global::FictionChecker.QuoteStyle.Single : global::FictionChecker.QuoteStyle.Double);
 }
 
 /// <summary>A replacement that fixes an issue. It can cover more than the flagged word ("any where" → "anywhere").</summary>

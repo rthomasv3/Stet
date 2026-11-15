@@ -12,14 +12,14 @@ public sealed class DemoChecker : IEvalChecker
     public string Name => "demo";
 
     /// <inheritdoc />
-    public IReadOnlyList<IReadOnlyList<Issue>?> CheckDocument(IReadOnlyList<string> paragraphs, DocumentInfo document)
+    public IReadOnlyList<IReadOnlyList<EvalIssue>?> CheckDocument(IReadOnlyList<string> paragraphs, DocumentInfo document)
     {
-        var results = new IReadOnlyList<Issue>[paragraphs.Count];
+        var results = new IReadOnlyList<EvalIssue>[paragraphs.Count];
         for (int p = 0; p < paragraphs.Count; p++)
         {
             string text = paragraphs[p];
             List<Token> tokens = Words.Tokenize(text);
-            var issues = new List<Issue>();
+            var issues = new List<EvalIssue>();
             for (int i = 1; i < tokens.Count; i++)
             {
                 Token previous = tokens[i - 1];
@@ -27,8 +27,8 @@ public sealed class DemoChecker : IEvalChecker
                 bool adjacent = current.Start == previous.End + 1 && text[previous.End] == ' ';
                 if (adjacent && string.Equals(previous.Text, current.Text, StringComparison.OrdinalIgnoreCase))
                 {
-                    var removeSecond = new Suggestion([new Edit(previous.End, current.Length + 1, "")]);
-                    issues.Add(new Issue(previous.Start, current.End - previous.Start, "demo.repeated-word", "Mechanics", [removeSecond]));
+                    var removeSecond = new EvalSuggestion([new Edit(previous.End, current.Length + 1, "")]);
+                    issues.Add(new EvalIssue(previous.Start, current.End - previous.Start, "demo.repeated-word", "Mechanics", [removeSecond]));
                 }
             }
 

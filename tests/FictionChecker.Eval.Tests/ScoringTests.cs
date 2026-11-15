@@ -98,23 +98,23 @@ public class ScoringTests
     public void FlagAlreadyOnTheCleanTextIsNotACatch()
     {
         var item = new PlantedItem("c", Split.Dev, "b", "US", 0, "typo", "the the cat", new PlantedError("the the cta", 8, 3, 8, 3, "transpose"));
-        Issue[] onClean = [new Issue(0, 11, "r", "", [])];
-        Issue[] onPlanted = [new Issue(0, 11, "r", "", [])];
+        EvalIssue[] onClean = [new EvalIssue(0, 11, "r", "", [])];
+        EvalIssue[] onPlanted = [new EvalIssue(0, 11, "r", "", [])];
 
         Assert.False(Scorer.Judge(item, onPlanted, onClean).Caught);
         Assert.True(Scorer.Judge(item, onPlanted, []).Caught);
-        Assert.False(Scorer.Judge(item, [new Issue(0, 3, "r", "", [])], []).Caught);
+        Assert.False(Scorer.Judge(item, [new EvalIssue(0, 3, "r", "", [])], []).Caught);
     }
 
     [Fact]
     public void FixIsRightOnlyWhenItRestoresTheCleanText()
     {
         var item = new PlantedItem("c", Split.Dev, "b", "US", 0, "typo", "a cat sat", new PlantedError("a cta sat", 2, 3, 2, 3, "transpose"));
-        var wrong = new Suggestion([new Edit(2, 3, "cot")]);
-        var right = new Suggestion([new Edit(2, 3, "cat")]);
+        var wrong = new EvalSuggestion([new Edit(2, 3, "cot")]);
+        var right = new EvalSuggestion([new Edit(2, 3, "cat")]);
 
-        Scorer.PlantOutcome second = Scorer.Judge(item, [new Issue(2, 3, "r", "", [wrong, right])], []);
-        Scorer.PlantOutcome first = Scorer.Judge(item, [new Issue(2, 3, "r", "", [right, wrong])], []);
+        Scorer.PlantOutcome second = Scorer.Judge(item, [new EvalIssue(2, 3, "r", "", [wrong, right])], []);
+        Scorer.PlantOutcome first = Scorer.Judge(item, [new EvalIssue(2, 3, "r", "", [right, wrong])], []);
 
         Assert.Equal(new Scorer.PlantOutcome(true, false, true), second);
         Assert.Equal(new Scorer.PlantOutcome(true, true, true), first);

@@ -33,7 +33,7 @@ internal sealed class SpellChecker
     private readonly Lexicon _lexicon;
     private readonly WordClassifier _classifier;
     private readonly Suggester _suggester;
-    private volatile State _state = new(CustomWords.Empty);
+    private volatile SpellingState _state = new(CustomWords.Empty);
 
     /// <summary>Creates a checker over loaded data.</summary>
     public SpellChecker(Lexicon lexicon, BuiltInLists lists)
@@ -63,24 +63,25 @@ internal sealed class SpellChecker
     public void ClearWords(string name) => Update(custom => custom.WithoutSet(name));
 
     /// <summary>Whether a single word is correctly spelled (as narration).</summary>
-    public bool IsValidWord(string word, SpellingOptions options)
+    public bool IsValidWord(string word, SpellingOptions options, SpellingState? state = null)
     {
+        state ??= _state;
         string text = word.Replace(CharClass.RightSingleQuote, '\'');
         var issues = new List<SpellingIssue>();
-        CheckTokens(text, Tokenizer.Tokenize(text), null, options, _state, issues, withSuggestions: false);
+        CheckTokens(text, Tokenizer.Tokenize(text), null, options, state, issues, withSuggestions: false);
         return issues.Count == 0;
     }
 
     /// <summary>Suggestions for a single word, best first.</summary>
-    public IReadOnlyList<string> Suggest(string word, SpellingOptions options)
+    public IReadOnlyList<string> Suggest(string word, SpellingOptions options, SpellingState? state = null)
     {
-        State state = _state;
+        state ??= _state;
         var context = new WordClassifier.Context(options.Dialect, state.Custom, false, false, options.FlagOtherDialects);
         return SuggestCached(word.Replace(CharClass.RightSingleQuote, '\''), context, options, state);
     }
 
     /// <summary>Checks one paragraph.</summary>
-    public SpellingResult CheckParagraph(string text, SpellingOptions options, SpellingContext? context = null)
+    public SpellingResult CheckParagraph(string text, SpellingOptions options, SpellingContext? context = null, SpellingState? state = null)
     {
         context ??= SpellingContext.None;
         if (Tokenizer.IsSceneBreak(text))
@@ -91,7 +92,7 @@ internal sealed class SpellChecker
         DialogueResult dialogue = context.Dialogue
             ?? DialogueDetector.Detect(text, options.EffectiveQuoteStyle, context.StartsInDialogue, context.SkipRanges, context.DialogueRanges);
         var issues = new List<SpellingIssue>();
-        CheckTokens(text, Tokenizer.Tokenize(text, context.SkipRanges), dialogue, options, _state, issues, withSuggestions: options.MaxSuggestions > 0);
+        CheckTokens(text, Tokenizer.Tokenize(text, context.SkipRanges), dialogue, options, state ?? _state, issues, withSuggestions: options.MaxSuggestions > 0);
         return new SpellingResult(issues, dialogue.EndsInDialogue);
     }
 
@@ -115,8 +116,8 @@ internal sealed class SpellChecker
     {
         while (true)
         {
-            State before = _state;
-            var after = new State(change(before.Custom));
+            SpellingState before = _state;
+            var after = new SpellingState(change(before.Custom));
             if (Interlocked.CompareExchange(ref _state, after, before) == before)
             {
                 return;
@@ -124,7 +125,7 @@ internal sealed class SpellChecker
         }
     }
 
-    private void CheckTokens(string text, List<Token> tokens, DialogueResult? dialogue, SpellingOptions options, State state, List<SpellingIssue> issues, bool withSuggestions)
+    private void CheckTokens(string text, List<Token> tokens, DialogueResult? dialogue, SpellingOptions options, SpellingState state, List<SpellingIssue> issues, bool withSuggestions)
     {
         Span<char> buffer = stackalloc char[64];
         for (int i = 0; i < tokens.Count; i++)
@@ -216,7 +217,7 @@ internal sealed class SpellChecker
         WordVerdict verdict,
         in WordClassifier.Context context,
         SpellingOptions options,
-        State state,
+        SpellingState state,
         List<SpellingIssue> issues,
         bool withSuggestions)
     {
@@ -310,7 +311,7 @@ internal sealed class SpellChecker
         return true;
     }
 
-    private bool LooksLikeSlipCached(string word, in WordClassifier.Context context, bool sentenceStart, State state)
+    private bool LooksLikeSlipCached(string word, in WordClassifier.Context context, bool sentenceStart, SpellingState state)
     {
         var key = (word, context.Dialect, context.InDialogue, sentenceStart);
         if (state.Slips.TryGetValue(key, out bool cached))
@@ -355,7 +356,7 @@ internal sealed class SpellChecker
         }
     }
 
-    private IReadOnlyList<string> SuggestCached(string word, in WordClassifier.Context context, SpellingOptions options, State state)
+    private IReadOnlyList<string> SuggestCached(string word, in WordClassifier.Context context, SpellingOptions options, SpellingState state)
     {
         // Suggestions depend on the dialect, the custom words (the state) and, for dialogue-only words, on
         // being inside dialogue.
@@ -387,14 +388,19 @@ internal sealed class SpellChecker
         bool curly = text.AsSpan(start, end - start).Contains(CharClass.RightSingleQuote) || (!text.Contains('\'') && text.Contains(CharClass.RightSingleQuote));
         return curly ? suggestion.Replace('\'', CharClass.RightSingleQuote) : suggestion;
     }
+}
 
-    /// <summary>Custom words plus the suggestion cache that is only valid for them.</summary>
-    private sealed class State(CustomWords custom)
-    {
-        public CustomWords Custom { get; } = custom;
+/// <summary>Custom words plus the suggestion caches that are only valid for them.</summary>
+internal sealed class SpellingState(CustomWords custom)
+{
+    private static long s_lastId;
 
-        public ConcurrentDictionary<(string Word, Dialect Dialect, bool InDialogue), List<string>> Suggestions { get; } = new();
+    /// <summary>A number unique to this state, for cache keys.</summary>
+    public long Id { get; } = Interlocked.Increment(ref s_lastId);
 
-        public ConcurrentDictionary<(string Word, Dialect Dialect, bool InDialogue, bool SentenceStart), bool> Slips { get; } = new();
-    }
+    public CustomWords Custom { get; } = custom;
+
+    public ConcurrentDictionary<(string Word, Dialect Dialect, bool InDialogue), List<string>> Suggestions { get; } = new();
+
+    public ConcurrentDictionary<(string Word, Dialect Dialect, bool InDialogue, bool SentenceStart), bool> Slips { get; } = new();
 }
