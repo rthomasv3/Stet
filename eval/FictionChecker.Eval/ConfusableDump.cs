@@ -21,7 +21,7 @@ public static class ConfusableDump
         GrammarEngine engine = GrammarEngine.CreateDefault(lexicon);
         ConfusableData data = ConfusableData.LoadEmbedded(lexicon);
         using var writer = new StreamWriter(outPath, false, new UTF8Encoding(false));
-        writer.WriteLine("corpus\tbook\twritten\tmembers\tleft\tright\tcounts\tleftKnown\trightKnown\tcapital\tfirst\tspeech\tcontext");
+        writer.WriteLine("corpus\tbook\twritten\tmembers\tleft\tright\tcounts\tleftKnown\trightKnown\tcapital\tfirst\tspeech\tearlier\tcontext");
         int rows = 0;
         Span<int> left = stackalloc int[8];
         Span<int> right = stackalloc int[8];
@@ -68,6 +68,7 @@ public static class ConfusableDump
                             sentence.IsCapitalized(i) ? 1 : 0,
                             first ? 1 : 0,
                             sentence.InDialogue(i) ? 1 : 0,
+                            members.Length == 2 ? ConfusableScorer.EarlierSupport(sentence, i, group, written, 1 - written, data, 6) : 0,
                             context));
                         rows++;
                     }

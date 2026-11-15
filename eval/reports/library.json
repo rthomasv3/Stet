@@ -15,7 +15,7 @@
       "paragraphs": 12879,
       "uncheckedParagraphs": 0,
       "words": 454434,
-      "flags": 682,
+      "flags": 683,
       "confirmedRealErrors": 5,
       "rules": [
         {
@@ -61,6 +61,12 @@
           "per1000": 0.0022
         },
         {
+          "ruleId": "confusable.of-off",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0022
+        },
+        {
           "ruleId": "mechanics.repeated-word",
           "category": "Mechanics",
           "flags": 1,
@@ -83,12 +89,12 @@
           "category": "confusable",
           "planted": 500,
           "checked": 500,
-          "caught": 313,
-          "firstFixRight": 311,
-          "fixInTop5": 311,
-          "catchRate": 0.626,
-          "firstFixRate": 0.9936,
-          "top5FixRate": 0.9936
+          "caught": 324,
+          "firstFixRight": 322,
+          "fixInTop5": 322,
+          "catchRate": 0.648,
+          "firstFixRate": 0.9938,
+          "top5FixRate": 0.9938
         },
         {
           "category": "a-an",
@@ -135,7 +141,7 @@
           "top5FixRate": 1
         }
       ],
-      "flagsPer1000": 1.5008
+      "flagsPer1000": 1.503
     },
     {
       "corpus": "calibre",
@@ -144,7 +150,7 @@
       "paragraphs": 7517,
       "uncheckedParagraphs": 0,
       "words": 240253,
-      "flags": 632,
+      "flags": 635,
       "confirmedRealErrors": 0,
       "rules": [
         {
@@ -186,8 +192,8 @@
         {
           "ruleId": "confusable.of-off",
           "category": "ConfusableWords",
-          "flags": 3,
-          "per1000": 0.0125
+          "flags": 6,
+          "per1000": 0.025
         },
         {
           "ruleId": "dialogue.full-stop-before-tag",
@@ -236,12 +242,12 @@
           "category": "confusable",
           "planted": 500,
           "checked": 500,
-          "caught": 304,
-          "firstFixRight": 302,
-          "fixInTop5": 302,
-          "catchRate": 0.608,
-          "firstFixRate": 0.9934,
-          "top5FixRate": 0.9934
+          "caught": 322,
+          "firstFixRight": 320,
+          "fixInTop5": 320,
+          "catchRate": 0.644,
+          "firstFixRate": 0.9938,
+          "top5FixRate": 0.9938
         },
         {
           "category": "a-an",
@@ -288,7 +294,7 @@
           "top5FixRate": 1
         }
       ],
-      "flagsPer1000": 2.6306
+      "flagsPer1000": 2.643
     },
     {
       "corpus": "gutenberg",
@@ -395,12 +401,12 @@
           "category": "confusable",
           "planted": 500,
           "checked": 500,
-          "caught": 304,
-          "firstFixRight": 302,
-          "fixInTop5": 302,
-          "catchRate": 0.608,
-          "firstFixRate": 0.9934,
-          "top5FixRate": 0.9934
+          "caught": 324,
+          "firstFixRight": 322,
+          "fixInTop5": 322,
+          "catchRate": 0.648,
+          "firstFixRate": 0.9938,
+          "top5FixRate": 0.9938
         },
         {
           "category": "a-an",
@@ -456,7 +462,7 @@
       "paragraphs": 5481,
       "uncheckedParagraphs": 0,
       "words": 304864,
-      "flags": 522,
+      "flags": 523,
       "confirmedRealErrors": 0,
       "rules": [
         {
@@ -496,6 +502,12 @@
           "per1000": 0.0098
         },
         {
+          "ruleId": "confusable.of-off",
+          "category": "ConfusableWords",
+          "flags": 2,
+          "per1000": 0.0066
+        },
+        {
           "ruleId": "dialogue.missing-comma",
           "category": "DialoguePunctuation",
           "flags": 2,
@@ -506,12 +518,6 @@
           "category": "Mechanics",
           "flags": 2,
           "per1000": 0.0066
-        },
-        {
-          "ruleId": "confusable.of-off",
-          "category": "ConfusableWords",
-          "flags": 1,
-          "per1000": 0.0033
         },
         {
           "ruleId": "confusable.past-passed",
@@ -548,12 +554,12 @@
           "category": "confusable",
           "planted": 500,
           "checked": 500,
-          "caught": 299,
-          "firstFixRight": 297,
-          "fixInTop5": 297,
-          "catchRate": 0.598,
-          "firstFixRate": 0.9933,
-          "top5FixRate": 0.9933
+          "caught": 318,
+          "firstFixRight": 316,
+          "fixInTop5": 316,
+          "catchRate": 0.636,
+          "firstFixRate": 0.9937,
+          "top5FixRate": 0.9937
         },
         {
           "category": "a-an",
@@ -600,7 +606,7 @@
           "top5FixRate": 1
         }
       ],
-      "flagsPer1000": 1.7122
+      "flagsPer1000": 1.7155
     },
     {
       "corpus": "all",
@@ -609,7 +615,7 @@
       "paragraphs": 30531,
       "uncheckedParagraphs": 0,
       "words": 1314002,
-      "flags": 2218,
+      "flags": 2219,
       "confirmedRealErrors": 6,
       "rules": [
         {
@@ -685,6 +691,12 @@
           "per1000": 0.0008
         },
         {
+          "ruleId": "confusable.of-off",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0008
+        },
+        {
           "ruleId": "dialogue.missing-comma",
           "category": "DialoguePunctuation",
           "flags": 1,
@@ -707,12 +719,12 @@
           "category": "confusable",
           "planted": 1000,
           "checked": 1000,
-          "caught": 617,
-          "firstFixRight": 613,
-          "fixInTop5": 613,
-          "catchRate": 0.617,
-          "firstFixRate": 0.9935,
-          "top5FixRate": 0.9935
+          "caught": 648,
+          "firstFixRight": 644,
+          "fixInTop5": 644,
+          "catchRate": 0.648,
+          "firstFixRate": 0.9938,
+          "top5FixRate": 0.9938
         },
         {
           "category": "a-an",
@@ -759,7 +771,7 @@
           "top5FixRate": 0.9978
         }
       ],
-      "flagsPer1000": 1.688
+      "flagsPer1000": 1.6887
     },
     {
       "corpus": "all",
@@ -768,7 +780,7 @@
       "paragraphs": 12998,
       "uncheckedParagraphs": 0,
       "words": 545117,
-      "flags": 1154,
+      "flags": 1158,
       "confirmedRealErrors": 0,
       "rules": [
         {
@@ -810,8 +822,8 @@
         {
           "ruleId": "confusable.of-off",
           "category": "ConfusableWords",
-          "flags": 4,
-          "per1000": 0.0073
+          "flags": 8,
+          "per1000": 0.0147
         },
         {
           "ruleId": "dialogue.full-stop-before-tag",
@@ -878,12 +890,12 @@
           "category": "confusable",
           "planted": 1000,
           "checked": 1000,
-          "caught": 603,
-          "firstFixRight": 599,
-          "fixInTop5": 599,
-          "catchRate": 0.603,
-          "firstFixRate": 0.9934,
-          "top5FixRate": 0.9934
+          "caught": 640,
+          "firstFixRight": 636,
+          "fixInTop5": 636,
+          "catchRate": 0.64,
+          "firstFixRate": 0.9938,
+          "top5FixRate": 0.9938
         },
         {
           "category": "a-an",
@@ -930,7 +942,7 @@
           "top5FixRate": 1
         }
       ],
-      "flagsPer1000": 2.117
+      "flagsPer1000": 2.1243
     }
   ]
 }

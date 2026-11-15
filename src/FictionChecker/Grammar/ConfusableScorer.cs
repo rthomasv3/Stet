@@ -72,6 +72,33 @@ internal static class ConfusableScorer
     }
 
     /// <summary>
+    /// How much more an earlier verb of the clause goes with one member than another when directly before
+    /// it: for "cut" in "cut the end off", how much more often "cut off" is seen than "cut of". Looks at up
+    /// to <paramref name="reach"/> words before the neighbour, stops at punctuation, and returns the
+    /// largest difference found, or <see cref="int.MinValue"/> when no earlier verb has counts.
+    /// </summary>
+    public static int EarlierSupport(Sentence sentence, int i, int group, int member, int other, ConfusableData data, int reach)
+    {
+        int best = int.MinValue;
+        Span<int> values = stackalloc int[data.Members(group).Length];
+        for (int j = i - 2; j >= 0 && j >= i - 1 - reach; j--)
+        {
+            if (!sentence.IsWord(j))
+            {
+                break;
+            }
+
+            Neighbour(sentence, j, true, data, out int id, out int tag);
+            if (sentence.Type(j) == WordType.Verb && data.Beside(group, true, id, tag, values))
+            {
+                best = Math.Max(best, values[member] - values[other]);
+            }
+        }
+
+        return best;
+    }
+
+    /// <summary>
     /// Describes the token beside a confusable word the way the data stores neighbours: a word of the
     /// lexicon, a punctuation mark or contraction tail, or failing those only a word type.
     /// </summary>

@@ -64,7 +64,7 @@ internal sealed class ConfusableWordRule : GrammarRule
             }
 
             string[] members = data.Members(evidence.Group);
-            string? meant = ClearCase(sentence, i, members[evidence.Written], members[evidence.Best], evidence);
+            string? meant = ClearCase(sentence, i, members[evidence.Written], members[evidence.Best], evidence, data);
             if (meant is null && ConfusableSets.IsStrongEnough(members[evidence.Written], members[evidence.Best], evidence))
             {
                 meant = members[evidence.Best];
@@ -87,7 +87,7 @@ internal sealed class ConfusableWordRule : GrammarRule
     }
 
     // Cases that the words two places away settle, which the counts of neighbouring pairs cannot see.
-    private static string? ClearCase(Sentence sentence, int i, string written, string best, ConfusableEvidence evidence)
+    private static string? ClearCase(Sentence sentence, int i, string written, string best, ConfusableEvidence evidence, ConfusableData data)
     {
         const int Bit = ConfusableData.Unit;
         switch (written)
@@ -128,6 +128,14 @@ internal sealed class ConfusableWordRule : GrammarRule
             case "off":
                 // "out off", "because off": after these words only "of" can follow.
                 if (i > 0 && sentence.Is(i - 1, "out", "instead", "because", "kind", "sort", "none", "several", "plenty", "couple", "number") && sentence.IsWord(i + 1) && sentence.TouchesNext(i - 1))
+                {
+                    return "of";
+                }
+
+                // "one off the best": "off" where "of" fits better. A correct "off" often looks the same
+                // from the words beside it ("cut the end off the rope"), but then an earlier verb of the
+                // clause goes with "off" ("cut off"). With no such word, less evidence is enough.
+                if (best == "of" && evidence.Total >= 10 * Bit && ConfusableScorer.EarlierSupport(sentence, i, evidence.Group, evidence.Written, evidence.Best, data, 6) <= 0)
                 {
                     return "of";
                 }
