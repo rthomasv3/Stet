@@ -89,10 +89,10 @@ internal sealed class GrammarEngine
     /// Runs the enabled rules and adds an issue for each finding. <paramref name="enabled"/> holds one flag
     /// per rule, in the order of <see cref="Rules"/>.
     /// </summary>
-    public void Check(string text, List<Token> tokens, DialogueResult? dialogue, CustomWords custom, bool[] enabled, DialogueStrictness strictness, QuoteStyle quoteStyle, List<Issue> issues)
+    public void Check(string text, List<Token> tokens, DialogueResult? dialogue, CustomWords custom, bool[] enabled, DialogueStrictness strictness, QuoteStyle quoteStyle, List<Issue> issues, bool continues = false)
     {
         var findings = new List<Finding>();
-        var paragraph = new Paragraph(text, tokens, dialogue, quoteStyle, custom);
+        var paragraph = new Paragraph(text, tokens, dialogue, quoteStyle, custom) { ContinuesPrevious = continues };
         for (int r = 0; r < Rules.Count; r++)
         {
             if (enabled[r])

@@ -18,6 +18,12 @@ internal sealed class Paragraph(string text, List<Token> tokens, DialogueResult?
     /// <summary>The writer's own words.</summary>
     public CustomWords Custom { get; } = custom;
 
+    /// <summary>
+    /// Whether the paragraph before this one stopped without ending its sentence, so that this one may carry on
+    /// from it. Known only when a whole document is checked.
+    /// </summary>
+    public bool ContinuesPrevious { get; init; }
+
     /// <summary>Whether a token is a word the caller did not ask to skip.</summary>
     public bool IsWord(int i) => (uint)i < (uint)Tokens.Count && Tokens[i].Kind == TokenKind.Word && !Tokens[i].Has(TokenFlags.Skipped);
 

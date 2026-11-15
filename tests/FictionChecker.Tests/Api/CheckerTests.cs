@@ -456,4 +456,24 @@ public class CheckerTests
     }
 
     private static ParagraphContext Sets(params string[] names) => new() { Options = CheckerOptions.Default with { WordSets = names } };
+
+    [Fact]
+    public void A_lowercase_paragraph_start_is_flagged_unless_the_paragraph_before_was_left_unfinished()
+    {
+        static bool Flagged(ParagraphResult result) => result.Issues.Any(i => i.RuleId == RuleIds.SentenceCapital);
+
+        Assert.True(Flagged(Shared.CheckParagraph("she stayed behind.")));
+        Assert.True(Flagged(Shared.CheckDocument(["He left at dawn.", "she stayed behind."])[1]));
+        Assert.False(Flagged(Shared.CheckDocument(["He read the sign, which said", "no way through.", "and turned back."])[1]));
+        Assert.False(Flagged(Shared.CheckDocument(["Red fell the dew,", "red rose the sun,", "and all was still."])[2]));
+    }
+
+    [Fact]
+    public void The_cache_keeps_apart_a_paragraph_that_follows_an_unfinished_one()
+    {
+        var cache = new CheckCache(Shared);
+
+        Assert.Contains(cache.CheckDocument(["He left at dawn.", "she stayed behind."])[1].Issues, i => i.RuleId == RuleIds.SentenceCapital);
+        Assert.DoesNotContain(cache.CheckDocument(["He left at dawn, and", "she stayed behind."])[1].Issues, i => i.RuleId == RuleIds.SentenceCapital);
+    }
 }

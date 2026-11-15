@@ -12,8 +12,8 @@ internal sealed class SentenceCapitalRule : GrammarRule
         RuleCategory.Mechanics,
         true,
         false,
-        ["He left. she stayed.", "The lords gathered at the end. the singing began.", "“Go.” he turned away.", "The road was long. it wound through the hills."],
-        ["He left. She stayed.", "“Why?” she asked.", "He waited... and waited.", "They sold nails, rope, etc. and little else.", "It cost approx. five crowns.", "the door was open.", "The Louis XV. clock struck.", "See chap. ii. for more.", "Ten per cent. of the men were sick.", "She wrote: no. not now. not ever.", "“you are a long walker. you find me here,” she said."]);
+        ["He left. she stayed.", "the door was open.", "The lords gathered at the end. the singing began.", "“Go.” he turned away.", "The road was long. it wound through the hills."],
+        ["He left. She stayed.", "“Why?” she asked.", "He waited... and waited.", "They sold nails, rope, etc. and little else.", "It cost approx. five crowns.", "The Louis XV. clock struck.", "See chap. ii. for more.", "Ten per cent. of the men were sick.", "She wrote: no. not now. not ever.", "“you are a long walker. you find me here,” she said."]);
 
     // Only abbreviations that are not also everyday words: "long.", "art." and "par." far more often end a
     // sentence ("The road was long.") than stand for longitude, article or paragraph.
@@ -47,9 +47,9 @@ internal sealed class SentenceCapitalRule : GrammarRule
             bool starts;
             if (j < 0)
             {
-                // First word of the paragraph. Not judged: lines of verse and paragraphs that carry on after a
-                // break start in lowercase far more often than a paragraph is missing its capital.
-                starts = false;
+                // First word of the paragraph. It starts a sentence unless the paragraph before stopped part way
+                // through one (a line of verse, or prose carried on after an inserted letter).
+                starts = !paragraph.ContinuesPrevious;
             }
             else
             {

@@ -145,9 +145,10 @@ public sealed class CheckCache
         private readonly TextSpan[] _dialogue;
         private readonly TextSpan[] _skip;
         private readonly bool _endsInDialogue;
+        private readonly bool _continues;
         private readonly int _hash;
 
-        public Key(string text, long stateId, string options, DialogueResult dialogue, IReadOnlyList<TextSpan>? skipRanges)
+        public Key(string text, long stateId, string options, DialogueResult dialogue, IReadOnlyList<TextSpan>? skipRanges, bool continues = false)
         {
             _text = text;
             StateId = stateId;
@@ -155,11 +156,13 @@ public sealed class CheckCache
             _dialogue = [.. dialogue.Spans];
             _skip = skipRanges is null ? [] : [.. skipRanges];
             _endsInDialogue = dialogue.EndsInDialogue;
+            _continues = continues;
             var hash = default(HashCode);
             hash.Add(text, StringComparer.Ordinal);
             hash.Add(stateId);
             hash.Add(options, StringComparer.Ordinal);
             hash.Add(_endsInDialogue);
+            hash.Add(continues);
             foreach (TextSpan span in _dialogue)
             {
                 hash.Add(span);
@@ -176,6 +179,7 @@ public sealed class CheckCache
             && _hash == other._hash
             && StateId == other.StateId
             && _endsInDialogue == other._endsInDialogue
+            && _continues == other._continues
             && string.Equals(_options, other._options, StringComparison.Ordinal)
             && string.Equals(_text, other._text, StringComparison.Ordinal)
             && _dialogue.AsSpan().SequenceEqual(other._dialogue)

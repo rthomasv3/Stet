@@ -10,12 +10,12 @@ Target: under 1 per 1,000 words. Flags confirmed as real errors in the source ar
 
 | Corpus | Split | Books | Words | Flags | Per 1,000 words | Change | harper | Confirmed real errors | Not checked |
 |---|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| calibre | dev | 16 | 454,434 | 686 | 1.51 | 0 | 40.089 | 5 | 0 |
-| calibre | test | 8 | 240,253 | 636 | 2.647 | 0 | 40.52 | 0 | 0 |
-| gutenberg | dev | 29 | 859,568 | 1,542 | 1.794 | 0 | 24.358 | 1 | 0 |
-| gutenberg | test | 11 | 304,864 | 523 | 1.716 | 0 | 19.94 | 0 | 0 |
-| all | dev | 45 | 1,314,002 | 2,228 | 1.696 | 0 | 29.798 | 6 | 0 |
-| all | test | 19 | 545,117 | 1,159 | 2.126 | 0 | 29.01 | 0 | 0 |
+| calibre | dev | 16 | 454,434 | 691 | 1.521 | -0.114 | 40.089 | 5 | 0 |
+| calibre | test | 8 | 240,253 | 639 | 2.66 | -0.038 | 40.52 | 0 | 0 |
+| gutenberg | dev | 29 | 859,568 | 1,543 | 1.795 | -0.008 | 24.358 | 1 | 0 |
+| gutenberg | test | 11 | 304,864 | 526 | 1.725 | -0.01 | 19.94 | 0 | 0 |
+| all | dev | 45 | 1,314,002 | 2,234 | 1.7 | -0.045 | 29.798 | 6 | 0 |
+| all | test | 19 | 545,117 | 1,165 | 2.137 | -0.022 | 29.01 | 0 | 0 |
 
 ## False alarms per rule
 
@@ -27,7 +27,7 @@ Flags per 1,000 words over all corpora. Target for a rule to be on by default: u
 | spelling.unknown-name | Spelling | 0.316 | 0.358 | 0 |
 | spelling.other-dialect | Spelling | 0.124 | 0.099 | 0 |
 | spelling.capitalization | Spelling | 0.091 | 0.061 | 0 |
-| mechanics.sentence-capital | Mechanics | 0.006 | 0.062 | 0 |
+| mechanics.sentence-capital | Mechanics | 0.011 | 0.073 | -0.045 |
 
 19 other rules flagged something but stayed under the bar.
 
@@ -39,7 +39,7 @@ Caught: share of planted errors that were flagged. First fix right and fix in to
 
 | Category | Planted | Checked | Caught | Change | harper caught | First fix right | Fix in top 5 |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| typo | 1000 | 1000 | 95.9% | 0 | 90.7% | 92.3% | 99% |
+| typo | 1000 | 1000 | 95.9% | 0 | 90.7% | 92.2% | 99% |
 | confusable | 1000 | 1000 | 65.1% | 0 | 35.8% | 99.2% | 99.2% |
 | a-an | 1000 | 1000 | 93.1% | 0 | 90.7% | 100% | 100% |
 | repeated-word | 1000 | 1000 | 81% | 0 | 63.8% | 99.8% | 100% |
@@ -61,7 +61,7 @@ Caught: share of planted errors that were flagged. First fix right and fix in to
 
 | Category | Planted | Checked | Caught | Change | harper caught | First fix right | Fix in top 5 |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| typo | 500 | 500 | 95.4% | 0 | 94.8% | 92.7% | 99.2% |
+| typo | 500 | 500 | 95.4% | 0 | 94.8% | 92.5% | 99.2% |
 | confusable | 500 | 500 | 65.2% | 0 | 37% | 99.4% | 99.4% |
 | a-an | 500 | 500 | 92.6% | 0 | 96% | 100% | 100% |
 | repeated-word | 500 | 500 | 80.2% | 0 | 68.6% | 99.5% | 100% |

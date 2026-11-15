@@ -143,7 +143,7 @@ public sealed class Checker
 
         ResolvedOptions resolved = Resolve(context?.Options);
         DialogueResult dialogue = DialogueDetector.Detect(text, resolved.QuoteStyle, startsInDialogue, context?.SkipRanges, context?.DialogueRanges);
-        return CheckCore(text, dialogue, context?.SkipRanges, resolved, StateFor(resolved), cache);
+        return CheckCore(text, dialogue, context?.SkipRanges, resolved, StateFor(resolved), cache, false);
     }
 
     internal IReadOnlyList<ParagraphResult> CheckDocument(IReadOnlyList<string> paragraphs, CheckerOptions? options, CancellationToken cancel, CheckCache? cache)
@@ -158,7 +158,7 @@ public sealed class Checker
             cancel.ThrowIfCancellationRequested();
             results[i] = Tokenizer.IsSceneBreak(paragraphs[i])
                 ? new ParagraphResult(NoIssues, dialogue[i].EndsInDialogue)
-                : CheckCore(paragraphs[i], dialogue[i], null, resolved, state, cache);
+                : CheckCore(paragraphs[i], dialogue[i], null, resolved, state, cache, i > 0 && LeavesSentenceOpen(paragraphs[i - 1]));
         }
 
         return results;
@@ -185,7 +185,7 @@ public sealed class Checker
             cancel.ThrowIfCancellationRequested();
             results[i] = paragraphs[i].Skip || Tokenizer.IsSceneBreak(texts[i])
                 ? new ParagraphResult(NoIssues, dialogue[i].EndsInDialogue)
-                : CheckCore(texts[i], dialogue[i], paragraphs[i].SkipRanges, resolved, state, cache);
+                : CheckCore(texts[i], dialogue[i], paragraphs[i].SkipRanges, resolved, state, cache, i > 0 && !paragraphs[i - 1].Skip && LeavesSentenceOpen(texts[i - 1]));
         }
 
         return results;
@@ -206,8 +206,23 @@ public sealed class Checker
 
     internal object WordsVersion => _words;
 
+    /// <summary>
+    /// Whether a paragraph stops without ending its sentence: a line of verse, a heading, or prose broken off
+    /// by an inserted letter or picture. The paragraph after it may rightly begin without a capital.
+    /// </summary>
+    internal static bool LeavesSentenceOpen(string text)
+    {
+        int at = text.Length - 1;
+        while (at >= 0 && (char.IsWhiteSpace(text[at]) || CharClass.IsDoubleQuote(text[at]) || CharClass.IsSingleQuote(text[at]) || text[at] is ')' or ']' or '*' or '_'))
+        {
+            at--;
+        }
+
+        return at >= 0 && !Tokenizer.IsSceneBreak(text) && text[at] is not ('.' or '!' or '?' or CharClass.Ellipsis);
+    }
+
     // The result depends only on what is passed here, which is what makes it safe to cache by these values.
-    private ParagraphResult CheckCore(string text, DialogueResult dialogue, IReadOnlyList<TextSpan>? skipRanges, ResolvedOptions resolved, SpellingState state, CheckCache? cache)
+    private ParagraphResult CheckCore(string text, DialogueResult dialogue, IReadOnlyList<TextSpan>? skipRanges, ResolvedOptions resolved, SpellingState state, CheckCache? cache, bool continues)
     {
         if (!resolved.AnySpelling && !resolved.AnyGrammar)
         {
@@ -217,7 +232,7 @@ public sealed class Checker
         CheckCache.Key? key = null;
         if (cache is not null)
         {
-            key = new CheckCache.Key(text, state.Id, resolved.Fingerprint, dialogue, skipRanges);
+            key = new CheckCache.Key(text, state.Id, resolved.Fingerprint, dialogue, skipRanges, continues);
             if (cache.TryGet(key, out ParagraphResult? cached))
             {
                 return cached;
@@ -242,7 +257,7 @@ public sealed class Checker
         {
             int before = list?.Count ?? 0;
             list ??= [];
-            _grammar.Check(text, tokens, dialogue, state.Custom, resolved.GrammarEnabled, resolved.Spelling.Dialogue, resolved.QuoteStyle, list);
+            _grammar.Check(text, tokens, dialogue, state.Custom, resolved.GrammarEnabled, resolved.Spelling.Dialogue, resolved.QuoteStyle, list, continues);
             if (list.Count > before && list.Count > 1)
             {
                 // Issues are reported in text order whichever part found them.
