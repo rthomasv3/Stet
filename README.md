@@ -1,7 +1,7 @@
 # FictionChecker (working title)
 
 An offline spelling and grammar checker for fiction, written in pure managed C#.
-Early development. Spelling works through the public API below, and the grammar side has its foundation (word types, a tagger, a rule engine) with one rule so far, repeated words. The API can still change before 1.0.
+Early development. Spelling and the first grammar rules (mechanics, agreement, dialogue punctuation) work through the public API below. Confusable words (their/there, its/it's) come next. The API can still change before 1.0.
 
 ## Using it
 
@@ -34,6 +34,29 @@ foreach (Issue issue in results[0].Issues)
 - **Single words:** `IsValidWord(word)` and `Suggest(word)`, for a right-click menu.
 - **Checking while typing:** wrap the checker in a `CheckCache` and call the same methods on it. Unchanged paragraphs return their remembered result, so rechecking a whole document after an edit costs about as much as checking the edited paragraph.
 - **Threads:** checks are synchronous and do no I/O. Run them on a background thread. Word sets can change while checks run.
+
+## Rules
+
+| ID | Finds | Default |
+|---|---|---|
+| `spelling.misspelling` | words not in the dictionary or your word lists | on |
+| `spelling.unknown-name` | unknown capitalized words that look like names | on |
+| `spelling.other-dialect` | spellings from another dialect ("colour" in American English) | on |
+| `spelling.capitalization` | names written without their capital | on |
+| `mechanics.repeated-word` | "the the" | on |
+| `mechanics.a-an` | "a apple", "an unicorn", judged by sound | on |
+| `mechanics.could-of` | "could of gone" (formal) | on |
+| `mechanics.doubled-space` | two spaces inside a sentence | on |
+| `mechanics.sentence-capital` | "He left. she stayed." | off |
+| `agreement.pronoun-verb` | "I has", "they is" | on |
+| `agreement.dialect-verb-form` | "they was", "he don't" (formal) | on |
+| `dialogue.full-stop-before-tag` | "Hello." she said. | on |
+| `dialogue.capitalized-tag` | "Hello," She said. | on |
+| `dialogue.missing-comma` | "Hello" she said. | on |
+| `dialogue.comma-outside-quote` | "Hello", she said. (double quote marks only) | on |
+
+Formal rules are skipped inside dialogue unless dialogue strictness is set to strict, because writers break
+them on purpose for a character's voice. `checker.Rules` gives the same list with descriptions and examples.
 
 ## Layout
 

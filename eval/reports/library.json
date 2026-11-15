@@ -5,7 +5,7 @@
     "seed": 20261114,
     "cleanWordsPerBook": 30000,
     "plantedPerCategory": 500,
-    "reviewFlagsPerRule": 3000
+    "reviewFlagsPerRule": 40
   },
   "groups": [
     {
@@ -15,7 +15,7 @@
       "paragraphs": 12879,
       "uncheckedParagraphs": 0,
       "words": 454434,
-      "flags": 682,
+      "flags": 676,
       "confirmedRealErrors": 5,
       "rules": [
         {
@@ -41,12 +41,6 @@
           "category": "Spelling",
           "flags": 28,
           "per1000": 0.0616
-        },
-        {
-          "ruleId": "mechanics.sentence-capital",
-          "category": "Mechanics",
-          "flags": 6,
-          "per1000": 0.0132
         },
         {
           "ruleId": "dialogue.full-stop-before-tag",
@@ -135,7 +129,7 @@
           "top5FixRate": 1
         }
       ],
-      "flagsPer1000": 1.5008
+      "flagsPer1000": 1.4876
     },
     {
       "corpus": "calibre",
@@ -144,7 +138,7 @@
       "paragraphs": 7517,
       "uncheckedParagraphs": 0,
       "words": 240253,
-      "flags": 626,
+      "flags": 597,
       "confirmedRealErrors": 0,
       "rules": [
         {
@@ -158,12 +152,6 @@
           "category": "Spelling",
           "flags": 94,
           "per1000": 0.3913
-        },
-        {
-          "ruleId": "mechanics.sentence-capital",
-          "category": "Mechanics",
-          "flags": 29,
-          "per1000": 0.1207
         },
         {
           "ruleId": "spelling.other-dialect",
@@ -264,7 +252,7 @@
           "top5FixRate": 1
         }
       ],
-      "flagsPer1000": 2.6056
+      "flagsPer1000": 2.4849
     },
     {
       "corpus": "gutenberg",
@@ -273,7 +261,7 @@
       "paragraphs": 17652,
       "uncheckedParagraphs": 0,
       "words": 859568,
-      "flags": 1533,
+      "flags": 1531,
       "confirmedRealErrors": 1,
       "rules": [
         {
@@ -326,12 +314,6 @@
         },
         {
           "ruleId": "mechanics.repeated-word",
-          "category": "Mechanics",
-          "flags": 2,
-          "per1000": 0.0023
-        },
-        {
-          "ruleId": "mechanics.sentence-capital",
           "category": "Mechanics",
           "flags": 2,
           "per1000": 0.0023
@@ -403,15 +385,15 @@
           "category": "dialogue-punctuation",
           "planted": 500,
           "checked": 500,
-          "caught": 454,
+          "caught": 452,
           "firstFixRight": 452,
           "fixInTop5": 452,
-          "catchRate": 0.908,
-          "firstFixRate": 0.9956,
-          "top5FixRate": 0.9956
+          "catchRate": 0.904,
+          "firstFixRate": 1,
+          "top5FixRate": 1
         }
       ],
-      "flagsPer1000": 1.7835
+      "flagsPer1000": 1.7811
     },
     {
       "corpus": "gutenberg",
@@ -420,7 +402,7 @@
       "paragraphs": 5481,
       "uncheckedParagraphs": 0,
       "words": 304864,
-      "flags": 519,
+      "flags": 514,
       "confirmedRealErrors": 0,
       "rules": [
         {
@@ -446,12 +428,6 @@
           "category": "Spelling",
           "flags": 17,
           "per1000": 0.0558
-        },
-        {
-          "ruleId": "mechanics.sentence-capital",
-          "category": "Mechanics",
-          "flags": 5,
-          "per1000": 0.0164
         },
         {
           "ruleId": "mechanics.a-an",
@@ -546,7 +522,7 @@
           "top5FixRate": 1
         }
       ],
-      "flagsPer1000": 1.7024
+      "flagsPer1000": 1.686
     },
     {
       "corpus": "all",
@@ -555,7 +531,7 @@
       "paragraphs": 30531,
       "uncheckedParagraphs": 0,
       "words": 1314002,
-      "flags": 2215,
+      "flags": 2207,
       "confirmedRealErrors": 6,
       "rules": [
         {
@@ -593,12 +569,6 @@
           "category": "DialoguePunctuation",
           "flags": 10,
           "per1000": 0.0076
-        },
-        {
-          "ruleId": "mechanics.sentence-capital",
-          "category": "Mechanics",
-          "flags": 8,
-          "per1000": 0.0061
         },
         {
           "ruleId": "mechanics.a-an",
@@ -685,15 +655,15 @@
           "category": "dialogue-punctuation",
           "planted": 1000,
           "checked": 1000,
-          "caught": 913,
+          "caught": 911,
           "firstFixRight": 911,
           "fixInTop5": 911,
-          "catchRate": 0.913,
-          "firstFixRate": 0.9978,
-          "top5FixRate": 0.9978
+          "catchRate": 0.911,
+          "firstFixRate": 1,
+          "top5FixRate": 1
         }
       ],
-      "flagsPer1000": 1.6857
+      "flagsPer1000": 1.6796
     },
     {
       "corpus": "all",
@@ -702,7 +672,7 @@
       "paragraphs": 12998,
       "uncheckedParagraphs": 0,
       "words": 545117,
-      "flags": 1145,
+      "flags": 1111,
       "confirmedRealErrors": 0,
       "rules": [
         {
@@ -722,12 +692,6 @@
           "category": "Spelling",
           "flags": 54,
           "per1000": 0.0991
-        },
-        {
-          "ruleId": "mechanics.sentence-capital",
-          "category": "Mechanics",
-          "flags": 34,
-          "per1000": 0.0624
         },
         {
           "ruleId": "spelling.capitalization",
@@ -834,7 +798,7 @@
           "top5FixRate": 1
         }
       ],
-      "flagsPer1000": 2.1005
+      "flagsPer1000": 2.0381
     }
   ]
 }
