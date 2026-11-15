@@ -18,7 +18,12 @@ internal static class ConfusableBuilder
 {
     private static readonly string[] TagNames = ["_NOUN_", "_VERB_", "_ADJ_", "_ADV_", "_PRON_", "_DET_", "_ADP_", "_NUM_", "_CONJ_", "_PRT_", "_._", "_X_", "_START_", "_END_"];
 
-    public static byte[] Build(Lexicon lexicon, string bigramDir, string taggedDir, long minTotal, List<(string Name, long Value)> stats)
+    /// <summary>
+    /// Builds the data. <paramref name="moreDir"/> holds a later pass for more confusable words; a pair
+    /// with a word of the first pass in it is already in <paramref name="bigramDir"/>, so those lines
+    /// (<paramref name="firstPassWords"/>) are skipped there, to count nothing twice.
+    /// </summary>
+    public static byte[] Build(Lexicon lexicon, string bigramDir, string taggedDir, string moreDir, IReadOnlySet<string> firstPassWords, long minTotal, List<(string Name, long Value)> stats)
     {
         var members = new List<Member>();
         string[][] groups = ConfusableSets.Families.SelectMany(f => f.Groups).ToArray();
@@ -47,12 +52,18 @@ internal static class ConfusableBuilder
             tags[TagNames[i]] = i;
         }
 
-        foreach (string file in Directory.EnumerateFiles(bigramDir, "*.tsv").Concat(Directory.EnumerateFiles(taggedDir, "*.tsv")))
+        foreach (string file in Directory.EnumerateFiles(bigramDir, "*.tsv").Concat(Directory.EnumerateFiles(taggedDir, "*.tsv")).Concat(Directory.EnumerateFiles(moreDir, "*.tsv")))
         {
+            bool later = Path.GetDirectoryName(file) == moreDir;
             foreach (string line in File.ReadLines(file))
             {
                 string[] parts = line.Split('\t');
                 if (parts.Length != 3)
+                {
+                    continue;
+                }
+
+                if (later && (firstPassWords.Contains(parts[0].ToLowerInvariant()) || firstPassWords.Contains(parts[1].ToLowerInvariant())))
                 {
                     continue;
                 }

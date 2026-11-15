@@ -125,6 +125,14 @@ internal sealed class ConfusableWordRule : GrammarRule
                 }
 
                 break;
+            case "peace":
+                // "a peace of cloth": a part of something. Only "a peace of mind" is right as written.
+                if (i > 0 && sentence.Is(i - 1, "a") && sentence.Is(i + 1, "of") && sentence.IsWord(i + 2) && !sentence.Is(i + 2, "mind", "sorts", "a"))
+                {
+                    return "piece";
+                }
+
+                break;
             case "to":
                 // "to late to go", "to much.": "too" and a word it often goes with, then the end of the
                 // thought. With something else after ("to long for home") "to" may be right.

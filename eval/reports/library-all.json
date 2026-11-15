@@ -15,7 +15,7 @@
       "paragraphs": 12879,
       "uncheckedParagraphs": 0,
       "words": 454434,
-      "flags": 683,
+      "flags": 686,
       "confirmedRealErrors": 5,
       "rules": [
         {
@@ -55,6 +55,12 @@
           "per1000": 0.0066
         },
         {
+          "ruleId": "mechanics.comma-spacing",
+          "category": "Mechanics",
+          "flags": 3,
+          "per1000": 0.0066
+        },
+        {
           "ruleId": "agreement.dialect-verb-form",
           "category": "Agreement",
           "flags": 1,
@@ -89,12 +95,12 @@
           "category": "confusable",
           "planted": 500,
           "checked": 500,
-          "caught": 325,
-          "firstFixRight": 323,
-          "fixInTop5": 323,
-          "catchRate": 0.65,
-          "firstFixRate": 0.9938,
-          "top5FixRate": 0.9938
+          "caught": 326,
+          "firstFixRight": 324,
+          "fixInTop5": 324,
+          "catchRate": 0.652,
+          "firstFixRate": 0.9939,
+          "top5FixRate": 0.9939
         },
         {
           "category": "a-an",
@@ -141,7 +147,7 @@
           "top5FixRate": 1
         }
       ],
-      "flagsPer1000": 1.503
+      "flagsPer1000": 1.5096
     },
     {
       "corpus": "calibre",
@@ -150,7 +156,7 @@
       "paragraphs": 7517,
       "uncheckedParagraphs": 0,
       "words": 240253,
-      "flags": 635,
+      "flags": 636,
       "confirmedRealErrors": 0,
       "rules": [
         {
@@ -224,6 +230,12 @@
           "category": "ConfusableWords",
           "flags": 1,
           "per1000": 0.0042
+        },
+        {
+          "ruleId": "mechanics.lowercase-i",
+          "category": "Mechanics",
+          "flags": 1,
+          "per1000": 0.0042
         }
       ],
       "planted": [
@@ -242,12 +254,12 @@
           "category": "confusable",
           "planted": 500,
           "checked": 500,
-          "caught": 323,
-          "firstFixRight": 321,
-          "fixInTop5": 321,
-          "catchRate": 0.646,
-          "firstFixRate": 0.9938,
-          "top5FixRate": 0.9938
+          "caught": 326,
+          "firstFixRight": 324,
+          "fixInTop5": 324,
+          "catchRate": 0.652,
+          "firstFixRate": 0.9939,
+          "top5FixRate": 0.9939
         },
         {
           "category": "a-an",
@@ -294,7 +306,7 @@
           "top5FixRate": 1
         }
       ],
-      "flagsPer1000": 2.643
+      "flagsPer1000": 2.6472
     },
     {
       "corpus": "gutenberg",
@@ -303,7 +315,7 @@
       "paragraphs": 17652,
       "uncheckedParagraphs": 0,
       "words": 859568,
-      "flags": 1536,
+      "flags": 1540,
       "confirmedRealErrors": 1,
       "rules": [
         {
@@ -349,6 +361,12 @@
           "per1000": 0.0047
         },
         {
+          "ruleId": "agreement.noun-verb",
+          "category": "Agreement",
+          "flags": 3,
+          "per1000": 0.0035
+        },
+        {
           "ruleId": "agreement.pronoun-verb",
           "category": "Agreement",
           "flags": 2,
@@ -371,6 +389,12 @@
           "category": "Mechanics",
           "flags": 2,
           "per1000": 0.0023
+        },
+        {
+          "ruleId": "agreement.verb-form",
+          "category": "Agreement",
+          "flags": 1,
+          "per1000": 0.0012
         },
         {
           "ruleId": "confusable.brake-break",
@@ -401,12 +425,12 @@
           "category": "confusable",
           "planted": 500,
           "checked": 500,
-          "caught": 324,
+          "caught": 325,
           "firstFixRight": 322,
           "fixInTop5": 322,
-          "catchRate": 0.648,
-          "firstFixRate": 0.9938,
-          "top5FixRate": 0.9938
+          "catchRate": 0.65,
+          "firstFixRate": 0.9908,
+          "top5FixRate": 0.9908
         },
         {
           "category": "a-an",
@@ -453,7 +477,7 @@
           "top5FixRate": 0.9956
         }
       ],
-      "flagsPer1000": 1.7869
+      "flagsPer1000": 1.7916
     },
     {
       "corpus": "gutenberg",
@@ -554,12 +578,12 @@
           "category": "confusable",
           "planted": 500,
           "checked": 500,
-          "caught": 318,
-          "firstFixRight": 316,
-          "fixInTop5": 316,
-          "catchRate": 0.636,
-          "firstFixRate": 0.9937,
-          "top5FixRate": 0.9937
+          "caught": 320,
+          "firstFixRight": 318,
+          "fixInTop5": 318,
+          "catchRate": 0.64,
+          "firstFixRate": 0.9938,
+          "top5FixRate": 0.9938
         },
         {
           "category": "a-an",
@@ -615,7 +639,7 @@
       "paragraphs": 30531,
       "uncheckedParagraphs": 0,
       "words": 1314002,
-      "flags": 2219,
+      "flags": 2226,
       "confirmedRealErrors": 6,
       "rules": [
         {
@@ -667,6 +691,18 @@
           "per1000": 0.003
         },
         {
+          "ruleId": "agreement.noun-verb",
+          "category": "Agreement",
+          "flags": 3,
+          "per1000": 0.0023
+        },
+        {
+          "ruleId": "mechanics.comma-spacing",
+          "category": "Mechanics",
+          "flags": 3,
+          "per1000": 0.0023
+        },
+        {
           "ruleId": "mechanics.repeated-word",
           "category": "Mechanics",
           "flags": 3,
@@ -683,6 +719,12 @@
           "category": "ConfusableWords",
           "flags": 2,
           "per1000": 0.0015
+        },
+        {
+          "ruleId": "agreement.verb-form",
+          "category": "Agreement",
+          "flags": 1,
+          "per1000": 0.0008
         },
         {
           "ruleId": "confusable.brake-break",
@@ -719,12 +761,12 @@
           "category": "confusable",
           "planted": 1000,
           "checked": 1000,
-          "caught": 649,
-          "firstFixRight": 645,
-          "fixInTop5": 645,
-          "catchRate": 0.649,
-          "firstFixRate": 0.9938,
-          "top5FixRate": 0.9938
+          "caught": 651,
+          "firstFixRight": 646,
+          "fixInTop5": 646,
+          "catchRate": 0.651,
+          "firstFixRate": 0.9923,
+          "top5FixRate": 0.9923
         },
         {
           "category": "a-an",
@@ -771,7 +813,7 @@
           "top5FixRate": 0.9978
         }
       ],
-      "flagsPer1000": 1.6887
+      "flagsPer1000": 1.6941
     },
     {
       "corpus": "all",
@@ -780,7 +822,7 @@
       "paragraphs": 12998,
       "uncheckedParagraphs": 0,
       "words": 545117,
-      "flags": 1158,
+      "flags": 1159,
       "confirmedRealErrors": 0,
       "rules": [
         {
@@ -872,6 +914,12 @@
           "category": "ConfusableWords",
           "flags": 1,
           "per1000": 0.0018
+        },
+        {
+          "ruleId": "mechanics.lowercase-i",
+          "category": "Mechanics",
+          "flags": 1,
+          "per1000": 0.0018
         }
       ],
       "planted": [
@@ -890,10 +938,10 @@
           "category": "confusable",
           "planted": 1000,
           "checked": 1000,
-          "caught": 641,
-          "firstFixRight": 637,
-          "fixInTop5": 637,
-          "catchRate": 0.641,
+          "caught": 646,
+          "firstFixRight": 642,
+          "fixInTop5": 642,
+          "catchRate": 0.646,
           "firstFixRate": 0.9938,
           "top5FixRate": 0.9938
         },
@@ -942,7 +990,7 @@
           "top5FixRate": 1
         }
       ],
-      "flagsPer1000": 2.1243
+      "flagsPer1000": 2.1261
     }
   ]
 }

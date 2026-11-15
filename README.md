@@ -47,9 +47,13 @@ foreach (Issue issue in results[0].Issues)
 | `mechanics.a-an` | "a apple", "an unicorn", judged by sound | on |
 | `mechanics.could-of` | "could of gone" (formal) | on |
 | `mechanics.doubled-space` | two spaces inside a sentence | on |
+| `mechanics.comma-spacing` | "the door , and", "up,, then" | on |
 | `mechanics.sentence-capital` | "He left. she stayed." | on |
+| `mechanics.lowercase-i` | "then i saw" | on |
 | `agreement.pronoun-verb` | "I has", "they is" | on |
 | `agreement.dialect-verb-form` | "they was", "he don't" (formal) | on |
+| `agreement.verb-form` | "have went", "did not went", "should has" (formal) | on |
+| `agreement.noun-verb` | "the children was", "there is many" (formal) | on |
 | `dialogue.full-stop-before-tag` | "Hello." she said. | on |
 | `dialogue.capitalized-tag` | "Hello," She said. | on |
 | `dialogue.missing-comma` | "Hello" she said. | on |
@@ -74,6 +78,13 @@ foreach (Issue issue in results[0].Issues)
 | `confusable.brake-break` | brake, break mixed up | on |
 | `confusable.principal-principle` | principal, principle mixed up | on |
 | `confusable.compliment-complement` | compliment, complement mixed up | on |
+| `confusable.whether-weather` | whether, weather mixed up | on |
+| `confusable.here-hear` | here, hear mixed up | on |
+| `confusable.bear-bare` | bear, bare mixed up | on |
+| `confusable.advice-advise` | advice, advise mixed up | on |
+| `confusable.week-weak` | week, weak mixed up | on |
+| `confusable.know-no` | know, no mixed up | on |
+| `confusable.piece-peace` | piece, peace mixed up | on |
 
 The confusable-word rules flag a word only when the words on either side show strongly that another was
 meant ("taller then her", "their was"), judged from how often each word is seen in those surroundings in

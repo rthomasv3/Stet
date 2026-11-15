@@ -159,6 +159,27 @@ public static class RuleIds
 
     /// <summary>Mixing up compliment and complement.</summary>
     public const string ConfusableComplimentComplement = "confusable.compliment-complement";
+
+    /// <summary>Mixing up whether and weather.</summary>
+    public const string ConfusableWhetherWeather = "confusable.whether-weather";
+
+    /// <summary>Mixing up here and hear.</summary>
+    public const string ConfusableHereHear = "confusable.here-hear";
+
+    /// <summary>Mixing up bear and bare.</summary>
+    public const string ConfusableBearBare = "confusable.bear-bare";
+
+    /// <summary>Mixing up advice and advise.</summary>
+    public const string ConfusableAdviceAdvise = "confusable.advice-advise";
+
+    /// <summary>Mixing up week and weak.</summary>
+    public const string ConfusableWeekWeak = "confusable.week-weak";
+
+    /// <summary>Mixing up know and no.</summary>
+    public const string ConfusableKnowNo = "confusable.know-no";
+
+    /// <summary>Mixing up piece and peace.</summary>
+    public const string ConfusablePiecePeace = "confusable.piece-peace";
 }
 
 internal static class RuleCatalog

@@ -126,7 +126,16 @@ switch (command)
             // Neighbours seen fewer than 200 times with a whole group are left out: measured on the evaluation
             // books, keeping them (2.4 MB against 1.4 MB) catches no more errors and raises no fewer false alarms.
             long minTotal = args.Length > 1 ? long.Parse(args[1]) : 200;
-            byte[] bytes = ConfusableBuilder.Build(lexicon, Path.Combine(downloads, "ngram", "2grams"), Path.Combine(downloads, "ngram", "2grams-tagged"), minTotal, stats);
+            var firstPass = new HashSet<string>(StringComparer.Ordinal);
+            foreach (string line in File.ReadLines(Path.Combine(root, "src", "FictionChecker.DataBuilder", "Lists", "focus.txt")))
+            {
+                if (!line.StartsWith('#'))
+                {
+                    firstPass.UnionWith(line.Split(' ', StringSplitOptions.RemoveEmptyEntries));
+                }
+            }
+
+            byte[] bytes = ConfusableBuilder.Build(lexicon, Path.Combine(downloads, "ngram", "2grams"), Path.Combine(downloads, "ngram", "2grams-tagged"), Path.Combine(downloads, "ngram", "2grams-more"), firstPass, minTotal, stats);
             File.WriteAllBytes(args.Length > 2 ? args[2] : Path.Combine(data, "confusables.bin"), bytes);
             File.WriteAllLines(Path.Combine(downloads, "confusables-stats.local.tsv"), stats.Select(s => $"{s.Name}\t{s.Value}"));
             Console.WriteLine($"Wrote confusables.bin, {bytes.Length:N0} bytes, {stats[^1].Value:N0} neighbour entries.");

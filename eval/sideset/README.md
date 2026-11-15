@@ -12,3 +12,8 @@ on the book measurements. Results when it was written (2026-11-15), each checker
 |---|---:|---:|---:|
 | Errors caught (of 76) | 45 | 48 | 59 |
 | Correct lines flagged (of 36) | 2 | 15 | 7 |
+
+The library's gaps on this set were then worked through (new rules for verb forms, plural subjects,
+lowercase "i", comma spacing, and seven more confusable pairs), each judged on the book measurements.
+After that work the library catches 65 of 76, with the same 2 correct lines flagged (invented names).
+That figure is not comparable with the other two: the rules were written knowing these sentences.
