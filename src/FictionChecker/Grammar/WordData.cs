@@ -151,6 +151,11 @@ internal sealed class WordData
         }
 
         _afterBySpan = _after.GetAlternateLookup<ReadOnlySpan<char>>();
+
+        foreach (int index in ReadIndexList(data, ref at))
+        {
+            _sounds[index] = StartSound.Unknown;
+        }
     }
 
     /// <summary>Loads the data embedded in this assembly.</summary>

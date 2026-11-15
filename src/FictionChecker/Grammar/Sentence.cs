@@ -83,6 +83,30 @@ internal sealed class Sentence
     /// <summary>How the word is formed from other words (plural, past, and so on).</summary>
     public WordForms Forms(int i) => _words[i] >= 0 ? _data.FormsOf(_words[i]) : WordForms.None;
 
+    /// <summary>The word's position in the lexicon (as written, or in lowercase), or -1.</summary>
+    public int WordIndex(int i) => _words[i];
+
+    /// <summary>The word data, for rules that look words up themselves.</summary>
+    public WordData Data => _data;
+
+    /// <summary>Whether every letter of the token is a capital (an acronym or shouting).</summary>
+    public bool IsAllCapitals(int i)
+    {
+        ReadOnlySpan<char> written = Written(i);
+        bool any = false;
+        foreach (char c in written)
+        {
+            if (char.IsLower(c))
+            {
+                return false;
+            }
+
+            any |= char.IsUpper(c);
+        }
+
+        return any;
+    }
+
     /// <summary>Whether the token starts with a capital letter.</summary>
     public bool IsCapitalized(int i) => char.IsUpper(Text[_tokens[i].Start]);
 

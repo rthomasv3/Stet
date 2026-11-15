@@ -242,7 +242,7 @@ public sealed class Checker
         {
             int before = list?.Count ?? 0;
             list ??= [];
-            _grammar.Check(text, tokens, dialogue, state.Custom, resolved.GrammarEnabled, resolved.Spelling.Dialogue, list);
+            _grammar.Check(text, tokens, dialogue, state.Custom, resolved.GrammarEnabled, resolved.Spelling.Dialogue, resolved.QuoteStyle, list);
             if (list.Count > before && before > 0)
             {
                 // Issues are reported in text order whichever part found them.
@@ -411,7 +411,7 @@ public sealed class Checker
 
             // Everything that changes a paragraph's result, apart from the text, the speech found in it and
             // the word sets, which a cache key carries separately.
-            Fingerprint = string.Create(System.Globalization.CultureInfo.InvariantCulture, $"{(int)options.Dialect}.{(int)options.DialogueStrictness}.{Spelling.MaxSuggestions}.{mask}");
+            Fingerprint = string.Create(System.Globalization.CultureInfo.InvariantCulture, $"{(int)options.Dialect}.{(int)QuoteStyle}.{(int)options.DialogueStrictness}.{Spelling.MaxSuggestions}.{mask}");
             if (options.WordSets is not null)
             {
                 SetNames = [.. options.WordSets.Distinct(StringComparer.Ordinal).Order(StringComparer.Ordinal)];

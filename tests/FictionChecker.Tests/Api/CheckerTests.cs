@@ -117,7 +117,7 @@ public class CheckerTests
     [Fact]
     public void Rules_are_listed_with_what_a_settings_screen_needs()
     {
-        Assert.Equal(5, Shared.Rules.Count);
+        Assert.Equal(14, Shared.Rules.Count);
         Assert.Equal(4, Shared.Rules.Count(r => r.Category == RuleCategory.Spelling));
         Assert.Equal(Shared.Rules.Count, Shared.Rules.Select(r => r.Id).Distinct().Count());
         Assert.All(Shared.Rules, rule =>
@@ -264,7 +264,7 @@ public class CheckerTests
         ParagraphResult second = Shared.CheckParagraph("and nothin’ will make me.” He was sayin’ it twice.", carried);
         Assert.False(second.EndsInDialogue);
         Assert.Equal("sayin", Assert.Single(second.Issues).Text);
-        Assert.Equal(2, Shared.CheckParagraph("and nothin’ will make me.” He was sayin’ it twice.").Issues.Count);
+        Assert.Equal(2, Shared.CheckParagraph("and nothin’ will make me.” He was sayin’ it twice.").Issues.Count(i => i.Category == RuleCategory.Spelling));
     }
 
     [Fact]

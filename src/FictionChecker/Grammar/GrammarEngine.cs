@@ -26,7 +26,19 @@ internal sealed class GrammarEngine
         _data = data;
         _functionWords = functionWords;
         _tagger = new Tagger(data);
-        Rules = rules ?? [new RepeatedWordRule()];
+        Rules = rules ??
+        [
+            new RepeatedWordRule(),
+            new ArticleRule(),
+            new CouldOfRule(),
+            new DoubledSpaceRule(),
+            new SentenceCapitalRule(),
+            new PronounVerbRule(),
+            new FullStopBeforeTagRule(),
+            new CapitalizedTagRule(),
+            new MissingCommaBeforeTagRule(),
+            new CommaOutsideQuoteRule(),
+        ];
     }
 
     /// <summary>Creates an engine from the data embedded in the assembly.</summary>
@@ -68,33 +80,47 @@ internal sealed class GrammarEngine
     /// Runs the enabled rules and adds an issue for each finding. <paramref name="enabled"/> holds one flag
     /// per rule, in the order of <see cref="Rules"/>.
     /// </summary>
-    public void Check(string text, List<Token> tokens, DialogueResult? dialogue, CustomWords custom, bool[] enabled, DialogueStrictness strictness, List<Issue> issues)
+    public void Check(string text, List<Token> tokens, DialogueResult? dialogue, CustomWords custom, bool[] enabled, DialogueStrictness strictness, QuoteStyle quoteStyle, List<Issue> issues)
     {
         var findings = new List<Finding>();
+        var paragraph = new Paragraph(text, tokens, dialogue, quoteStyle, custom);
+        for (int r = 0; r < Rules.Count; r++)
+        {
+            if (enabled[r])
+            {
+                findings.Clear();
+                Rules[r].CheckParagraph(paragraph, findings);
+                Report(Rules[r], findings, text, dialogue, strictness, issues);
+            }
+        }
+
         foreach (Sentence sentence in Sentences(text, tokens, dialogue, custom))
         {
             for (int r = 0; r < Rules.Count; r++)
             {
-                if (!enabled[r])
+                if (enabled[r])
                 {
-                    continue;
-                }
-
-                GrammarRule rule = Rules[r];
-                findings.Clear();
-                rule.Check(sentence, findings);
-                foreach (Finding finding in findings)
-                {
-                    // Dialogue strictness: nothing in speech when off; formal rules skip speech when lenient.
-                    bool inSpeech = dialogue is not null && dialogue.IsDialogue(finding.Start);
-                    if (inSpeech && (strictness == DialogueStrictness.Off || (strictness == DialogueStrictness.Lenient && rule.Info.IsFormal)))
-                    {
-                        continue;
-                    }
-
-                    issues.Add(new Issue(finding.Start, finding.Length, rule.Info, IssueKind.Grammar, text.Substring(finding.Start, finding.Length), finding.Message, finding.Explanation, finding.Suggestions));
+                    findings.Clear();
+                    Rules[r].Check(sentence, findings);
+                    Report(Rules[r], findings, text, dialogue, strictness, issues);
                 }
             }
+        }
+    }
+
+    private static void Report(GrammarRule rule, List<Finding> findings, string text, DialogueResult? dialogue, DialogueStrictness strictness, List<Issue> issues)
+    {
+        foreach (Finding finding in findings)
+        {
+            // Dialogue strictness: nothing in speech when off; formal rules skip speech when lenient. Rules
+            // about the punctuation around speech are not about what is said, so they always apply.
+            bool inSpeech = rule.Info.Category != RuleCategory.DialoguePunctuation && dialogue is not null && dialogue.IsDialogue(finding.Start);
+            if (inSpeech && (strictness == DialogueStrictness.Off || (strictness == DialogueStrictness.Lenient && rule.Info.IsFormal)))
+            {
+                continue;
+            }
+
+            issues.Add(new Issue(finding.Start, finding.Length, rule.Info, IssueKind.Grammar, text.Substring(finding.Start, finding.Length), finding.Message, finding.Explanation, finding.Suggestions));
         }
     }
 }

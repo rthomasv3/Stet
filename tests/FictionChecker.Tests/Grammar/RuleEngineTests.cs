@@ -18,7 +18,7 @@ public class RuleEngineTests
         engine ??= Engine;
         var issues = new List<Issue>();
         DialogueResult dialogue = DialogueDetector.Detect(text, QuoteStyle.Double);
-        engine.Check(text, Tokenizer.Tokenize(text), dialogue, CustomWords.Empty, [.. engine.Rules.Select(_ => true)], strictness, issues);
+        engine.Check(text, Tokenizer.Tokenize(text), dialogue, CustomWords.Empty, [.. engine.Rules.Select(_ => true)], strictness, QuoteStyle.Double, issues);
         return issues;
     }
 
@@ -124,7 +124,7 @@ public class RuleEngineTests
     public void A_repeat_is_found_whatever_the_capitals_and_across_a_line_of_spaces()
     {
         Assert.Single(Check("The the door was open."));
-        Assert.Single(Check("She walked to  to the gate."));
+        Assert.Single(Check("She walked to  to the gate."), issue => issue.RuleId == RuleIds.RepeatedWord);
     }
 
     [Theory]

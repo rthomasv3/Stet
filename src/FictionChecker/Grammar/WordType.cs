@@ -48,6 +48,9 @@ internal enum StartSound : byte
 
     /// <summary>Said both ways ("herb").</summary>
     Either,
+
+    /// <summary>Not known, and the spelling is no guide ("usurer", "heirloom" look alike but differ).</summary>
+    Unknown,
 }
 
 /// <summary>Whether a noun is counted ("a chair") or measured ("much water").</summary>

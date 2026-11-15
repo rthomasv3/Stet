@@ -75,7 +75,7 @@ internal sealed class WordInfoBuilder
             previous = word;
         }
 
-        foreach (List<int> list in sounds.Concat(counted))
+        foreach (List<int> list in sounds.Take(3).Concat(counted))
         {
             list.Sort();
             writer.Write(list.Count);
@@ -100,6 +100,17 @@ internal sealed class WordInfoBuilder
             }
         }
 
+        // Words whose first sound cannot be told from their spelling and that the dictionary does not cover.
+        sounds[3].Sort();
+        writer.Write(sounds[3].Count);
+        previous = 0;
+        foreach (int index in sounds[3])
+        {
+            WriteVarint(writer, index - previous);
+            previous = index;
+        }
+
+        Stats["sound: unknown"] = sounds[3].Count;
         Stats["function words with following-type costs"] = after.Count;
         Stats["profiles"] = profiles.Count;
         Stats["words with types"] = profileOf.Count(p => p != 0);
@@ -528,12 +539,26 @@ internal sealed class WordInfoBuilder
             starts[word] = (v || vowel, c || !vowel);
         }
 
-        List<int>[] lists = [[], [], []];
+        List<int>[] lists = [[], [], [], []];
         for (int i = 0; i < _lexicon.Count; i++)
         {
             string word = _lexicon.WordAt(i);
-            if (!char.IsAsciiLetter(word[0]) || !starts.TryGetValue(word.ToLowerInvariant(), out (bool Vowel, bool Consonant) sound))
+            if (!char.IsAsciiLetter(word[0]))
             {
+                continue;
+            }
+
+            string lower = word.ToLowerInvariant();
+            if (!starts.TryGetValue(lower, out (bool Vowel, bool Consonant) sound))
+            {
+                // Not in the pronouncing dictionary. For most letters the spelling settles it (the few words
+                // with a silent h are all in the dictionary); for these it does not: "uncle" and "unit",
+                // "only" and "one", "eel" and "eulogy".
+                if (lower[0] == 'u' || lower.StartsWith("eu", StringComparison.Ordinal) || lower.StartsWith("ew", StringComparison.Ordinal) || lower.StartsWith("one", StringComparison.Ordinal) || lower.StartsWith("once", StringComparison.Ordinal))
+                {
+                    lists[3].Add(i);
+                }
+
                 continue;
             }
 

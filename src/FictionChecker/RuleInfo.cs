@@ -57,6 +57,33 @@ public static class RuleIds
 
     /// <summary>The same word twice in a row.</summary>
     public const string RepeatedWord = "mechanics.repeated-word";
+
+    /// <summary>"a" where "an" is needed, or the reverse.</summary>
+    public const string Article = "mechanics.a-an";
+
+    /// <summary>"could of" for "could have".</summary>
+    public const string CouldOf = "mechanics.could-of";
+
+    /// <summary>Two or more spaces between words.</summary>
+    public const string DoubledSpace = "mechanics.doubled-space";
+
+    /// <summary>A sentence that starts without a capital letter.</summary>
+    public const string SentenceCapital = "mechanics.sentence-capital";
+
+    /// <summary>A pronoun with a verb form that does not agree with it ("they was").</summary>
+    public const string PronounVerb = "agreement.pronoun-verb";
+
+    /// <summary>A full stop where speech runs on into its tag.</summary>
+    public const string FullStopBeforeTag = "dialogue.full-stop-before-tag";
+
+    /// <summary>A dialogue tag that starts with a capital after a comma.</summary>
+    public const string CapitalizedTag = "dialogue.capitalized-tag";
+
+    /// <summary>No comma between speech and its tag.</summary>
+    public const string MissingCommaBeforeTag = "dialogue.missing-comma";
+
+    /// <summary>A comma placed after the closing quote mark, before a tag.</summary>
+    public const string CommaOutsideQuote = "dialogue.comma-outside-quote";
 }
 
 internal static class RuleCatalog
