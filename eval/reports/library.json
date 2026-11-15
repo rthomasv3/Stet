@@ -315,7 +315,7 @@
       "paragraphs": 17652,
       "uncheckedParagraphs": 0,
       "words": 859568,
-      "flags": 1536,
+      "flags": 1537,
       "confirmedRealErrors": 1,
       "rules": [
         {
@@ -383,6 +383,12 @@
           "category": "Mechanics",
           "flags": 2,
           "per1000": 0.0023
+        },
+        {
+          "ruleId": "agreement.verb-form",
+          "category": "Agreement",
+          "flags": 1,
+          "per1000": 0.0012
         },
         {
           "ruleId": "confusable.brake-break",
@@ -465,7 +471,7 @@
           "top5FixRate": 0.9956
         }
       ],
-      "flagsPer1000": 1.7869
+      "flagsPer1000": 1.7881
     },
     {
       "corpus": "gutenberg",
@@ -627,7 +633,7 @@
       "paragraphs": 30531,
       "uncheckedParagraphs": 0,
       "words": 1314002,
-      "flags": 2222,
+      "flags": 2223,
       "confirmedRealErrors": 6,
       "rules": [
         {
@@ -701,6 +707,12 @@
           "category": "ConfusableWords",
           "flags": 2,
           "per1000": 0.0015
+        },
+        {
+          "ruleId": "agreement.verb-form",
+          "category": "Agreement",
+          "flags": 1,
+          "per1000": 0.0008
         },
         {
           "ruleId": "confusable.brake-break",
@@ -789,7 +801,7 @@
           "top5FixRate": 0.9978
         }
       ],
-      "flagsPer1000": 1.691
+      "flagsPer1000": 1.6918
     },
     {
       "corpus": "all",

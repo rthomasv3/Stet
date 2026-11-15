@@ -10,12 +10,12 @@ Target: under 1 per 1,000 words. Flags confirmed as real errors in the source ar
 
 | Corpus | Split | Books | Words | Flags | Per 1,000 words | Change | harper | Confirmed real errors | Not checked |
 |---|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| calibre | dev | 16 | 454,434 | 686 | 1.51 | +0.007 | 40.089 | 5 | 0 |
-| calibre | test | 8 | 240,253 | 636 | 2.647 | 0 | 40.52 | 0 | 0 |
-| gutenberg | dev | 29 | 859,568 | 1,536 | 1.787 | 0 | 24.358 | 1 | 0 |
+| calibre | dev | 16 | 454,434 | 686 | 1.51 | 0 | 40.089 | 5 | 0 |
+| calibre | test | 8 | 240,253 | 636 | 2.647 | -0.008 | 40.52 | 0 | 0 |
+| gutenberg | dev | 29 | 859,568 | 1,537 | 1.788 | -0.004 | 24.358 | 1 | 0 |
 | gutenberg | test | 11 | 304,864 | 523 | 1.716 | 0 | 19.94 | 0 | 0 |
-| all | dev | 45 | 1,314,002 | 2,222 | 1.691 | +0.002 | 29.798 | 6 | 0 |
-| all | test | 19 | 545,117 | 1,159 | 2.126 | 0 | 29.01 | 0 | 0 |
+| all | dev | 45 | 1,314,002 | 2,223 | 1.692 | -0.002 | 29.798 | 6 | 0 |
+| all | test | 19 | 545,117 | 1,159 | 2.126 | -0.004 | 29.01 | 0 | 0 |
 
 ## False alarms per rule
 
@@ -29,7 +29,7 @@ Flags per 1,000 words over all corpora. Target for a rule to be on by default: u
 | spelling.capitalization | Spelling | 0.091 | 0.061 | 0 |
 | mechanics.sentence-capital | Mechanics | 0.006 | 0.062 | 0 |
 
-16 other rules flagged something but stayed under the bar.
+17 other rules flagged something but stayed under the bar.
 
 ## Planted errors
 
