@@ -18,11 +18,27 @@ internal sealed class SuggestionIndex
     private readonly string[] _words;
     private readonly byte[] _shared;
 
+    // Most words are all lowercase and can be compared as they are; only the rest need lowering letter by letter.
+    private readonly bool[] _hasCapitals;
+
     /// <summary>Creates an index over words in ordinal order.</summary>
     public SuggestionIndex(string[] sortedWords)
     {
         _words = sortedWords;
         _shared = new byte[sortedWords.Length];
+        _hasCapitals = new bool[sortedWords.Length];
+        for (int i = 0; i < sortedWords.Length; i++)
+        {
+            foreach (char c in sortedWords[i])
+            {
+                if (char.ToLowerInvariant(c) != c)
+                {
+                    _hasCapitals[i] = true;
+                    break;
+                }
+            }
+        }
+
         for (int i = 1; i < sortedWords.Length; i++)
         {
             string a = sortedWords[i - 1];
@@ -88,9 +104,10 @@ internal sealed class SuggestionIndex
 
             int depth = start;
             bool alive = true;
+            bool lowerFirst = _hasCapitals[i];
             while (depth < word.Length)
             {
-                char c = char.ToLowerInvariant(word[depth]);
+                char c = lowerFirst ? char.ToLowerInvariant(word[depth]) : word[depth];
                 current[depth] = c;
                 depth++;
                 int row = depth * width;
