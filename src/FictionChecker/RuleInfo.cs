@@ -70,6 +70,15 @@ public static class RuleIds
     /// <summary>A sentence that starts without a capital letter.</summary>
     public const string SentenceCapital = "mechanics.sentence-capital";
 
+    /// <summary>The word "I" written in lowercase.</summary>
+    public const string LowercaseI = "mechanics.lowercase-i";
+
+    /// <summary>A space before a comma, or two commas in a row.</summary>
+    public const string CommaSpacing = "mechanics.comma-spacing";
+
+    /// <summary>The wrong form of a verb after "have" or "did" ("have went").</summary>
+    public const string VerbForm = "agreement.verb-form";
+
     /// <summary>A pronoun with a verb form that does not agree with it ("they was").</summary>
     public const string PronounVerb = "agreement.pronoun-verb";
 

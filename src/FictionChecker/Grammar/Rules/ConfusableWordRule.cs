@@ -105,6 +105,25 @@ internal sealed class ConfusableWordRule : GrammarRule
                     };
                 }
 
+                // "your not going", "your the one": these words do not follow "your".
+                // ("Your not being there" is right: "your" can own an -ing word, so those are left to the counts.)
+                if (written == "your" && best == "you're" && evidence.Right >= 6 * Bit && sentence.Is(i + 1, "not", "a", "an", "the", "never", "always", "probably", "already")
+                    && !(sentence.IsWord(i + 2) && (sentence.Forms(i + 2) & WordForms.VerbGerund) != 0 && !sentence.Is(i + 2, "going")))
+                {
+                    return "you're";
+                }
+
+                break;
+            case "it's":
+                // "licked it's paw", "in it's place": after a verb or a word like "in", before a thing that
+                // "its" often goes with, "it is" cannot be meant.
+                if (best == "its" && evidence.Right >= 6 * Bit && evidence.Total >= 7 * Bit && i > 0 && sentence.IsWord(i - 1)
+                    && sentence.Type(i - 1) is WordType.Verb or WordType.Adposition
+                    && sentence.IsWord(i + 1) && sentence.Type(i + 1) is WordType.Noun or WordType.Adjective)
+                {
+                    return "its";
+                }
+
                 break;
             case "to":
                 // "to late to go", "to much.": "too" and a word it often goes with, then the end of the
