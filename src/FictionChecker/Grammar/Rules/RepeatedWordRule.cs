@@ -53,9 +53,12 @@ internal sealed class RepeatedWordRule : GrammarRule
                 continue;
             }
 
-            if (sentence.IsCapitalized(i + 1) && word != "i" && !word.StartsWith("i'", StringComparison.Ordinal))
+            // "Walla Walla", "Naught Naught One": two capitals are a name. Only a function word doubled at the
+            // very start ("The The door") is taken for a slip.
+            if (sentence.IsCapitalized(i + 1) && word != "i" && !word.StartsWith("i'", StringComparison.Ordinal)
+                && !(i == 0 && sentence.Traits(i) != WordTraits.None))
             {
-                continue; // "Walla Walla", "Naught Naught One"; a slip leaves the second word in lowercase
+                continue;
             }
 
             // A name and then the plain word ("On Mount Doom doom shall fall"), a made-up sound ("whop whop",

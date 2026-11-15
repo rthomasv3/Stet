@@ -243,7 +243,7 @@ public sealed class Checker
             int before = list?.Count ?? 0;
             list ??= [];
             _grammar.Check(text, tokens, dialogue, state.Custom, resolved.GrammarEnabled, resolved.Spelling.Dialogue, resolved.QuoteStyle, list);
-            if (list.Count > before && before > 0)
+            if (list.Count > before && list.Count > 1)
             {
                 // Issues are reported in text order whichever part found them.
                 list.Sort(static (a, b) => a.Start != b.Start ? a.Start.CompareTo(b.Start) : string.CompareOrdinal(a.RuleId, b.RuleId));

@@ -126,7 +126,6 @@ public class CheckerTests
             Assert.NotEmpty(rule.Description);
             Assert.NotEmpty(rule.FlaggedExamples);
             Assert.NotEmpty(rule.AcceptedExamples);
-            Assert.True(rule.EnabledByDefault);
         });
     }
 
@@ -135,9 +134,80 @@ public class CheckerTests
     {
         foreach (RuleInfo rule in Shared.Rules)
         {
-            Assert.All(rule.FlaggedExamples, example => Assert.Contains(Shared.CheckParagraph(example).Issues, i => i.RuleId == rule.Id));
-            Assert.All(rule.AcceptedExamples, example => Assert.DoesNotContain(Shared.CheckParagraph(example).Issues, i => i.RuleId == rule.Id));
+            var on = new ParagraphContext { Options = CheckerOptions.Default.WithRule(rule.Id, true) };
+            Assert.All(rule.FlaggedExamples, example => Assert.Contains(Shared.CheckParagraph(example, on).Issues, i => i.RuleId == rule.Id));
+            Assert.All(rule.AcceptedExamples, example => Assert.DoesNotContain(Shared.CheckParagraph(example, on).Issues, i => i.RuleId == rule.Id));
         }
+    }
+
+    [Fact]
+    public void A_rule_that_is_off_by_default_is_silent_until_it_is_turned_on()
+    {
+        RuleInfo rule = Shared.Rules.Single(r => r.Id == RuleIds.SentenceCapital);
+        const string Text = "He left. she stayed.";
+
+        Assert.False(rule.EnabledByDefault);
+        Assert.Empty(Shared.CheckParagraph(Text).Issues);
+        Issue issue = Assert.Single(Shared.CheckParagraph(Text, new ParagraphContext { Options = CheckerOptions.Default.WithRule(rule.Id, true) }).Issues);
+        Assert.Equal("She", issue.Suggestions[0].Text);
+        Assert.Single(Shared.CheckParagraph(Text, new ParagraphContext { Options = CheckerOptions.Default.WithCategory(RuleCategory.Mechanics, true) }).Issues);
+    }
+
+    [Theory]
+    [InlineData("She ate a apple.", RuleIds.Article, 8, 1, "an")]
+    [InlineData("He could of gone home.", RuleIds.CouldOf, 9, 2, "have")]
+    [InlineData("She opened  the door.", RuleIds.DoubledSpace, 10, 2, " ")]
+    [InlineData("I has no idea.", RuleIds.PronounVerb, 2, 3, "have")]
+    [InlineData("They was late again.", RuleIds.DialectVerbForm, 5, 3, "were")]
+    [InlineData("“Hello.” she said.", RuleIds.FullStopBeforeTag, 6, 1, ",")]
+    [InlineData("“Hello,” She said.", RuleIds.CapitalizedTag, 9, 3, "she")]
+    [InlineData("“Hello” she said.", RuleIds.MissingCommaBeforeTag, 6, 1, ",”")]
+    [InlineData("“Hello”, she said.", RuleIds.CommaOutsideQuote, 6, 2, ",”")]
+    public void Each_grammar_rule_reports_where_the_slip_is_and_how_to_fix_it(string text, string ruleId, int start, int length, string fix)
+    {
+        Issue issue = Assert.Single(Shared.CheckParagraph(text).Issues);
+
+        Assert.Equal(ruleId, issue.RuleId);
+        Assert.Equal((start, length), (issue.Start, issue.Length));
+        Assert.Equal(fix, Assert.Single(issue.Suggestions).Text);
+        Assert.Equal(IssueKind.Grammar, issue.Kind);
+        Assert.NotEmpty(issue.Message);
+        Assert.NotEmpty(issue.Explanation);
+    }
+
+    [Fact]
+    public void Formal_rules_are_skipped_in_speech_unless_dialogue_checking_is_strict()
+    {
+        const string Text = "“They was here, and he could of stayed,” she said.";
+        var strict = new ParagraphContext { Options = CheckerOptions.Default with { DialogueStrictness = DialogueStrictness.Strict } };
+
+        Assert.Empty(Shared.CheckParagraph(Text).Issues);
+        Assert.Equal([RuleIds.DialectVerbForm, RuleIds.CouldOf], Shared.CheckParagraph(Text, strict).Issues.Select(i => i.RuleId));
+    }
+
+    [Fact]
+    public void Dialogue_punctuation_is_still_checked_when_dialogue_checking_is_off()
+    {
+        var off = new ParagraphContext { Options = CheckerOptions.Default with { DialogueStrictness = DialogueStrictness.Off } };
+
+        Assert.Equal(RuleIds.FullStopBeforeTag, Assert.Single(Shared.CheckParagraph("“Helo.” she said.", off).Issues).RuleId);
+    }
+
+    [Fact]
+    public void Comma_placement_is_only_checked_with_double_quote_marks()
+    {
+        var single = new ParagraphContext { Options = CheckerOptions.Default with { QuoteStyle = QuoteStyle.Single } };
+
+        Assert.Empty(Shared.CheckParagraph("‘Hello’, she said.", single).Issues);
+        Assert.Equal(RuleIds.MissingCommaBeforeTag, Assert.Single(Shared.CheckParagraph("‘Hello there’ she said.", single).Issues).RuleId);
+    }
+
+    [Fact]
+    public void Unfinished_speech_is_not_flagged()
+    {
+        Assert.Empty(Shared.CheckParagraph("“I was going to—” she said.").Issues);
+        Assert.Empty(Shared.CheckParagraph("“Well…” he said.").Issues);
+        Assert.Empty(Shared.CheckParagraph("“Well...” he said.").Issues);
     }
 
     [Fact]

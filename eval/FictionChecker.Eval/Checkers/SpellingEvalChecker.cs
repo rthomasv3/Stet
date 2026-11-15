@@ -25,16 +25,18 @@ public sealed class SpellingEvalChecker : IEvalChecker
     private readonly Dictionary<string, (Checker Checker, CheckerOptions Options)> _prepared = new(StringComparer.Ordinal);
     private readonly bool _world;
     private readonly bool _spellingOnly;
+    private readonly bool _everyRule;
 
     /// <summary>
     /// Creates the wrapper. With <paramref name="spellingOnly"/> the grammar rules are switched off; without
     /// it every rule runs at its default, which is what an app gets (reported as "library").
     /// </summary>
-    public SpellingEvalChecker(IEnumerable<Corpus> corpora, bool world, bool spellingOnly = true)
+    public SpellingEvalChecker(IEnumerable<Corpus> corpora, bool world, bool spellingOnly = true, bool everyRule = false)
     {
         _world = world;
         _spellingOnly = spellingOnly;
-        Name = !spellingOnly ? "library" : world ? "spelling-world" : "spelling";
+        _everyRule = everyRule;
+        Name = everyRule ? "library-all" : !spellingOnly ? "library" : world ? "spelling-world" : "spelling";
         foreach (Corpus corpus in corpora)
         {
             foreach (Book book in corpus.Books)
@@ -81,6 +83,12 @@ public sealed class SpellingEvalChecker : IEvalChecker
             Dialect = document.Dialect == "GB" ? PickBritish(checker, text) : Dialect.American,
             QuoteStyle = DialogueDetector.GuessStyle(text),
         };
+        if (_everyRule)
+        {
+            // Rules that are off by default are switched on too, so that each one is measured.
+            options = options with { RuleOverrides = checker.Rules.ToDictionary(r => r.Id, _ => true, StringComparer.Ordinal) };
+        }
+
         if (_spellingOnly)
         {
             options = options with

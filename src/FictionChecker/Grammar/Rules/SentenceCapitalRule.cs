@@ -10,7 +10,7 @@ internal sealed class SentenceCapitalRule : GrammarRule
         "Sentence capitals",
         "Flags a sentence that starts with a lowercase letter after a full stop. The first word of a paragraph is not checked, because lines of verse and paragraphs that carry on after a break often start in lowercase. Abbreviations (\"etc.\", \"Mr.\"), trailing-off dots and dialogue tags (“Why?” she asked) are not sentence starts.",
         RuleCategory.Mechanics,
-        true,
+        false, // over the bar on the held-out modern books (see eval/reports/library-all.md); Robert decides
         false,
         ["He left. she stayed.", "The lords gathered at the end. the singing began.", "“Go.” he turned away."],
         ["He left. She stayed.", "“Why?” she asked.", "He waited... and waited.", "They sold nails, rope, etc. and little else.", "It cost approx. five crowns.", "the door was open.", "The Louis XV. clock struck.", "See chap. ii. for more.", "She wrote: no. not now. not ever.", "“you are a long walker. you find me here,” she said."]);

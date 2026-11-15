@@ -5,7 +5,7 @@
     "seed": 20261114,
     "cleanWordsPerBook": 30000,
     "plantedPerCategory": 500,
-    "reviewFlagsPerRule": 40
+    "reviewFlagsPerRule": 3000
   },
   "groups": [
     {
@@ -15,7 +15,7 @@
       "paragraphs": 12879,
       "uncheckedParagraphs": 0,
       "words": 454434,
-      "flags": 672,
+      "flags": 682,
       "confirmedRealErrors": 5,
       "rules": [
         {
@@ -41,6 +41,24 @@
           "category": "Spelling",
           "flags": 28,
           "per1000": 0.0616
+        },
+        {
+          "ruleId": "mechanics.sentence-capital",
+          "category": "Mechanics",
+          "flags": 6,
+          "per1000": 0.0132
+        },
+        {
+          "ruleId": "dialogue.full-stop-before-tag",
+          "category": "DialoguePunctuation",
+          "flags": 3,
+          "per1000": 0.0066
+        },
+        {
+          "ruleId": "agreement.dialect-verb-form",
+          "category": "Agreement",
+          "flags": 1,
+          "per1000": 0.0022
         },
         {
           "ruleId": "mechanics.repeated-word",
@@ -76,21 +94,21 @@
           "category": "a-an",
           "planted": 500,
           "checked": 500,
-          "caught": 0,
-          "firstFixRight": 0,
-          "fixInTop5": 0,
-          "catchRate": 0,
-          "firstFixRate": 0,
-          "top5FixRate": 0
+          "caught": 463,
+          "firstFixRight": 463,
+          "fixInTop5": 463,
+          "catchRate": 0.926,
+          "firstFixRate": 1,
+          "top5FixRate": 1
         },
         {
           "category": "repeated-word",
           "planted": 500,
           "checked": 500,
-          "caught": 419,
-          "firstFixRight": 419,
-          "fixInTop5": 419,
-          "catchRate": 0.838,
+          "caught": 401,
+          "firstFixRight": 401,
+          "fixInTop5": 401,
+          "catchRate": 0.802,
           "firstFixRate": 1,
           "top5FixRate": 1
         },
@@ -98,26 +116,26 @@
           "category": "agreement",
           "planted": 500,
           "checked": 500,
-          "caught": 0,
-          "firstFixRight": 0,
-          "fixInTop5": 0,
-          "catchRate": 0,
-          "firstFixRate": 0,
-          "top5FixRate": 0
+          "caught": 301,
+          "firstFixRight": 301,
+          "fixInTop5": 301,
+          "catchRate": 0.602,
+          "firstFixRate": 1,
+          "top5FixRate": 1
         },
         {
           "category": "dialogue-punctuation",
           "planted": 500,
           "checked": 500,
-          "caught": 0,
-          "firstFixRight": 0,
-          "fixInTop5": 0,
-          "catchRate": 0,
-          "firstFixRate": 0,
-          "top5FixRate": 0
+          "caught": 459,
+          "firstFixRight": 459,
+          "fixInTop5": 459,
+          "catchRate": 0.918,
+          "firstFixRate": 1,
+          "top5FixRate": 1
         }
       ],
-      "flagsPer1000": 1.4788
+      "flagsPer1000": 1.5008
     },
     {
       "corpus": "calibre",
@@ -126,7 +144,7 @@
       "paragraphs": 7517,
       "uncheckedParagraphs": 0,
       "words": 240253,
-      "flags": 592,
+      "flags": 626,
       "confirmedRealErrors": 0,
       "rules": [
         {
@@ -140,6 +158,12 @@
           "category": "Spelling",
           "flags": 94,
           "per1000": 0.3913
+        },
+        {
+          "ruleId": "mechanics.sentence-capital",
+          "category": "Mechanics",
+          "flags": 29,
+          "per1000": 0.1207
         },
         {
           "ruleId": "spelling.other-dialect",
@@ -158,6 +182,18 @@
           "category": "Mechanics",
           "flags": 15,
           "per1000": 0.0624
+        },
+        {
+          "ruleId": "dialogue.full-stop-before-tag",
+          "category": "DialoguePunctuation",
+          "flags": 3,
+          "per1000": 0.0125
+        },
+        {
+          "ruleId": "dialogue.capitalized-tag",
+          "category": "DialoguePunctuation",
+          "flags": 2,
+          "per1000": 0.0083
         }
       ],
       "planted": [
@@ -187,21 +223,21 @@
           "category": "a-an",
           "planted": 500,
           "checked": 500,
-          "caught": 0,
-          "firstFixRight": 0,
-          "fixInTop5": 0,
-          "catchRate": 0,
-          "firstFixRate": 0,
-          "top5FixRate": 0
+          "caught": 471,
+          "firstFixRight": 471,
+          "fixInTop5": 471,
+          "catchRate": 0.942,
+          "firstFixRate": 1,
+          "top5FixRate": 1
         },
         {
           "category": "repeated-word",
           "planted": 500,
           "checked": 500,
-          "caught": 404,
-          "firstFixRight": 404,
-          "fixInTop5": 404,
-          "catchRate": 0.808,
+          "caught": 382,
+          "firstFixRight": 382,
+          "fixInTop5": 382,
+          "catchRate": 0.764,
           "firstFixRate": 1,
           "top5FixRate": 1
         },
@@ -209,26 +245,26 @@
           "category": "agreement",
           "planted": 500,
           "checked": 500,
-          "caught": 0,
-          "firstFixRight": 0,
-          "fixInTop5": 0,
-          "catchRate": 0,
-          "firstFixRate": 0,
-          "top5FixRate": 0
+          "caught": 328,
+          "firstFixRight": 328,
+          "fixInTop5": 328,
+          "catchRate": 0.656,
+          "firstFixRate": 1,
+          "top5FixRate": 1
         },
         {
           "category": "dialogue-punctuation",
           "planted": 500,
           "checked": 500,
-          "caught": 0,
-          "firstFixRight": 0,
-          "fixInTop5": 0,
-          "catchRate": 0,
-          "firstFixRate": 0,
-          "top5FixRate": 0
+          "caught": 481,
+          "firstFixRight": 481,
+          "fixInTop5": 481,
+          "catchRate": 0.962,
+          "firstFixRate": 1,
+          "top5FixRate": 1
         }
       ],
-      "flagsPer1000": 2.4641
+      "flagsPer1000": 2.6056
     },
     {
       "corpus": "gutenberg",
@@ -237,7 +273,7 @@
       "paragraphs": 17652,
       "uncheckedParagraphs": 0,
       "words": 859568,
-      "flags": 1485,
+      "flags": 1533,
       "confirmedRealErrors": 1,
       "rules": [
         {
@@ -265,10 +301,46 @@
           "per1000": 0.107
         },
         {
+          "ruleId": "agreement.dialect-verb-form",
+          "category": "Agreement",
+          "flags": 32,
+          "per1000": 0.0372
+        },
+        {
+          "ruleId": "dialogue.full-stop-before-tag",
+          "category": "DialoguePunctuation",
+          "flags": 7,
+          "per1000": 0.0081
+        },
+        {
+          "ruleId": "mechanics.a-an",
+          "category": "Mechanics",
+          "flags": 4,
+          "per1000": 0.0047
+        },
+        {
+          "ruleId": "agreement.pronoun-verb",
+          "category": "Agreement",
+          "flags": 2,
+          "per1000": 0.0023
+        },
+        {
           "ruleId": "mechanics.repeated-word",
           "category": "Mechanics",
           "flags": 2,
           "per1000": 0.0023
+        },
+        {
+          "ruleId": "mechanics.sentence-capital",
+          "category": "Mechanics",
+          "flags": 2,
+          "per1000": 0.0023
+        },
+        {
+          "ruleId": "dialogue.missing-comma",
+          "category": "DialoguePunctuation",
+          "flags": 1,
+          "per1000": 0.0012
         }
       ],
       "planted": [
@@ -298,21 +370,21 @@
           "category": "a-an",
           "planted": 500,
           "checked": 500,
-          "caught": 0,
-          "firstFixRight": 0,
-          "fixInTop5": 0,
-          "catchRate": 0,
-          "firstFixRate": 0,
-          "top5FixRate": 0
+          "caught": 468,
+          "firstFixRight": 468,
+          "fixInTop5": 468,
+          "catchRate": 0.936,
+          "firstFixRate": 1,
+          "top5FixRate": 1
         },
         {
           "category": "repeated-word",
           "planted": 500,
           "checked": 500,
-          "caught": 422,
-          "firstFixRight": 422,
-          "fixInTop5": 422,
-          "catchRate": 0.844,
+          "caught": 409,
+          "firstFixRight": 409,
+          "fixInTop5": 409,
+          "catchRate": 0.818,
           "firstFixRate": 1,
           "top5FixRate": 1
         },
@@ -320,26 +392,26 @@
           "category": "agreement",
           "planted": 500,
           "checked": 500,
-          "caught": 0,
-          "firstFixRight": 0,
-          "fixInTop5": 0,
-          "catchRate": 0,
-          "firstFixRate": 0,
-          "top5FixRate": 0
+          "caught": 338,
+          "firstFixRight": 338,
+          "fixInTop5": 338,
+          "catchRate": 0.676,
+          "firstFixRate": 1,
+          "top5FixRate": 1
         },
         {
           "category": "dialogue-punctuation",
           "planted": 500,
           "checked": 500,
-          "caught": 0,
-          "firstFixRight": 0,
-          "fixInTop5": 0,
-          "catchRate": 0,
-          "firstFixRate": 0,
-          "top5FixRate": 0
+          "caught": 454,
+          "firstFixRight": 452,
+          "fixInTop5": 452,
+          "catchRate": 0.908,
+          "firstFixRate": 0.9956,
+          "top5FixRate": 0.9956
         }
       ],
-      "flagsPer1000": 1.7276
+      "flagsPer1000": 1.7835
     },
     {
       "corpus": "gutenberg",
@@ -348,7 +420,7 @@
       "paragraphs": 5481,
       "uncheckedParagraphs": 0,
       "words": 304864,
-      "flags": 508,
+      "flags": 519,
       "confirmedRealErrors": 0,
       "rules": [
         {
@@ -376,10 +448,34 @@
           "per1000": 0.0558
         },
         {
+          "ruleId": "mechanics.sentence-capital",
+          "category": "Mechanics",
+          "flags": 5,
+          "per1000": 0.0164
+        },
+        {
+          "ruleId": "mechanics.a-an",
+          "category": "Mechanics",
+          "flags": 3,
+          "per1000": 0.0098
+        },
+        {
+          "ruleId": "dialogue.missing-comma",
+          "category": "DialoguePunctuation",
+          "flags": 2,
+          "per1000": 0.0066
+        },
+        {
           "ruleId": "mechanics.repeated-word",
           "category": "Mechanics",
           "flags": 2,
           "per1000": 0.0066
+        },
+        {
+          "ruleId": "dialogue.full-stop-before-tag",
+          "category": "DialoguePunctuation",
+          "flags": 1,
+          "per1000": 0.0033
         }
       ],
       "planted": [
@@ -409,21 +505,21 @@
           "category": "a-an",
           "planted": 500,
           "checked": 500,
-          "caught": 0,
-          "firstFixRight": 0,
-          "fixInTop5": 0,
-          "catchRate": 0,
-          "firstFixRate": 0,
-          "top5FixRate": 0
+          "caught": 470,
+          "firstFixRight": 470,
+          "fixInTop5": 470,
+          "catchRate": 0.94,
+          "firstFixRate": 1,
+          "top5FixRate": 1
         },
         {
           "category": "repeated-word",
           "planted": 500,
           "checked": 500,
-          "caught": 423,
-          "firstFixRight": 423,
-          "fixInTop5": 423,
-          "catchRate": 0.846,
+          "caught": 406,
+          "firstFixRight": 406,
+          "fixInTop5": 406,
+          "catchRate": 0.812,
           "firstFixRate": 1,
           "top5FixRate": 1
         },
@@ -431,26 +527,26 @@
           "category": "agreement",
           "planted": 500,
           "checked": 500,
-          "caught": 0,
-          "firstFixRight": 0,
-          "fixInTop5": 0,
-          "catchRate": 0,
-          "firstFixRate": 0,
-          "top5FixRate": 0
+          "caught": 317,
+          "firstFixRight": 317,
+          "fixInTop5": 317,
+          "catchRate": 0.634,
+          "firstFixRate": 1,
+          "top5FixRate": 1
         },
         {
           "category": "dialogue-punctuation",
           "planted": 500,
           "checked": 500,
-          "caught": 0,
-          "firstFixRight": 0,
-          "fixInTop5": 0,
-          "catchRate": 0,
-          "firstFixRate": 0,
-          "top5FixRate": 0
+          "caught": 460,
+          "firstFixRight": 460,
+          "fixInTop5": 460,
+          "catchRate": 0.92,
+          "firstFixRate": 1,
+          "top5FixRate": 1
         }
       ],
-      "flagsPer1000": 1.6663
+      "flagsPer1000": 1.7024
     },
     {
       "corpus": "all",
@@ -459,7 +555,7 @@
       "paragraphs": 30531,
       "uncheckedParagraphs": 0,
       "words": 1314002,
-      "flags": 2157,
+      "flags": 2215,
       "confirmedRealErrors": 6,
       "rules": [
         {
@@ -487,10 +583,46 @@
           "per1000": 0.0913
         },
         {
+          "ruleId": "agreement.dialect-verb-form",
+          "category": "Agreement",
+          "flags": 33,
+          "per1000": 0.0251
+        },
+        {
+          "ruleId": "dialogue.full-stop-before-tag",
+          "category": "DialoguePunctuation",
+          "flags": 10,
+          "per1000": 0.0076
+        },
+        {
+          "ruleId": "mechanics.sentence-capital",
+          "category": "Mechanics",
+          "flags": 8,
+          "per1000": 0.0061
+        },
+        {
+          "ruleId": "mechanics.a-an",
+          "category": "Mechanics",
+          "flags": 4,
+          "per1000": 0.003
+        },
+        {
           "ruleId": "mechanics.repeated-word",
           "category": "Mechanics",
           "flags": 3,
           "per1000": 0.0023
+        },
+        {
+          "ruleId": "agreement.pronoun-verb",
+          "category": "Agreement",
+          "flags": 2,
+          "per1000": 0.0015
+        },
+        {
+          "ruleId": "dialogue.missing-comma",
+          "category": "DialoguePunctuation",
+          "flags": 1,
+          "per1000": 0.0008
         }
       ],
       "planted": [
@@ -520,21 +652,21 @@
           "category": "a-an",
           "planted": 1000,
           "checked": 1000,
-          "caught": 0,
-          "firstFixRight": 0,
-          "fixInTop5": 0,
-          "catchRate": 0,
-          "firstFixRate": 0,
-          "top5FixRate": 0
+          "caught": 931,
+          "firstFixRight": 931,
+          "fixInTop5": 931,
+          "catchRate": 0.931,
+          "firstFixRate": 1,
+          "top5FixRate": 1
         },
         {
           "category": "repeated-word",
           "planted": 1000,
           "checked": 1000,
-          "caught": 841,
-          "firstFixRight": 841,
-          "fixInTop5": 841,
-          "catchRate": 0.841,
+          "caught": 810,
+          "firstFixRight": 810,
+          "fixInTop5": 810,
+          "catchRate": 0.81,
           "firstFixRate": 1,
           "top5FixRate": 1
         },
@@ -542,26 +674,26 @@
           "category": "agreement",
           "planted": 1000,
           "checked": 1000,
-          "caught": 0,
-          "firstFixRight": 0,
-          "fixInTop5": 0,
-          "catchRate": 0,
-          "firstFixRate": 0,
-          "top5FixRate": 0
+          "caught": 639,
+          "firstFixRight": 639,
+          "fixInTop5": 639,
+          "catchRate": 0.639,
+          "firstFixRate": 1,
+          "top5FixRate": 1
         },
         {
           "category": "dialogue-punctuation",
           "planted": 1000,
           "checked": 1000,
-          "caught": 0,
-          "firstFixRight": 0,
-          "fixInTop5": 0,
-          "catchRate": 0,
-          "firstFixRate": 0,
-          "top5FixRate": 0
+          "caught": 913,
+          "firstFixRight": 911,
+          "fixInTop5": 911,
+          "catchRate": 0.913,
+          "firstFixRate": 0.9978,
+          "top5FixRate": 0.9978
         }
       ],
-      "flagsPer1000": 1.6416
+      "flagsPer1000": 1.6857
     },
     {
       "corpus": "all",
@@ -570,7 +702,7 @@
       "paragraphs": 12998,
       "uncheckedParagraphs": 0,
       "words": 545117,
-      "flags": 1100,
+      "flags": 1145,
       "confirmedRealErrors": 0,
       "rules": [
         {
@@ -592,6 +724,12 @@
           "per1000": 0.0991
         },
         {
+          "ruleId": "mechanics.sentence-capital",
+          "category": "Mechanics",
+          "flags": 34,
+          "per1000": 0.0624
+        },
+        {
           "ruleId": "spelling.capitalization",
           "category": "Spelling",
           "flags": 33,
@@ -602,6 +740,30 @@
           "category": "Mechanics",
           "flags": 17,
           "per1000": 0.0312
+        },
+        {
+          "ruleId": "dialogue.full-stop-before-tag",
+          "category": "DialoguePunctuation",
+          "flags": 4,
+          "per1000": 0.0073
+        },
+        {
+          "ruleId": "mechanics.a-an",
+          "category": "Mechanics",
+          "flags": 3,
+          "per1000": 0.0055
+        },
+        {
+          "ruleId": "dialogue.capitalized-tag",
+          "category": "DialoguePunctuation",
+          "flags": 2,
+          "per1000": 0.0037
+        },
+        {
+          "ruleId": "dialogue.missing-comma",
+          "category": "DialoguePunctuation",
+          "flags": 2,
+          "per1000": 0.0037
         }
       ],
       "planted": [
@@ -631,21 +793,21 @@
           "category": "a-an",
           "planted": 1000,
           "checked": 1000,
-          "caught": 0,
-          "firstFixRight": 0,
-          "fixInTop5": 0,
-          "catchRate": 0,
-          "firstFixRate": 0,
-          "top5FixRate": 0
+          "caught": 941,
+          "firstFixRight": 941,
+          "fixInTop5": 941,
+          "catchRate": 0.941,
+          "firstFixRate": 1,
+          "top5FixRate": 1
         },
         {
           "category": "repeated-word",
           "planted": 1000,
           "checked": 1000,
-          "caught": 827,
-          "firstFixRight": 827,
-          "fixInTop5": 827,
-          "catchRate": 0.827,
+          "caught": 788,
+          "firstFixRight": 788,
+          "fixInTop5": 788,
+          "catchRate": 0.788,
           "firstFixRate": 1,
           "top5FixRate": 1
         },
@@ -653,26 +815,26 @@
           "category": "agreement",
           "planted": 1000,
           "checked": 1000,
-          "caught": 0,
-          "firstFixRight": 0,
-          "fixInTop5": 0,
-          "catchRate": 0,
-          "firstFixRate": 0,
-          "top5FixRate": 0
+          "caught": 645,
+          "firstFixRight": 645,
+          "fixInTop5": 645,
+          "catchRate": 0.645,
+          "firstFixRate": 1,
+          "top5FixRate": 1
         },
         {
           "category": "dialogue-punctuation",
           "planted": 1000,
           "checked": 1000,
-          "caught": 0,
-          "firstFixRight": 0,
-          "fixInTop5": 0,
-          "catchRate": 0,
-          "firstFixRate": 0,
-          "top5FixRate": 0
+          "caught": 941,
+          "firstFixRight": 941,
+          "fixInTop5": 941,
+          "catchRate": 0.941,
+          "firstFixRate": 1,
+          "top5FixRate": 1
         }
       ],
-      "flagsPer1000": 2.0179
+      "flagsPer1000": 2.1005
     }
   ]
 }

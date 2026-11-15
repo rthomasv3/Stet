@@ -51,6 +51,8 @@ Checkers:
   repeated exactly is intended. Words used once stay flagged. This is a simulation, not a real word list.
 - `library`: everything the library checks at its defaults (spelling and grammar rules), with the same
   stand-in word list. This is what an app gets.
+- `library-all`: the same with every rule switched on, including rules that are off by default, so that
+  each rule's false alarms are measured before its default is decided.
 - `none` (flags nothing), `demo` (a naive repeated-word check that exercises the harness), and
   `external` (scores issues produced outside the process; see `harper/` and `languagetool/`).
 

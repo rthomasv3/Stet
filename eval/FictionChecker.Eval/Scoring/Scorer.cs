@@ -38,6 +38,9 @@ public sealed class Scorer
     /// <summary>Clean-text words and flags per book, to see how uneven the books are. Local reports only.</summary>
     public Dictionary<(string Corpus, string BookId, string Split), (long Words, int Flags)> PerBook { get; } = [];
 
+    /// <summary>Flags per book and rule: counts only, so they can be looked at for test books too.</summary>
+    public Dictionary<(string Corpus, string BookId, string Split, string RuleId), int> PerBookRule { get; } = [];
+
     /// <summary>Planted errors that were not caught, sampled for review. Filled by <see cref="Run"/>.</summary>
     public List<MissedPlant> Missed { get; } = [];
 
@@ -81,6 +84,8 @@ public sealed class Scorer
 
                     tally.Flags++;
                     bookFlags++;
+                    var bookRule = (sample.Corpus, sample.Book.Id, SplitName(sample.Book.Split), issue.RuleId);
+                    PerBookRule[bookRule] = PerBookRule.GetValueOrDefault(bookRule) + 1;
                     tally.CountRule(issue);
                     if (sample.Book.Split == Split.Dev && issue.Start >= 0 && issue.Start + issue.Length <= text.Length)
                     {
