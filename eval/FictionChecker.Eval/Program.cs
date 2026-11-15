@@ -10,6 +10,7 @@ using FictionChecker.Eval.Scoring;
 using FictionChecker.Eval.Text;
 
 // Usage:
+//   snapshot [--out FILE]   every issue and suggestion on the work set, to compare before and after a change
 //   run --checker none|demo|spelling|spelling-world|library
 //   run --checker external --name harper --issues <issues.jsonl>   score issues produced outside this process
 //   export --out <items.jsonl>                                      write every paragraph an external checker must check
@@ -115,6 +116,45 @@ if (command == "export")
     }
 
     Console.WriteLine($"Wrote {count:N0} paragraphs to {outPath}");
+    return 0;
+}
+
+if (command == "snapshot")
+{
+    // Every issue the library reports on the work set, with its suggestions in order, and no word list (so
+    // names are judged and suggested for too). Two snapshots that are byte for byte the same show a change
+    // to the library did not alter any result. Holds book text: local only.
+    string outPath = options.GetValueOrDefault("--out") ?? Path.Combine(evalDir, "reports", "local", "snapshot.tsv");
+    Directory.CreateDirectory(Path.GetDirectoryName(outPath)!);
+    var library = new FictionChecker.Checker();
+    using var writer = new StreamWriter(outPath);
+    long issueCount = 0;
+    void Write(string id, IReadOnlyList<FictionChecker.ParagraphResult> results)
+    {
+        for (int p = 0; p < results.Count; p++)
+        {
+            foreach (FictionChecker.Issue issue in results[p].Issues)
+            {
+                writer.WriteLine($"{id}\t{p}\t{issue.Start}\t{issue.Length}\t{issue.RuleId}\t{issue.Text}\t{string.Join("|", issue.Suggestions.Select(s => $"{s.Start}+{s.Length}:{s.Text}"))}");
+                issueCount++;
+            }
+        }
+    }
+
+    foreach (CleanSample sample in work.Clean)
+    {
+        foreach (FictionChecker.Dialect dialect in (ReadOnlySpan<FictionChecker.Dialect>)[FictionChecker.Dialect.American, FictionChecker.Dialect.British])
+        {
+            Write($"{sample.Corpus}/{sample.Book.Id}/{dialect}", library.CheckDocument(sample.Paragraphs, new FictionChecker.CheckerOptions { Dialect = dialect }));
+        }
+    }
+
+    foreach (PlantedItem item in work.Planted)
+    {
+        Write($"planted/{item.BookId}/{item.ParagraphIndex}/{item.Category}", [library.CheckParagraph(item.Error.Text)]);
+    }
+
+    Console.WriteLine($"Wrote {issueCount:N0} issues to {outPath} ({clock.ElapsedMilliseconds} ms)");
     return 0;
 }
 

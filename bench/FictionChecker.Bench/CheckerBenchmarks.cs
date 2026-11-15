@@ -24,7 +24,9 @@ public class CheckerBenchmarks
     private CheckCache _cache = null!;
     private List<string> _edited = null!;
     private readonly string[] _typos = SampleText.Typos(6_000);
+    private readonly string[] _nameSentences = [.. SampleText.Typos(6_000, seed: 9).Select(t => $"Then {char.ToUpperInvariant(t[0])}{t[1..]} spoke.")];
     private int _edit;
+    private int _name;
     private int _typo;
 
     [GlobalSetup]
@@ -61,6 +63,11 @@ public class CheckerBenchmarks
 
     [Benchmark]
     public void ReplaceWordSet20k() => _bare.SetWords("big", _twentyThousand);
+
+    // An unknown capitalized word, a different one each time: the checker decides whether it is a name or a
+    // slip and then works out suggestions.
+    [Benchmark]
+    public ParagraphResult UnknownNameInSentence() => _bare.CheckParagraph(_nameSentences[_name++ % _nameSentences.Length]);
 
     // A different misspelling each time, and more of them than the checker remembers, so none is answered
     // from memory.
