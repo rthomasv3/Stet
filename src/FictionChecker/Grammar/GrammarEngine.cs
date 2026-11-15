@@ -39,6 +39,7 @@ internal sealed class GrammarEngine
             new PronounVerbRule(),
             new DialectVerbFormRule(),
             new VerbFormRule(),
+            new NounVerbRule(),
             new FullStopBeforeTagRule(),
             new CapitalizedTagRule(),
             new MissingCommaBeforeTagRule(),

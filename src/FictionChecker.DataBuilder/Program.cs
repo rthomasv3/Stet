@@ -4,6 +4,7 @@
 //   bigrams   stream Google Books fiction 2-grams (47 files, ~31 GB) into downloads/ngram/2grams/ (run once)
 //   wordinfo  build src/FictionChecker/Data/wordinfo.bin (needs lexicon.bin, the 1-gram table and the 2-gram files)
 //   bigrams-closed  second pass over the 2-grams: word types beside each function word (run once)
+//   bigrams-more    another pass: neighbours of the confusable words in Lists/focus-more.txt (run once)
 //   bigrams-tagged  third pass over the 2-grams: what follows the 's that means "is" (run once)
 //   confusables  build src/FictionChecker/Data/confusables.bin (needs lexicon.bin and the 2-gram files)
 //   lexicon   build src/FictionChecker/Data/lexicon.bin from SCOWL and the 1-gram table
@@ -39,6 +40,23 @@ switch (command)
 
             using var timeout = new CancellationTokenSource(TimeSpan.FromHours(3));
             await BigramExtractor.RunAsync(Path.Combine(downloads, "ngram", "2grams"), focus, false, args.Length > 1 ? int.Parse(args[1]) : 12, timeout.Token);
+            return 0;
+        }
+
+    case "bigrams-more":
+        {
+            // Neighbours of confusable words added after the first pass. Kept apart so the first pass need not be repeated.
+            var more = new HashSet<string>(StringComparer.Ordinal);
+            foreach (string line in File.ReadLines(Path.Combine(root, "src", "FictionChecker.DataBuilder", "Lists", "focus-more.txt")))
+            {
+                if (!line.StartsWith('#'))
+                {
+                    more.UnionWith(line.Split(' ', StringSplitOptions.RemoveEmptyEntries));
+                }
+            }
+
+            using var timeout = new CancellationTokenSource(TimeSpan.FromHours(3));
+            await BigramExtractor.RunAsync(Path.Combine(downloads, "ngram", "2grams-more"), more, false, args.Length > 1 ? int.Parse(args[1]) : 12, timeout.Token);
             return 0;
         }
 

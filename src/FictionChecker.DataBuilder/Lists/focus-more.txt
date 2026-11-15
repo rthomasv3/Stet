@@ -1,0 +1,8 @@
+# More confusable words, added after the first pass over the 2-grams (see the bigrams-more command).
+whether weather
+here hear
+bear bare bears bares
+advice advise
+week weak
+know no
+piece peace

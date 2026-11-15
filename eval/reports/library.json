@@ -315,7 +315,7 @@
       "paragraphs": 17652,
       "uncheckedParagraphs": 0,
       "words": 859568,
-      "flags": 1537,
+      "flags": 1540,
       "confirmedRealErrors": 1,
       "rules": [
         {
@@ -359,6 +359,12 @@
           "category": "Mechanics",
           "flags": 4,
           "per1000": 0.0047
+        },
+        {
+          "ruleId": "agreement.noun-verb",
+          "category": "Agreement",
+          "flags": 3,
+          "per1000": 0.0035
         },
         {
           "ruleId": "agreement.pronoun-verb",
@@ -471,7 +477,7 @@
           "top5FixRate": 0.9956
         }
       ],
-      "flagsPer1000": 1.7881
+      "flagsPer1000": 1.7916
     },
     {
       "corpus": "gutenberg",
@@ -633,7 +639,7 @@
       "paragraphs": 30531,
       "uncheckedParagraphs": 0,
       "words": 1314002,
-      "flags": 2223,
+      "flags": 2226,
       "confirmedRealErrors": 6,
       "rules": [
         {
@@ -683,6 +689,12 @@
           "category": "Mechanics",
           "flags": 4,
           "per1000": 0.003
+        },
+        {
+          "ruleId": "agreement.noun-verb",
+          "category": "Agreement",
+          "flags": 3,
+          "per1000": 0.0023
         },
         {
           "ruleId": "mechanics.comma-spacing",
@@ -801,7 +813,7 @@
           "top5FixRate": 0.9978
         }
       ],
-      "flagsPer1000": 1.6918
+      "flagsPer1000": 1.6941
     },
     {
       "corpus": "all",

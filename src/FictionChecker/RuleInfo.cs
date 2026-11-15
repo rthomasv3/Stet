@@ -79,6 +79,9 @@ public static class RuleIds
     /// <summary>The wrong form of a verb after "have" or "did" ("have went").</summary>
     public const string VerbForm = "agreement.verb-form";
 
+    /// <summary>A plural subject with a singular verb ("the children was").</summary>
+    public const string NounVerb = "agreement.noun-verb";
+
     /// <summary>A pronoun with a verb form that does not agree with it ("they was").</summary>
     public const string PronounVerb = "agreement.pronoun-verb";
 
