@@ -46,13 +46,15 @@ foreach (Issue issue in results[0].Issues)
 | `mechanics.repeated-word` | "the the" | on |
 | `mechanics.a-an` | "a apple", "an unicorn", judged by sound | on |
 | `mechanics.could-of` | "could of gone" (formal) | on |
+| `mechanics.double-comparative` | "more stronger", "most quickest" (formal) | on |
+| `mechanics.missing-apostrophe` | "wont tell", "cant have" | on |
 | `mechanics.doubled-space` | two spaces inside a sentence | on |
 | `mechanics.punctuation-spacing` | "the door , and", "up,, then", "dry . They" | on |
 | `mechanics.sentence-capital` | "He left. she stayed." | on |
 | `mechanics.lowercase-i` | "then i saw" | on |
 | `agreement.pronoun-verb` | "I has", "they is" | on |
 | `agreement.dialect-verb-form` | "they was", "he don't" (formal) | on |
-| `agreement.verb-form` | "have went", "did not went", "should has" (formal) | on |
+| `agreement.verb-form` | "have went", "did not went", "didn't had", "should has" (formal) | on |
 | `agreement.noun-verb` | "the children was", "there is many" (formal) | on |
 | `dialogue.full-stop-before-tag` | "Hello." she said. | on |
 | `dialogue.capitalized-tag` | "Hello," She said. | on |

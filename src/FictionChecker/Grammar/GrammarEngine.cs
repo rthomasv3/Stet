@@ -33,6 +33,7 @@ internal sealed class GrammarEngine
             new ArticleRule(),
             new CouldOfRule(),
             new DoubleComparativeRule(),
+            new MissingApostropheRule(),
             new DoubledSpaceRule(),
             new PunctuationSpacingRule(),
             new SentenceCapitalRule(),
