@@ -8,12 +8,17 @@ internal sealed class SentenceCapitalRule : GrammarRule
     private static readonly RuleInfo Description = new(
         RuleIds.SentenceCapital,
         "Sentence capitals",
-        "Flags a sentence that starts with a lowercase letter: at the start of a paragraph, or after a full stop. Abbreviations (\"etc.\", \"Mr.\"), trailing-off dots and dialogue tags (“Why?” she asked) are not sentence starts.",
+        "Flags a sentence that starts with a lowercase letter after a full stop. The first word of a paragraph is not checked, because lines of verse and paragraphs that carry on after a break often start in lowercase. Abbreviations (\"etc.\", \"Mr.\"), trailing-off dots and dialogue tags (“Why?” she asked) are not sentence starts.",
         RuleCategory.Mechanics,
         true,
         false,
-        ["He left. she stayed.", "the door was open.", "“the door is open,” she said.", "“Go.” he turned away."],
-        ["He left. She stayed.", "“Why?” she asked.", "He waited... and waited.", "They sold nails, rope, etc. and little else.", "It cost approx. five crowns.", "’tis late.", "eBay was down."]);
+        ["He left. she stayed.", "The lords gathered at the end. the singing began.", "“Go.” he turned away."],
+        ["He left. She stayed.", "“Why?” she asked.", "He waited... and waited.", "They sold nails, rope, etc. and little else.", "It cost approx. five crowns.", "the door was open.", "The Louis XV. clock struck.", "See chap. ii. for more.", "She wrote: no. not now. not ever.", "“you are a long walker. you find me here,” she said."]);
+
+    private static readonly HashSet<string> MoreAbbreviations = new(StringComparer.Ordinal)
+    {
+        "chap", "ch", "sec", "op", "pg", "pgs", "deg", "long", "lat", "cit", "ibid", "al", "nat", "amer", "ser", "art", "par", "ex", "gen", "div", "pt", "cent", "ca", "c", "v",
+    };
 
     public override RuleInfo Info => Description;
 
@@ -21,6 +26,7 @@ internal sealed class SentenceCapitalRule : GrammarRule
     {
         string text = paragraph.Text;
         HashSet<int>? tagStarts = null;
+        int firstFinding = findings.Count;
         for (int k = 0; k < paragraph.Tokens.Count; k++)
         {
             Token token = paragraph.Tokens[k];
@@ -39,9 +45,9 @@ internal sealed class SentenceCapitalRule : GrammarRule
             bool starts;
             if (j < 0)
             {
-                // First word of the paragraph. A paragraph that carries on a speech from the one before, with
-                // no quote mark of its own, may be carrying on a sentence too.
-                starts = !(k == 0 && paragraph.Dialogue is not null && paragraph.Dialogue.IsDialogue(token.Start));
+                // First word of the paragraph. Not judged: lines of verse and paragraphs that carry on after a
+                // break start in lowercase far more often than a paragraph is missing its capital.
+                starts = false;
             }
             else
             {
@@ -61,7 +67,7 @@ internal sealed class SentenceCapitalRule : GrammarRule
                 }
             }
 
-            if (!starts || !IsOrdinaryWord(paragraph, k))
+            if (!starts || !IsOrdinaryWord(paragraph, k) || SpeechStartsLowercase(paragraph, token.Start))
             {
                 continue;
             }
@@ -75,6 +81,39 @@ internal sealed class SentenceCapitalRule : GrammarRule
                 "This word starts a sentence.",
                 [Replace(token.Start, token.Length, fix)]));
         }
+
+        // One missing capital is a slip. Two or more in a paragraph is a style: a character or a letter
+        // written without capitals. Leave those alone.
+        if (findings.Count - firstFinding >= 2)
+        {
+            findings.RemoveRange(firstFinding, findings.Count - firstFinding);
+        }
+    }
+
+    // Whether the word lies in speech that itself opens with a lowercase letter: a voice written without
+    // capitals on purpose.
+    private static bool SpeechStartsLowercase(Paragraph paragraph, int position)
+    {
+        if (paragraph.Dialogue is null)
+        {
+            return false;
+        }
+
+        foreach (TextSpan span in paragraph.Dialogue.Spans)
+        {
+            if (span.Contains(position))
+            {
+                int first = paragraph.TokenAtOrAfter(span.Start);
+                while (first < paragraph.Tokens.Count && paragraph.Tokens[first].Kind == TokenKind.Punctuation)
+                {
+                    first++;
+                }
+
+                return first < paragraph.Tokens.Count && paragraph.Tokens[first].Start < span.End && char.IsLower(paragraph.Text[paragraph.Tokens[first].Start]);
+            }
+        }
+
+        return false;
     }
 
     // A single full stop straight after a word that is not an abbreviation.
@@ -92,15 +131,19 @@ internal sealed class SentenceCapitalRule : GrammarRule
         }
 
         string word = paragraph.Lower(j - 1);
-        return !WordLists.TitleAbbreviations.Contains(word) && !WordLists.OtherAbbreviations.Contains(word) && !word.Contains('.', StringComparison.Ordinal);
+        return !WordLists.TitleAbbreviations.Contains(word) && !WordLists.OtherAbbreviations.Contains(word) && !MoreAbbreviations.Contains(word)
+            && !word.Contains('.', StringComparison.Ordinal) && !IsRomanNumeral(word);
     }
+
+    // "Louis XV. clock", "chap. ii., verse 25": older books put a full stop after a numeral.
+    private static bool IsRomanNumeral(string word) => word.AsSpan().IndexOfAnyExcept("ivxlcdm") < 0;
 
     // Lowercase on purpose: "iPhone", "eBay", a custom word added in lowercase-with-capitals, a lone letter.
     private static bool IsOrdinaryWord(Paragraph paragraph, int k)
     {
         Token token = paragraph.Tokens[k];
         ReadOnlySpan<char> written = token.TextIn(paragraph.Text);
-        if (written.Length < 2 && !(written.Length == 1 && written[0] == 'a'))
+        if ((written.Length < 2 && !(written.Length == 1 && written[0] == 'a')) || IsRomanNumeral(written.ToString()))
         {
             return false;
         }

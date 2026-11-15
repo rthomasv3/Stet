@@ -12,8 +12,8 @@ internal sealed class ArticleRule : GrammarRule
         RuleCategory.Mechanics,
         true,
         false,
-        ["She ate a apple.", "He waited a hour.", "It was an unicorn.", "They found an book."],
-        ["She ate an apple.", "He waited an hour.", "It was a unicorn.", "A one-eyed man.", "An FBI agent.", "She saw a Uruk scout.", "An' I says to him, go.", "It was an historic day."]);
+        ["She ate a apple.", "He waited a hour.", "It was an unicorn.", "They found an book.", "‘An most unquenchable hobbit!’"],
+        ["She ate an apple.", "He waited an hour.", "It was a unicorn.", "A one-eyed man.", "An FBI agent.", "She saw a Uruk scout.", "An' I says to him, go.", "It was an historic day.", "You can win by using A and B together.", "Then Crach an Craite stood up.", "Never was such an one seen.", "He rode an horse of great price.", "It sounds as a in mark."]);
 
     public override RuleInfo Info => Description;
 
@@ -36,7 +36,30 @@ internal sealed class ArticleRule : GrammarRule
             // an' is "and"; a 'orse and an 'eap are speech with a dropped letter.
             Token token = sentence.Token(i);
             Token next = sentence.Token(i + 1);
-            if (token.Has(TokenFlags.TrailingApostrophe) || token.Has(TokenFlags.LeadingApostrophe) || next.Has(TokenFlags.LeadingApostrophe))
+            if (token.Has(TokenFlags.TrailingApostrophe) || next.Has(TokenFlags.LeadingApostrophe))
+            {
+                continue;
+            }
+
+            // A capital "A" inside a sentence is a letter or a label ("using A and B together"), and a
+            // lowercase "an" or "a" between two names is part of a name ("Crach an Craite").
+            bool afterWord = i > 0 && sentence.IsWord(i - 1);
+            if (afterWord && (sentence.IsCapitalized(i) || (sentence.IsCapitalized(i - 1) && sentence.IsCapitalized(i + 1))))
+            {
+                continue;
+            }
+
+            // No article stands before "in", "and", "is" or "you'll": there "a" is a letter ("sounds as a in
+            // mark") and "an" is "and" or "if" in older or dialect speech ("an you will", "an can").
+            const WordTraits NeverAfterArticle = WordTraits.Preposition | WordTraits.Conjunction | WordTraits.Subordinator | WordTraits.Pronoun
+                | WordTraits.Modal | WordTraits.Be | WordTraits.Have | WordTraits.Do;
+            if ((sentence.Traits(i + 1) & NeverAfterArticle) != 0 || (sentence.Type(i + 1) == WordType.Pronoun && sentence.Lower(i + 1).Contains('\'', StringComparison.Ordinal)))
+            {
+                continue;
+            }
+
+            // "A Elbereth Gilthoniel!": a capital A before an unknown name at the start is a call, not an article.
+            if (!afterWord && sentence.IsCapitalized(i) && sentence.IsCapitalized(i + 1) && sentence.WordIndex(i + 1) < 0)
             {
                 continue;
             }
@@ -54,8 +77,10 @@ internal sealed class ArticleRule : GrammarRule
                 continue;
             }
 
-            // "an historic", "an hotel": an older habit that is still defended.
-            if (isAn && word[0] == 'h')
+            // "an historic", "an hotel" are still defended, and "an horse", "an herald" are how older English
+            // and fiction written to sound old say it, so "an" before any h is left alone. "Such an one" and
+            // "an you will" (meaning "if") are older English too, and "an can" is "and" in dialect.
+            if (isAn && (word[0] == 'h' || word is "one" or "once"))
             {
                 continue;
             }
@@ -92,6 +117,11 @@ internal sealed class ArticleRule : GrammarRule
         }
 
         bool spelledVowel = word[0] is 'a' or 'e' or 'i' or 'o' or 'u';
+        if (index < 0 && !sentence.IsCapitalized(i))
+        {
+            return null; // a lowercase word the dictionary does not have: a slip or another language
+        }
+
         if (index < 0)
         {
             // Not a dictionary word (a name, a coined word): trust the spelling only where it is safe.

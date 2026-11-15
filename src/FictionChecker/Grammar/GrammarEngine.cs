@@ -34,6 +34,7 @@ internal sealed class GrammarEngine
             new DoubledSpaceRule(),
             new SentenceCapitalRule(),
             new PronounVerbRule(),
+            new DialectVerbFormRule(),
             new FullStopBeforeTagRule(),
             new CapitalizedTagRule(),
             new MissingCommaBeforeTagRule(),

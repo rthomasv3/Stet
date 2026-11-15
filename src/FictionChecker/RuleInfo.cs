@@ -73,6 +73,9 @@ public static class RuleIds
     /// <summary>A pronoun with a verb form that does not agree with it ("they was").</summary>
     public const string PronounVerb = "agreement.pronoun-verb";
 
+    /// <summary>A mismatch that is ordinary in dialect speech ("they was", "he don't").</summary>
+    public const string DialectVerbForm = "agreement.dialect-verb-form";
+
     /// <summary>A full stop where speech runs on into its tag.</summary>
     public const string FullStopBeforeTag = "dialogue.full-stop-before-tag";
 

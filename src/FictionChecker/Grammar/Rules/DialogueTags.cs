@@ -9,7 +9,9 @@ namespace FictionChecker.Grammar.Rules;
 /// <param name="Verb">The tag's speech verb.</param>
 /// <param name="StartsLower">The tag starts with a lowercase word: "she said", "said Tom", "the man said".</param>
 /// <param name="EndsThere">The tag ends right after its verb (or its subject, for "said Tom").</param>
-internal readonly record struct TaggedSpeech(int Quote, bool CommaAfterQuote, int First, int Verb, bool StartsLower, bool EndsThere);
+/// <param name="PlainSpeechVerb">The verb can only report speech ("said", "asked"), unlike "sighed" or "went".</param>
+/// <param name="PronounFirst">The tag starts with a pronoun: "she said".</param>
+internal readonly record struct TaggedSpeech(int Quote, bool CommaAfterQuote, int First, int Verb, bool StartsLower, bool EndsThere, bool PlainSpeechVerb, bool PronounFirst);
 
 /// <summary>
 /// Finds speech followed by a tag. A tag is "she said", "Tom said", "the old man said" or "said Tom": a
@@ -19,6 +21,19 @@ internal readonly record struct TaggedSpeech(int Quote, bool CommaAfterQuote, in
 internal static class DialogueTags
 {
     private static readonly HashSet<string> Pronouns = new(StringComparer.Ordinal) { "he", "she", "they", "we", "i", "it", "you" };
+    // Verbs that only ever report speech. The wider list also has verbs that are often actions of their own
+    // ("she sighed", "he went on", "the look reminded him"), which is fine after a comma but not proof of a tag.
+    private static readonly HashSet<string> PlainSpeechVerbs = new(StringComparer.Ordinal)
+    {
+        "said", "says", "asked", "asks", "replied", "replies", "answered", "whispered", "muttered", "murmured", "mumbled", "shouted",
+        "yelled", "exclaimed", "declared", "demanded", "inquired", "enquired", "remarked", "retorted", "stammered", "explained",
+    };
+
+    private static readonly HashSet<string> SentenceOpeners = new(StringComparer.Ordinal)
+    {
+        "but", "and", "then", "so", "yet", "or", "nor", "for", "when", "while", "as", "if", "though", "after", "before", "still", "now", "at", "in", "on", "to",
+    };
+
     private static readonly HashSet<string> NounStarters = new(StringComparer.Ordinal) { "the", "a", "an", "his", "her", "my", "their", "our", "your", "one", "someone", "somebody", "another" };
 
     /// <summary>Every closed line of speech in the paragraph that a tag follows.</summary>
@@ -38,6 +53,12 @@ internal static class DialogueTags
                 continue; // speech still open at the end of the paragraph, or a range the caller marked
             }
 
+            // With single quote marks, one word between marks may be a name with an apostrophe (‘Tamb’ Itam).
+            if (paragraph.QuoteStyle == QuoteStyle.Single && !text.AsSpan(span.Start, span.Length).Contains(' '))
+            {
+                continue;
+            }
+
             int after = span.End;
             bool comma = after < text.Length && text[after] == ',';
             if (comma)
@@ -53,7 +74,7 @@ internal static class DialogueTags
 
             if (TryReadTag(paragraph, first, out int verb, out bool startsLower, out bool endsThere))
             {
-                yield return new TaggedSpeech(quote, comma, first, verb, startsLower, endsThere);
+                yield return new TaggedSpeech(quote, comma, first, verb, startsLower, endsThere, PlainSpeechVerbs.Contains(paragraph.Lower(verb)), verb == first + 1 && Pronouns.Contains(paragraph.Lower(first)));
             }
         }
     }
@@ -118,9 +139,9 @@ internal static class DialogueTags
 
         // "Tom said", "Lady Anne Grey said", "the old man said": up to three words, then the verb.
         bool nounPhrase = startsLower && NounStarters.Contains(word);
-        if (!nounPhrase && startsLower)
+        if ((!nounPhrase && startsLower) || SentenceOpeners.Contains(word))
         {
-            return false;
+            return false; // "But Corund said..." opens a new sentence
         }
 
         for (int i = first; i < first + 3 && i < paragraph.Tokens.Count; i++)

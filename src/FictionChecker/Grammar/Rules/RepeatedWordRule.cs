@@ -53,7 +53,16 @@ internal sealed class RepeatedWordRule : GrammarRule
                 continue;
             }
 
-            if (i > 0 && sentence.IsCapitalized(i) && sentence.IsCapitalized(i + 1) && word != "i" && !word.StartsWith("i'", StringComparison.Ordinal))
+            if (sentence.IsCapitalized(i + 1) && word != "i" && !word.StartsWith("i'", StringComparison.Ordinal))
+            {
+                continue; // "Walla Walla", "Naught Naught One"; a slip leaves the second word in lowercase
+            }
+
+            // A name and then the plain word ("On Mount Doom doom shall fall"), a made-up sound ("whop whop",
+            // "chek chek"), a number word ("a thousand thousand years") or a chain of possessives ("her
+            // mother's mother's mother").
+            if ((i > 0 && sentence.IsCapitalized(i)) || sentence.WordIndex(i) < 0 || (word.EndsWith("'s", StringComparison.Ordinal) && type == WordType.Noun)
+                || word is "thousand" or "hundred" or "million" or "dozen" or "heh" or "hm" or "hmm" or "mm" or "um" or "uh" or "er" or "ow" or "ooh" or "aah" or "tsk" or "ya" or "yeah")
             {
                 continue;
             }

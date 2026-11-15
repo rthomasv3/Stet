@@ -13,7 +13,7 @@ internal sealed class FullStopBeforeTagRule : GrammarRule
         true,
         false,
         ["“Hello.” she said.", "“Come in.” said the old man.", "“Not yet.” Tom said."],
-        ["“Hello,” she said.", "“Hello.” She smiled.", "“Hello.” Tom said nothing more.", "“Well...” she said.", "“Stop!” he cried."]);
+        ["“Hello,” she said.", "“Hello.” She smiled.", "“Hello.” Tom said nothing more.", "“Well...” she said.", "“Stop!” he cried.", "“I should keep them.” She sighed. “I’d feel better.”"]);
 
     public override RuleInfo Info => Description;
 
@@ -28,9 +28,12 @@ internal sealed class FullStopBeforeTagRule : GrammarRule
                 continue; // not a single full stop: an ellipsis trails off and is fine
             }
 
-            // "Tom said" after a full stop could open a new sentence ("Tom said nothing more."), so a tag
-            // that starts with a capital only counts when it ends straight after its verb.
-            if (!speech.StartsLower && !speech.EndsThere)
+            // A lowercase pronoun after the full stop is wrong either way, and with a speech verb the comma is
+            // the likelier fix. Otherwise the verb must be one that only reports speech: "She sighed." is a
+            // sentence of its own. And "Tom said" could open a new sentence ("Tom said nothing more."), so a
+            // tag that starts with a capital only counts when it ends straight after its verb.
+            bool lowerPronoun = speech.StartsLower && speech.PronounFirst;
+            if (!lowerPronoun && (!speech.PlainSpeechVerb || !speech.StartsLower && (!speech.EndsThere || speech.First == speech.Verb)))
             {
                 continue;
             }
@@ -116,6 +119,14 @@ internal sealed class MissingCommaBeforeTagRule : GrammarRule
         foreach (TaggedSpeech speech in DialogueTags.Find(paragraph))
         {
             if (speech.CommaAfterQuote || !char.IsLetterOrDigit(text[speech.Quote - 1]))
+            {
+                continue;
+            }
+
+            // “Stay here” He went out: a capitalized pronoun points to a missing full stop, not a comma, and
+            // a verb that is not purely a speech verb may be no tag at all (“form” the look reminded him).
+            bool lowerPronoun = speech.StartsLower && speech.PronounFirst;
+            if (!lowerPronoun && (!speech.PlainSpeechVerb || (speech.PronounFirst && !speech.StartsLower && paragraph.Lower(speech.First) != "i")))
             {
                 continue;
             }

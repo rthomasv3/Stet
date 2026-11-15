@@ -117,7 +117,7 @@ public class CheckerTests
     [Fact]
     public void Rules_are_listed_with_what_a_settings_screen_needs()
     {
-        Assert.Equal(14, Shared.Rules.Count);
+        Assert.Equal(15, Shared.Rules.Count);
         Assert.Equal(4, Shared.Rules.Count(r => r.Category == RuleCategory.Spelling));
         Assert.Equal(Shared.Rules.Count, Shared.Rules.Select(r => r.Id).Distinct().Count());
         Assert.All(Shared.Rules, rule =>
