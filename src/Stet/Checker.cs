@@ -53,6 +53,9 @@ public sealed class Checker
     /// "Kaelith Vorn" adds both names. A word keeps the capitals it is added with: "Kaelith" is valid as
     /// Kaelith or KAELITH but not kaelith, while a lowercase word is also valid capitalized. The possessive of
     /// every word is accepted too.
+    ///
+    /// Setting a set to the words it already holds does nothing, and results remembered by a
+    /// <see cref="CheckCache"/> stay valid. An app can hand over its whole word list before every check.
     /// </summary>
     /// <param name="setName">The set's name, such as "world" or "personal".</param>
     /// <param name="words">The words. The checker keeps its own copy.</param>

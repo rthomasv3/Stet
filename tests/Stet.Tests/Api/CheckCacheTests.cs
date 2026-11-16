@@ -99,6 +99,50 @@ public class CheckCacheTests
     }
 
     [Fact]
+    public void Setting_the_same_words_again_keeps_the_remembered_results()
+    {
+        var checker = new Checker();
+        checker.SetWords("world", ["Kaelith Vorn", "Drathmoor"]);
+        checker.SetWords("slang", ["wicious"], WordScope.DialogueOnly);
+        var cache = new CheckCache(checker);
+        ParagraphResult first = cache.CheckParagraph("Kaelith rode to Drathmor.");
+
+        // The same words in another order, with a repeat, and with the name already split.
+        checker.SetWords("world", ["Drathmoor", "Vorn", "Kaelith", "Drathmoor"]);
+        checker.SetWords("slang", ["wicious"], WordScope.DialogueOnly);
+        checker.AddWords("world", ["Kaelith"]);
+        checker.RemoveWords("world", ["Ysolde"]);
+        checker.ClearWords("no-such-set");
+
+        Assert.Same(first, cache.CheckParagraph("Kaelith rode to Drathmor."));
+    }
+
+    [Fact]
+    public void A_real_change_to_a_word_set_is_never_skipped()
+    {
+        var checker = new Checker();
+        checker.SetWords("world", ["Kaelith", "Drathmoor"]);
+        var cache = new CheckCache(checker);
+        ParagraphResult first = cache.CheckParagraph("Kaelith rode to Drathmoor.");
+        Assert.Empty(first.Issues);
+
+        // Same number of words, one of them different.
+        checker.SetWords("world", ["Kaelith", "Drathmor"]);
+        Assert.Single(cache.CheckParagraph("Kaelith rode to Drathmoor.").Issues);
+
+        // Same words, different scope.
+        checker.SetWords("world", ["Kaelith", "Drathmoor"]);
+        Assert.Empty(cache.CheckParagraph("Kaelith rode to Drathmoor.").Issues);
+        checker.SetWords("world", ["Kaelith", "Drathmoor"], WordScope.DialogueOnly);
+        Assert.NotEmpty(cache.CheckParagraph("Kaelith rode to Drathmoor.").Issues);
+
+        // Different capitals are different words.
+        checker.SetWords("world", ["kaelith", "Drathmoor"]);
+        checker.SetWords("world", ["Kaelith", "Drathmoor"]);
+        Assert.Empty(cache.CheckParagraph("Kaelith rode to Drathmoor.").Issues);
+    }
+
+    [Fact]
     public void Changing_one_word_set_keeps_results_made_with_other_sets_only()
     {
         var checker = new Checker();

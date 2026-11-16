@@ -120,7 +120,13 @@ internal sealed class SpellChecker
         while (true)
         {
             SpellingState before = _state;
-            var after = new SpellingState(change(before.Custom));
+            CustomWords custom = change(before.Custom);
+            if (ReferenceEquals(custom, before.Custom))
+            {
+                return;
+            }
+
+            var after = new SpellingState(custom);
             if (Interlocked.CompareExchange(ref _state, after, before) == before)
             {
                 return;

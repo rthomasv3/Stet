@@ -63,8 +63,9 @@ internal sealed class CustomWords
     public IEnumerable<string> SetNames => _sets.Keys;
 
     /// <summary>
-    /// Returns a snapshot in which the named set holds exactly <paramref name="words"/>. Entries are split on
-    /// spaces, so "Kaelith Vorn" adds both names. Apostrophes are stored straight.
+    /// Returns a snapshot in which the named set holds exactly <paramref name="words"/>, or this snapshot when
+    /// it already does. Entries are split on spaces, so "Kaelith Vorn" adds both names. Apostrophes are stored
+    /// straight.
     /// </summary>
     public CustomWords WithSet(string name, IEnumerable<string> words, WordScope scope)
     {
@@ -79,6 +80,14 @@ internal sealed class CustomWords
                     cleaned.Add(word);
                 }
             }
+        }
+
+        // Nothing changes: keep this snapshot, so caches built on it stay valid. An app can then hand over
+        // its whole word list before every check without paying for it.
+        if (_sets.TryGetValue(name, out (FrozenSet<string> Words, WordScope Scope) existing)
+            && existing.Scope == scope && existing.Words.Count == cleaned.Count && existing.Words.IsSupersetOf(cleaned))
+        {
+            return this;
         }
 
         var sets = _sets.ToDictionary(StringComparer.Ordinal);
