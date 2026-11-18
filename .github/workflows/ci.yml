@@ -1,4 +1,4 @@
-# Ready for when the repository gets a GitHub remote. It does nothing until then.
+# Builds, tests, and publishes and runs the Native AOT test app on Linux, Windows and macOS.
 name: CI
 
 on:

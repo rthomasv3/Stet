@@ -2,7 +2,7 @@ namespace Stet.Tests.Api;
 
 public class PublicSurfaceTests
 {
-    // The public API needs Robert's approval before 1.0, so a type becoming public is a deliberate change here.
+    // Adding to the public API is a commitment, so a type becoming public has to be a deliberate change here.
     [Fact]
     public void Only_the_agreed_types_are_public()
     {

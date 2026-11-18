@@ -70,7 +70,7 @@ public class ConfusableWordTests
     [InlineData("It was too late to go to the house, and she was too tired to care.")]
     [InlineData("He took off his hat and thought of his mother.")]
     [InlineData("He cut the end off the rope.")]
-    [InlineData("The willow bark took the edge off the pain.")]
+    [InlineData("The hot broth took the edge off the cold.")]
     [InlineData("Is there going to be trouble?")]
     [InlineData("He began to long for home.")]
     [InlineData("She loosed the arrow, then drew another to loose at the gate.")]

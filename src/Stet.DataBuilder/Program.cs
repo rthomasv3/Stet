@@ -1,10 +1,10 @@
-// Turns the recorded sources (see SOURCES.md) into the compact data files embedded in the library.
+// Turns the recorded sources (see SOURCES.md) into the compact data files embedded in Stet.
 //
 //   ngram     stream Google Books fiction 1-grams into downloads/ngram/fiction-1grams.tsv (run once, ~1 GB)
 //   bigrams   stream Google Books fiction 2-grams (47 files, ~31 GB) into downloads/ngram/2grams/ (run once)
 //   wordinfo  build src/Stet/Data/wordinfo.bin (needs lexicon.bin, the 1-gram table and the 2-gram files)
 //   bigrams-closed  second pass over the 2-grams: word types beside each function word (run once)
-//   bigrams-all     another pass: keep every common pair of plain tokens as a local copy (run once, a few GB)
+//   bigrams-all     another pass: keep every common pair of plain tokens as a local copy (run once, about 780 MB)
 //   bigrams-more    neighbours of the confusable words in Lists/focus-more.txt, from the local copy (seconds)
 //   bigrams-tagged  third pass over the 2-grams: what follows the 's that means "is" (run once)
 //   confusables  build src/Stet/Data/confusables.bin (needs lexicon.bin and the 2-gram files)

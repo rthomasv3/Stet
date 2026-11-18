@@ -160,7 +160,7 @@ internal sealed class ConfusableWordRule : GrammarRule
                 break;
             case "of":
                 // "turned of the light": the word before goes with "off" far more than with "of", and the
-                // thing follows directly. ("Took" is not enough: "the view she took of her position".)
+                // thing follows directly. ("Took" is not enough: "the view he took of the matter".)
                 if (best == "off" && evidence.Left >= 13 * Bit / 2 && sentence.Is(i + 1, "the", "a", "an", "his", "her", "my", "your", "their", "its", "our"))
                 {
                     return "off";
