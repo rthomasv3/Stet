@@ -29,14 +29,14 @@ public sealed class SpellingEvalChecker : IEvalChecker
 
     /// <summary>
     /// Creates the wrapper. With <paramref name="spellingOnly"/> the grammar rules are switched off; without
-    /// it every rule runs at its default, which is what an app gets (reported as "library").
+    /// it every rule runs at its default, which is what an app gets (reported as "stet").
     /// </summary>
     public SpellingEvalChecker(IEnumerable<Corpus> corpora, bool world, bool spellingOnly = true, bool everyRule = false)
     {
         _world = world;
         _spellingOnly = spellingOnly;
         _everyRule = everyRule;
-        Name = everyRule ? "library-all" : !spellingOnly ? "library" : world ? "spelling-world" : "spelling";
+        Name = everyRule ? "stet-all" : !spellingOnly ? "stet" : world ? "spelling-world" : "spelling";
         foreach (Corpus corpus in corpora)
         {
             foreach (Book book in corpus.Books)

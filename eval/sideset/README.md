@@ -1,19 +1,43 @@
-# Side test set
+# Side set
 
-A small made-up set for a quick look at breadth: 76 sentences with one error each (the error is between
-`[[` and `]]`) and 36 correct fiction lines of the kind that trip checkers (`CLEAN`). No book text.
+A small set of made-up sentences for a quick look at what Stet catches. It needs no books:
 
     dotnet run -c Release --project eval/Stet.Eval -- sideset
 
-It is a side check, not a target: ten sentences a category is too few to tune against. Changes are judged
-on the book measurements. Results when it was written (2026-11-15), each checker at its defaults:
+Add `--detail` to list every line with what was flagged on it.
 
-| | Library | Harper | LanguageTool |
-|---|---:|---:|---:|
-| Errors caught (of 76) | 45 | 48 | 59 |
-| Correct lines flagged (of 36) | 2 | 15 | 7 |
+## What is in it
 
-The library's gaps on this set were then worked through (new rules for verb forms, plural subjects,
-lowercase "i", comma spacing, and seven more confusable pairs), each judged on the book measurements.
-After that work, and a second round of small rules, the library catches 66 of 76, with the same 2 correct lines flagged (invented names).
-That figure is not comparable with the other two: the rules were written knowing these sentences.
+[`set.tsv`](set.tsv) has 112 lines, each a category and a sentence. None of it is from a book.
+
+- **76 sentences with one error each.** The error is marked with `[[` and `]]`, as in
+  `He waited [[untill]] the moon rose.` The marks are taken out before checking.
+- **36 correct lines** in the category `CLEAN`, of the kind that trip checkers: invented names, a
+  character's dialect, sentence fragments, unusual punctuation. Nothing on these should be flagged.
+
+The error categories:
+
+| Category | Sentences | What it holds |
+|---|---:|---|
+| `spelling` | 10 | Common misspellings |
+| `confusable-listed` | 10 | Confusable words Stet has a rule for |
+| `confusable-other` | 10 | More confusable words |
+| `agreement` | 10 | Subject and verb that do not agree |
+| `verb-form` | 8 | The wrong form of a verb |
+| `articles-repeats` | 6 | a / an, and repeated words |
+| `punctuation-caps` | 10 | Punctuation and capital letters |
+| `dialogue-punct` | 8 | Punctuation around speech |
+| `error-in-voice` | 4 | A real slip inside a character's dialect |
+
+## What Stet 0.0.1 does on it
+
+It catches 66 of the 76 errors and flags 2 of the 36 correct lines. Both of those lines are flagged
+for invented names, which a writer's word list would hold.
+
+## What this is not
+
+This is a quick check, not a measurement. Ten sentences to a category is too few to draw anything
+from, and some of Stet's rules were written with these sentences in view, so its score here flatters
+it. The numbers that count are the ones measured on books, in [RESULTS.md](../RESULTS.md).
+
+To add a line of your own, append it to `set.tsv` in the same form.

@@ -4,6 +4,10 @@
 runs it over the same paragraphs the [evaluation harness](../README.md) checks, so its results can be
 put beside Stet's.
 
+Harper was chosen because it is the nearest thing to Stet that already exists: a light, offline
+checker that runs inside an app with no server behind it. It is written in Rust and usually used from
+JavaScript, so it is a yardstick here, not an alternative for a .NET app.
+
 Harper is only run here, as a separate program. None of its code or data is part of Stet.
 
 ## What you need
@@ -31,9 +35,10 @@ Three steps, all from the repository root.
 
 **3. Score what it found.**
 
-    dotnet run -c Release --project eval/Stet.Eval -- run --checker external --name harper --issues eval/reports/local/harper-issues.jsonl
+    dotnet run -c Release --project eval/Stet.Eval -- run --checker external --name harper --checker-version "harper.js 3.2.0" --issues eval/reports/local/harper-issues.jsonl
 
 Step 3 writes `eval/reports/harper.md` and `harper.json`, in the same form as Stet's own reports.
+`--checker-version` is printed at the top of the report, so the numbers always say what they are for.
 
 Both files in `eval/reports/local/` hold book text. Git ignores that folder; keep them there.
 
@@ -63,13 +68,13 @@ So there is a second report, `harper-inscope`, made from the same run with those
 out: readability, style, formatting, enhancement, redundancy and regionalism. It needs steps 1 and 2
 only once:
 
-    dotnet run -c Release --project eval/Stet.Eval -- run --checker external --source-name harper --name harper-inscope --issues eval/reports/local/harper-issues.jsonl --exclude-categories Readability,Style,Formatting,Enhancement,Redundancy,Regionalism
+    dotnet run -c Release --project eval/Stet.Eval -- run --checker external --source-name harper --name harper-inscope --checker-version "harper.js 3.2.0, style and readability flags left out" --issues eval/reports/local/harper-issues.jsonl --exclude-categories Readability,Style,Formatting,Enhancement,Redundancy,Regionalism
 
 ## Reading the result
 
 - Harper is a general-purpose checker and is not built for fiction.
 - In the published numbers about half of Harper's flags are spelling flags. Harper is given no word
   list, so it has no way to know a book's names and invented words.
-- Stet's `library` report is given a stand-in for the writer's word list (see the
+- Stet's `stet` report is given a stand-in for the writer's word list (see the
   [harness readme](../README.md#running-it)). Stet's `spelling` report is given none, as Harper is, so
   compare spelling with that one.

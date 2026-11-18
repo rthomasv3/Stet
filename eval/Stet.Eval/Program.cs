@@ -11,19 +11,19 @@ using Stet.Eval.Text;
 
 // Usage:
 //   snapshot [--out FILE]   every issue and suggestion on the work set, to compare before and after a change
-//   sideset [--detail]      the library on the small made-up side set (eval/sideset)
+//   sideset [--detail]      Stet on the small made-up side set (eval/sideset)
 //   confusable-dump         how each confusable word in the dev books fits its neighbours, for choosing thresholds
-//   run --checker none|demo|spelling|spelling-world|library|library-all
-//   run --checker external --name harper --issues <issues.jsonl>   score issues produced outside this process
+//   run --checker none|demo|spelling|spelling-world|stet|stet-all
+//   run --checker external --name harper --checker-version "harper.js 3.2.0" --issues <issues.jsonl>   score issues produced outside this process
 //   export --out <items.jsonl>                                      write every paragraph an external checker must check
 //   export --out <items.jsonl> --corpus classic --clean-words 2000 --planted 100     a smaller set for slow checkers
-// Options: --compare <checker>   add a column comparing with another checker's committed report
+// Options: --compare <checker>   add a column comparing with another checker's report
 //          --review-flags N      write up to N flags per rule and corpus to the local review file (dev books only)
 //          --exclude-categories A,B   drop issues in these categories (with --name for the report name)
 //          --root <dir>          repository root (found automatically by default)
 if (args.Length == 0 || args[0] is "-h" or "--help")
 {
-    Console.WriteLine("Commands: run --checker none|demo|spelling|spelling-world|library|library-all|external [--name N --issues FILE] [--compare N]");
+    Console.WriteLine("Commands: run --checker none|demo|spelling|spelling-world|stet|stet-all|external [--name N --issues FILE] [--compare N]");
     Console.WriteLine("          export --out FILE");
     Console.WriteLine("          perf            time the spelling checker against the performance targets");
     Console.WriteLine("          coverage        measure how much of the books' vocabulary the spelling data knows");
@@ -150,12 +150,12 @@ if (command == "export")
 
 if (command == "snapshot")
 {
-    // Every issue the library reports on the work set, with its suggestions in order, and no word list (so
+    // Every issue Stet reports on the work set, with its suggestions in order, and no word list (so
     // names are judged and suggested for too). Two snapshots that are byte for byte the same show a change
-    // to the library did not alter any result. Holds book text: local only.
+    // to Stet did not alter any result. Holds book text: local only.
     string outPath = options.GetValueOrDefault("--out") ?? Path.Combine(evalDir, "reports", "local", "snapshot.tsv");
     Directory.CreateDirectory(Path.GetDirectoryName(outPath)!);
-    var library = new Stet.Checker();
+    var stet = new Stet.Checker();
     using var writer = new StreamWriter(outPath);
     long issueCount = 0;
     void Write(string id, IReadOnlyList<Stet.ParagraphResult> results)
@@ -174,13 +174,13 @@ if (command == "snapshot")
     {
         foreach (Stet.Dialect dialect in (ReadOnlySpan<Stet.Dialect>)[Stet.Dialect.American, Stet.Dialect.British])
         {
-            Write($"{sample.Corpus}/{sample.Book.Id}/{dialect}", library.CheckDocument(sample.Paragraphs, new Stet.CheckerOptions { Dialect = dialect }));
+            Write($"{sample.Corpus}/{sample.Book.Id}/{dialect}", stet.CheckDocument(sample.Paragraphs, new Stet.CheckerOptions { Dialect = dialect }));
         }
     }
 
     foreach (PlantedItem item in work.Planted)
     {
-        Write($"planted/{item.BookId}/{item.ParagraphIndex}/{item.Category}", [library.CheckParagraph(item.Error.Text)]);
+        Write($"planted/{item.BookId}/{item.ParagraphIndex}/{item.Category}", [stet.CheckParagraph(item.Error.Text)]);
     }
 
     Console.WriteLine($"Wrote {issueCount:N0} issues to {outPath} ({clock.ElapsedMilliseconds} ms)");
@@ -200,8 +200,8 @@ IEvalChecker checker = checkerName switch
     "demo" => new DemoChecker(),
     "spelling" => new SpellingEvalChecker(corpora, world: false),
     "spelling-world" => new SpellingEvalChecker(corpora, world: true),
-    "library" => new SpellingEvalChecker(corpora, world: true, spellingOnly: false),
-    "library-all" => new SpellingEvalChecker(corpora, world: true, spellingOnly: false, everyRule: true),
+    "stet" => new SpellingEvalChecker(corpora, world: true, spellingOnly: false),
+    "stet-all" => new SpellingEvalChecker(corpora, world: true, spellingOnly: false, everyRule: true),
     "external" => new ExternalChecker(
         options.GetValueOrDefault("--source-name") ?? options.GetValueOrDefault("--name") ?? throw new ArgumentException("external needs --name"),
         options.GetValueOrDefault("--issues") ?? throw new ArgumentException("external needs --issues FILE")),
@@ -225,11 +225,29 @@ EvalReport? baseline = options.TryGetValue("--compare", out string? compare)
 
 clock.Restart();
 var scorer = new Scorer(settings, Labels.Load(Path.Combine(evalDir, "labels.json")));
-EvalReport report = scorer.Run(checker, work, LibraryInfo.CodeVersion);
+// Reported under the release the code belongs to: a pre-release label ("-rc.1") is left off.
+EvalReport report = scorer.Run(checker, work, LibraryInfo.CodeVersion.Split('-')[0]);
+report = report with
+{
+    Description = checkerName switch
+    {
+        "stet" => "Spelling and grammar at Stet's defaults. Each book has a stand-in for the writer's word list: every unknown word the book uses twice or more.",
+        "stet-all" => "Spelling and grammar with every rule switched on. Each book has a stand-in for the writer's word list: every unknown word the book uses twice or more.",
+        "spelling" => "Spelling only, with no word list, so every name and invented word in a book is flagged. Grammar rules are off, which is why only typos are caught among the planted errors.",
+        "spelling-world" => "Spelling only. Each book has a stand-in for the writer's word list: every unknown word the book uses twice or more.",
+        _ => null,
+    },
+};
+if (checkerName == "external")
+{
+    // Another checker's numbers only mean something with its version beside them.
+    report = report with { CheckerVersion = options.GetValueOrDefault("--checker-version") ?? "version not given" };
+}
+
 double seconds = clock.Elapsed.TotalSeconds;
 
 ReportWriter.WriteJson(report, jsonPath);
-string markdown = ReportWriter.ToMarkdown(report, previous, baseline);
+string markdown = ReportWriter.ToMarkdown(report, baseline);
 File.WriteAllText(Path.Combine(reports, checker.Name + ".md"), markdown);
 ReportWriter.WriteReviewFlags(scorer.ReviewFlags, Path.Combine(localReports, checker.Name + "-flags.tsv"));
 ReportWriter.WriteMissed(scorer.Missed, Path.Combine(localReports, checker.Name + "-missed.tsv"));
@@ -247,6 +265,17 @@ File.WriteAllLines(
     scorer.FlaggedText.OrderByDescending(kv => kv.Value).ThenBy(kv => kv.Key.Text, StringComparer.Ordinal).Select(kv => $"{kv.Value}\t{kv.Key.Corpus}\t{kv.Key.RuleId}\t{kv.Key.Text}"));
 
 Console.WriteLine(markdown);
+string changes = previous is null ? "" : ReportWriter.Changes(report, previous);
+if (changes.Length > 0)
+{
+    Console.WriteLine("Changed since the last run of this checker:");
+    Console.WriteLine(changes);
+}
+else if (previous is not null)
+{
+    Console.WriteLine("Nothing changed since the last run of this checker.");
+}
+
 if (checker is SpellingEvalChecker { WorldWordCounts.Count: > 0 } spelling)
 {
     Console.WriteLine($"Stand-in world lists: {spelling.WorldWordCounts.Values.Average():0} words per book on average ({spelling.WorldWordCounts.Values.Min()} to {spelling.WorldWordCounts.Values.Max()}).");

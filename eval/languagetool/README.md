@@ -36,10 +36,10 @@ slower than a checker running in the same process, so this exports a sample, not
 
 **3. Score what it found.**
 
-    dotnet run -c Release --project eval/Stet.Eval -- run --checker external --name languagetool --issues eval/reports/local/lt-issues.jsonl
+    dotnet run -c Release --project eval/Stet.Eval -- run --checker external --name languagetool --checker-version "LanguageTool 6.3" --issues eval/reports/local/lt-issues.jsonl
 
 Step 3 writes `eval/reports/languagetool.md` and `languagetool.json`, in the same form as Stet's own
-reports.
+reports. Put your server's version in `--checker-version`; it is printed at the top of the report.
 
 Both files in `eval/reports/local/` hold book text. Git ignores that folder; keep them there.
 

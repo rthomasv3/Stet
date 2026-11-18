@@ -490,6 +490,16 @@ $RECYCLE.BIN/
 # Local evaluation config (corpus paths) and reports that contain text snippets
 /eval/eval.local.json
 /eval/reports/local/
+# Only the published reports are kept; every other run's output stays on this machine
+/eval/reports/*
+!/eval/reports/stet.md
+!/eval/reports/stet.json
+!/eval/reports/spelling.md
+!/eval/reports/spelling.json
+!/eval/reports/harper.md
+!/eval/reports/harper.json
+!/eval/reports/harper-inscope.md
+!/eval/reports/harper-inscope.json
 # Review verdicts on flags, which only match the local books
 /eval/labels.json
 # Native AOT publish output

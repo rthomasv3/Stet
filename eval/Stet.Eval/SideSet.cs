@@ -3,7 +3,7 @@ using System.Text;
 namespace Stet.Eval;
 
 /// <summary>
-/// Runs the library over the small made-up side set (eval/sideset/set.tsv) and reports, per category, how
+/// Runs Stet over the small made-up side set (eval/sideset/set.tsv) and reports, per category, how
 /// many errors were flagged, and which correct lines were flagged.
 /// </summary>
 public static class SideSet

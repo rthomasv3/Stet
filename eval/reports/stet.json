@@ -1,0 +1,1154 @@
+{
+  "checker": "stet",
+  "libraryVersion": "0.0.1",
+  "settings": {
+    "seed": 20261114,
+    "cleanWordsPerBook": 30000,
+    "plantedPerCategory": 500,
+    "reviewFlagsPerRule": 40
+  },
+  "groups": [
+    {
+      "corpus": "classic",
+      "split": "dev",
+      "books": 29,
+      "paragraphs": 17268,
+      "uncheckedParagraphs": 0,
+      "words": 857917,
+      "flags": 1438,
+      "confirmedRealErrors": 0,
+      "rules": [
+        {
+          "ruleId": "spelling.misspelling",
+          "category": "Spelling",
+          "flags": 864,
+          "per1000": 1.0071
+        },
+        {
+          "ruleId": "spelling.unknown-name",
+          "category": "Spelling",
+          "flags": 269,
+          "per1000": 0.3136
+        },
+        {
+          "ruleId": "spelling.other-dialect",
+          "category": "Spelling",
+          "flags": 148,
+          "per1000": 0.1725
+        },
+        {
+          "ruleId": "spelling.capitalization",
+          "category": "Spelling",
+          "flags": 71,
+          "per1000": 0.0828
+        },
+        {
+          "ruleId": "agreement.dialect-verb-form",
+          "category": "Agreement",
+          "flags": 32,
+          "per1000": 0.0373
+        },
+        {
+          "ruleId": "mechanics.a-an",
+          "category": "Mechanics",
+          "flags": 11,
+          "per1000": 0.0128
+        },
+        {
+          "ruleId": "agreement.noun-verb",
+          "category": "Agreement",
+          "flags": 7,
+          "per1000": 0.0082
+        },
+        {
+          "ruleId": "dialogue.full-stop-before-tag",
+          "category": "DialoguePunctuation",
+          "flags": 6,
+          "per1000": 0.007
+        },
+        {
+          "ruleId": "agreement.pronoun-verb",
+          "category": "Agreement",
+          "flags": 4,
+          "per1000": 0.0047
+        },
+        {
+          "ruleId": "mechanics.sentence-capital",
+          "category": "Mechanics",
+          "flags": 4,
+          "per1000": 0.0047
+        },
+        {
+          "ruleId": "agreement.verb-form",
+          "category": "Agreement",
+          "flags": 3,
+          "per1000": 0.0035
+        },
+        {
+          "ruleId": "mechanics.double-comparative",
+          "category": "Mechanics",
+          "flags": 3,
+          "per1000": 0.0035
+        },
+        {
+          "ruleId": "mechanics.repeated-word",
+          "category": "Mechanics",
+          "flags": 3,
+          "per1000": 0.0035
+        },
+        {
+          "ruleId": "dialogue.missing-comma",
+          "category": "DialoguePunctuation",
+          "flags": 2,
+          "per1000": 0.0023
+        },
+        {
+          "ruleId": "confusable.affect-effect",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "confusable.bored-board",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "confusable.brake-break",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "confusable.its-its",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "confusable.know-no",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "confusable.lose-loose",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "confusable.of-off",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "confusable.quite-quiet",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "confusable.their-there",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "confusable.to-too",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0012
+        },
+        {
+          "ruleId": "confusable.your-youre",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0012
+        }
+      ],
+      "planted": [
+        {
+          "category": "typo",
+          "planted": 500,
+          "checked": 500,
+          "caught": 482,
+          "firstFixRight": 436,
+          "fixInTop5": 479,
+          "catchRate": 0.964,
+          "firstFixRate": 0.9046,
+          "top5FixRate": 0.9938
+        },
+        {
+          "category": "confusable",
+          "planted": 500,
+          "checked": 500,
+          "caught": 317,
+          "firstFixRight": 315,
+          "fixInTop5": 315,
+          "catchRate": 0.634,
+          "firstFixRate": 0.9937,
+          "top5FixRate": 0.9937
+        },
+        {
+          "category": "a-an",
+          "planted": 500,
+          "checked": 500,
+          "caught": 469,
+          "firstFixRight": 469,
+          "fixInTop5": 469,
+          "catchRate": 0.938,
+          "firstFixRate": 1,
+          "top5FixRate": 1
+        },
+        {
+          "category": "repeated-word",
+          "planted": 500,
+          "checked": 500,
+          "caught": 410,
+          "firstFixRight": 410,
+          "fixInTop5": 410,
+          "catchRate": 0.82,
+          "firstFixRate": 1,
+          "top5FixRate": 1
+        },
+        {
+          "category": "agreement",
+          "planted": 500,
+          "checked": 500,
+          "caught": 335,
+          "firstFixRight": 335,
+          "fixInTop5": 335,
+          "catchRate": 0.67,
+          "firstFixRate": 1,
+          "top5FixRate": 1
+        },
+        {
+          "category": "dialogue-punctuation",
+          "planted": 500,
+          "checked": 500,
+          "caught": 471,
+          "firstFixRight": 467,
+          "fixInTop5": 467,
+          "catchRate": 0.942,
+          "firstFixRate": 0.9915,
+          "top5FixRate": 0.9915
+        }
+      ],
+      "flagsPer1000": 1.6762
+    },
+    {
+      "corpus": "classic",
+      "split": "test",
+      "books": 11,
+      "paragraphs": 5792,
+      "uncheckedParagraphs": 0,
+      "words": 303609,
+      "flags": 459,
+      "confirmedRealErrors": 0,
+      "rules": [
+        {
+          "ruleId": "spelling.misspelling",
+          "category": "Spelling",
+          "flags": 324,
+          "per1000": 1.0672
+        },
+        {
+          "ruleId": "spelling.unknown-name",
+          "category": "Spelling",
+          "flags": 80,
+          "per1000": 0.2635
+        },
+        {
+          "ruleId": "spelling.other-dialect",
+          "category": "Spelling",
+          "flags": 19,
+          "per1000": 0.0626
+        },
+        {
+          "ruleId": "spelling.capitalization",
+          "category": "Spelling",
+          "flags": 17,
+          "per1000": 0.056
+        },
+        {
+          "ruleId": "mechanics.sentence-capital",
+          "category": "Mechanics",
+          "flags": 9,
+          "per1000": 0.0296
+        },
+        {
+          "ruleId": "mechanics.a-an",
+          "category": "Mechanics",
+          "flags": 2,
+          "per1000": 0.0066
+        },
+        {
+          "ruleId": "confusable.its-its",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0033
+        },
+        {
+          "ruleId": "confusable.know-no",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0033
+        },
+        {
+          "ruleId": "confusable.of-off",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0033
+        },
+        {
+          "ruleId": "confusable.past-passed",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0033
+        },
+        {
+          "ruleId": "confusable.wander-wonder",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0033
+        },
+        {
+          "ruleId": "dialogue.full-stop-before-tag",
+          "category": "DialoguePunctuation",
+          "flags": 1,
+          "per1000": 0.0033
+        },
+        {
+          "ruleId": "dialogue.missing-comma",
+          "category": "DialoguePunctuation",
+          "flags": 1,
+          "per1000": 0.0033
+        },
+        {
+          "ruleId": "mechanics.repeated-word",
+          "category": "Mechanics",
+          "flags": 1,
+          "per1000": 0.0033
+        }
+      ],
+      "planted": [
+        {
+          "category": "typo",
+          "planted": 500,
+          "checked": 500,
+          "caught": 477,
+          "firstFixRight": 430,
+          "fixInTop5": 469,
+          "catchRate": 0.954,
+          "firstFixRate": 0.9015,
+          "top5FixRate": 0.9832
+        },
+        {
+          "category": "confusable",
+          "planted": 500,
+          "checked": 500,
+          "caught": 345,
+          "firstFixRight": 345,
+          "fixInTop5": 345,
+          "catchRate": 0.69,
+          "firstFixRate": 1,
+          "top5FixRate": 1
+        },
+        {
+          "category": "a-an",
+          "planted": 500,
+          "checked": 500,
+          "caught": 467,
+          "firstFixRight": 467,
+          "fixInTop5": 467,
+          "catchRate": 0.934,
+          "firstFixRate": 1,
+          "top5FixRate": 1
+        },
+        {
+          "category": "repeated-word",
+          "planted": 500,
+          "checked": 500,
+          "caught": 406,
+          "firstFixRight": 406,
+          "fixInTop5": 406,
+          "catchRate": 0.812,
+          "firstFixRate": 1,
+          "top5FixRate": 1
+        },
+        {
+          "category": "agreement",
+          "planted": 500,
+          "checked": 500,
+          "caught": 312,
+          "firstFixRight": 312,
+          "fixInTop5": 312,
+          "catchRate": 0.624,
+          "firstFixRate": 1,
+          "top5FixRate": 1
+        },
+        {
+          "category": "dialogue-punctuation",
+          "planted": 500,
+          "checked": 500,
+          "caught": 454,
+          "firstFixRight": 453,
+          "fixInTop5": 453,
+          "catchRate": 0.908,
+          "firstFixRate": 0.9978,
+          "top5FixRate": 0.9978
+        }
+      ],
+      "flagsPer1000": 1.5118
+    },
+    {
+      "corpus": "modern",
+      "split": "dev",
+      "books": 16,
+      "paragraphs": 13581,
+      "uncheckedParagraphs": 0,
+      "words": 470887,
+      "flags": 749,
+      "confirmedRealErrors": 0,
+      "rules": [
+        {
+          "ruleId": "spelling.misspelling",
+          "category": "Spelling",
+          "flags": 468,
+          "per1000": 0.9939
+        },
+        {
+          "ruleId": "spelling.unknown-name",
+          "category": "Spelling",
+          "flags": 191,
+          "per1000": 0.4056
+        },
+        {
+          "ruleId": "spelling.other-dialect",
+          "category": "Spelling",
+          "flags": 43,
+          "per1000": 0.0913
+        },
+        {
+          "ruleId": "spelling.capitalization",
+          "category": "Spelling",
+          "flags": 24,
+          "per1000": 0.051
+        },
+        {
+          "ruleId": "mechanics.sentence-capital",
+          "category": "Mechanics",
+          "flags": 7,
+          "per1000": 0.0149
+        },
+        {
+          "ruleId": "mechanics.repeated-word",
+          "category": "Mechanics",
+          "flags": 4,
+          "per1000": 0.0085
+        },
+        {
+          "ruleId": "mechanics.punctuation-spacing",
+          "category": "Mechanics",
+          "flags": 3,
+          "per1000": 0.0064
+        },
+        {
+          "ruleId": "confusable.their-there",
+          "category": "ConfusableWords",
+          "flags": 2,
+          "per1000": 0.0042
+        },
+        {
+          "ruleId": "confusable.waist-waste",
+          "category": "ConfusableWords",
+          "flags": 2,
+          "per1000": 0.0042
+        },
+        {
+          "ruleId": "dialogue.full-stop-before-tag",
+          "category": "DialoguePunctuation",
+          "flags": 2,
+          "per1000": 0.0042
+        },
+        {
+          "ruleId": "agreement.verb-form",
+          "category": "Agreement",
+          "flags": 1,
+          "per1000": 0.0021
+        },
+        {
+          "ruleId": "confusable.its-its",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0021
+        },
+        {
+          "ruleId": "confusable.of-off",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0021
+        }
+      ],
+      "planted": [
+        {
+          "category": "typo",
+          "planted": 500,
+          "checked": 500,
+          "caught": 473,
+          "firstFixRight": 421,
+          "fixInTop5": 467,
+          "catchRate": 0.946,
+          "firstFixRate": 0.8901,
+          "top5FixRate": 0.9873
+        },
+        {
+          "category": "confusable",
+          "planted": 500,
+          "checked": 500,
+          "caught": 317,
+          "firstFixRight": 311,
+          "fixInTop5": 311,
+          "catchRate": 0.634,
+          "firstFixRate": 0.9811,
+          "top5FixRate": 0.9811
+        },
+        {
+          "category": "a-an",
+          "planted": 500,
+          "checked": 500,
+          "caught": 466,
+          "firstFixRight": 466,
+          "fixInTop5": 466,
+          "catchRate": 0.932,
+          "firstFixRate": 1,
+          "top5FixRate": 1
+        },
+        {
+          "category": "repeated-word",
+          "planted": 500,
+          "checked": 500,
+          "caught": 406,
+          "firstFixRight": 405,
+          "fixInTop5": 406,
+          "catchRate": 0.812,
+          "firstFixRate": 0.9975,
+          "top5FixRate": 1
+        },
+        {
+          "category": "agreement",
+          "planted": 500,
+          "checked": 500,
+          "caught": 314,
+          "firstFixRight": 313,
+          "fixInTop5": 313,
+          "catchRate": 0.628,
+          "firstFixRate": 0.9968,
+          "top5FixRate": 0.9968
+        },
+        {
+          "category": "dialogue-punctuation",
+          "planted": 500,
+          "checked": 500,
+          "caught": 461,
+          "firstFixRight": 460,
+          "fixInTop5": 460,
+          "catchRate": 0.922,
+          "firstFixRate": 0.9978,
+          "top5FixRate": 0.9978
+        }
+      ],
+      "flagsPer1000": 1.5906
+    },
+    {
+      "corpus": "modern",
+      "split": "test",
+      "books": 8,
+      "paragraphs": 7583,
+      "uncheckedParagraphs": 0,
+      "words": 240683,
+      "flags": 588,
+      "confirmedRealErrors": 0,
+      "rules": [
+        {
+          "ruleId": "spelling.misspelling",
+          "category": "Spelling",
+          "flags": 405,
+          "per1000": 1.6827
+        },
+        {
+          "ruleId": "spelling.unknown-name",
+          "category": "Spelling",
+          "flags": 109,
+          "per1000": 0.4529
+        },
+        {
+          "ruleId": "spelling.capitalization",
+          "category": "Spelling",
+          "flags": 21,
+          "per1000": 0.0873
+        },
+        {
+          "ruleId": "spelling.other-dialect",
+          "category": "Spelling",
+          "flags": 21,
+          "per1000": 0.0873
+        },
+        {
+          "ruleId": "mechanics.sentence-capital",
+          "category": "Mechanics",
+          "flags": 14,
+          "per1000": 0.0582
+        },
+        {
+          "ruleId": "mechanics.repeated-word",
+          "category": "Mechanics",
+          "flags": 6,
+          "per1000": 0.0249
+        },
+        {
+          "ruleId": "confusable.of-off",
+          "category": "ConfusableWords",
+          "flags": 5,
+          "per1000": 0.0208
+        },
+        {
+          "ruleId": "dialogue.full-stop-before-tag",
+          "category": "DialoguePunctuation",
+          "flags": 2,
+          "per1000": 0.0083
+        },
+        {
+          "ruleId": "confusable.know-no",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0042
+        },
+        {
+          "ruleId": "confusable.to-too",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0042
+        },
+        {
+          "ruleId": "confusable.whose-whos",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0042
+        },
+        {
+          "ruleId": "dialogue.capitalized-tag",
+          "category": "DialoguePunctuation",
+          "flags": 1,
+          "per1000": 0.0042
+        },
+        {
+          "ruleId": "dialogue.missing-comma",
+          "category": "DialoguePunctuation",
+          "flags": 1,
+          "per1000": 0.0042
+        }
+      ],
+      "planted": [
+        {
+          "category": "typo",
+          "planted": 500,
+          "checked": 500,
+          "caught": 477,
+          "firstFixRight": 420,
+          "fixInTop5": 471,
+          "catchRate": 0.954,
+          "firstFixRate": 0.8805,
+          "top5FixRate": 0.9874
+        },
+        {
+          "category": "confusable",
+          "planted": 500,
+          "checked": 500,
+          "caught": 326,
+          "firstFixRight": 325,
+          "fixInTop5": 325,
+          "catchRate": 0.652,
+          "firstFixRate": 0.9969,
+          "top5FixRate": 0.9969
+        },
+        {
+          "category": "a-an",
+          "planted": 500,
+          "checked": 500,
+          "caught": 464,
+          "firstFixRight": 464,
+          "fixInTop5": 464,
+          "catchRate": 0.928,
+          "firstFixRate": 1,
+          "top5FixRate": 1
+        },
+        {
+          "category": "repeated-word",
+          "planted": 500,
+          "checked": 500,
+          "caught": 400,
+          "firstFixRight": 400,
+          "fixInTop5": 400,
+          "catchRate": 0.8,
+          "firstFixRate": 1,
+          "top5FixRate": 1
+        },
+        {
+          "category": "agreement",
+          "planted": 500,
+          "checked": 500,
+          "caught": 318,
+          "firstFixRight": 318,
+          "fixInTop5": 318,
+          "catchRate": 0.636,
+          "firstFixRate": 1,
+          "top5FixRate": 1
+        },
+        {
+          "category": "dialogue-punctuation",
+          "planted": 500,
+          "checked": 500,
+          "caught": 472,
+          "firstFixRight": 472,
+          "fixInTop5": 472,
+          "catchRate": 0.944,
+          "firstFixRate": 1,
+          "top5FixRate": 1
+        }
+      ],
+      "flagsPer1000": 2.443
+    },
+    {
+      "corpus": "all",
+      "split": "dev",
+      "books": 45,
+      "paragraphs": 30849,
+      "uncheckedParagraphs": 0,
+      "words": 1328804,
+      "flags": 2187,
+      "confirmedRealErrors": 0,
+      "rules": [
+        {
+          "ruleId": "spelling.misspelling",
+          "category": "Spelling",
+          "flags": 1332,
+          "per1000": 1.0024
+        },
+        {
+          "ruleId": "spelling.unknown-name",
+          "category": "Spelling",
+          "flags": 460,
+          "per1000": 0.3462
+        },
+        {
+          "ruleId": "spelling.other-dialect",
+          "category": "Spelling",
+          "flags": 191,
+          "per1000": 0.1437
+        },
+        {
+          "ruleId": "spelling.capitalization",
+          "category": "Spelling",
+          "flags": 95,
+          "per1000": 0.0715
+        },
+        {
+          "ruleId": "agreement.dialect-verb-form",
+          "category": "Agreement",
+          "flags": 32,
+          "per1000": 0.0241
+        },
+        {
+          "ruleId": "mechanics.a-an",
+          "category": "Mechanics",
+          "flags": 11,
+          "per1000": 0.0083
+        },
+        {
+          "ruleId": "mechanics.sentence-capital",
+          "category": "Mechanics",
+          "flags": 11,
+          "per1000": 0.0083
+        },
+        {
+          "ruleId": "dialogue.full-stop-before-tag",
+          "category": "DialoguePunctuation",
+          "flags": 8,
+          "per1000": 0.006
+        },
+        {
+          "ruleId": "agreement.noun-verb",
+          "category": "Agreement",
+          "flags": 7,
+          "per1000": 0.0053
+        },
+        {
+          "ruleId": "mechanics.repeated-word",
+          "category": "Mechanics",
+          "flags": 7,
+          "per1000": 0.0053
+        },
+        {
+          "ruleId": "agreement.pronoun-verb",
+          "category": "Agreement",
+          "flags": 4,
+          "per1000": 0.003
+        },
+        {
+          "ruleId": "agreement.verb-form",
+          "category": "Agreement",
+          "flags": 4,
+          "per1000": 0.003
+        },
+        {
+          "ruleId": "confusable.their-there",
+          "category": "ConfusableWords",
+          "flags": 3,
+          "per1000": 0.0023
+        },
+        {
+          "ruleId": "mechanics.double-comparative",
+          "category": "Mechanics",
+          "flags": 3,
+          "per1000": 0.0023
+        },
+        {
+          "ruleId": "mechanics.punctuation-spacing",
+          "category": "Mechanics",
+          "flags": 3,
+          "per1000": 0.0023
+        },
+        {
+          "ruleId": "confusable.its-its",
+          "category": "ConfusableWords",
+          "flags": 2,
+          "per1000": 0.0015
+        },
+        {
+          "ruleId": "confusable.of-off",
+          "category": "ConfusableWords",
+          "flags": 2,
+          "per1000": 0.0015
+        },
+        {
+          "ruleId": "confusable.waist-waste",
+          "category": "ConfusableWords",
+          "flags": 2,
+          "per1000": 0.0015
+        },
+        {
+          "ruleId": "dialogue.missing-comma",
+          "category": "DialoguePunctuation",
+          "flags": 2,
+          "per1000": 0.0015
+        },
+        {
+          "ruleId": "confusable.affect-effect",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0008
+        },
+        {
+          "ruleId": "confusable.bored-board",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0008
+        },
+        {
+          "ruleId": "confusable.brake-break",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0008
+        },
+        {
+          "ruleId": "confusable.know-no",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0008
+        },
+        {
+          "ruleId": "confusable.lose-loose",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0008
+        },
+        {
+          "ruleId": "confusable.quite-quiet",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0008
+        },
+        {
+          "ruleId": "confusable.to-too",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0008
+        },
+        {
+          "ruleId": "confusable.your-youre",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0008
+        }
+      ],
+      "planted": [
+        {
+          "category": "typo",
+          "planted": 1000,
+          "checked": 1000,
+          "caught": 955,
+          "firstFixRight": 857,
+          "fixInTop5": 946,
+          "catchRate": 0.955,
+          "firstFixRate": 0.8974,
+          "top5FixRate": 0.9906
+        },
+        {
+          "category": "confusable",
+          "planted": 1000,
+          "checked": 1000,
+          "caught": 634,
+          "firstFixRight": 626,
+          "fixInTop5": 626,
+          "catchRate": 0.634,
+          "firstFixRate": 0.9874,
+          "top5FixRate": 0.9874
+        },
+        {
+          "category": "a-an",
+          "planted": 1000,
+          "checked": 1000,
+          "caught": 935,
+          "firstFixRight": 935,
+          "fixInTop5": 935,
+          "catchRate": 0.935,
+          "firstFixRate": 1,
+          "top5FixRate": 1
+        },
+        {
+          "category": "repeated-word",
+          "planted": 1000,
+          "checked": 1000,
+          "caught": 816,
+          "firstFixRight": 815,
+          "fixInTop5": 816,
+          "catchRate": 0.816,
+          "firstFixRate": 0.9988,
+          "top5FixRate": 1
+        },
+        {
+          "category": "agreement",
+          "planted": 1000,
+          "checked": 1000,
+          "caught": 649,
+          "firstFixRight": 648,
+          "fixInTop5": 648,
+          "catchRate": 0.649,
+          "firstFixRate": 0.9985,
+          "top5FixRate": 0.9985
+        },
+        {
+          "category": "dialogue-punctuation",
+          "planted": 1000,
+          "checked": 1000,
+          "caught": 932,
+          "firstFixRight": 927,
+          "fixInTop5": 927,
+          "catchRate": 0.932,
+          "firstFixRate": 0.9946,
+          "top5FixRate": 0.9946
+        }
+      ],
+      "flagsPer1000": 1.6458
+    },
+    {
+      "corpus": "all",
+      "split": "test",
+      "books": 19,
+      "paragraphs": 13375,
+      "uncheckedParagraphs": 0,
+      "words": 544292,
+      "flags": 1047,
+      "confirmedRealErrors": 0,
+      "rules": [
+        {
+          "ruleId": "spelling.misspelling",
+          "category": "Spelling",
+          "flags": 729,
+          "per1000": 1.3394
+        },
+        {
+          "ruleId": "spelling.unknown-name",
+          "category": "Spelling",
+          "flags": 189,
+          "per1000": 0.3472
+        },
+        {
+          "ruleId": "spelling.other-dialect",
+          "category": "Spelling",
+          "flags": 40,
+          "per1000": 0.0735
+        },
+        {
+          "ruleId": "spelling.capitalization",
+          "category": "Spelling",
+          "flags": 38,
+          "per1000": 0.0698
+        },
+        {
+          "ruleId": "mechanics.sentence-capital",
+          "category": "Mechanics",
+          "flags": 23,
+          "per1000": 0.0423
+        },
+        {
+          "ruleId": "mechanics.repeated-word",
+          "category": "Mechanics",
+          "flags": 7,
+          "per1000": 0.0129
+        },
+        {
+          "ruleId": "confusable.of-off",
+          "category": "ConfusableWords",
+          "flags": 6,
+          "per1000": 0.011
+        },
+        {
+          "ruleId": "dialogue.full-stop-before-tag",
+          "category": "DialoguePunctuation",
+          "flags": 3,
+          "per1000": 0.0055
+        },
+        {
+          "ruleId": "confusable.know-no",
+          "category": "ConfusableWords",
+          "flags": 2,
+          "per1000": 0.0037
+        },
+        {
+          "ruleId": "dialogue.missing-comma",
+          "category": "DialoguePunctuation",
+          "flags": 2,
+          "per1000": 0.0037
+        },
+        {
+          "ruleId": "mechanics.a-an",
+          "category": "Mechanics",
+          "flags": 2,
+          "per1000": 0.0037
+        },
+        {
+          "ruleId": "confusable.its-its",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0018
+        },
+        {
+          "ruleId": "confusable.past-passed",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0018
+        },
+        {
+          "ruleId": "confusable.to-too",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0018
+        },
+        {
+          "ruleId": "confusable.wander-wonder",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0018
+        },
+        {
+          "ruleId": "confusable.whose-whos",
+          "category": "ConfusableWords",
+          "flags": 1,
+          "per1000": 0.0018
+        },
+        {
+          "ruleId": "dialogue.capitalized-tag",
+          "category": "DialoguePunctuation",
+          "flags": 1,
+          "per1000": 0.0018
+        }
+      ],
+      "planted": [
+        {
+          "category": "typo",
+          "planted": 1000,
+          "checked": 1000,
+          "caught": 954,
+          "firstFixRight": 850,
+          "fixInTop5": 940,
+          "catchRate": 0.954,
+          "firstFixRate": 0.891,
+          "top5FixRate": 0.9853
+        },
+        {
+          "category": "confusable",
+          "planted": 1000,
+          "checked": 1000,
+          "caught": 671,
+          "firstFixRight": 670,
+          "fixInTop5": 670,
+          "catchRate": 0.671,
+          "firstFixRate": 0.9985,
+          "top5FixRate": 0.9985
+        },
+        {
+          "category": "a-an",
+          "planted": 1000,
+          "checked": 1000,
+          "caught": 931,
+          "firstFixRight": 931,
+          "fixInTop5": 931,
+          "catchRate": 0.931,
+          "firstFixRate": 1,
+          "top5FixRate": 1
+        },
+        {
+          "category": "repeated-word",
+          "planted": 1000,
+          "checked": 1000,
+          "caught": 806,
+          "firstFixRight": 806,
+          "fixInTop5": 806,
+          "catchRate": 0.806,
+          "firstFixRate": 1,
+          "top5FixRate": 1
+        },
+        {
+          "category": "agreement",
+          "planted": 1000,
+          "checked": 1000,
+          "caught": 630,
+          "firstFixRight": 630,
+          "fixInTop5": 630,
+          "catchRate": 0.63,
+          "firstFixRate": 1,
+          "top5FixRate": 1
+        },
+        {
+          "category": "dialogue-punctuation",
+          "planted": 1000,
+          "checked": 1000,
+          "caught": 926,
+          "firstFixRight": 925,
+          "fixInTop5": 925,
+          "catchRate": 0.926,
+          "firstFixRate": 0.9989,
+          "top5FixRate": 0.9989
+        }
+      ],
+      "flagsPer1000": 1.9236
+    }
+  ],
+  "checkerVersion": null,
+  "description": "Spelling and grammar at Stet\u0027s defaults. Each book has a stand-in for the writer\u0027s word list: every unknown word the book uses twice or more."
+}

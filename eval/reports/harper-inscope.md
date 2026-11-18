@@ -1,111 +1,70 @@
 # Evaluation: harper-inscope
 
-Library 0.1.0. Seed 20261114, 30,000 clean words per book, 500 planted errors per category for each corpus and split.
+harper-inscope (harper.js 3.2.0, style and readability flags left out). 30,000 words of clean text per book, and 500 planted errors per category for each corpus and each side of the split (seed 20261114).
 
-Changes are against the previous run of this checker.
+Every book is on one side of a split. **Dev** books could be read and tuned against while Stet was built. **Test** books were only ever measured, so their numbers show how a checker does on text nobody tuned it for.
 
 ## False alarms on clean text
 
-Target: under 1 per 1,000 words. Flags confirmed as real errors in the source are not counted.
+Flags on published text, which is taken to be correct.
 
-| Corpus | Split | Books | Words | Flags | Per 1,000 words | Change | Confirmed real errors | Not checked |
-|---|---|---:|---:|---:|---:|---:|---:|---:|
-| calibre | dev | 16 | 454,434 | 16,744 | 36.846 | -3.323 | 0 | 0 |
-| calibre | test | 8 | 240,253 | 8,692 | 36.179 | 0 | 0 | 0 |
-| gutenberg | dev | 29 | 859,568 | 14,390 | 16.741 | 0 | 0 | 0 |
-| gutenberg | test | 11 | 304,864 | 4,207 | 13.8 | 0 | 0 | 0 |
-| all | dev | 45 | 1,314,002 | 31,134 | 23.694 | -1.152 | 0 | 0 |
-| all | test | 19 | 545,117 | 12,899 | 23.663 | 0 | 0 | 0 |
+| Corpus | Split | Books | Words | Flags | Per 1,000 words |
+|---|---|---:|---:|---:|---:|
+| classic | dev | 29 | 857,917 | 15,365 | 17.91 |
+| classic | test | 11 | 303,609 | 3,987 | 13.132 |
+| modern | dev | 16 | 470,887 | 17,022 | 36.149 |
+| modern | test | 8 | 240,683 | 8,451 | 35.113 |
+| all | dev | 45 | 1,328,804 | 32,387 | 24.373 |
+| all | test | 19 | 544,292 | 12,438 | 22.852 |
 
 ## False alarms per rule
 
-Flags per 1,000 words over all corpora. Target for a rule to be on by default: under 0.05. Rules under the bar on both sides are counted, not listed.
+Flags per 1,000 words over all the books. Rules under 0.05 on both sides are counted, not listed.
 
-| Rule | Category | Dev | Test | Change (dev) |
-|---|---|---:|---:|---:|
-| harper.SpellCheck | Spelling | 20.272 | 20.054 | -1.167 |
-| harper.SplitWords | Typo | 0.746 | 0.976 | -0.004 |
-| harper.SentenceCapitalization | Capitalization | 0.439 | 0.257 | +0.015 |
-| harper.PronounVerbAgreement | Agreement | 0.304 | 0.211 | +0.008 |
-| harper.MassNouns | Agreement | 0.243 | 0.213 | +0.008 |
-| harper.CompoundNouns | WordChoice | 0.232 | 0.235 | +0.006 |
-| harper.MissingPreposition | Miscellaneous | 0.147 | 0.152 | -0.002 |
-| harper.DisjointPrefixes | Spelling | 0.113 | 0.108 | +0.005 |
-| harper.DiscourseMarkers | Punctuation | 0.104 | 0.083 | +0.002 |
-| harper.AvoidCurses | WordChoice | 0.101 | 0.242 | +0.001 |
-| harper.AnA | Miscellaneous | 0.096 | 0.072 | -0.011 |
-| harper.PossessiveYour | WordChoice | 0.06 | 0.053 | -0.001 |
-| harper.OrthographicConsistency | Capitalization | 0.012 | 0.125 | -0.002 |
-| harper.YeaToYeah | Spelling | 0.008 | 0.053 | +0.001 |
+| Rule | Category | Dev | Test |
+|---|---|---:|---:|
+| harper.SpellCheck | Spelling | 20.669 | 19.282 |
+| harper.SplitWords | Typo | 0.838 | 1.007 |
+| harper.SentenceCapitalization | Capitalization | 0.476 | 0.209 |
+| harper.PronounVerbAgreement | Agreement | 0.303 | 0.281 |
+| harper.CompoundNouns | WordChoice | 0.256 | 0.211 |
+| harper.AnA | Miscellaneous | 0.245 | 0.061 |
+| harper.MassNouns | Grammar | 0.236 | 0.191 |
+| harper.MissingPreposition | Miscellaneous | 0.155 | 0.143 |
+| harper.DiscourseMarkers | Punctuation | 0.114 | 0.088 |
+| harper.DisjointPrefixes | Spelling | 0.104 | 0.085 |
+| harper.AvoidCurses | WordChoice | 0.072 | 0.219 |
+| harper.QuantifierNumeralConflict | Grammar | 0.055 | 0.017 |
+| harper.PossessiveYour | WordChoice | 0.053 | 0.064 |
+| harper.RepeatedWords | Repetition | 0.043 | 0.061 |
+| harper.OrthographicConsistency | Capitalization | 0.02 | 0.096 |
+| harper.YeaToYeah | Spelling | 0.011 | 0.079 |
+| harper.MassNouns | Agreement | 0.236 | 0.191 |
 
-142 other rules flagged something but stayed under the bar.
+139 other rules flagged something but stayed under 0.05.
 
 ## Planted errors
 
-Caught: share of planted errors that were flagged. First fix right and fix in top 5: of the caught ones, how often a suggestion restores the original text.
+Over all the books. Caught: the share of planted errors that were flagged. First fix right and fix in top 5: of the caught ones, how often a suggestion gives back the original text. The same figures for each corpus are in the JSON file beside this one.
 
-### all, dev
+### Test books
 
-| Category | Planted | Checked | Caught | Change | First fix right | Fix in top 5 |
-|---|---:|---:|---:|---:|---:|---:|
-| typo | 1000 | 1000 | 90.7% | +0.5 pts | 73.5% | 88.9% |
-| confusable | 1000 | 1000 | 35.8% | -0.1 pts | 96.1% | 96.1% |
-| a-an | 1000 | 1000 | 90.7% | -0.2 pts | 99.6% | 99.6% |
-| repeated-word | 1000 | 1000 | 63.6% | +2 pts | 98.1% | 98.6% |
-| agreement | 1000 | 1000 | 66.5% | +1 pts | 68.4% | 68.4% |
-| dialogue-punctuation | 1000 | 1000 | 0.1% | -0.2 pts | 0% | 0% |
+| Category | Planted | Caught | First fix right | Fix in top 5 |
+|---|---:|---:|---:|---:|
+| typo | 1,000 | 87.2% | 73.1% | 89.5% |
+| confusable | 1,000 | 36.1% | 97% | 97% |
+| a-an | 1,000 | 86.8% | 99.9% | 99.9% |
+| repeated-word | 1,000 | 62.4% | 98.1% | 98.9% |
+| agreement | 1,000 | 58.1% | 69% | 69% |
+| dialogue-punctuation | 1,000 | 0.3% | 0% | 0% |
 
-### all, test
+### Dev books
 
-| Category | Planted | Checked | Caught | Change | First fix right | Fix in top 5 |
-|---|---:|---:|---:|---:|---:|---:|
-| typo | 1000 | 1000 | 86.8% | 0 | 74.2% | 89.5% |
-| confusable | 1000 | 1000 | 32.8% | 0 | 97.6% | 97.6% |
-| a-an | 1000 | 1000 | 87.9% | 0 | 99.8% | 99.8% |
-| repeated-word | 1000 | 1000 | 59.3% | 0 | 98.7% | 99% |
-| agreement | 1000 | 1000 | 57.1% | 0 | 70.2% | 70.2% |
-| dialogue-punctuation | 1000 | 1000 | 0.2% | 0 | 0% | 0% |
-
-### calibre, dev
-
-| Category | Planted | Checked | Caught | Change | First fix right | Fix in top 5 |
-|---|---:|---:|---:|---:|---:|---:|
-| typo | 500 | 500 | 94.8% | +1 pts | 72.4% | 89% |
-| confusable | 500 | 500 | 37% | -0.2 pts | 96.2% | 96.2% |
-| a-an | 500 | 500 | 96% | -0.4 pts | 99.4% | 99.4% |
-| repeated-word | 500 | 500 | 68.4% | +4 pts | 98.8% | 98.8% |
-| agreement | 500 | 500 | 71.6% | +2 pts | 69.6% | 69.6% |
-| dialogue-punctuation | 500 | 500 | 0% | -0.4 pts | 0% | 0% |
-
-### calibre, test
-
-| Category | Planted | Checked | Caught | Change | First fix right | Fix in top 5 |
-|---|---:|---:|---:|---:|---:|---:|
-| typo | 500 | 500 | 87% | 0 | 72.9% | 88.1% |
-| confusable | 500 | 500 | 31.4% | 0 | 98.7% | 98.7% |
-| a-an | 500 | 500 | 89% | 0 | 99.6% | 99.6% |
-| repeated-word | 500 | 500 | 59.2% | 0 | 99% | 99% |
-| agreement | 500 | 500 | 58% | 0 | 65.5% | 65.5% |
-| dialogue-punctuation | 500 | 500 | 0.2% | 0 | 0% | 0% |
-
-### gutenberg, dev
-
-| Category | Planted | Checked | Caught | Change | First fix right | Fix in top 5 |
-|---|---:|---:|---:|---:|---:|---:|
-| typo | 500 | 500 | 86.6% | 0 | 74.8% | 88.7% |
-| confusable | 500 | 500 | 34.6% | 0 | 96% | 96% |
-| a-an | 500 | 500 | 85.4% | 0 | 99.8% | 99.8% |
-| repeated-word | 500 | 500 | 58.8% | 0 | 97.3% | 98.3% |
-| agreement | 500 | 500 | 61.4% | 0 | 67.1% | 67.1% |
-| dialogue-punctuation | 500 | 500 | 0.2% | 0 | 0% | 0% |
-
-### gutenberg, test
-
-| Category | Planted | Checked | Caught | Change | First fix right | Fix in top 5 |
-|---|---:|---:|---:|---:|---:|---:|
-| typo | 500 | 500 | 86.6% | 0 | 75.5% | 91% |
-| confusable | 500 | 500 | 34.2% | 0 | 96.5% | 96.5% |
-| a-an | 500 | 500 | 86.8% | 0 | 100% | 100% |
-| repeated-word | 500 | 500 | 59.4% | 0 | 98.3% | 99% |
-| agreement | 500 | 500 | 56.2% | 0 | 75.1% | 75.1% |
-| dialogue-punctuation | 500 | 500 | 0.2% | 0 | 0% | 0% |
+| Category | Planted | Caught | First fix right | Fix in top 5 |
+|---|---:|---:|---:|---:|
+| typo | 1,000 | 91% | 73.3% | 88% |
+| confusable | 1,000 | 36.6% | 95.6% | 95.6% |
+| a-an | 1,000 | 91.2% | 99.7% | 99.7% |
+| repeated-word | 1,000 | 64% | 99.1% | 99.1% |
+| agreement | 1,000 | 65.8% | 69.5% | 69.5% |
+| dialogue-punctuation | 1,000 | 0% | 0% | 0% |

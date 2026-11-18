@@ -4,7 +4,7 @@ using System.Text.Json;
 
 namespace Stet.Eval.Scoring;
 
-/// <summary>Writes reports: the committed numbers-only files and the local review files.</summary>
+/// <summary>Writes reports: the numbers-only files and the local review files.</summary>
 public static class ReportWriter
 {
     private const double RuleBar = 0.05;
@@ -39,45 +39,64 @@ public static class ReportWriter
         File.WriteAllText(path, JsonSerializer.Serialize(report, JsonOptions) + "\n");
 
     /// <summary>
-    /// Renders the report as Markdown. <paramref name="previous"/> is the last run of the same checker (changes
-    /// are shown against it); <paramref name="baseline"/> is another checker to compare with, such as Harper.
+    /// Renders the report as Markdown, as it is saved: what was measured and nothing else.
+    /// <paramref name="baseline"/> is another checker to show alongside, such as Harper.
     /// </summary>
-    public static string ToMarkdown(EvalReport report, EvalReport? previous, EvalReport? baseline)
+    public static string ToMarkdown(EvalReport report, EvalReport? baseline)
     {
         var sb = new StringBuilder();
         string vs = baseline is null ? "" : $" | {baseline.Checker}";
         string vsRule = baseline is null ? "" : "|---:";
 
+        // A group with next to nothing checked is left out: a run on part of the text reaches a few paragraphs
+        // of the other corpora too, where a short paragraph is word for word the same in both.
+        var groups = report.Groups.Where(g => g.Paragraphs == 0 || (g.Paragraphs - g.UncheckedParagraphs) * 100L >= g.Paragraphs).ToList();
+        bool anyLabels = groups.Any(g => g.ConfirmedRealErrors > 0);
+        bool anyUnchecked = groups.Any(g => g.UncheckedParagraphs > 0);
+
         sb.AppendLine(CultureInfo.InvariantCulture, $"# Evaluation: {report.Checker}");
         sb.AppendLine();
-        sb.AppendLine(CultureInfo.InvariantCulture, $"Library {report.LibraryVersion}. Seed {report.Settings.Seed}, {report.Settings.CleanWordsPerBook:N0} clean words per book, {report.Settings.PlantedPerCategory} planted errors per category for each corpus and split.");
+        sb.AppendLine(CultureInfo.InvariantCulture, $"{Subject(report)}. {report.Settings.CleanWordsPerBook:N0} words of clean text per book, and {report.Settings.PlantedPerCategory} planted errors per category for each corpus and each side of the split (seed {report.Settings.Seed}).");
+        if (report.Description is not null)
+        {
+            sb.AppendLine();
+            sb.AppendLine(report.Description);
+        }
+
+        if (baseline is not null)
+        {
+            sb.AppendLine();
+            sb.AppendLine(CultureInfo.InvariantCulture, $"Shown alongside: {Subject(baseline)}.");
+        }
+
         sb.AppendLine();
-        sb.AppendLine(previous is null ? "No earlier run to compare with." : "Changes are against the previous run of this checker.");
+        sb.AppendLine("Every book is on one side of a split. **Dev** books could be read and tuned against while Stet was built. **Test** books were only ever measured, so their numbers show how a checker does on text nobody tuned it for.");
         sb.AppendLine();
 
         sb.AppendLine("## False alarms on clean text");
         sb.AppendLine();
-        sb.AppendLine("Target: under 1 per 1,000 words. Flags confirmed as real errors in the source are not counted.");
+        sb.AppendLine(anyLabels
+            ? "Flags on published text, which is taken to be correct. Flags reviewed and confirmed as real errors in the books are not counted."
+            : "Flags on published text, which is taken to be correct.");
         sb.AppendLine();
-        sb.AppendLine($"| Corpus | Split | Books | Words | Flags | Per 1,000 words | Change{vs} | Confirmed real errors | Not checked |");
-        sb.AppendLine($"|---|---|---:|---:|---:|---:|---:{vsRule}|---:|---:|");
-        foreach (GroupResult g in report.Groups)
+        sb.AppendLine($"| Corpus | Split | Books | Words | Flags | Per 1,000 words{vs}{(anyLabels ? " | Confirmed real errors" : "")}{(anyUnchecked ? " | Not checked" : "")} |");
+        sb.AppendLine($"|---|---|---:|---:|---:|---:{vsRule}{(anyLabels ? "|---:" : "")}{(anyUnchecked ? "|---:" : "")}|");
+        foreach (GroupResult g in groups)
         {
-            GroupResult? old = previous?.Find(g.Corpus, g.Split);
             GroupResult? other = baseline?.Find(g.Corpus, g.Split);
             string otherCell = baseline is null ? "" : $" | {(other is null ? "" : Num(other.FlagsPer1000))}";
-            string notChecked = g.UncheckedParagraphs == 0 ? "0" : $"{g.UncheckedParagraphs} of {g.Paragraphs} paragraphs";
-            sb.AppendLine(CultureInfo.InvariantCulture, $"| {g.Corpus} | {g.Split} | {g.Books} | {g.Words:N0} | {g.Flags:N0} | {Num(g.FlagsPer1000)} | {Delta(g.FlagsPer1000, old?.FlagsPer1000)}{otherCell} | {g.ConfirmedRealErrors} | {notChecked} |");
+            string labelCell = anyLabels ? $" | {g.ConfirmedRealErrors}" : "";
+            string uncheckedCell = !anyUnchecked ? "" : g.UncheckedParagraphs == 0 ? " | 0" : $" | {g.UncheckedParagraphs:N0} of {g.Paragraphs:N0} paragraphs";
+            sb.AppendLine(CultureInfo.InvariantCulture, $"| {g.Corpus} | {g.Split} | {g.Books} | {g.Words:N0} | {g.Flags:N0} | {Num(g.FlagsPer1000)}{otherCell}{labelCell}{uncheckedCell} |");
         }
 
         sb.AppendLine();
         sb.AppendLine("## False alarms per rule");
         sb.AppendLine();
-        sb.AppendLine(CultureInfo.InvariantCulture, $"Flags per 1,000 words over all corpora. Target for a rule to be on by default: under {RuleBar}. Rules under the bar on both sides are counted, not listed.");
+        sb.AppendLine(CultureInfo.InvariantCulture, $"Flags per 1,000 words over all the books. Rules under {RuleBar} on both sides are counted, not listed.");
         sb.AppendLine();
         GroupResult? dev = report.Find(Scorer.AllCorpora, "dev");
         GroupResult? test = report.Find(Scorer.AllCorpora, "test");
-        GroupResult? oldDev = previous?.Find(Scorer.AllCorpora, "dev");
         var ruleIds = (dev?.Rules ?? []).Concat(test?.Rules ?? []).Select(r => (r.RuleId, r.Category)).Distinct().ToList();
         if (ruleIds.Count == 0)
         {
@@ -85,56 +104,111 @@ public static class ReportWriter
         }
         else
         {
-            sb.AppendLine("| Rule | Category | Dev | Test | Change (dev) |");
-            sb.AppendLine("|---|---|---:|---:|---:|");
+            sb.AppendLine("| Rule | Category | Dev | Test |");
+            sb.AppendLine("|---|---|---:|---:|");
             int underBar = 0;
             foreach ((string ruleId, string category) in ruleIds)
             {
                 double d = dev?.Rules.FirstOrDefault(r => r.RuleId == ruleId)?.Per1000 ?? 0;
                 double t = test?.Rules.FirstOrDefault(r => r.RuleId == ruleId)?.Per1000 ?? 0;
-                double? o = oldDev is null ? null : oldDev.Rules.FirstOrDefault(r => r.RuleId == ruleId)?.Per1000 ?? 0;
-                if (d < RuleBar && t < RuleBar && (o ?? 0) < RuleBar)
+                if (d < RuleBar && t < RuleBar)
                 {
                     underBar++;
                     continue;
                 }
 
-                sb.AppendLine(CultureInfo.InvariantCulture, $"| {ruleId} | {category} | {Num(d)} | {Num(t)} | {Delta(d, o)} |");
+                sb.AppendLine(CultureInfo.InvariantCulture, $"| {ruleId} | {category} | {Num(d)} | {Num(t)} |");
             }
 
             sb.AppendLine();
-            sb.AppendLine(CultureInfo.InvariantCulture, $"{underBar} other rules flagged something but stayed under the bar.");
+            sb.AppendLine(CultureInfo.InvariantCulture, $"{underBar} other rules flagged something but stayed under {RuleBar}.");
         }
 
         sb.AppendLine();
         sb.AppendLine("## Planted errors");
         sb.AppendLine();
-        sb.AppendLine("Caught: share of planted errors that were flagged. First fix right and fix in top 5: of the caught ones, how often a suggestion restores the original text.");
-        foreach (GroupResult g in report.Groups.OrderBy(g => g.Corpus == Scorer.AllCorpora ? 0 : 1))
+        sb.AppendLine("Over all the books. Caught: the share of planted errors that were flagged. First fix right and fix in top 5: of the caught ones, how often a suggestion gives back the original text. The same figures for each corpus are in the JSON file beside this one.");
+        foreach (string split in (ReadOnlySpan<string>)["test", "dev"])
         {
-            GroupResult? old = previous?.Find(g.Corpus, g.Split);
-            GroupResult? other = baseline?.Find(g.Corpus, g.Split);
-            if (g.Planted.All(p => p.Checked == 0))
+            GroupResult? g = report.Find(Scorer.AllCorpora, split);
+            if (g is null || g.Planted.All(p => p.Checked == 0))
             {
-                continue; // nothing of this group was checked (a partial run)
+                continue; // nothing on this side was checked (a partial run)
             }
 
+            GroupResult? other = baseline?.Find(g.Corpus, g.Split);
+            bool allChecked = g.Planted.All(p => p.Checked == p.Planted);
             sb.AppendLine();
-            sb.AppendLine(CultureInfo.InvariantCulture, $"### {g.Corpus}, {g.Split}");
+            sb.AppendLine(split == "test" ? "### Test books" : "### Dev books");
             sb.AppendLine();
-            sb.AppendLine($"| Category | Planted | Checked | Caught | Change{(baseline is null ? "" : $" | {baseline.Checker} caught")} | First fix right | Fix in top 5 |");
-            sb.AppendLine($"|---|---:|---:|---:|---:{vsRule}|---:|---:|");
+            sb.AppendLine($"| Category | Planted{(allChecked ? "" : " | Checked")} | Caught{(baseline is null ? "" : $" | {baseline.Checker} caught")} | First fix right | Fix in top 5 |");
+            sb.AppendLine($"|---|---:{(allChecked ? "" : "|---:")}|---:{vsRule}|---:|---:|");
             foreach (PlantedResult p in g.Planted)
             {
-                PlantedResult? oldP = old?.Planted.FirstOrDefault(x => x.Category == p.Category);
                 PlantedResult? otherP = other?.Planted.FirstOrDefault(x => x.Category == p.Category);
                 string otherCell = baseline is null ? "" : $" | {(otherP is null ? "" : Percent(otherP.CatchRate))}";
-                sb.AppendLine(CultureInfo.InvariantCulture, $"| {p.Category} | {p.Planted} | {p.Checked} | {Percent(p.CatchRate)} | {DeltaPercent(p.CatchRate, oldP?.CatchRate)}{otherCell} | {Percent(p.FirstFixRate)} | {Percent(p.Top5FixRate)} |");
+                string checkedCell = allChecked ? "" : $" | {p.Checked:N0}";
+                sb.AppendLine(CultureInfo.InvariantCulture, $"| {p.Category} | {p.Planted:N0}{checkedCell} | {Percent(p.CatchRate)}{otherCell} | {Percent(p.FirstFixRate)} | {Percent(p.Top5FixRate)} |");
             }
         }
 
         return sb.ToString();
     }
+
+    /// <summary>
+    /// What moved since the last run of the same checker, for the terminal: it matters to whoever just made a
+    /// change and to nobody who reads the saved report. Empty when nothing moved.
+    /// </summary>
+    public static string Changes(EvalReport report, EvalReport previous)
+    {
+        var sb = new StringBuilder();
+        foreach (GroupResult g in report.Groups)
+        {
+            GroupResult? old = previous.Find(g.Corpus, g.Split);
+            if (old is null)
+            {
+                continue;
+            }
+
+            string flags = Delta(g.FlagsPer1000, old.FlagsPer1000);
+            if (flags != "0")
+            {
+                sb.AppendLine(CultureInfo.InvariantCulture, $"  {g.Corpus}, {g.Split}: flags per 1,000 words {Num(old.FlagsPer1000)} -> {Num(g.FlagsPer1000)} ({flags})");
+            }
+
+            foreach (PlantedResult p in g.Planted)
+            {
+                PlantedResult? oldP = old.Planted.FirstOrDefault(x => x.Category == p.Category);
+                string caught = DeltaPercent(p.CatchRate, oldP?.CatchRate);
+                if (caught is not ("" or "0"))
+                {
+                    sb.AppendLine(CultureInfo.InvariantCulture, $"  {g.Corpus}, {g.Split}: {p.Category} caught {Percent(oldP!.CatchRate)} -> {Percent(p.CatchRate)} ({caught})");
+                }
+            }
+
+            if (g.Corpus != Scorer.AllCorpora)
+            {
+                continue;
+            }
+
+            foreach (string ruleId in g.Rules.Select(r => r.RuleId).Concat(old.Rules.Select(r => r.RuleId)).Distinct())
+            {
+                double now = g.Rules.FirstOrDefault(r => r.RuleId == ruleId)?.Per1000 ?? 0;
+                double before = old.Rules.FirstOrDefault(r => r.RuleId == ruleId)?.Per1000 ?? 0;
+                string rule = Delta(now, before);
+                if (rule != "0")
+                {
+                    sb.AppendLine(CultureInfo.InvariantCulture, $"  {g.Corpus}, {g.Split}: {ruleId} {Num(before)} -> {Num(now)} ({rule})");
+                }
+            }
+        }
+
+        return sb.ToString();
+    }
+
+    // What a report measured: Stet at its version, or another checker at the version it was run at.
+    private static string Subject(EvalReport report) =>
+        report.CheckerVersion is null ? $"Stet {report.LibraryVersion}" : $"{report.Checker} ({report.CheckerVersion})";
 
     /// <summary>Writes flags on clean text for review. Contains book text, so it goes to the local folder only.</summary>
     public static void WriteReviewFlags(IEnumerable<ReviewFlag> flags, string path)

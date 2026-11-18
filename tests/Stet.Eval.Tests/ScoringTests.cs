@@ -183,11 +183,15 @@ public class ScoringTests
 
             Assert.Equal(none.Groups.Select(g => g.Words), previous.Groups.Select(g => g.Words));
 
-            string markdown = ReportWriter.ToMarkdown(demo, previous, previous);
+            string markdown = ReportWriter.ToMarkdown(demo, previous);
             Assert.Contains("| repeated-word |", markdown);
-            Assert.Contains("+100 pts", markdown);
             Assert.Contains("none caught", markdown);
+            Assert.DoesNotContain("pts", markdown);
             Assert.DoesNotContain("cat sat", markdown);
+
+            // What moved since the last run is for the terminal, not the saved report.
+            Assert.Contains("+100 pts", ReportWriter.Changes(demo, previous));
+            Assert.Equal("", ReportWriter.Changes(demo, demo));
         }
         finally
         {

@@ -36,7 +36,13 @@ public sealed record GroupResult(
 }
 
 /// <summary>A full evaluation report. Numbers only, safe to commit.</summary>
-public sealed record EvalReport(string Checker, string LibraryVersion, EvalSettings Settings, IReadOnlyList<GroupResult> Groups)
+/// <param name="Checker">The report's name.</param>
+/// <param name="LibraryVersion">The version of Stet the harness was built with.</param>
+/// <param name="Settings">What was measured.</param>
+/// <param name="Groups">Results for each corpus and side of the split, and the totals.</param>
+/// <param name="CheckerVersion">For a checker that is not Stet: what it is and its version, as given on the command line.</param>
+/// <param name="Description">One sentence on how the checker was set up for this report, or null.</param>
+public sealed record EvalReport(string Checker, string LibraryVersion, EvalSettings Settings, IReadOnlyList<GroupResult> Groups, string? CheckerVersion = null, string? Description = null)
 {
     /// <summary>Finds a group, or null.</summary>
     public GroupResult? Find(string corpus, string split) =>

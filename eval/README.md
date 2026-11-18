@@ -75,26 +75,26 @@ not already have that flag. A fix counts as right when applying it gives back th
 
 From the repository root:
 
-    dotnet run -c Release --project eval/Stet.Eval -- run --checker library
+    dotnet run -c Release --project eval/Stet.Eval -- run --checker stet
 
 `--checker` chooses what is measured:
 
 | Checker | What it is |
 |---|---|
-| `library` | Stet at its defaults, spelling and grammar. What an app gets. |
-| `library-all` | The same with every rule switched on, including any that are off by default. |
+| `stet` | Stet at its defaults, spelling and grammar. What an app gets. |
+| `stet-all` | The same with every rule switched on, including any that are off by default. |
 | `spelling` | Spelling only, with no custom words, so every name and invented word is flagged. The worst case. |
 | `spelling-world` | Spelling only, with a stand-in for the writer's word list (see below). |
 | `none` | Flags nothing. A check that the harness itself works. |
 | `external` | Scores issues produced by another program. See [Other checkers](#other-checkers). |
 
 **The stand-in word list.** A writer using Stet in an app adds their character and place names to a
-word list. Books do not come with one, so `spelling-world`, `library` and `library-all` build a
+word list. Books do not come with one, so `spelling-world`, `stet` and `stet-all` build a
 stand-in: every unknown word a book uses twice or more is treated as a custom word for that book, on
 the reasoning that a spelling repeated exactly is intended. Words used once stay flagged. This is a
 simulation of a word list, not a real one.
 
-Add `--compare <checker>` to put another checker's last report alongside.
+Add `--compare <checker>` to put another checker's last report alongside, for example `--compare harper`.
 
 More commands, each measuring one thing on whole books:
 
@@ -126,12 +126,15 @@ The exported file holds book text, so it is written to `reports/local/`, which g
 
 ## Reports
 
-Each run writes `reports/<checker>.json` and `reports/<checker>.md`. They hold numbers only, never
-text, and the Markdown also shows the change since the previous run of the same checker.
+Each run writes `reports/<checker>.md` and `reports/<checker>.json`. They hold numbers only, never
+text. If the same checker has been run before, the run also prints what changed since then.
 
 Each run also writes a sample of its flags, with the text around each, to `reports/local/`, for reading
 through the results: up to 40 per rule, from dev books only (`--review-flags N` changes the number). That
 folder holds book text and is ignored by git.
+
+Git keeps only the four published reports and ignores the rest of `reports/`, so your own runs of other
+checkers stay on your machine.
 
 **Real errors in the books.** Published books contain a few genuine mistakes, and a flag on one is
 counted as a false alarm like any other. To leave reviewed ones out of the count, list them in
@@ -141,24 +144,15 @@ numbers use no labels.
 
 ## The published numbers
 
-The reports in [`reports/`](reports/) were produced by the project's author on two corpora:
+[RESULTS.md](RESULTS.md) gives the results for Stet 0.0.1 and says what books and what machine they
+came from. The reports behind it are in [`reports/`](reports/):
 
-| Name in the reports | Books |
+| Report | What it is |
 |---|---|
-| `classic` | 40 novels from Project Gutenberg, across adventure, fantasy, science fiction, mystery and general fiction. Every author died before 1956. |
-| `modern` | 24 modern novels, at most two per author. They are under copyright, so they were used for measuring only: nothing in the library's data is built from them, and none of their text is in this repository. |
-
-Both are split by author, so no author has books on both sides, with about 30% of authors on the test
-side. In `classic` the test authors were chosen within each genre, so every genre is on both sides.
-
-Accuracy numbers (flags per 1,000 words, catch rates) do not depend on the machine. Speed numbers do.
-The speed report was measured on:
-
-- AMD Ryzen 9 9950X (16 cores, 32 threads), 64 GB of memory
-- Fedora Linux 44
-- .NET 10
-
-Stet checks on a single thread, so the number of cores does not help. Expect slower times on a laptop.
+| [`stet`](reports/stet.md) | Stet at its defaults, with Harper alongside |
+| [`spelling`](reports/spelling.md) | Stet's spelling only, with no word list |
+| [`harper`](reports/harper.md) | Harper at its defaults |
+| [`harper-inscope`](reports/harper-inscope.md) | Harper with its style and readability flags left out |
 
 ## Known limits
 
