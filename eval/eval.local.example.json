@@ -1,6 +1,5 @@
 {
   "corpora": {
-    "gutenberg": "/path/to/prepared/gutenberg",
-    "calibre": "/path/to/prepared/calibre"
+    "my-books": "/path/to/my-books"
   }
 }

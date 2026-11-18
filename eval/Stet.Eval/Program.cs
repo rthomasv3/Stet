@@ -16,7 +16,7 @@ using Stet.Eval.Text;
 //   run --checker none|demo|spelling|spelling-world|library|library-all
 //   run --checker external --name harper --issues <issues.jsonl>   score issues produced outside this process
 //   export --out <items.jsonl>                                      write every paragraph an external checker must check
-//   export --out <items.jsonl> --corpus gutenberg --clean-words 2000 --planted 100     a smaller set for slow checkers
+//   export --out <items.jsonl> --corpus classic --clean-words 2000 --planted 100     a smaller set for slow checkers
 // Options: --compare <checker>   add a column comparing with another checker's committed report
 //          --review-flags N      write up to N flags per rule and corpus to the local review file (dev books only)
 //          --exclude-categories A,B   drop issues in these categories (with --name for the report name)
@@ -129,6 +129,7 @@ if (command == "confusable-dump")
 if (command == "export")
 {
     string outPath = options.GetValueOrDefault("--out") ?? throw new ArgumentException("export needs --out FILE");
+    Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(outPath))!);
     using var writer = new StreamWriter(outPath);
     int count = 0;
     IEnumerable<(string Text, string Dialect)> items = options.ContainsKey("--clean-words") || options.ContainsKey("--planted") || options.ContainsKey("--corpus")
