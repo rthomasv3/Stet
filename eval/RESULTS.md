@@ -105,8 +105,8 @@ attempt. How to repeat the run is in [`harper/`](harper/README.md).
 
 | | |
 |---|---:|
-| Create a checker, first time in a process | 42 ms |
-| Create a checker, after that | 12 ms |
+| Create a checker, first time in a process | 44 ms |
+| Create a checker, after that | 13 ms |
 | Check a 100,000-word novel | 0.2 to 0.4 s |
 | Check a 1,500-word scene | 2 to 5 ms |
 | Check one paragraph | under 0.1 ms |

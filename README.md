@@ -220,9 +220,9 @@ On a public-domain novel, with a word list for its names:
 | | .NET 10 | Native AOT |
 |---|---:|---:|
 | Create the first checker in a process | 44 ms | 13 ms |
-| Check a 1,500-word scene | 4.4 ms | 2.4 ms |
-| Check a 5,000-word chapter | 13 ms | 4.5 ms |
-| Check a 100,000-word novel | 80 ms | 89 ms |
+| Check a 1,500-word scene | 4.3 ms | 1.8 ms |
+| Check a 5,000-word chapter | 11 ms | 4.6 ms |
+| Check a 100,000-word novel | 80 ms | 87 ms |
 
 Measured on an AMD Ryzen 9 9950X under Fedora Linux 44, on a single thread. A loaded checker holds
 about 17 MB. [All the benchmarks, and how to run

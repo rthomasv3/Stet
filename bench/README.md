@@ -23,7 +23,7 @@ includes loading the built-in data and, on the normal runtime, compiling the cod
 | | .NET 10 | Native AOT |
 |---|---:|---:|
 | Create the first checker | 44 ms | 13 ms |
-| Create it and run the first check | 86 ms | 15 ms |
+| Create it and run the first check | 87 ms | 15 ms |
 
 ### Checking text for the first time
 
@@ -32,10 +32,10 @@ checker has a word list for the book's names, as a writer's would.
 
 | | .NET 10 | Native AOT |
 |---|---:|---:|
-| 1,500-word scene | 4.4 ms | 2.4 ms |
-| 5,000-word chapter | 13 ms | 4.5 ms |
-| 100,000-word novel | 80 ms | 89 ms |
-| 100,000-word novel, no word list | 107 ms | 117 ms |
+| 1,500-word scene | 4.3 ms | 1.8 ms |
+| 5,000-word chapter | 11 ms | 4.6 ms |
+| 100,000-word novel | 80 ms | 87 ms |
+| 100,000-word novel, no word list | 102 ms | 112 ms |
 
 With no word list every name in the book is unknown, and Stet works out suggestions for each.
 
@@ -51,17 +51,17 @@ checks faster. This is the case while a writer works in a document that is alrea
 | One paragraph | 8 µs | 11 µs |
 | 1,500-word scene | 0.7 ms | 0.9 ms |
 | 5,000-word chapter | 2.5 ms | 3.0 ms |
-| 100,000-word novel | 50 ms | 60 ms |
+| 100,000-word novel | 49 ms | 59 ms |
 | 100,000-word novel, no word list | 48 ms | 57 ms |
-| Recheck a novel after one paragraph changed, through `CheckCache` | 1.9 ms | 1.7 ms |
+| Recheck a novel after one paragraph changed, through `CheckCache` | 2.0 ms | 2.0 ms |
 
 ### Other operations
 
 | | .NET 10 | Native AOT |
 |---|---:|---:|
 | Create a checker, after the first | 14 ms | 14 ms |
-| Suggestions for one misspelled word | 0.42 ms | 0.43 ms |
-| Check a sentence with an unknown name in it | 0.43 ms | 0.44 ms |
+| Suggestions for one misspelled word | 0.43 ms | 0.44 ms |
+| Check a sentence with an unknown name in it | 0.44 ms | 0.45 ms |
 | Replace a 20,000-word word list | 1.1 ms | 1.3 ms |
 
 Native AOT starts three to six times faster. Once running it is about 20% slower at checking.
