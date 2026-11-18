@@ -1,0 +1,60 @@
+# Publishes Stet to nuget.org and creates the matching GitHub release.
+# Run by hand from the Actions tab. The version comes from Directory.Build.props.
+name: Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  release:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # create the tag and the release
+      id-token: write   # sign in to nuget.org without a stored key
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Read the version
+        id: version
+        run: |
+          version=$(dotnet msbuild src/Stet/Stet.csproj -getProperty:Version)
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "Releasing Stet $version"
+
+      - name: Stop if this version was already released
+        run: |
+          if git ls-remote --exit-code --tags origin "refs/tags/v${{ steps.version.outputs.version }}"; then
+            echo "::error::The tag v${{ steps.version.outputs.version }} already exists. Change the version in Directory.Build.props first."
+            exit 1
+          fi
+
+      - run: dotnet build -c Release
+      - run: dotnet test -c Release --no-build
+      - run: dotnet pack src/Stet -c Release --no-build -o packages
+
+      - name: Sign in to nuget.org
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: rthomasv3
+
+      - name: Publish to nuget.org
+        run: dotnet nuget push packages/*.nupkg --api-key "${{ steps.login.outputs.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json
+
+      - name: Create the GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          notes=$(dotnet msbuild src/Stet/Stet.csproj -getProperty:PackageReleaseNotes)
+          prerelease=""
+          if [[ "$VERSION" == *-* ]]; then prerelease="--prerelease"; fi
+          gh release create "v$VERSION" packages/*.nupkg \
+            --title "Stet $VERSION" \
+            --notes "$notes" \
+            --target "$GITHUB_SHA" \
+            $prerelease
