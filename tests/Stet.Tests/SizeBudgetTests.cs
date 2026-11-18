@@ -3,7 +3,7 @@ using Stet.Spelling;
 namespace Stet.Tests;
 
 /// <summary>
-/// The size budgets from the requirements. A failure here means a part grew past its budget: either shrink
+/// The size budgets set for the project. A failure here means a part grew past its budget: either shrink
 /// it or change the budget on purpose.
 /// </summary>
 public class SizeBudgetTests

@@ -1,30 +1,36 @@
 using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Jobs;
 
 namespace Stet.Bench;
 
 /// <summary>
-/// The operations that have a target in the requirements (section 8). Targets: create under 500 ms, a
-/// paragraph under 5 ms, a 1,500-word scene under 50 ms, a 100,000-word novel under 3 s, a 20,000-word set
-/// swap under 50 ms, suggestions under 5 ms.
+/// The operations an app does most: creating a checker, checking a paragraph, a scene, a chapter and a whole
+/// novel, rechecking after an edit, replacing a word list, and asking for suggestions. Each is measured on
+/// the normal .NET runtime and compiled with Native AOT.
 ///
-/// The text is made up and repeats itself far more than a book does, so the document timings here are much
-/// faster than on real fiction. They are for spotting slowdowns between changes. Timings on real books are
-/// in eval/reports/perf.md.
+/// The text is a file of your choosing (see <see cref="BenchText"/>) or, without one, made-up text. The
+/// made-up text repeats itself far more than a book does, so its document timings are much faster than on
+/// real fiction. Timings on real books are in eval/RESULTS.md.
+///
+/// Everything here is measured warm. The cost of the first use in a process is in
+/// <see cref="ColdStartBenchmarks"/>.
 /// </summary>
 [MemoryDiagnoser]
-[ShortRunJob]
+[SimpleJob(RuntimeMoniker.Net10_0)]
+[SimpleJob(RuntimeMoniker.NativeAot10_0)]
 public class CheckerBenchmarks
 {
     private readonly Checker _bare = new();
     private readonly Checker _withNames = new();
-    private readonly List<string> _novel = SampleText.Paragraphs(100_000);
-    private readonly List<string> _scene = SampleText.Paragraphs(1_500, seed: 11);
-    private readonly string _paragraph = SampleText.Paragraphs(150, 150, seed: 13)[0];
     private readonly string[] _twentyThousand = [.. Enumerable.Range(0, 20_000).Select(i => "Nm" + Convert.ToString(i, 16).Replace('0', 'q'))];
-    private CheckCache _cache = null!;
-    private List<string> _edited = null!;
     private readonly string[] _typos = SampleText.Typos(6_000);
     private readonly string[] _nameSentences = [.. SampleText.Typos(6_000, seed: 9).Select(t => $"Then {char.ToUpperInvariant(t[0])}{t[1..]} spoke.")];
+    private List<string> _novel = null!;
+    private List<string> _chapter = null!;
+    private List<string> _scene = null!;
+    private string _paragraph = null!;
+    private CheckCache _cache = null!;
+    private List<string> _edited = null!;
     private int _edit;
     private int _name;
     private int _typo;
@@ -32,7 +38,12 @@ public class CheckerBenchmarks
     [GlobalSetup]
     public void Setup()
     {
-        _withNames.SetWords("world", SampleText.Names);
+        BenchText text = BenchText.Load();
+        _novel = text.Novel;
+        _chapter = text.Chapter;
+        _scene = text.Scene;
+        _paragraph = text.Paragraph;
+        _withNames.SetWords("world", text.Names);
         _cache = new CheckCache(_withNames);
         _cache.CheckDocument(_novel);
         _edited = [.. _novel];
@@ -42,10 +53,13 @@ public class CheckerBenchmarks
     public Checker CreateChecker() => new();
 
     [Benchmark]
-    public ParagraphResult Paragraph150Words() => _withNames.CheckParagraph(_paragraph);
+    public ParagraphResult Paragraph() => _withNames.CheckParagraph(_paragraph);
 
     [Benchmark]
     public IReadOnlyList<ParagraphResult> Scene1500Words() => _withNames.CheckDocument(_scene);
+
+    [Benchmark]
+    public IReadOnlyList<ParagraphResult> Chapter5000Words() => _withNames.CheckDocument(_chapter);
 
     [Benchmark]
     public IReadOnlyList<ParagraphResult> Novel100kWords() => _withNames.CheckDocument(_novel);

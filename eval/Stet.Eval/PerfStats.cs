@@ -7,7 +7,7 @@ using Stet.Spelling;
 
 namespace Stet.Eval;
 
-/// <summary>Times the spelling checker against the performance targets in the requirements.</summary>
+/// <summary>Times the checker on real books against the speed and memory targets set for the project.</summary>
 public static class PerfStats
 {
     /// <summary>Runs the timings on the longest book of each corpus and returns a Markdown table.</summary>

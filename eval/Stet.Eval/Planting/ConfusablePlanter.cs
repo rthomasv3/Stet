@@ -5,7 +5,7 @@ namespace Stet.Eval.Planting;
 /// <summary>Swaps a commonly confused word for another of its set (their → there).</summary>
 public sealed class ConfusablePlanter : IErrorPlanter
 {
-    // The V1 candidate list from the requirements.
+    // The confusable words the first release set out to cover.
     private static readonly string[][] Sets =
     [
         ["their", "there", "they're"], ["its", "it's"], ["your", "you're"], ["whose", "who's"],

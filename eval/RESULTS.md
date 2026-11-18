@@ -99,6 +99,11 @@ Scene, paragraph and suggestion times are medians. Everything was measured on th
 
 Stet checks on a single thread, so the number of cores does not help. Expect slower times on a laptop.
 
+These times come from the harness's `perf` command, which checks each real book once and times it,
+on the normal .NET runtime, before the runtime has finished optimizing the code. They are on the slow
+side for that reason. The [benchmarks](../bench/README.md) time the same operations repeatedly, on
+both the normal runtime and Native AOT, and are the better guide to what an app will see.
+
 ## Limits of these numbers
 
 - Planted errors are made by rule, and real mistakes are more varied. A catch rate here is a guide to
