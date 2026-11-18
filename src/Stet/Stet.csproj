@@ -19,7 +19,7 @@
     <RepositoryUrl>https://github.com/rthomasv3/Stet</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <Copyright>Copyright (c) 2026 rthomasv3</Copyright>
-    <PackageReleaseNotes>First pre-release. Spelling, mechanics, agreement, dialogue punctuation and confusable-word rules. The API can still change before 1.0.</PackageReleaseNotes>
+    <PackageReleaseNotes>Spelling, mechanics, agreement, dialogue punctuation and confusable-word rules. The API can still change before 1.0.</PackageReleaseNotes>
     <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
   </PropertyGroup>
 
