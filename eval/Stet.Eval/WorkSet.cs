@@ -75,20 +75,20 @@ public sealed record WorkSet(IReadOnlyList<CleanSample> Clean, IReadOnlyList<Pla
     /// <summary>
     /// Every distinct paragraph that needs checking, with its dialect, for checkers that run outside this process.
     /// </summary>
-    public IEnumerable<(string Text, string Dialect)> AllTexts() => Subset(null, int.MaxValue, int.MaxValue);
+    public IEnumerable<(string Text, string Dialect, string Book)> AllTexts() => Subset(null, int.MaxValue, int.MaxValue);
 
     /// <summary>
     /// A smaller set for slow checkers: the first <paramref name="cleanWordsPerBook"/> words of each book's clean
     /// run, and the first <paramref name="plantedPerCategory"/> planted errors of each category, corpus and split
     /// together with their clean paragraphs. Books are interleaved so a run that stops early is still balanced.
     /// </summary>
-    public IEnumerable<(string Text, string Dialect)> Subset(string? corpus, int cleanWordsPerBook, int plantedPerCategory)
+    public IEnumerable<(string Text, string Dialect, string Book)> Subset(string? corpus, int cleanWordsPerBook, int plantedPerCategory)
     {
         var seen = new HashSet<string>(StringComparer.Ordinal);
-        var perBook = new List<List<(string, string)>>();
+        var perBook = new List<List<(string, string, string)>>();
         foreach (CleanSample sample in Clean.Where(s => corpus is null || s.Corpus == corpus))
         {
-            var list = new List<(string, string)>();
+            var list = new List<(string, string, string)>();
             int words = 0;
             foreach (string text in sample.Paragraphs)
             {
@@ -97,7 +97,7 @@ public sealed record WorkSet(IReadOnlyList<CleanSample> Clean, IReadOnlyList<Pla
                     break;
                 }
 
-                list.Add((text, sample.Book.Dialect));
+                list.Add((text, sample.Book.Dialect, sample.Corpus + "/" + sample.Book.Id));
                 words += Words.Count(text);
             }
 
@@ -105,7 +105,7 @@ public sealed record WorkSet(IReadOnlyList<CleanSample> Clean, IReadOnlyList<Pla
         }
 
         var counts = new Dictionary<(string, Split, string), int>();
-        var plantedTexts = new List<(string, string)>();
+        var plantedTexts = new List<(string, string, string)>();
         foreach (PlantedItem item in Planted.Where(p => corpus is null || p.Corpus == corpus))
         {
             var key = (item.Corpus, item.Split, item.Category);
@@ -113,8 +113,8 @@ public sealed record WorkSet(IReadOnlyList<CleanSample> Clean, IReadOnlyList<Pla
             if (count < plantedPerCategory)
             {
                 counts[key] = count + 1;
-                plantedTexts.Add((item.Error.Text, item.Dialect));
-                plantedTexts.Add((item.Clean, item.Dialect));
+                plantedTexts.Add((item.Error.Text, item.Dialect, item.Corpus + "/" + item.BookId));
+                plantedTexts.Add((item.Clean, item.Dialect, item.Corpus + "/" + item.BookId));
             }
         }
 
@@ -124,9 +124,9 @@ public sealed record WorkSet(IReadOnlyList<CleanSample> Clean, IReadOnlyList<Pla
         for (int round = 0; ; round++)
         {
             bool any = false;
-            foreach (List<(string Text, string Dialect)> list in perBook)
+            foreach (List<(string Text, string Dialect, string Book)> list in perBook)
             {
-                foreach ((string Text, string Dialect) entry in list.Skip(round * Slice).Take(Slice))
+                foreach ((string Text, string Dialect, string Book) entry in list.Skip(round * Slice).Take(Slice))
                 {
                     any = true;
                     if (seen.Add(entry.Text))

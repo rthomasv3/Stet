@@ -500,6 +500,10 @@ $RECYCLE.BIN/
 !/eval/reports/harper.json
 !/eval/reports/harper-inscope.md
 !/eval/reports/harper-inscope.json
+!/eval/reports/harper-words.md
+!/eval/reports/harper-words.json
+!/eval/reports/harper-words-inscope.md
+!/eval/reports/harper-words-inscope.json
 # Review verdicts on flags, which only match the local books
 /eval/labels.json
 # Native AOT publish output

@@ -161,6 +161,7 @@ public class SpellCheckerTests
     [InlineData("“We was runnin’ and shoutin’ all night,” she said.")]
     [InlineData("“Give ’em a cup o’ tea, ’cause it’s cold,” she said.")]
     [InlineData("“Lemme see. Coulda been worse,” he said.")]
+    [InlineData("“I didn’ know, an’ I couldn’ ask,” he said.")]
     public void LenientDialogueAcceptsInformalSpeech(string text)
     {
         AssertClean(text);

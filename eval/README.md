@@ -94,6 +94,11 @@ stand-in: every unknown word a book uses twice or more is treated as a custom wo
 the reasoning that a spelling repeated exactly is intended. Words used once stay flagged. This is a
 simulation of a word list, not a real one.
 
+When another checker is measured beside Stet it is given the same lists: `export --word-lists FILE`
+writes them. Because the lists hold the words *Stet* does not know, the `names` command then adds the
+names the other checker does not know and the lists lack, and `--extra-words FILE` gives those to
+Stet's run and to the export alike. The [Harper readme](harper/README.md) walks through it.
+
 Add `--compare <checker>` to put another checker's last report alongside, for example `--compare harper`.
 
 More commands, each measuring one thing on whole books:
@@ -133,7 +138,7 @@ Each run also writes a sample of its flags, with the text around each, to `repor
 through the results: up to 40 per rule, from dev books only (`--review-flags N` changes the number). That
 folder holds book text and is ignored by git.
 
-Git keeps only the four published reports and ignores the rest of `reports/`, so your own runs of other
+Git keeps only the six published reports and ignores the rest of `reports/`, so your own runs of other
 checkers stay on your machine.
 
 **Real errors in the books.** Published books contain a few genuine mistakes, and a flag on one is
@@ -149,10 +154,12 @@ came from. The reports behind it are in [`reports/`](reports/):
 
 | Report | What it is |
 |---|---|
-| [`stet`](reports/stet.md) | Stet at its defaults, with Harper alongside |
+| [`stet`](reports/stet.md) | Stet at its defaults, with each book's word list, and Harper alongside |
+| [`harper-words`](reports/harper-words.md) | Harper at its defaults, with the same word lists |
+| [`harper-words-inscope`](reports/harper-words-inscope.md) | The same, with Harper's style and readability flags left out |
 | [`spelling`](reports/spelling.md) | Stet's spelling only, with no word list |
-| [`harper`](reports/harper.md) | Harper at its defaults |
-| [`harper-inscope`](reports/harper-inscope.md) | Harper with its style and readability flags left out |
+| [`harper`](reports/harper.md) | Harper at its defaults, with no word list |
+| [`harper-inscope`](reports/harper-inscope.md) | The same, with Harper's style and readability flags left out |
 
 ## Known limits
 

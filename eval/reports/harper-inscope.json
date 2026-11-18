@@ -4263,5 +4263,6 @@
       "flagsPer1000": 22.8517
     }
   ],
-  "checkerVersion": "harper.js 3.2.0, style and readability flags left out"
+  "checkerVersion": "harper.js 3.2.0, style and readability flags left out",
+  "description": null
 }

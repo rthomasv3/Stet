@@ -28,37 +28,62 @@ of each kind. The dev figures are in the reports and are close to these.
 
 ## False alarms
 
+Both checkers were given the same word list for each book, standing in for the names and invented
+words a writer would add.
+
 | | Flags per 1,000 words |
 |---|---:|
-| Stet | 1.92 |
-| Harper | 28.23 |
-| Harper, style and readability flags left out | 22.85 |
+| Stet | 1.89 |
+| Harper | 13.05 |
+| Harper, style and readability flags left out | 7.67 |
 
-Almost all of Stet's flags are spelling flags: words it does not know (1.34 per 1,000) and names it
-does not know (0.35).
+Harper checks more than Stet does, including style and readability, which is what the third row leaves
+out. Spelling is the part both do, and there the figures are 1.80 for Stet and 4.66 for Harper.
 
-Stet was given a stand-in for the word list a writer would keep: every unknown word a book uses twice
-or more was treated as one of that book's own words. Harper was given no word list, and about two
-thirds of its flags are spelling flags. So this table shows a checker used the way a fiction writer
-would use it beside one that has no way to learn a book's names.
+On the dev books, most of what Harper's spelling still flags is of three kinds: the possessive of a name on the list
+("Maer's" when "Maer" was added), a listed name written in capitals, and ordinary words its dictionary
+does not hold.
 
-With no word list either, and checking spelling only, Stet flags 18.33 words per 1,000. Harper's
-spelling rule alone flags 19.28. On unknown names and invented words the two are about level; the
-word list is what makes the difference.
+**With no word list**, as either checker is when first installed:
+
+| | Flags per 1,000 words |
+|---|---:|
+| Stet, spelling only | 18.23 |
+| Harper, spelling flags only | 19.49 |
+| Harper, everything | 28.23 |
+
+Without a list the two are about level on spelling: nearly every flag is a name or an invented word.
+The word list is what brings both down, and it brings Stet down further.
+
+### The word list
+
+Books do not come with a writer's word list, so one is made for each book by rule:
+
+1. Every word Stet does not know that the book uses twice or more.
+2. Every capitalized word Harper flags as misspelled twice or more in the measured text, unless the
+   list already has it. This catches made-up names that Stet happens to accept because they are also
+   ordinary words, which the first step alone would leave Harper flagged for every time.
+
+The second step cannot tell a made-up name from a real one that Harper's dictionary lacks, so it
+forgives both. That favours Harper. It also counts only within the 30,000 words measured for each
+book, so a name seen once there is not added even if the book uses it often. That costs Harper a few
+flags. The lists average 142 words a book.
 
 ## Planted errors caught
 
+Both checkers with the word list.
+
 | Kind of error | Example | Stet | Harper |
 |---|---|---:|---:|
-| Typo | "recieve" | 95.4% | 87.2% |
+| Typo | "recieve" | 95.5% | 87.6% |
 | Confusable word | "taller then her" | 67.1% | 36.2% |
 | a / an | "a apple" | 93.1% | 86.8% |
 | Repeated word | "the the" | 80.6% | 63.4% |
 | Agreement | "they was" | 63.0% | 58.1% |
-| Dialogue punctuation | "Hello." she said. | 92.6% | 0.3% |
+| Dialogue punctuation | "Hello." she said. | 92.6% | 0.2% |
 
-When Stet catches a typo, its first suggestion is the right word 89.1% of the time, and the right word
-is in the first five 98.5% of the time. For Harper the first suggestion is right 73.1% of the time.
+When Stet catches a typo, its first suggestion is the right word 89.0% of the time, and the right word
+is in the first five 98.5% of the time. For Harper the first suggestion is right 73.3% of the time.
 
 Harper caught almost none of the last kind.
 
@@ -73,9 +98,8 @@ inside an app with no server behind it. Stet's author had considered it for anot
 how it became the yardstick. It is written in Rust and usually used from JavaScript, so it is not an
 alternative for a .NET app, only a measure of what a checker of this kind does on fiction.
 
-Harper is a general-purpose checker and is not built for fiction. It also checks things Stet does not
-attempt, such as style and readability; the second Harper row above leaves those flags out. How to
-repeat the run is in [`harper/`](harper/README.md).
+Harper is a general-purpose checker and is not built for fiction, and it checks things Stet does not
+attempt. How to repeat the run is in [`harper/`](harper/README.md).
 
 ## Speed and size
 

@@ -13,11 +13,14 @@ using Stet.Eval.Text;
 //   snapshot [--out FILE]   every issue and suggestion on the work set, to compare before and after a change
 //   sideset [--detail]      Stet on the small made-up side set (eval/sideset)
 //   confusable-dump         how each confusable word in the dev books fits its neighbours, for choosing thresholds
+//   names --issues <issues.jsonl> --out <names.json>               names another checker does not know that the word lists lack
 //   run --checker none|demo|spelling|spelling-world|stet|stet-all
 //   run --checker external --name harper --checker-version "harper.js 3.2.0" --issues <issues.jsonl>   score issues produced outside this process
-//   export --out <items.jsonl>                                      write every paragraph an external checker must check
+//   export --out <items.jsonl> [--word-lists <lists.json>]          write every paragraph an external checker must check,
+//                                                                   and each book's stand-in word list
 //   export --out <items.jsonl> --corpus classic --clean-words 2000 --planted 100     a smaller set for slow checkers
-// Options: --compare <checker>   add a column comparing with another checker's report
+// Options: --extra-words <names.json>  add these words to each book's word list (from the names command)
+//          --compare <checker>   add a column comparing with another checker's report
 //          --review-flags N      write up to N flags per rule and corpus to the local review file (dev books only)
 //          --exclude-categories A,B   drop issues in these categories (with --name for the report name)
 //          --root <dir>          repository root (found automatically by default)
@@ -115,6 +118,11 @@ if (command == "coverage")
 
 var clock = Stopwatch.StartNew();
 WorkSet work = WorkSet.Build(corpora, settings, Planters.All);
+
+// More words for each book's word list, beyond the ones Stet's own run finds (see the "names" command).
+Dictionary<string, List<string>>? extraWords = options.TryGetValue("--extra-words", out string? extraPath)
+    ? JsonSerializer.Deserialize<Dictionary<string, List<string>>>(File.ReadAllText(extraPath))
+    : null;
 long cleanWords = work.Clean.Sum(s => s.Paragraphs.Sum(p => (long)Words.Count(p)));
 Console.WriteLine($"Work set: {work.Clean.Count} books, {cleanWords:N0} clean words, {work.Planted.Count:N0} planted errors ({clock.ElapsedMilliseconds} ms)");
 
@@ -132,19 +140,102 @@ if (command == "export")
     Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(outPath))!);
     using var writer = new StreamWriter(outPath);
     int count = 0;
-    IEnumerable<(string Text, string Dialect)> items = options.ContainsKey("--clean-words") || options.ContainsKey("--planted") || options.ContainsKey("--corpus")
+    IEnumerable<(string Text, string Dialect, string Book)> items = options.ContainsKey("--clean-words") || options.ContainsKey("--planted") || options.ContainsKey("--corpus")
         ? work.Subset(
             options.GetValueOrDefault("--corpus"),
             int.Parse(options.GetValueOrDefault("--clean-words") ?? "2000000000", CultureInfo.InvariantCulture),
             int.Parse(options.GetValueOrDefault("--planted") ?? "2000000000", CultureInfo.InvariantCulture))
         : work.AllTexts();
-    foreach ((string text, string dialect) in items)
+    var books = new Dictionary<string, string>(StringComparer.Ordinal);
+    foreach ((string text, string dialect, string book) in items)
     {
-        writer.WriteLine(JsonSerializer.Serialize(new { id = WorkSet.HashOf(text), dialect, text }));
+        writer.WriteLine(JsonSerializer.Serialize(new { id = WorkSet.HashOf(text), dialect, book, text }));
+        books[book] = dialect;
         count++;
     }
 
     Console.WriteLine($"Wrote {count:N0} paragraphs to {outPath}");
+    if (options.TryGetValue("--word-lists", out string? wordListPath))
+    {
+        // The stand-in word list Stet's own run gives each book, so the other checker can be given the same.
+        var standIn = new SpellingEvalChecker(corpora, world: true, spellingOnly: false, extraWords: extraWords);
+        var lists = books.ToDictionary(
+            kv => kv.Key,
+            kv => standIn.WordListFor(kv.Key[..kv.Key.IndexOf('/')], kv.Key[(kv.Key.IndexOf('/') + 1)..], kv.Value),
+            StringComparer.Ordinal);
+        File.WriteAllText(wordListPath, JsonSerializer.Serialize(lists));
+        Console.WriteLine($"Wrote word lists for {lists.Count} books to {wordListPath} ({lists.Values.Average(l => l.Count):0} words per book on average)");
+    }
+    return 0;
+}
+
+if (command == "names")
+{
+    // The word lists are made from the words Stet does not know, so a made-up name Stet happens to accept
+    // (a surname that is also an ordinary word) is missing from them, and another checker is flagged for it
+    // every time. This finds those: any capitalized word the other checker flags as misspelled twice or more
+    // in a book's clean text, and that is not on the book's list in any form, is added for that book.
+    // It cannot tell a made-up name from a real one the other checker lacks, so it forgives both.
+    string issuesPath = options.GetValueOrDefault("--issues") ?? throw new ArgumentException("names needs --issues FILE");
+    string namesPath = options.GetValueOrDefault("--out") ?? throw new ArgumentException("names needs --out FILE");
+    var flaggedById = new Dictionary<string, List<(int Start, int Length)>>(StringComparer.Ordinal);
+    foreach (string line in File.ReadLines(issuesPath))
+    {
+        if (line.Length == 0)
+        {
+            continue;
+        }
+
+        using JsonDocument parsed = JsonDocument.Parse(line);
+        var spans = new List<(int, int)>();
+        foreach (JsonElement issue in parsed.RootElement.GetProperty("issues").EnumerateArray())
+        {
+            if (issue.TryGetProperty("category", out JsonElement category) && category.GetString() == "Spelling")
+            {
+                spans.Add((issue.GetProperty("start").GetInt32(), issue.GetProperty("length").GetInt32()));
+            }
+        }
+
+        flaggedById[parsed.RootElement.GetProperty("id").GetString()!] = spans;
+    }
+
+    var ownLists = new SpellingEvalChecker(corpora, world: true, spellingOnly: false);
+    var found = new Dictionary<string, List<string>>(StringComparer.Ordinal);
+    foreach (CleanSample sample in work.Clean)
+    {
+        var onList = ownLists.WordListFor(sample.Corpus, sample.Book.Id, sample.Book.Dialect)
+            .SelectMany(entry => entry.Split(' ')).ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var counts = new Dictionary<string, int>(StringComparer.Ordinal);
+        foreach (string text in sample.Paragraphs)
+        {
+            if (!flaggedById.TryGetValue(WorkSet.HashOf(text), out List<(int Start, int Length)>? spans))
+            {
+                continue;
+            }
+
+            foreach ((int start, int length) in spans)
+            {
+                if (start < 0 || start + length > text.Length || length == 0 || !char.IsUpper(text[start]))
+                {
+                    continue;
+                }
+
+                // A possessive counts as its name: "Venters's" and "Venters'" as "Venters".
+                string word = text.Substring(start, length).Replace('\u2019', '\'');
+                word = word.EndsWith("'s", StringComparison.Ordinal) ? word[..^2] : word.TrimEnd('\'');
+                if (word.Length > 1 && word.All(c => char.IsLetter(c) || c is '\'' or '-') && !onList.Contains(word))
+                {
+                    counts[word] = counts.GetValueOrDefault(word) + 1;
+                }
+            }
+        }
+
+        found[sample.Corpus + "/" + sample.Book.Id] = [.. counts.Where(kv => kv.Value >= 2).Select(kv => kv.Key).Order(StringComparer.Ordinal)];
+    }
+
+    Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(namesPath))!);
+    File.WriteAllText(namesPath, JsonSerializer.Serialize(found));
+    Console.WriteLine($"Wrote {found.Values.Sum(l => l.Count):N0} names for {found.Count} books to {namesPath} ({found.Values.Average(l => l.Count):0.0} per book on average)");
     return 0;
 }
 
@@ -199,9 +290,9 @@ IEvalChecker checker = checkerName switch
     "none" => new NoneChecker(),
     "demo" => new DemoChecker(),
     "spelling" => new SpellingEvalChecker(corpora, world: false),
-    "spelling-world" => new SpellingEvalChecker(corpora, world: true),
-    "stet" => new SpellingEvalChecker(corpora, world: true, spellingOnly: false),
-    "stet-all" => new SpellingEvalChecker(corpora, world: true, spellingOnly: false, everyRule: true),
+    "spelling-world" => new SpellingEvalChecker(corpora, world: true, extraWords: extraWords),
+    "stet" => new SpellingEvalChecker(corpora, world: true, spellingOnly: false, extraWords: extraWords),
+    "stet-all" => new SpellingEvalChecker(corpora, world: true, spellingOnly: false, everyRule: true, extraWords: extraWords),
     "external" => new ExternalChecker(
         options.GetValueOrDefault("--source-name") ?? options.GetValueOrDefault("--name") ?? throw new ArgumentException("external needs --name"),
         options.GetValueOrDefault("--issues") ?? throw new ArgumentException("external needs --issues FILE")),

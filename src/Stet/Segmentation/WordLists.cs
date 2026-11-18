@@ -38,7 +38,10 @@ internal static class WordLists
         "jus", "mos", "las", "tol", "ol'", "fer", "yo", "da", "de", "wha", "tha", "wit", "sho", "cap", "cap'n", "mis",
         "lef", "nex", "bes", "res", "fas", "pas", "han", "stan", "fin", "min", "kin", "kep", "slep", "wep", "roun",
         "groun", "aroun", "soun", "foun", "poun", "frien", "en", "sen", "len", "ben", "spen", "ole", "chil", "wil",
-        "hol", "tol", "col", "sol", "worl", "gol", "fiel", "buil", "s'pose", "mus", "firs", "wors", "bein", "seein");
+        "hol", "tol", "col", "sol", "worl", "gol", "fiel", "buil", "s'pose", "mus", "firs", "wors", "bein", "seein",
+        // A contraction with its t dropped: didn', couldn'. Only the ones that are not words without it.
+        "didn", "couldn", "wouldn", "shouldn", "hadn", "hasn", "wasn", "weren", "isn", "aren", "doesn", "mustn",
+        "needn", "mightn", "oughtn", "ain");
 
     /// <summary>
     /// Verbs that report speech (said, asked, whispered). They separate a dialogue tag from an action beat:

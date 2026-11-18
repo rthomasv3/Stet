@@ -26,13 +26,16 @@ public sealed class SpellingEvalChecker : IEvalChecker
     private readonly bool _world;
     private readonly bool _spellingOnly;
     private readonly bool _everyRule;
+    private readonly Dictionary<string, List<string>> _worldWords = new(StringComparer.Ordinal);
+    private readonly IReadOnlyDictionary<string, List<string>>? _extraWords;
 
     /// <summary>
     /// Creates the wrapper. With <paramref name="spellingOnly"/> the grammar rules are switched off; without
     /// it every rule runs at its default, which is what an app gets (reported as "stet").
     /// </summary>
-    public SpellingEvalChecker(IEnumerable<Corpus> corpora, bool world, bool spellingOnly = true, bool everyRule = false)
+    public SpellingEvalChecker(IEnumerable<Corpus> corpora, bool world, bool spellingOnly = true, bool everyRule = false, IReadOnlyDictionary<string, List<string>>? extraWords = null)
     {
+        _extraWords = extraWords;
         _world = world;
         _spellingOnly = spellingOnly;
         _everyRule = everyRule;
@@ -48,6 +51,16 @@ public sealed class SpellingEvalChecker : IEvalChecker
 
     /// <inheritdoc />
     public string Name { get; }
+
+    /// <summary>
+    /// The stand-in word list this checker gives a book, so that another checker can be given the same one.
+    /// Empty for a book that is not in the corpora.
+    /// </summary>
+    public IReadOnlyList<string> WordListFor(string corpus, string bookId, string dialect)
+    {
+        Prepare(new DocumentInfo(corpus, bookId, dialect));
+        return _worldWords.GetValueOrDefault(corpus + "/" + bookId) ?? [];
+    }
 
     /// <summary>Custom words given to each book, for the record.</summary>
     public Dictionary<string, int> WorldWordCounts { get; } = new(StringComparer.Ordinal);
@@ -100,8 +113,15 @@ public sealed class SpellingEvalChecker : IEvalChecker
         if (_world && text.Count > 0)
         {
             List<string> world = WorldWords(checker, options, text);
+            if (_extraWords is not null && _extraWords.TryGetValue(key, out List<string>? extra))
+            {
+                // Words the book's list should hold that Stet did not need: see the "names" command.
+                world.AddRange(extra.Except(world, StringComparer.Ordinal));
+            }
+
             checker.SetWords("world", world);
             WorldWordCounts[key] = world.Count;
+            _worldWords[key] = world;
         }
 
         return _prepared[key] = (checker, options);

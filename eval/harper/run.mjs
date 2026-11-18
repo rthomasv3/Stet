@@ -1,7 +1,10 @@
 // Runs harper.js over paragraphs exported by the evaluation harness and writes its lints in the
 // format the harness's external checker reads.
 //
-//   node run.mjs <items.jsonl> <issues.jsonl> [--minutes 30] [--shard 0/4]
+//   node run.mjs <items.jsonl> <issues.jsonl> [--word-lists lists.json] [--minutes 30] [--shard 0/4]
+//
+// --word-lists gives Harper each book's word list (written by the harness's export), added to its
+// dictionary before that book's paragraphs are checked.
 //
 // Stops cleanly when the time budget runs out; paragraphs it did not reach count as "not checked"
 // in the report. Running it again continues where it stopped.
@@ -12,7 +15,7 @@ import { binary } from 'harper.js/binary';
 
 const [itemsPath, outPath, ...rest] = process.argv.slice(2);
 if (!itemsPath || !outPath) {
-  console.error('usage: node run.mjs <items.jsonl> <issues.jsonl> [--minutes N] [--shard I/N]');
+  console.error('usage: node run.mjs <items.jsonl> <issues.jsonl> [--word-lists FILE] [--minutes N] [--shard I/N]');
   process.exit(2);
 }
 const opt = (name, fallback) => {
@@ -29,14 +32,20 @@ if (fs.existsSync(outPath)) {
   }
 }
 
-// One linter per dialect; each item says which spelling its book uses.
+const wordListsPath = opt('--word-lists', null);
+const wordLists = wordListsPath ? JSON.parse(fs.readFileSync(wordListsPath, 'utf8')) : null;
+
+// One linter per dialect, or with word lists one per book: each item says which spelling its book uses
+// and which book it is from.
 const dialects = { US: harper.Dialect.American, GB: harper.Dialect.British };
 const linters = {};
-async function linterFor(code) {
-  const key = code in dialects ? code : 'US';
+async function linterFor(code, book) {
+  const dialect = code in dialects ? code : 'US';
+  const key = wordLists ? `${dialect} ${book}` : dialect;
   if (!linters[key]) {
-    linters[key] = new harper.LocalLinter({ binary, dialect: dialects[key] });
+    linters[key] = new harper.LocalLinter({ binary, dialect: dialects[dialect] });
     await linters[key].setup();
+    if (wordLists) await linters[key].importWords(wordLists[book] ?? []);
   }
   return linters[key];
 }
@@ -51,7 +60,7 @@ for await (const line of readline.createInterface({ input: fs.createReadStream(i
   if (!line) continue;
   index++;
   if (index % shards !== shard) continue;
-  const { id, text, dialect } = JSON.parse(line);
+  const { id, text, dialect, book } = JSON.parse(line);
   if (done.has(id)) continue;
   if (Date.now() > deadline) {
     stoppedEarly = true;
@@ -59,7 +68,7 @@ for await (const line of readline.createInterface({ input: fs.createReadStream(i
   }
 
   const issues = [];
-  const linter = await linterFor(dialect);
+  const linter = await linterFor(dialect, book);
   const organized = await linter.organizedLints(text, { language: 'plaintext' });
   for (const [ruleId, lints] of Object.entries(organized)) {
     for (const lint of lints) {

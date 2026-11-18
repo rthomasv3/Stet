@@ -14,12 +14,12 @@ Flags on published text, which is taken to be correct.
 
 | Corpus | Split | Books | Words | Flags | Per 1,000 words | harper |
 |---|---|---:|---:|---:|---:|---:|
-| classic | dev | 29 | 857,917 | 11,888 | 13.857 | 25.596 |
-| classic | test | 11 | 303,609 | 2,408 | 7.931 | 19.186 |
-| modern | dev | 16 | 470,887 | 14,601 | 31.007 | 39.035 |
-| modern | test | 8 | 240,683 | 7,571 | 31.456 | 39.637 |
-| all | dev | 45 | 1,328,804 | 26,489 | 19.935 | 30.358 |
-| all | test | 19 | 544,292 | 9,979 | 18.334 | 28.229 |
+| classic | dev | 29 | 857,917 | 11,775 | 13.725 | 25.596 |
+| classic | test | 11 | 303,609 | 2,377 | 7.829 | 19.186 |
+| modern | dev | 16 | 470,887 | 14,470 | 30.729 | 39.035 |
+| modern | test | 8 | 240,683 | 7,548 | 31.361 | 39.637 |
+| all | dev | 45 | 1,328,804 | 26,245 | 19.751 | 30.358 |
+| all | test | 19 | 544,292 | 9,925 | 18.235 | 28.229 |
 
 ## False alarms per rule
 
@@ -27,8 +27,8 @@ Flags per 1,000 words over all the books. Rules under 0.05 on both sides are cou
 
 | Rule | Category | Dev | Test |
 |---|---|---:|---:|
-| spelling.unknown-name | Spelling | 10.937 | 11.275 |
-| spelling.misspelling | Spelling | 8.805 | 6.939 |
+| spelling.unknown-name | Spelling | 10.935 | 11.27 |
+| spelling.misspelling | Spelling | 8.624 | 6.846 |
 | spelling.other-dialect | Spelling | 0.144 | 0.074 |
 
 1 other rules flagged something but stayed under 0.05.
@@ -41,7 +41,7 @@ Over all the books. Caught: the share of planted errors that were flagged. First
 
 | Category | Planted | Caught | harper caught | First fix right | Fix in top 5 |
 |---|---:|---:|---:|---:|---:|
-| typo | 1,000 | 94.6% | 87.2% | 89.2% | 98.7% |
+| typo | 1,000 | 94.7% | 87.2% | 89.1% | 98.7% |
 | confusable | 1,000 | 0% | 36.2% | 0% | 0% |
 | a-an | 1,000 | 0% | 86.8% | 0% | 0% |
 | repeated-word | 1,000 | 0% | 63.4% | 0% | 0% |
@@ -52,7 +52,7 @@ Over all the books. Caught: the share of planted errors that were flagged. First
 
 | Category | Planted | Caught | harper caught | First fix right | Fix in top 5 |
 |---|---:|---:|---:|---:|---:|
-| typo | 1,000 | 94.7% | 91% | 89.7% | 99.1% |
+| typo | 1,000 | 95% | 91% | 89.6% | 99.1% |
 | confusable | 1,000 | 0% | 36.6% | 0% | 0% |
 | a-an | 1,000 | 0% | 91.2% | 0% | 0% |
 | repeated-word | 1,000 | 0% | 64.2% | 0% | 0% |

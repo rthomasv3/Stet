@@ -284,3 +284,24 @@ scribing
 scabbarded
 helmed
 djinns
+#
+# found missing from the word lists of published fantasy and science fiction
+insectoid
+polearm
+flatbow
+archdemon
+arcanist
+arcanists
+oathbreaker
+oathbreakers
+swordmaster
+spymistress
+stablemaster
+tavernkeeper
+outworlder
+sandworm
+sandworms
+rusalka
+rusalkas
+kikimora
+kikimoras
